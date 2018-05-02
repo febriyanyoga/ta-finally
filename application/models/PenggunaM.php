@@ -14,8 +14,9 @@
  		$this->db->from('pengguna');
  		$this->db->where('pengguna.id_pengguna', $id_pengguna);
  		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
- 		$this->db->join('jabatan', 'jabatan.kode_jabatan = pengguna.kode_jabatan');
- 		$this->db->join('unit', 'pengguna.kode_unit = unit.kode_unit');
+ 		$this->db->join('jabatan_unit', 'pengguna.kode_jabatan_unit = jabatan_unit.kode_jabatan_unit');
+ 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+ 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
  		$query = $this->db->get();
  		if($query){
  			return $query;
@@ -43,8 +44,6 @@
 		$kode_jabatan = $this->session->userdata('kode_jabatan');
 		$this->db->select('kode_menu');
 		$this->db->from('akses_menu');
-		// $this->db->join('jabatan', 'akses_menu.kode_jabatan = jabatan.kode_jabatan');
-		// $this->db->join('unit', 'akses_menu.kode_unit = unit.kode_unit');
 		$this->db->where('akses_menu.kode_unit', $kode_unit);
 		$this->db->where('akses_menu.kode_jabatan', $kode_jabatan);
 		$query = $this->db->get();

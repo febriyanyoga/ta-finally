@@ -15,11 +15,23 @@
 		$this->db->insert('data_diri', $data);
 		return TRUE;
 	}
+
+	public function insert_jabatan_unit($data){
+		$this->db->insert('jabatan_unit', $data);
+		return $this->db->insert_id();
+	}
 	public function hapus($id){
-		$this->db->where('id_pengguna', $id);
+		$this->db->where('no_identitas', $id);
 		$this->db->delete('data_diri');
 		return TRUE;
 	}
+
+	public function hapus_data_pengguna($id){
+		$this->db->where('id_pengguna', $id);
+		$this->db->delete('pengguna');
+		return TRUE;
+	}
+
 	public function verifyemail($key){  //post konfirmasi email ubah value status_email jadi 1 (aktif)
 		$data = array(
 			'status_email' => '1',

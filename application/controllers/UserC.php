@@ -54,15 +54,10 @@
 
       $exp_date = date('Y-m-d', strtotime(' + 1 days'));
 
-      $data_pengguna  = array(
-        'no_identitas'        => $no_identitas,
-        'kode_unit'           => $kode_unit,
-        'kode_jabatan'        => $kode_jabatan,  
-        'email'               => $email,  
-        'password'            => $passhash,  
-        'status'              => $status,  
-        'exp_date'            => $exp_date,
-        'status_email'        => $status_email);  
+      $data_jabatan_unit  = array(
+        'kode_unit'       => $kode_unit, 
+        'kode_jabatan'    => $kode_jabatan);
+
 
       $data_diri      = array(  
         'no_identitas'        => $no_identitas,
@@ -73,30 +68,36 @@
         'alamat'              => $alamat,  
         'no_hp'               => $no_hp);
 
+        if($this->UserM->insert_data_diri($data_diri)){  //jika berhasil register
+          $insert_id = $this->UserM->insert_jabatan_unit($data_jabatan_unit);
+          if($insert_id){
+           $data_pengguna  = array(
+            'no_identitas'        => $no_identitas,
+            'kode_jabatan_unit'   => $insert_id,
+            'email'               => $email,  
+            'password'            => $passhash,  
+            'status'              => $status,  
+            'exp_date'            => $exp_date,
+            'status_email'        => $status_email); 
 
-      if($this->UserM->insert_data_diri($data_diri)){  //jika berhasil register
-        $insert_id = $this->UserM->insert_data_pengguna($data_pengguna);
-        if($insert_id){
-            $this->session->set_userdata('id_pengguna', $insert_id); //ambil no_identitas buat resend konfirmasi email
-            try{
-              $this->sendemail($email, $email_encryption); //kirim email
-              redirect(base_url('UserC/resend_email'));  
-            }catch(Exception $e){
-              var_dump($e);
-            }
-            redirect(base_url('UserC/resend_email'));  
-
+           $insert_id_pengguna = $this->UserM->insert_data_pengguna($data_pengguna);
+           if($insert_id_pengguna){
+            $this->session->set_userdata('id_pengguna', $insert_id_pengguna); //ambil no_identitas buat resend konfirmasi email
+            $this->sendemail($email, $email_encryption); //kirim email
+            redirect(base_url('UserC/resend_email'));
           }else{
-            $this->hapus($no_identitas);
-            $this->session->set_flashdata('msg','<div class="alert alert-danger text-center">Gagal melakukan pendaftaran. Silahkan mencoba kembali pengguna. . .</div>');  
-            redirect(base_url('UserC/halaman_daftar')); 
+            $this->UserM->hapus_data_pengguna($insert_id_pengguna);
+            $this->session->set_flashdata('msg','<div class="alert alert-danger text-center">Gagal melakukan pendaftaran. Silahkan mencoba kembali. . .</div>');  
+            redirect(base_url('UserC/halaman_daftar'));  
           }
         }else{
-          $this->session->set_flashdata('msg','<div class="alert alert-danger text-center">Gagal melakukan pendaftaran. Silahkan mencoba kembali. . data diri .</div>');  
+          $this->UserM->hapus($no_identitas);
+          $this->session->set_flashdata('msg','<div class="alert alert-danger text-center">Gagal melakukan pendaftaran. Silahkan mencoba kembali. . .</div>');  
           redirect(base_url('UserC/halaman_daftar'));  
         }
-      }  
+      }
     }  
+  }  
 
   function sendemail($email,$email_encryption){   //kirim email konfirmasi
     $url        = base_url()."UserC/confirmation/".$email_encryption;  

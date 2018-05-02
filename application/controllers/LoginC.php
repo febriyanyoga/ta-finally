@@ -30,13 +30,15 @@ class LoginC extends CI_Controller {
 			$password	=$this->input->post('password');
 			$ceknum		=$this->LoginM->ceknum($email,$password)->num_rows();
 			$query		=$this->LoginM->ceknum($email,$password)->row();
+			$cek_jabatan = $this->LoginM->cek_jabatan($query->kode_jabatan_unit)->row();
 			if($ceknum>0){
 				if($this->LoginM->check_captcha() == TRUE){
 					$userData 	= array(
 						'email' 		=> $query->email,
 						'password' 		=> $query->password,
-						'kode_jabatan' 	=> $query->kode_jabatan,
-						'kode_unit' 	=> $query->kode_unit,
+						'id_pengguna' 	=> $query->id_pengguna,
+						'kode_jabatan' 	=> $cek_jabatan->kode_jabatan,
+						'kode_unit' 	=> $cek_jabatan->kode_unit,
 						'status'		=> $query->status,
 						'status_email'	=> $query->status_email,
 						'id_pengguna'	=> $query->id_pengguna,

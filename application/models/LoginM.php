@@ -14,12 +14,12 @@ class LoginM extends CI_Model{
 		$this->load->helper('captcha');
 		$vals = array(
 			'img_path' => './/assets/image/captcha/',
-            'img_url' => base_url().'/assets/image/captcha/',
-            'img_width' => '250',
-            'img_height' => '50',
-            'font_path' => '../system/fonts/texb.ttf',
-            'expiration' => 3600
-			);
+			'img_url' => base_url().'/assets/image/captcha/',
+			'img_width' => '250',
+			'img_height' => '50',
+			'font_path' => '../system/fonts/texb.ttf',
+			'expiration' => 3600
+		);
 
 		$cap = create_captcha($vals);
 
@@ -29,7 +29,7 @@ class LoginM extends CI_Model{
 				'captcha_time' => $cap['time'],
 				'ip_address' => $this -> input -> ip_address(),
 				'word' => $cap['word']
-				);
+			);
 			$query = $this -> db -> insert_string('captcha', $data);
 			$this -> db -> query($query);
 		}else{
@@ -53,6 +53,13 @@ class LoginM extends CI_Model{
 			return true;
 		}
 		return false;
+	}
+
+	public function cek_jabatan($kode_jabatan_unit){ //cek akun di db pengguna jabatan (berapa rows)
+		$this->db->select('*');
+		$this->db->from('jabatan_unit');
+		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
+		return $this->db->get();
 	}
 
 
