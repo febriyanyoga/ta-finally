@@ -4,17 +4,21 @@
    function __Construct(){  
     parent::__Construct();  
     $this->load->database();  
-    $this->load->model('UserM');  
+    $this->load->model('PenggunaM');  
   }    
   public function halaman_daftar() //get option jabatan
   {
-   $data['prosedur_pegawai'] = $this->UserM->get_prosedur_pegawai()->result();
-   $data['prosedur_mahasiswa'] = $this->UserM->get_prosedur_mahasiswa()->result();
-   $data['prosedur_barang'] = $this->UserM->get_prosedur_barang()->result();
-   $data['jabatan'] = $this->UserM->get_pilihan_jabatan();
-   $data['unit'] = $this->UserM->get_pilihan_unit();
+   $data['prosedur_pegawai'] = $this->PenggunaM->get_prosedur_pegawai()->result();
+   $data['prosedur_mahasiswa'] = $this->PenggunaM->get_prosedur_mahasiswa()->result();
+   $data['prosedur_barang'] = $this->PenggunaM->get_prosedur_barang()->result();
+   $data['jabatan'] = $this->PenggunaM->get_pilihan_jabatan();
+   $data['unit'] = $this->PenggunaM->get_pilihan_unit();
    $this->load->view('RegisterV',$data);
  }   
+
+ public function index(){
+  redirect('UserC/daftar');
+ }
   public function daftar()  //post pendaftaran
   {  
     $this->form_validation->set_rules('no_identitas', 'Nomor Identitas', 'required|is_unique[pengguna.no_identitas]');  
@@ -54,11 +58,6 @@
 
       $exp_date = date('Y-m-d', strtotime(' + 1 days'));
 
-      $data_jabatan_unit  = array(
-        'kode_unit'       => $kode_unit, 
-        'kode_jabatan'    => $kode_jabatan);
-
-
       $data_diri      = array(  
         'no_identitas'        => $no_identitas,
         'nama'                => $nama,  
@@ -68,36 +67,34 @@
         'alamat'              => $alamat,  
         'no_hp'               => $no_hp);
 
-        if($this->UserM->insert_data_diri($data_diri)){  //jika berhasil register
-          $insert_id = $this->UserM->insert_jabatan_unit($data_jabatan_unit);
-          if($insert_id){
-           $data_pengguna  = array(
+        if($this->PenggunaM->insert_data_diri($data_diri)){  //jika berhasil register
+          $kode_jabatan_unit = $this->PenggunaM->cek_kode_jabatan_unit($kode_unit, $kode_jabatan)->result()[0]->kode_jabatan_unit;
+          $data_pengguna  = array(
             'no_identitas'        => $no_identitas,
-            'kode_jabatan_unit'   => $insert_id,
+            'kode_jabatan_unit'   => $kode_jabatan_unit,
             'email'               => $email,  
             'password'            => $passhash,  
             'status'              => $status,  
             'exp_date'            => $exp_date,
             'status_email'        => $status_email); 
 
-           $insert_id_pengguna = $this->UserM->insert_data_pengguna($data_pengguna);
-           if($insert_id_pengguna){
+          $insert_id_pengguna = $this->PenggunaM->insert_data_pengguna($data_pengguna);
+          if($insert_id_pengguna){
             $this->session->set_userdata('id_pengguna', $insert_id_pengguna); //ambil no_identitas buat resend konfirmasi email
             $this->sendemail($email, $email_encryption); //kirim email
             redirect(base_url('UserC/resend_email'));
           }else{
-            $this->UserM->hapus_data_pengguna($insert_id_pengguna);
+            // $this->PenggunaM->hapus_data_pengguna($insert_id_pengguna);
             $this->session->set_flashdata('msg','<div class="alert alert-danger text-center">Gagal melakukan pendaftaran. Silahkan mencoba kembali. . .</div>');  
             redirect(base_url('UserC/halaman_daftar'));  
           }
         }else{
-          $this->UserM->hapus($no_identitas);
+          $this->PenggunaM->hapus_id($no_identitas);
           $this->session->set_flashdata('msg','<div class="alert alert-danger text-center">Gagal melakukan pendaftaran. Silahkan mencoba kembali. . .</div>');  
-          redirect(base_url('UserC/halaman_daftar'));  
+          redirect(base_url('UserC/halaman_daftar'));
         }
-      }
+      }  
     }  
-  }  
 
   function sendemail($email,$email_encryption){   //kirim email konfirmasi
     $url        = base_url()."UserC/confirmation/".$email_encryption;  
@@ -146,13 +143,13 @@ public function post_resend_email(){
     $data_resend = array(
       'email'             => $email);
 
-    $status = $this->UserM->get_pengguna_by_id($id_pengguna)->result()[0]->status_email;
+    $status = $this->PenggunaM->get_pengguna_by_id($id_pengguna)->result()[0]->status_email;
 
     if($status == "1"){
      $this->session->set_flashdata('error','Email anda sudah berhasil dikonfirmasi. Silahkan <a href="'.base_url('LoginC').'">masuk</a> untuk melanjutkan...');
      redirect('UserC/resend_email');
    }else{
-    if($this->UserM->insert_data_resend($data_resend, $id_pengguna)){
+    if($this->PenggunaM->insert_data_resend($data_resend, $id_pengguna)){
       $this->sendemail($email, $email_encryption);
       // $this->session->set_flashdata('sukses','Email anda berhasil sudah berhasil dikirim ulang. Silahkan cek email anda : <b>'.$email.'</b> dan klik tautan yang telah dikirimkan untuk <b>konfirmasi pendaftaran....');
     }else{
@@ -163,18 +160,18 @@ public function post_resend_email(){
 }
 
   public function confirmation($key){  //post link konfirmasi
-   $exp_date     = $this->UserM->get_pengguna_by_email($key)->result()[0]->exp_date; //ambil data exp by email
-   $status_email = $this->UserM->get_pengguna_by_email($key)->result()[0]->status_email; //ambil data status by email
-   $no_identitas = $this->UserM->get_pengguna_by_email($key)->result()[0]->no_identitas; //ambil no identitas by email
+   $exp_date     = $this->PenggunaM->get_pengguna_by_email($key)->result()[0]->exp_date; //ambil data exp by email
+   $status_email = $this->PenggunaM->get_pengguna_by_email($key)->result()[0]->status_email; //ambil data status by email
+   $no_identitas = $this->PenggunaM->get_pengguna_by_email($key)->result()[0]->no_identitas; //ambil no identitas by email
    $now_date     = date('Y-m-d');
 
    if($now_date > $exp_date && $status_email =='0'){ //jika konfirmasi diatas exp date maka akan hapus data diri dan pengguna si empunya email
-    $this->UserM->delete_pengguna_by_email($key);
-    $this->UserM->delete_data_diri_by_no_identitas($no_identitas);
+    $this->PenggunaM->delete_pengguna_by_email($key);
+    $this->PenggunaM->delete_data_diri_by_no_identitas($no_identitas);
     $this->session->set_flashdata('error','Tautan konfirmasi email anda sudah kadaluwarsa, Silahkan mencoba daftar kembali ...');
     redirect('LoginC');
   }else{
-    if($this->UserM->verifyemail($key)){  
+    if($this->PenggunaM->verifyemail($key)){  
       $this->session->set_flashdata('sukses','Email anda berhasil dikonfirmasi. Silahkan masuk ...');
       redirect('LoginC');
     }else{  

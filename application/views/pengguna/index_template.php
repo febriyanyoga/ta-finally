@@ -50,6 +50,9 @@
       <!-- notificatoin dropdown start-->
       <ul class="nav pull-right top-menu">
         <!-- user login dropdown start-->
+   <!--      <?php
+        print_r($menu)
+        ?> -->
         <li class="dropdown">
           <a data-toggle="dropdown" class="dropdown-toggle" href="#">
             <span class="profile-ava">

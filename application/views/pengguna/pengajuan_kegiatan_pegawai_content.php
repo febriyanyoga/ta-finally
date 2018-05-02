@@ -184,6 +184,8 @@
               <!-- <label>ID Pengguna Jabatan</label> -->
 
               <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
+
+              <input class="form-control" type="hidden" id="pimpinan" name="pimpinan" value="<?php echo $data_diri->id_pengguna;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
             </div>
             <div class="form-group">
               <!-- <label>Kode Jenis Kegiatan</label> -->

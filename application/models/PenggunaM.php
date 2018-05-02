@@ -8,6 +8,68 @@
  	}
 
  	// UMUM
+ 	public function insert_data_pengguna($data){ //post pengguna
+ 		$this->db->insert('pengguna', $data);
+ 		return $this->db->insert_id();
+
+ 	}
+
+ 	public function insert_data_diri($data){
+ 		$this->db->insert('data_diri', $data);
+ 		return TRUE;
+ 	}
+
+ 	public function hapus_id($id){
+ 		$this->db->where('no_identitas', $id);
+ 		$this->db->delete('data_diri');
+ 		return TRUE;
+ 	}
+
+ 	public function hapus_data_pengguna($id){
+ 		$this->db->where('id_pengguna', $id);
+ 		$this->db->delete('pengguna');
+ 		return TRUE;
+ 	}
+
+ 	public function get_pengguna_by_id($id_pengguna){
+ 		$this->db->select('status_email');
+ 		$this->db->from('pengguna');
+ 		$this->db->where('id_pengguna', $id_pengguna);
+ 		return $this->db->get();
+ 	}
+
+ 	public function insert_data_resend($data, $id_pengguna){ //post resend data email
+ 		$this->db->where('id_pengguna',$id_pengguna); 
+ 		return $this->db->update('pengguna',$data);
+ 	}  
+
+ 	public function get_pengguna_by_email($key){
+		// $this->db->select('')
+ 		$this->db->where('md5(email)', $key);
+ 		$query = $this->db->get('pengguna');
+ 		return $query;
+ 	}
+
+ 	public function delete_pengguna_by_email($key){
+ 		$this->db->where('md5(email)', $key);
+ 		$this->db->delete('pengguna');
+ 		return TRUE;
+ 	}
+ 	
+ 	public function delete_data_diri_by_no_identitas($no_identitas){
+ 		$this->db->where('no_identitas', $no_identitas);
+ 		$this->db->delete('data_diri');
+ 		return TRUE;
+ 	}
+
+ 	public function verifyemail($key){  //post konfirmasi email ubah value status_email jadi 1 (aktif)
+ 		$data = array(
+ 			'status_email' => '1',
+ 		);  
+ 		$this->db->where('md5(email)', $key);
+ 		return $this->db->update('pengguna', $data);  
+ 	}
+
  	public function get_data_diri(){ //ambil data diri user berdasarkan session
  		$id_pengguna = $this->session->userdata('id_pengguna');
  		$this->db->select('*');
@@ -40,12 +102,10 @@
 	}
 
 	public function get_akses_menu(){
-		$kode_unit 	= $this->session->userdata('kode_unit');
-		$kode_jabatan = $this->session->userdata('kode_jabatan');
+		$kode_jabatan_unit 	= $this->session->userdata('kode_jabatan_unit');
 		$this->db->select('kode_menu');
 		$this->db->from('akses_menu');
-		$this->db->where('akses_menu.kode_unit', $kode_unit);
-		$this->db->where('akses_menu.kode_jabatan', $kode_jabatan);
+		$this->db->where('akses_menu.kode_jabatan_unit', $kode_jabatan_unit);
 		$query = $this->db->get();
 		return $query;
 	}
@@ -65,8 +125,9 @@
 	public function get_data_pengguna(){ //ambil data seluruh pengguna yang terdaftar
 		$this->db->select('*');
 		$this->db->from('pengguna');
-		$this->db->join('jabatan', 'jabatan.kode_jabatan = pengguna.kode_jabatan');
-		$this->db->join('unit', 'unit.kode_unit = pengguna.kode_unit');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
 		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
 		$query = $this->db->get(); 
 		return $query;
@@ -77,8 +138,9 @@
 		$this->db->from('pengguna');
 		$this->db->where('pengguna.id_pengguna', $id_pengguna);
 		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
-		$this->db->join('jabatan', 'jabatan.kode_jabatan = pengguna.kode_jabatan');
-		$this->db->join('unit', 'pengguna.kode_unit = unit.kode_unit');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
 		$query = $this->db->get();
 		if($query){
 			return $query;
@@ -114,14 +176,62 @@
 		return $query = $this->db->update($db, $data);
 	}
 
+	public function cek_kode_jabatan_unit($kode_unit, $kode_jabatan){
+		$this->db->select('kode_jabatan_unit');
+		$this->db->from('jabatan_unit');
+		$this->db->where('kode_unit', $kode_unit);
+		$this->db->where('kode_jabatan', $kode_jabatan);
+		$query = $this->db->get();
+		return $query;
+	}
+
+	public function get_data_pengajuan($kode_jenis_kegiatan){
+		$this->db->select('*');
+		$this->db->from('kegiatan');
+		$this->db->join('jenis_kegiatan', 'jenis_kegiatan.kode_jenis_kegiatan = kegiatan.kode_jenis_kegiatan');
+		$this->db->join('file_upload', 'file_upload.kode_kegiatan = kegiatan.kode_kegiatan');
+		$this->db->join('pengguna', 'pengguna.id_pengguna = kegiatan.id_pengguna');
+		$this->db->join('data_diri', 'data_diri.no_identitas = pengguna.no_identitas');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->where('kegiatan.kode_jenis_kegiatan', $kode_jenis_kegiatan);
+		$this->db->order_by('kegiatan.created_at', 'DESC');
+		$this->db->group_by('kegiatan.kode_kegiatan');
+ 		// $this->db->where('progress.kode_nama_progress = "1"');
+		$query = $this->db->get();
+		if($query){
+			return $query;
+		}else{
+			return null;
+		}
+	}
+
+	public function get_kegiatan_pegawai(){ //menampilkan kegiatan yang diajukan user sebagai pegwai
+		$id_pengguna = $this->session->userdata('id_pengguna');
+		$this->db->select('*');
+		$this->db->from('kegiatan');
+		$this->db->join('pengguna', 'pengguna.id_pengguna = kegiatan.id_pengguna');
+		$this->db->join('file_upload', 'kegiatan.kode_kegiatan = file_upload.kode_kegiatan');
+		$this->db->where('pengguna.id_pengguna', $id_pengguna);
+
+		$query = $this->db->get();
+		if($query){
+			return $query;
+		}else{
+			return null;
+		}
+	} 
+
 	// =====Konfigurasi Sistem=======
 	//acc kegiatan (persetujuan  kegiatan)
 	public function get_persetujuan_kegiatan(){
 		$this->db->select('*');
 		$this->db->from('acc_kegiatan');
 		$this->db->join('pengguna','pengguna.id_pengguna = acc_kegiatan.id_pengguna');
-		$this->db->join('jabatan', 'pengguna.kode_jabatan = jabatan.kode_jabatan');
-		$this->db->join('unit', 'pengguna.kode_unit = unit.kode_unit');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
 		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
 		$this->db->join('jenis_kegiatan','acc_kegiatan.kode_jenis_kegiatan = jenis_kegiatan.kode_jenis_kegiatan');
 		return $query = $this->db->get();

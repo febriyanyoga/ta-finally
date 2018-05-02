@@ -8,7 +8,7 @@ class KegiatanC extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model(['UserM','PenggunaM','KegiatanM']);
+		$this->load->model(['PenggunaM','KegiatanM']);
 		in_access(); //helper buat batasi akses login/session
 
 		$data_akses_menu = $this->PenggunaM->get_akses_menu()->result();
@@ -60,8 +60,8 @@ class KegiatanC extends CI_Controller {
 		$kode_jenis_kegiatan = 1; //kegiatan pegawai
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Persetujuan Kegiatan Pegawai | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
-		$this->data['data_pengajuan_kegiatan_pegawai'] = $this->UserM->get_data_pengajuan($kode_jenis_kegiatan)->result();
-		$this->data['UserM'] = $this->KegiatanM ;	
+		$this->data['data_pengajuan_kegiatan_pegawai'] = $this->PenggunaM->get_data_pengajuan($kode_jenis_kegiatan)->result();
+		$this->data['KegiatanM'] = $this->KegiatanM ;	
 		$this->data['cek_id_staf_keu'] = $this->KegiatanM->cek_id_staf_keu()->result();
 		$this->data['cek_max_pegawai'] = $this->KegiatanM->cek_max_pegawai();	
 		$this->data['KegiatanM'] = $this->KegiatanM ;
@@ -93,11 +93,10 @@ class KegiatanC extends CI_Controller {
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Pengajuan Kegiatan Mahasiswa | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
 
-		$this->data['data_kegiatan'] = $this->UserM->get_kegiatan_pegawai()->result();	//menampilkan kegiatan yang diajukan user sebagai pegwai
-		$this->data['cek_id_staf_keu'] = $this->UserM->cek_id_staf_keu()->result();	
+		$this->data['data_kegiatan'] = $this->PenggunaM->get_kegiatan_pegawai()->result();	//menampilkan kegiatan yang diajukan user sebagai pegwai
+		$this->data['cek_id_staf_keu'] = $this->PenggunaM->cek_id_staf_keu()->result();	
 		$this->data['data_diri'] =	$data_diri;  	//get data diri buat nampilin nama di pjok kanan
-		$this->data['KegiatanM'] = $this->KegiatanM ;	
-		$this->data['cek_id_staf_keu'] = $this->UserM->cek_id_staf_keu()->result();
+		$this->data['KegiatanM'] = $this->KegiatanM ;
 		$data['body'] = $this->load->view('pengguna/pengajuan_kegiatan_mahasiswa_content', $this->data, true) ;
 		$this->load->view('pengguna/index_template', $data);
 	}
@@ -149,7 +148,7 @@ class KegiatanC extends CI_Controller {
 		$kode_jenis_kegiatan = 2; //kegiatan mahasiswa
 		$this->data['data_pengajuan_kegiatan'] = $this->KegiatanM->get_data_pengajuan($kode_jenis_kegiatan)->result();
 		$this->data['KegiatanM'] = $this->KegiatanM ;
-		$this->data['cek_min_mhs'] = $this->UserM->cek_min_mhs();
+		$this->data['cek_min_mhs'] = $this->KegiatanM->cek_min_mhs();
 		$this->data['cek_id_staf_keu'] = $this->KegiatanM->cek_id_staf_keu()->result();
 		$data['body'] = $this->load->view('pengguna/status_pengajuan_kegiatan_mahasiswa_content', $this->data, true) ;
 		$this->load->view('pengguna/index_template', $data);
@@ -194,7 +193,7 @@ class KegiatanC extends CI_Controller {
 
 			);
 
-			if($this->UserM->insert_progress($data)){ //insert progress
+			if($this->PenggunaM->insert_progress($data)){ //insert progress
 				$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
 				redirect_back(); // redirect kembali ke halaman sebelumnya
 			}else{
@@ -235,9 +234,9 @@ class KegiatanC extends CI_Controller {
 
 			$insert_id = $this->KegiatanM->insert_pengajuan_kegiatan($data_pengajuan_kegiatan);
 				if($insert_id){ //get last insert id
-					$upload = $this->KegiatanM->upload(); // lakukan upload file dengan memanggil function upload yang ada di UserM.php
+					$upload = $this->KegiatanM->upload(); // lakukan upload file dengan memanggil function upload yang ada di KegiatanM.php
 				if($upload['result'] == "success"){ // Jika proses upload sukses
-					$this->KegiatanM->save($upload,$insert_id); // Panggil function save yang ada di UserM.php untuk menyimpan data ke database
+					$this->KegiatanM->save($upload,$insert_id); // Panggil function save yang ada di KegiatanM.php untuk menyimpan data ke database
 				}else{ // Jika proses upload gagal
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 					$this->KegiatanM->delete($insert_id);//hapus data pengajuan kegiatan ketka gagal upload file
@@ -255,6 +254,7 @@ class KegiatanC extends CI_Controller {
 
 	public function post_pengajuan_kegiatan_pegawai(){ //fungsi post pengajuan kegiatan pegawai
 		$this->form_validation->set_rules('id_pengguna', 'ID Pengguna','required');
+		$this->form_validation->set_rules('pimpinan', 'ID Pimpinan','required');
 		$this->form_validation->set_rules('kode_jenis_kegiatan', 'Kode Jenis Kegiatan','required');
 		$this->form_validation->set_rules('nama_kegiatan', 'Nama Kegiatan','required');
 		$this->form_validation->set_rules('tgl_kegiatan', 'Tanggal Kegiatan','required');
@@ -266,6 +266,7 @@ class KegiatanC extends CI_Controller {
 			redirect('KegiatanC/pengajuan_kegiatan_pegawai');
 		}else{
 			$id_pengguna 	       	= $_POST['id_pengguna'];
+			$pimpinan 	       		= $_POST['pimpinan'];
 			$kode_jenis_kegiatan 	= $_POST['kode_jenis_kegiatan'];
 			$nama_kegiatan 			= $_POST['nama_kegiatan'];
 			$tgl_kegiatan 			= date('Y-m-d',strtotime($_POST['tgl_kegiatan']));
@@ -281,15 +282,15 @@ class KegiatanC extends CI_Controller {
 				'tgl_selesai_kegiatan'	=> $tgl_selesai_kegiatan,
 				'dana_diajukan' 		=> $dana_diajukan,
 				'tgl_pengajuan'			=> $tgl_pengajuan,
-				'pimpinan'				=> $id_pengguna);
+				'pimpinan'				=> $pimpinan);
 
 			
 
 			$insert_id = $this->KegiatanM->insert_pengajuan_kegiatan($data_pengajuan_kegiatan);
 			if($insert_id){ //get last insert id
-				$upload = $this->KegiatanM->upload(); // lakukan upload file dengan memanggil function upload yang ada di UserM.php
+				$upload = $this->KegiatanM->upload(); // lakukan upload file dengan memanggil function upload yang ada di KegiatanM.php
 				if($upload['result'] == "success"){ // Jika proses upload sukses
-					$this->KegiatanM->save($upload,$insert_id); // Panggil function save yang ada di UserM.php untuk menyimpan data ke database
+					$this->KegiatanM->save($upload,$insert_id); // Panggil function save yang ada di KegiatanM.php untuk menyimpan data ke database
 
 					$format_tgl 	= "%Y-%m-%d";
 					$tgl_progress 	= mdate($format_tgl);
@@ -310,7 +311,7 @@ class KegiatanC extends CI_Controller {
 						'waktu_progress'		=> $waktu_progress
 
 					);
-					$this->UserM->insert_progress($data); //insert progress langsung ketika mengajukan kegiatan untuk manajer, kepala, dan pimpinan yang lain
+					$this->KegiatanM->insert_progress($data); //insert progress langsung ketika mengajukan kegiatan untuk manajer, kepala, dan pimpinan yang lain
 				}else{ // Jika proses upload gagal
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 					$this->KegiatanM->delete($insert_id);//hapus data pengajuan kegiatan ketka gagal upload file

@@ -8,15 +8,15 @@ class LoginC extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();	
-		$this->load->model(['LoginM','UserM']);
+		$this->load->model(['LoginM','PenggunaM']);
 		$this->load->helper('url');
 
 	}
 	public function index() //load captcha
 	{
-		$data['prosedur_pegawai'] = $this->UserM->get_prosedur_pegawai()->result();
-		$data['prosedur_mahasiswa'] = $this->UserM->get_prosedur_mahasiswa()->result();
-		$data['prosedur_barang'] = $this->UserM->get_prosedur_barang()->result();
+		$data['prosedur_pegawai'] = $this->PenggunaM->get_prosedur_pegawai()->result();
+		$data['prosedur_mahasiswa'] = $this->PenggunaM->get_prosedur_mahasiswa()->result();
+		$data['prosedur_barang'] = $this->PenggunaM->get_prosedur_barang()->result();
 		$data['cap_img'] = $this->LoginM->make_captcha();
 		$this->load->view('LoginV', $data);
 	}
@@ -34,15 +34,16 @@ class LoginC extends CI_Controller {
 			if($ceknum>0){
 				if($this->LoginM->check_captcha() == TRUE){
 					$userData 	= array(
-						'email' 		=> $query->email,
-						'password' 		=> $query->password,
-						'id_pengguna' 	=> $query->id_pengguna,
-						'kode_jabatan' 	=> $cek_jabatan->kode_jabatan,
-						'kode_unit' 	=> $cek_jabatan->kode_unit,
-						'status'		=> $query->status,
-						'status_email'	=> $query->status_email,
-						'id_pengguna'	=> $query->id_pengguna,
-						'logged_in' 	=> TRUE
+						'email' 			=> $query->email,
+						'password' 			=> $query->password,
+						'id_pengguna' 		=> $query->id_pengguna,
+						'kode_jabatan' 		=> $cek_jabatan->kode_jabatan,
+						'kode_unit' 		=> $cek_jabatan->kode_unit,
+						'status'			=> $query->status,
+						'status_email'		=> $query->status_email,
+						'id_pengguna'		=> $query->id_pengguna,
+						'kode_jabatan_unit'	=> $query->kode_jabatan_unit,
+						'logged_in' 		=> TRUE
 					);
 					$this->session->set_userdata($userData);
 					if ($this->session->userdata('status_email') == 1) {

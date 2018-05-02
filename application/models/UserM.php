@@ -16,10 +16,6 @@
 		return TRUE;
 	}
 
-	public function insert_jabatan_unit($data){
-		$this->db->insert('jabatan_unit', $data);
-		return $this->db->insert_id();
-	}
 	public function hapus($id){
 		$this->db->where('no_identitas', $id);
 		$this->db->delete('data_diri');

@@ -75,7 +75,7 @@
 									</div>
 								</div>
 								<div class="form-bottom">
-									<?php 
+									<?php echo $this->session->flashdata('msg');  
 									$data=$this->session->flashdata('sukses');
 									if($data!=""){ ?>
 									<div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
