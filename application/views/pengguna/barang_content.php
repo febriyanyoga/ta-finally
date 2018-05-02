@@ -75,7 +75,7 @@
           <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
           <h4 class="modal-title" id="titlemodal">Tambah Barang</h4>
         </div>
-        <form id="formadd" class="form-horizontal" action="<?php echo base_url('Man_sarprasC/post_tambah_barang');?>" method="post" enctype="multipart/form-data" role="form">
+        <form id="formadd" class="form-horizontal" action="<?php echo base_url('BarangC/post_tambah_barang');?>" method="post" enctype="multipart/form-data" role="form">
           <input type="text" name="id" id="idbarang" hidden="true">
           <div class="modal-body">
             <div class="form-group">
@@ -123,10 +123,10 @@
   function edit(id) {
     $('#titlemodal').text("Edit Barang");
     $('#idbarang').val(id);
-    $('#formadd').attr('action', '<?php echo base_url('Man_sarprasC/ubah_data_barang');?>');
+    $('#formadd').attr('action', '<?php echo base_url('BarangC/ubah_data_barang');?>');
     $.ajax({
       type : 'get',
-      url : '<?php echo base_url().'Man_sarprasC/ubah_barang/'?>'+id,
+      url : '<?php echo base_url().'BarangC/ubah_barang/'?>'+id,
       dataType :'JSON',
       success : function(data){
         $('#kode_jenis_barang').empty();
@@ -147,13 +147,13 @@
   function batal() {
 
     $('#titlemodal').text("Tambah Barang");
-    $('#formadd').attr('action', '<?php echo base_url('Man_sarprasC/post_tambah_barang');?>');
+    $('#formadd').attr('action', '<?php echo base_url('BarangC/post_tambah_barang');?>');
     $('#idbarang').val("");
     $('#nama_barang').val("");
     $('#buttonbatal').attr('data-dismiss');
     $.ajax({
       type : 'get',
-      url : '<?php echo base_url().'Man_sarprasC/getListAjax/'?>',
+      url : '<?php echo base_url().'BarangC/getListAjax/'?>',
       dataType :'JSON',
       success : function(data){
         $('#kode_jenis_barang').empty();

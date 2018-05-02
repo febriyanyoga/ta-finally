@@ -7,6 +7,23 @@
  		$this->load->database();
  	}
 
+ 	public function get_id_pimpinan($kode_unit){
+		$this->db->select('pengguna.id_pengguna');
+		$this->db->from('pengguna');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->where('unit.kode_unit', $kode_unit);
+		$this->db->where('jabatan_unit.atasan = "ya"');
+
+		$query = $this->db->get();
+		if($query){
+			return $query;
+		}else{
+			echo "kasiyan deh ga punya pimpinan";
+		}
+	}
+ 	
  	// Ambil Data Pengajuan Barang 
  	function get_data_item_pengajuan(){
  		$this->db->select('*');
