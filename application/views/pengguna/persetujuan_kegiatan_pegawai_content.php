@@ -153,7 +153,7 @@
                            <?php
                          }else{
                            ?>
-                           <a href="#" id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Belum Acc atasan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                           <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Belum disetujui atasan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                            <?php
                          }
                        }

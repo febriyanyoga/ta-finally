@@ -38,14 +38,14 @@
             <p class="form-control-static"> <?php echo ": Rp".$detail_kegiatan->dana_diajukan.",-"; ?> </p>
         </div>
     </div>
-    <div class="form-group">
+   <!--  <div class="form-group">
         <label class="control-label col-sm-5" for="dana_disetujui" style="text-align: left;">Dana Yang Disetujui</label>
         <div class="col-sm-5">
             <p class="form-control-static"> <?php echo ": Rp".$detail_kegiatan->dana_disetujui.",-"; ?> </p>
         </div>
-    </div>
+    </div> -->
     <div class="form-group">
-        <label class="control-label col-sm-5" for="status" name="kode_nama_progress" id="kode_nama_progress" style="text-align: left;">Status</label>
+        <label class="control-label col-sm-5" for="status" name="kode_nama_progress" id="kode_nama_progress" style="text-align: left;">Status<i style="color: red;">*</i></label>
         <div class="col-sm-5">
             <select class="form-control" name="kode_nama_progress" id="kode_nama_progress">
                 <!-- <option> ----- pilih nama progress ----- </option> -->
@@ -60,9 +60,14 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-5" for="komentar" style="text-align: left;">Komentar</label>
+        <label class="control-label col-sm-5" for="komentar" style="text-align: left;">Komentar<i style="color: red;">*</i></label>
         <div class="col-sm-5">
-            <textarea name="komentar" id="komentar" class="form-control" id="focusedInput"> </textarea>
+            <textarea name="komentar" id="komentar" class="form-control" id="focusedInput" required> </textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-5" for="komentar" style="text-align: left; font-style: italic;"><i style="color: red;">*</i> Harus Diisi</label>
+        <div class="col-sm-5">
         </div>
     </div>
     <div class="form-group">

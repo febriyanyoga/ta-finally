@@ -105,8 +105,9 @@ class KegiatanC extends CI_Controller {
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Persetujuan Kegiatan Staf | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
-
+		$kode_unit = $this->session->userdata('kode_unit');
 		$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
+		$this->data['id_pimpinan'] = $this->KegiatanM->get_id_pimpinan($kode_unit)->result()[0];
 		$this->data['cek_max_pegawai'] = $this->KegiatanM->cek_max_pegawai();	
 		$this->data['cek_id_staf_keu'] = $this->KegiatanM->cek_id_staf_keu()->result();
 		$this->data['data_kegiatan'] = $this->KegiatanM->get_kegiatan_pegawai()->result();	//menampilkan kegiatan yang diajukan user sebagai pegwai
@@ -193,7 +194,7 @@ class KegiatanC extends CI_Controller {
 
 			);
 
-			if($this->PenggunaM->insert_progress($data)){ //insert progress
+			if($this->KegiatanM->insert_progress($data)){ //insert progress
 				$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
 				redirect_back(); // redirect kembali ke halaman sebelumnya
 			}else{
@@ -262,7 +263,7 @@ class KegiatanC extends CI_Controller {
 		$this->form_validation->set_rules('dana_diajukan', 'Dana Diajukan','required');
 		$this->form_validation->set_rules('tgl_pengajuan', 'Tanggal Pengajuan','required');
 		if($this->form_validation->run() == FALSE){
-			$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan');
+			$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 3');
 			redirect('KegiatanC/pengajuan_kegiatan_pegawai');
 		}else{
 			$id_pengguna 	       	= $_POST['id_pengguna'];
@@ -298,11 +299,11 @@ class KegiatanC extends CI_Controller {
 					$waktu_progress	= mdate($format_waktu);
 
 					$kode_nama_progress	= "1";
-					$komentar			= "insert otomatis";
+					$komentar			= "otomatis_diterima";
 					$jenis_progress		= "kegiatan";
 
 					$data = array(
-						'id_pengguna	' 			=> $id_pengguna	,
+						'id_pengguna	' 		=> $id_pengguna	,
 						'kode_fk'				=> $insert_id,
 						'kode_nama_progress' 	=> $kode_nama_progress,
 						'komentar'				=> $komentar,
@@ -311,17 +312,20 @@ class KegiatanC extends CI_Controller {
 						'waktu_progress'		=> $waktu_progress
 
 					);
+
+					if($id_pengguna == $pimpinan){
 					$this->KegiatanM->insert_progress($data); //insert progress langsung ketika mengajukan kegiatan untuk manajer, kepala, dan pimpinan yang lain
+					}
 				}else{ // Jika proses upload gagal
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 					$this->KegiatanM->delete($insert_id);//hapus data pengajuan kegiatan ketka gagal upload file
-					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan');
+					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 1');
 					redirect('KegiatanC/pengajuan_kegiatan_pegawai');
 				}
 				$this->session->set_flashdata('sukses','Data Pengajuan Kegiatan anda berhasil ditambahkan');
 				redirect('KegiatanC/pengajuan_kegiatan_pegawai');
 			}else{
-				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan');
+				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 2');
 				redirect('KegiatanC/pengajuan_kegiatan_pegawai');
 			}
 		}

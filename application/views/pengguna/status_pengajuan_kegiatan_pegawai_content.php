@@ -111,26 +111,33 @@
                            <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Selesai</a>
                            <?php
                          }else{
-                          ?>
-                          <a class="label label-default" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Proses</a>
-                          <?php
-                        }
-                      }elseif ($progress > 1) {
-                        ?>
-                        <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Selesai</a>
-                        <?php
-                      }elseif ($progress == 0) {
-                        ?>
-                        <a class="label label-info" id="custID" data-toggle="modal" title="klik untuk melihat detail progress">Baru</a>
-                        <?php
-                      }
+                          $id_pimpinan_kegiatan = $KegiatanM->get_id_pimpinan($kegiatan->kode_unit)->result()[0]->id_pengguna;
+                          if($id_min == $id_pimpinan_kegiatan){
+                           ?>
+                           <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Selesai</a>
+                           <?php
+                         }else{
+                           ?>
+                           <a class="label label-default" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Proses</a>
+                           <?php
+                         }
+                       }
+                     }elseif ($progress > 1) {
+                      ?>
+                      <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Selesai</a>
+                      <?php
+                    }elseif ($progress == 0) {
+                      ?>
+                      <a class="label label-info" id="custID" data-toggle="modal" title="klik untuk melihat detail progress">Baru</a>
+                      <?php
                     }
                   }
-                  ?>
-                </td>
+                }
+                ?>
+              </td>
 
-                <td>
-                  <?php
+              <td>
+                <?php
                     $min = $cek_min_pegawai->ranking; //cek rannking min
                     $id_min     = $KegiatanM->cek_id_by_rank_pegawai($min)->id_pengguna; //id yang rank nya min
                     $progress_min  = $KegiatanM->get_own_progress($kode, $id_min); //progress id min
