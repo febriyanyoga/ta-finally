@@ -50,9 +50,6 @@
       <!-- notificatoin dropdown start-->
       <ul class="nav pull-right top-menu">
         <!-- user login dropdown start-->
-   <!--      <?php
-        print_r($menu)
-        ?> -->
         <li class="dropdown">
           <a data-toggle="dropdown" class="dropdown-toggle" href="#">
             <span class="profile-ava">
@@ -168,7 +165,7 @@
           }
           if(in_array('8', $menu)){
             ?>
-            <li> <a href="<?php echo site_url('BarangC/pengajuan_rab')?>">RAB</a></li>
+            <li> <a href="<?php echo site_url('BarangC/ajukan_rab')?>">RAB</a></li>
             <?php
           }
           if(in_array('9', $menu)){
