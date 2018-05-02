@@ -170,7 +170,7 @@
           }
           if(in_array('9', $menu)){
             ?>
-            <li> <a href="<?php echo site_url('BarangC/pengajuan_barang')?>">Barang</a></li>
+            <li> <a href="<?php echo site_url('BarangC/ajukan_barang')?>">Barang</a></li>
             <?php
           }
           ?>
