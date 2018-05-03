@@ -11,7 +11,6 @@
       <div class="col-lg-12">
        <!-- Alert -->
        <?php 
-       // print_r($pilihan_barang_tambah);
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
        <div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
@@ -73,7 +72,7 @@
                 </td>
               </tr>
 
-              <!-- Modal Terima Item Pengajuan -->
+              <!-- Modal Edit Item Pengajuan -->
               <div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="modal-<?php echo $barang->kode_item_pengajuan; ?>" class="modal fade">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -90,9 +89,9 @@
                              <select class="form-control" name="kode_barang" id="kode_barang">
                               <option value="">---- Pilih Barang ---- </option>
                               <?php 
-                              foreach ($pilihan_barang as $pilihan_barang) {
+                              foreach ($pilihan_barang as $pilihan_bar) {
                                 ?>
-                                <option <?php if ($pilihan_barang->kode_barang == $barang->kode_barang) {echo "selected=selected";} ?> value="<?php echo $pilihan_barang->kode_barang ?>"><?php echo $pilihan_barang->nama_barang ?></option>
+                                <option <?php if ($pilihan_bar->kode_barang == $barang->kode_barang) {echo "selected=selected";} ?> value="<?php echo $pilihan_bar->kode_barang ?>"><?php echo $pilihan_bar->nama_barang ?></option>
                                 <?php
                               }
                               ?>
@@ -111,7 +110,7 @@
                         </div>
                       </div>
                       <input type="hidden" class="form-control" placeholder id="tgl_item_pengajuan" name="tgl_item_pengajuan" required value="<?php echo date('Y-m-d');?>">
-                      <input type="hidden" class="form-control" placeholder id="pimpinan" name="pimpinan" required value="<?php echo $data_pimpinan;?>">
+                      <input type="hidden" class="form-control" placeholder id="pimpinan" name="pimpinan" required value="<?php echo $data_pimpinan->id_pengguna;?>">
                       <div class="form-group">
                         <div class="modal-body">
                           <label class="col-lg-4 col-sm-2 control-label">url :</label>
@@ -164,7 +163,7 @@
           </div>
         </div>
       </div>
-      <!-- END Modal Terima Item Pengajuan-->
+      <!-- END Modal Edit Item Pengajuan-->
 
       <?php
     }
