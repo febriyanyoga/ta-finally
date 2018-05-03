@@ -1,4 +1,4 @@
- <?php  
+inse <?php  
  defined('BASEPATH') OR exit('No direct script access allowed');  
  class BarangM extends CI_Model  
  {  
@@ -159,6 +159,11 @@
 		}
 	} 
 
+	public function insert_progress($data){   //post progress
+		$query = $this->db->insert('progress', $data);
+		return $query; 
+	}
+	
 	function get_barang(){ //menampilkan data seluruh barang
 		$this->db->select('*');
 		$this->db->from('barang');

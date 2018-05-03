@@ -8,7 +8,7 @@ class BarangC extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model(['UserM','PenggunaM','BarangM']);
+		$this->load->model(['BarangM','PenggunaM','BarangM']);
 		in_access(); //helper buat batasi akses login/session
 
 		$data_akses_menu = $this->PenggunaM->get_akses_menu()->result();
@@ -66,7 +66,8 @@ class BarangC extends CI_Controller {
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = " Daftar Pengajuan Barang | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
 		$this->data['data_ajukan_barang'] = $this->BarangM->get_ajukan_barang()->result();
-		$this->data['data_pimpinan'] = $this->BarangM->get_id_pimpinan()->result();
+		$kode_unit = $this->session->userdata('kode_unit');
+		$this->data['data_pimpinan'] = $this->BarangM->get_id_pimpinan($kode_unit)->result()[0];
 		$this->data['pilihan_barang'] = $this->BarangM->get_pilihan_barang()->result();
 		$this->data['pilihan_barang_tambah'] = $this->BarangM->get_pilihan_barang()->result();
 		$this->data['BarangM'] = $this->BarangM;
@@ -111,7 +112,7 @@ class BarangC extends CI_Controller {
 	}
 
 	public function ubah_barang($kode_barang){ //menampilkan modal dengan isi dari ubah_barang.php
-		$data['ubah_barang']          = $this->UserM->get_barang_by_kode_barang($kode_barang)->result()[0];
+		$data['ubah_barang']          = $this->BarangM->get_barang_by_kode_barang($kode_barang)->result()[0];
 		$data['pilihan_jenis_barang'] = $this->BarangM->get_pilihan_jenis_barang($kode_barang)->result();
 		echo json_encode($data);
 	}
@@ -130,7 +131,7 @@ class BarangC extends CI_Controller {
 			'nama_barang'       => $nama_barang,
 			'kode_jenis_barang' => $kode_jenis_barang
 		);
-		$this->UserM->ubah_data_barang($id,$data);
+		$this->BarangM->ubah_data_barang($id,$data);
 		redirect('BarangC/kelola_barang');
 	}
 
@@ -241,7 +242,7 @@ class BarangC extends CI_Controller {
 			$data = array(
 				'status_pengajuan' => $persetujuan
 			);
-			if($this->UserM->insert_progress($data_progress)){
+			if($this->BarangM->insert_progress($data_progress)){
 				$this->BarangM->update_persetujuan($data,$kode_fk);
 				$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
 				redirect('BarangC/persetujuan_barang');
@@ -270,7 +271,7 @@ class BarangC extends CI_Controller {
 			redirect('BarangC/ajukan_barang') ;
 			//redirect ke halaman pengajuan barang
 		}else{
-			$upload = $this->BarangMprasM->upload(); // lakukan upload file dengan memanggil function upload yang ada di BarangMprasM.php
+			$upload = $this->BarangM->upload(); // lakukan upload file dengan memanggil function upload yang ada di BarangMprasM.php
 			$id_pengguna 		= $_POST['id_pengguna'];
 			$kode_barang 		= $_POST['kode_barang'];
 			$tgl_item_pengajuan = $_POST['tgl_item_pengajuan'];
@@ -391,7 +392,7 @@ class BarangC extends CI_Controller {
         		$this->image_lib->resize();
 
         		$gambar=$gbr['file_name'];
-        		$this->UserM->simpan_upload($id_pengguna,$gambar);
+        		$this->BarangM->simpan_upload($id_pengguna,$gambar);
         		$this->session->set_flashdata('sukses','Foto berhasil diunggah');
         		redirect('BarangC/data_diri');
         		// echo "Image berhasil diupload";
@@ -405,7 +406,7 @@ class BarangC extends CI_Controller {
     }
 
 	public function post_persetujuan_tersedia($kode_item_pengajuan){ // untuk mengubah status persediaan dan pengajuan jd selese serta tambah progres
-		$data_diri = $this->BarangM->get_data_diri()->result()[0];
+		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];
 
 		
 
@@ -438,7 +439,7 @@ class BarangC extends CI_Controller {
 				'waktu_progress'	=> $waktu_progress
 
 			);
-			$this->UserM->insert_progress($data_progress);
+			$this->BarangM->insert_progress($data_progress);
 			$this->session->set_flashdata('sukses','Sukses Menyetujui Barang');
 			redirect('BarangC/persetujuan_barang');
 		}else{

@@ -60,7 +60,7 @@
 
                      <td>
                       <?php
-                      $progress_saya = $Man_sarprasM->get_progress_barang_by_id($barang->kode_item_pengajuan, $data_diri->id_pengguna);
+                      $progress_saya = $BarangM->get_progress_barang_by_id($barang->kode_item_pengajuan, $data_diri->id_pengguna);
 
                       if($progress_saya == 1){?>
                       <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
@@ -81,7 +81,7 @@
                       <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                       <h4 class="modal-title" id="titlemodal">Edit Pengajuan Barang</h4>
                     </div>
-                    <form class="form-horizontal" action="<?php echo base_url('Man_sarprasC/post_persetujuan_barang');?>" method="post">
+                    <form class="form-horizontal" action="<?php echo base_url('BarangC/post_persetujuan_barang');?>" method="post">
                       <div class="modal-body">
                         <div class="form-group">
                           <div class="modal-body">
@@ -194,7 +194,7 @@
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
         <h4 class="modal-title">Ajukan Barang</h4>
       </div>
-      <form class="form-horizontal" action="<?php echo base_url('Man_sarprasC/post_tambah_ajukan_barang');?>" method="post" enctype="multipart/form-data" role="form">
+      <form class="form-horizontal" action="<?php echo base_url('BarangC/post_tambah_ajukan_barang');?>" method="post" enctype="multipart/form-data" role="form">
         <div class="modal-body">
           <div class="form-group">
             <label class="col-lg-4 col-sm-2 control-label" for="barang"> Barang :</label>
@@ -220,7 +220,7 @@
           </div>
         </div>
         <input type="hidden" class="form-control" placeholder id="tgl_item_pengajuan" name="tgl_item_pengajuan" required value="<?php echo date('Y-m-d');?>">
-        <input type="hidden" class="form-control" placeholder id="pimpinan" name="pimpinan" required value="<?php echo $data_pimpinan;?>">
+        <input type="hidden" class="form-control" placeholder id="pimpinan" name="pimpinan" required value="<?php echo $data_pimpinan->id_pengguna;?>">
         <div class="form-group">
           <label class="col-lg-4 col-sm-2 control-label">url :</label>
           <div class="col-lg-8">
@@ -272,7 +272,7 @@
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
         <h4 class="modal-title">Ajukan Barang Baru</h4>
       </div>
-      <form class="form-horizontal" action="<?php echo base_url('Man_sarprasC/post_tambah_barang_baru');?>" method="post">
+      <form class="form-horizontal" action="<?php echo base_url('BarangC/post_tambah_barang_baru');?>" method="post">
         <div class="modal-body">
           <div class="form-group">
             <label class="col-lg-4 col-sm-2 control-label">Nama Barang :</label>
@@ -326,7 +326,7 @@
             //menggunakan fungsi ajax untuk pengambilan data
             $.ajax({
               type : 'get',
-              url : '<?php echo base_url().'Man_sarprasC/detail_progress_barang/'?>'+rowid,
+              url : '<?php echo base_url().'BarangC/detail_progress_barang/'?>'+rowid,
                 //data :  'rowid='+ rowid, // $_POST['rowid'] = rowid
                 success : function(data){
                 $('.fetched-data').html(data);//menampilkan data ke dalam modal
