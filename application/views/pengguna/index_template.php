@@ -353,6 +353,8 @@
         $('#example').DataTable();
         $('#example1').DataTable();
         $('#prosedur').DataTable();
+        $('#akses_menu').DataTable();
+        $('#jabatan_unit').DataTable();
 
       } 
       );
