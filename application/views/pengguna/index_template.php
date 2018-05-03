@@ -294,31 +294,13 @@
   </div>
 </div>
 
-<!-- modal edit pengajuan -->
-<div class="modal fade" id="myModal1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Ubah Pengajuan Kegiatan</h4>
-      </div>
-      <div class="modal-body">
-        <div class="fetched-data"></div>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
 <!-- container section start -->
 <script src="<?php echo base_url();?>assets/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery.js"></script>
 <script src="<?php echo base_url();?>assets/js/scripts.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.4.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery-ui-1.9.2.custom.min.js"></script>
-
 <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
-
 <script src="<?php echo base_url();?>assets/js/jquery.scrollTo.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.nicescroll.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.rateit.min.js"></script>
@@ -365,6 +347,19 @@
       });
 
       $(function() {
+        $("#from2").datepicker({
+          defaultDate: new Date(),
+          minDate: new Date(),
+          onSelect: function(dateStr) 
+          {         
+            $("#to2").datepicker("destroy");
+            $("#to2").val(dateStr);
+            $("#to2").datepicker({ minDate: new Date(dateStr)})
+          }
+        });
+      });
+
+       $(function() {
         $("#from").datepicker({
           defaultDate: new Date(),
           minDate: new Date(),
@@ -392,12 +387,12 @@
             });
           });
 
-        $('#myModal1').on('show.bs.modal', function (e) {
+        $('#modal_edit_keg').on('show.bs.modal', function (e) {
           var rowid = $(e.relatedTarget).data('id');
             //menggunakan fungsi ajax untuk pengambilan data
             $.ajax({
               type : 'get',
-              url : '<?php echo base_url().'KadepC/edit_pengajuan/'?>'+rowid,
+              url : '<?php echo base_url().'KegiatanC/edit_pengajuan/'?>'+rowid,
                 //data :  'rowid='+ rowid, // $_POST['rowid'] = rowid
                 success : function(data){
                 $('.fetched-data').html(data);//menampilkan data ke dalam modal

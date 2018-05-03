@@ -53,6 +53,12 @@ class KegiatanC extends CI_Controller {
 		$this->load->view('pengguna/detail_pengajuan', $data);
 	}
 
+	public function edit_pengajuan($id){ //menampilkan modal dengan isi dari detail_pengajuan.php
+		$data['detail_kegiatan'] 	= $this->KegiatanM->get_data_pengajuan_by_id($id)->result()[0];
+		$data['data_diri'] 			= $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+		$data['nama_progress'] 		= $this->KegiatanM->get_pilihan_nama_progress()->result();
+		$this->load->view('pengguna/edit_pengajuan', $data);
+	}
 
 	public function persetujuan_kegiatan_pegawai(){ //halaman persetujuan kegiatan pegawai (kadep)
 		$data['menu'] = $this->data_menu;
@@ -154,6 +160,7 @@ class KegiatanC extends CI_Controller {
 		$data['body'] = $this->load->view('pengguna/status_pengajuan_kegiatan_mahasiswa_content', $this->data, true) ;
 		$this->load->view('pengguna/index_template', $data);
 	}
+
 
 
 
@@ -315,7 +322,7 @@ class KegiatanC extends CI_Controller {
 
 					if($id_pengguna == $pimpinan){
 					$this->KegiatanM->insert_progress($data); //insert progress langsung ketika mengajukan kegiatan untuk manajer, kepala, dan pimpinan yang lain
-					}
+				}
 				}else{ // Jika proses upload gagal
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 					$this->KegiatanM->delete($insert_id);//hapus data pengajuan kegiatan ketka gagal upload file

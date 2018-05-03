@@ -73,7 +73,7 @@
                             <?php 
                             $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
                             $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
-                        $kode = $kegiatan->kode_kegiatan; 
+                            $kode = $kegiatan->kode_kegiatan; 
                         $own_id     = $data_diri->id_pengguna; //id sendri
                         $max        = $cek_max_pegawai->ranking; //id pengguna rank tertinggi
                         $id_max     = $KegiatanM->cek_id_by_rank_pegawai($max)->id_pengguna; //id yang rank nya max
@@ -127,9 +127,9 @@
                     <?php 
                   }else{?>
                   <div class="btn-group">
-                    <a href="#myModal1" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Ubah Pengajuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                    <a href="#modal_edit_keg" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Ubah Pengajuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
 
-                    <a href="<?php echo base_url('KadepC/hapus_pengajuan')."/".$kegiatan->kode_kegiatan;?>" onClick="return confirm('Anda yakin akan menghapus data pengajuan ini?')" data-toggle='tooltip' title='hapus' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>                            
+                    <a href="<?php echo base_url('KegiatanC/hapus_pengajuan')."/".$kegiatan->kode_kegiatan;?>" onClick="return confirm('Anda yakin akan menghapus data pengajuan ini?')" data-toggle='tooltip' title='hapus' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>                            
                   </div>
                   <?php 
                 }
@@ -241,11 +241,28 @@
         <div class="modal-footer">
           <input type="submit" class="btn btn-info col-lg-2"  value="Submit">
         </div> 
-        <?php echo form_close()?>
       </form>
+      <?php echo form_close()?>
     </div>
     <div class="col-lg-1"></div>
   </div>
 </div>
 </div>
+</div>
+
+<!-- modal edit pengajuan -->
+<div class="modal fade" id="modal_edit_keg" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ubah Pengajuan Kegiatan</h4>
+      </div>
+      <div class="modal-body">
+        <div class="fetched-data"></div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
 </div>

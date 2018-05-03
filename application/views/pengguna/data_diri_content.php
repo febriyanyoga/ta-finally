@@ -217,6 +217,8 @@
                   <label>Unggah Foto</label>
                   <input type="file" name="foto_profil">
                   <input type="hidden" name="id_pengguna" id="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>">
+                  <br><small><p>Hanya berkas bertipe <b>.gif-.jpg-.png-.jpeg-.bmp</b></p></small>
+                  <small><p>Diutamakan berukuran<b> Kotak</b></p></small>
                 </div>
               </div> 
               <!-- <button type="reset" class="btn btn-default">Reset Button</button> -->

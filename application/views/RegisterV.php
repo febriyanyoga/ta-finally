@@ -40,7 +40,7 @@
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown" style="">
-						<a href="#" class="dropdown-toggle btn " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Unduh Prosedur<span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle btn" style="padding: 10px 20px 10px 20px; margin-top: 4px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Unduh Prosedur<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<?php $link_peg = base_url()."assets/file_prosedur/".$prosedur_pegawai[0]->nama_file;?>
 							<li class="dropdown-header">Kegiatan</li>
@@ -53,7 +53,7 @@
 							<li><a href="<?php echo $link_brg;?>" target="_blank">Pengadaan Barang</a></li>
 						</ul>
 					</li>
-					<li><a href="<?php echo base_url('LoginC/')?>">Masuk</a></li>
+					<li><a class="btn btn-info masuk" style="padding: 10px 20px 10px 20px; margin-top: 4px; margin-left: 10px;" href="<?php echo base_url('LoginC/')?>">Masuk</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -66,7 +66,7 @@
 			<div class="container">
 				?>
 				<div class="row">
-					<div class="col-sm-6 col-sm-offset-3 form-box" style="margin-top: 3%; ">
+					<div class="col-sm-6 col-sm-offset-3 form-box" style="margin-top: 1%; ">
 						<form role="form" action="<?php echo base_url(); ?>UserC/daftar" method="post" class="registration-form">
 							<fieldset>
 								<div class="form-top">
