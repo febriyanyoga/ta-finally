@@ -6,6 +6,10 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" sizes="192x192"  href="<?php echo base_url();?>assets/icon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo base_url();?>assets/icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="<?php echo base_url();?>assets/icon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url();?>assets/icon/favicon-16x16.png">
 	<title>Sistem Pengajuan Kegiatan dan Pengadaan Barang</title>
 
 	<!-- CSS -->
@@ -15,11 +19,6 @@
 	<link rel="stylesheet" href="<?php echo base_url()?>assets_2/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="<?php echo base_url()?>assets_2/css/form-elements.css">
 	<link rel="stylesheet" href="<?php echo base_url()?>assets_2/css/style.css">
-	<link rel="shortcut icon" href="<?php echo base_url()?>assets_2/ico/favicon.png">
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url()?>assets_2/ico/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url()?>assets_2/ico/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url()?>assets_2/ico/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="<?php echo base_url()?>assets_2/ico/apple-touch-icon-57-precomposed.png">
 
 </head>
 

@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="<?php echo base_url()?>assets_2/css/form-elements.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style_2.css">
   <!-- <link rel="stylesheet" href="<?php echo base_url()?>assets_2/css/style.css"> -->
-  <link rel="shortcut icon" href="<?php echo base_url()?>assets_2/ico/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="<?php echo base_url();?>assets/icon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="<?php echo base_url();?>assets/icon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="<?php echo base_url();?>assets/icon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url();?>assets/icon/favicon-16x16.png">
 </head>
 
 <body>
@@ -117,31 +120,31 @@
                     <!-- <button class="btn reveal" type="button"><i class="glyphicon glyphicon-eye-open"></i></button> -->
                     <!-- </span> -->
                     <!-- </div> -->
-              </div>
+                  </div>
 
-              <div class="form-group">
-                <?=$cap_img?>
-              </div>
+                  <div class="form-group">
+                    <?=$cap_img?>
+                  </div>
 
-              <div class="form-group">
-                <input type="text" name="captcha" class="form-control" placeholder="Masukkan Captcha" required oninvalid="this.setCustomValivdity('Captcha tidak boleh kosong')" oninput="setCustomValidity('')">
-              </div>
+                  <div class="form-group">
+                    <input type="text" name="captcha" class="form-control" placeholder="Masukkan Captcha" required oninvalid="this.setCustomValivdity('Captcha tidak boleh kosong')" oninput="setCustomValidity('')">
+                  </div>
 
-              <button type="submit" class="btn">Masuk</button>
-              <div class="form-links">
-                <p>Belum punya akun? <a href="<?php echo site_url('UserC/daftar')?>" class="launch-modal" data-modal-id="modal-privacy"> - Daftar</a></p>
-                <!-- <a href="" class="launch-modal" data-modal-id="modal-faq">FAQ</a> -->
+                  <button type="submit" class="btn">Masuk</button>
+                  <div class="form-links">
+                    <p>Belum punya akun? <a href="<?php echo site_url('UserC/daftar')?>" class="launch-modal" data-modal-id="modal-privacy"> - Daftar</a></p>
+                    <!-- <a href="" class="launch-modal" data-modal-id="modal-faq">FAQ</a> -->
+                  </div>
+                </form>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
 
-</div>       
-</div>             
+    </div>       
+  </div>             
 </body>
 </html>
 <!-- <script type="text/javascript">
