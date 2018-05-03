@@ -100,7 +100,7 @@ class KegiatanC extends CI_Controller {
 		$data['title'] = "Pengajuan Kegiatan Mahasiswa | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
 
 		$this->data['data_kegiatan'] = $this->PenggunaM->get_kegiatan_pegawai()->result();	//menampilkan kegiatan yang diajukan user sebagai pegwai
-		$this->data['cek_id_staf_keu'] = $this->PenggunaM->cek_id_staf_keu()->result();	
+		$this->data['cek_id_staf_keu'] = $this->KegiatanM->cek_id_staf_keu()->result();	
 		$this->data['data_diri'] =	$data_diri;  	//get data diri buat nampilin nama di pjok kanan
 		$this->data['KegiatanM'] = $this->KegiatanM ;
 		$data['body'] = $this->load->view('pengguna/pengajuan_kegiatan_mahasiswa_content', $this->data, true) ;

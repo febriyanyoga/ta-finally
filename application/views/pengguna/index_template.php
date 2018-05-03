@@ -160,15 +160,23 @@
       }
       ?>
 
-      <li class="sub-menu">
-        <a href="javascript:;" class="">
-          <i class="icon_ol"></i>
-          <span>Pengajuan</span>
-          <span class="menu-arrow arrow_carrot-right"></span>
-        </a>
-        <ul class="sub">
-          <li> <a href="<?php echo site_url('KegiatanC/pengajuan_kegiatan_pegawai')?>">Kegiatan Pegawai</a></li>
-          <?php
+      <?php
+      if(in_array('6', $menu) || in_array('7', $menu) || in_array('8', $menu) || in_array('9', $menu)){
+        ?>
+        <li class="sub-menu">
+          <a href="javascript:;" class="">
+            <i class="icon_ol"></i>
+            <span>Pengajuan</span>
+            <span class="menu-arrow arrow_carrot-right"></span>
+          </a>
+          <ul class="sub">
+            <?php
+          }
+          if(in_array('7', $menu)){
+            ?>
+            <li> <a href="<?php echo site_url('KegiatanC/pengajuan_kegiatan_pegawai')?>">Kegiatan Pegawai</a></li>
+            <?php
+          }
           if(in_array('6', $menu)){
             ?>
             <li> <a href="<?php echo site_url('KegiatanC/pengajuan_kegiatan_mahasiswa')?>">Kegiatan Mahasiswa</a></li>
@@ -184,10 +192,13 @@
             <li> <a href="<?php echo site_url('BarangC/ajukan_barang')?>">Barang</a></li>
             <?php
           }
-          ?>
-        </ul>
-      </li>
-
+          if(in_array('6', $menu) || in_array('7', $menu) || in_array('8', $menu) || in_array('9', $menu)){
+            ?>
+          </ul>
+        </li>
+        <?php
+      }
+      ?>
 
       <?php
       if(in_array('10', $menu) || in_array('11', $menu) || in_array('18', $menu)){
@@ -306,21 +317,6 @@
 </div>
 
 <!-- modal edit pengajuan -->
-<div class="modal fade" id="myModal1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Ubah Pengajuan Kegiatan</h4>
-      </div>
-      <div class="modal-body">
-        <div class="fetched-data"></div>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
 <!-- container section start -->
 <script src="<?php echo base_url();?>assets/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery.js"></script>
@@ -388,36 +384,36 @@
         });
       });
 
-      // js detail_progress
-      $(document).ready(function(){
-        $('#modal_progress').on('show.bs.modal', function (e) {
-          var rowid = $(e.relatedTarget).data('id');
-            //menggunakan fungsi ajax untuk pengambilan data
-            $.ajax({
-              type : 'get',
-              url : '<?php echo base_url().'KegiatanC/detail_progress/'?>'+rowid,
-                //data :  'rowid='+ rowid, // $_POST['rowid'] = rowid
-                success : function(data){
-                $('.fetched-data').html(data);//menampilkan data ke dalam modal
-              }
-            });
-          });
-
-        $('#myModal1').on('show.bs.modal', function (e) {
-          var rowid = $(e.relatedTarget).data('id');
-            //menggunakan fungsi ajax untuk pengambilan data
-            $.ajax({
-              type : 'get',
-              url : '<?php echo base_url().'KadepC/edit_pengajuan/'?>'+rowid,
-                //data :  'rowid='+ rowid, // $_POST['rowid'] = rowid
-                success : function(data){
-                $('.fetched-data').html(data);//menampilkan data ke dalam modal
-              }
-            });
-          });
+      $(function() {
+        $("#from2").datepicker({
+          defaultDate: new Date(),
+          minDate: new Date(),
+          onSelect: function(dateStr) 
+          {         
+            $("#to2").datepicker("destroy");
+            $("#to2").val(dateStr);
+            $("#to2").datepicker({ minDate: new Date(dateStr)})
+          }
+        });
       });
 
-    </script>
+    // js detail_progress
+    $(document).ready(function(){
+      $('#modal_progress').on('show.bs.modal', function (e) {
+        var rowid = $(e.relatedTarget).data('id');
+    //menggunakan fungsi ajax untuk pengambilan data
+    $.ajax({
+      type : 'get',
+      url : '<?php echo base_url().'KegiatanC/detail_progress/'?>'+rowid,
+    //data :  'rowid='+ rowid, // $_POST['rowid'] = rowid
+    success : function(data){
+    $('.fetched-data').html(data);//menampilkan data ke dalam modal
+  }
+});
+  });
+    });
 
-  </body>
-  </html>
+  </script>
+
+</body>
+</html>
