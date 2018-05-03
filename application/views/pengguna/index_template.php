@@ -55,7 +55,7 @@
      </div>
 
      <!--logo start-->
-     <a href="index.html" class="logo"><?php echo $data_diri->nama_jabatan." ";?><span class="lite"><?php echo $data_diri->nama_unit?></span></a>
+     <a href="<?php base_url('PenggunaC/');?>" class="logo"><?php echo $data_diri->nama_jabatan." ";?><span class="lite"><?php echo $data_diri->nama_unit?></span></a>
      <!--logo end-->
      <div class="top-nav notification-row">                
       <!-- notificatoin dropdown start-->

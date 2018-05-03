@@ -143,7 +143,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                    <h4 class="modal-title">Pengajuan Kegiatan</h4>
+                    <h4 class="modal-title">Ubah Pengajuan Kegiatan Pegawai</h4>
                   </div>
                   <div class="row">
                     <div class="col-lg-12">
@@ -151,22 +151,17 @@
                        <div class="alert alert-danger">
                         <ol type="1"> <strong>Perhatian !</strong>
                           <li>Isi <b>Nama Kegiatan</b> sesuai dengan kegiatan yang ingin dilaksanakan.</li>
-                          <li>Pengisian <b>Tanggal Kegiatan</b> minimal <b>1 bulan</b> setelah tanggal pengajuan.</li>
-                          <li>Pengisian <b>Dana yang diajukan</b> hanya menggunakan <b>angka</b> tanpa <b>titik(.)</b>.</li>
                           <li>Berkas yang diunggah hanya <b>satu(1)</b> berupa berkas <b>.pdf</b>. Apabila membutuhkan lebih dari satu berkas, maka harus dijadikan satu berkas <b>.pdf</b>.</li>
                           <li>Data yang sudah mendapat persetujuan <b>tidak dapat diubah</b>.</li>
                         </ol>
                       </div>
-                      <?php echo form_open_multipart('KegiatanC/post_pengajuan_kegiatan_pegawai');?>
-                      <form role="form" action="<?php echo base_url(); ?>KegiatanC/post_pengajuan_kegiatan_pegawai" method="post">
+                      <?php echo form_open_multipart('KegiatanC/post_ubah_pengajuan_kegiatan');?>
+                      <form role="form" action="<?php echo base_url(); ?>KegiatanC/post_ubah_pengajuan_kegiatan" method="post">
                         <!-- Alert -->
                         <!-- sampai sini -->
                         <div class="form-group">
                           <!-- <label>ID Pengguna Jabatan</label> -->
-
-                          <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
-
-                          <input class="form-control" type="hidden" id="pimpinan" name="pimpinan" value="<?php echo $id_pimpinan->id_pengguna;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
+                          <input class="form-control" type="hidden" id="kode_kegiatan" name="kode_kegiatan" value="<?php echo $kegiatan->kode_kegiatan;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
                         </div>
                         <div class="form-group">
                           <!-- <label>Kode Jenis Kegiatan</label> -->
@@ -203,9 +198,6 @@
                           </div>
                         </div>
                         <span class="text-danger" style="color: red;"><?php echo form_error('tgl_kegiatan'); ?></span>  
-                      </div>
-                      <div class="form-group">
-                        <input type="hidden" class="form-control" placeholder id="tgl_pengajuan" name="tgl_pengajuan" required value="<?php echo date('Y-m-d');?>">
                       </div>
                       <div class="form-group">
                         <label>Dana yang diajukan</label>
@@ -281,8 +273,6 @@
            <div class="alert alert-danger">
             <ol type="1"> <strong>Perhatian !</strong>
               <li>Isi <b>Nama Kegiatan</b> sesuai dengan kegiatan yang ingin dilaksanakan.</li>
-              <li>Pengisian <b>Tanggal Kegiatan</b> minimal <b>1 bulan</b> setelah tanggal pengajuan.</li>
-              <li>Pengisian <b>Dana yang diajukan</b> hanya menggunakan <b>angka</b> tanpa <b>titik(.)</b>.</li>
               <li>Berkas yang diunggah hanya <b>satu(1)</b> berupa berkas <b>.pdf</b>. Apabila membutuhkan lebih dari satu berkas, maka harus dijadikan satu berkas <b>.pdf</b>.</li>
               <li>Data yang sudah mendapat persetujuan <b>tidak dapat diubah</b>.</li>
             </ol>

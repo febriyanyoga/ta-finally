@@ -270,7 +270,7 @@ class KegiatanC extends CI_Controller {
 		$this->form_validation->set_rules('dana_diajukan', 'Dana Diajukan','required');
 		$this->form_validation->set_rules('tgl_pengajuan', 'Tanggal Pengajuan','required');
 		if($this->form_validation->run() == FALSE){
-			$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 3');
+			$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan');
 			redirect('KegiatanC/pengajuan_kegiatan_pegawai');
 		}else{
 			$id_pengguna 	       	= $_POST['id_pengguna'];
@@ -326,14 +326,48 @@ class KegiatanC extends CI_Controller {
 				}else{ // Jika proses upload gagal
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 					$this->KegiatanM->delete($insert_id);//hapus data pengajuan kegiatan ketka gagal upload file
-					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 1');
+					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan');
 					redirect('KegiatanC/pengajuan_kegiatan_pegawai');
 				}
 				$this->session->set_flashdata('sukses','Data Pengajuan Kegiatan anda berhasil ditambahkan');
 				redirect('KegiatanC/pengajuan_kegiatan_pegawai');
 			}else{
-				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 2');
+				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan');
 				redirect('KegiatanC/pengajuan_kegiatan_pegawai');
+			}
+		}
+	}
+
+	public function post_ubah_pengajuan_kegiatan(){ //fungsi post pengajuan kegiatan pegawai
+		$this->form_validation->set_rules('nama_kegiatan', 'Nama Kegiatan','required');
+		$this->form_validation->set_rules('kode_kegiatan', 'Kode Kegiatan','required');
+		$this->form_validation->set_rules('tgl_kegiatan', 'Tanggal Kegiatan','required');
+		$this->form_validation->set_rules('tgl_selesai_kegiatan', 'Tanggal Selesai Kegiatan','required');
+		$this->form_validation->set_rules('dana_diajukan', 'Dana Diajukan','required');
+		if($this->form_validation->run() == FALSE){
+			$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil diubah');
+			redirect_back();
+		}else{
+			$kode_kegiatan 			= $_POST['kode_kegiatan'];
+			$nama_kegiatan 			= $_POST['nama_kegiatan'];
+			$tgl_kegiatan 			= date('Y-m-d',strtotime($_POST['tgl_kegiatan']));
+			$tgl_selesai_kegiatan 	= date('Y-m-d',strtotime($_POST['tgl_selesai_kegiatan']));
+			$dana_diajukan 			= $_POST['dana_diajukan'];
+
+			$data_ubah_pengajuan_kegiatan = array(
+				'nama_kegiatan' 		=> $nama_kegiatan,
+				'tgl_kegiatan'			=> $tgl_kegiatan,
+				'tgl_selesai_kegiatan'	=> $tgl_selesai_kegiatan,
+				'dana_diajukan' 		=> $dana_diajukan);
+
+			$insert_id = $this->KegiatanM->insert_ubah_pengajuan_kegiatan($kode_kegiatan, $data_ubah_pengajuan_kegiatan);
+			if($insert_id){ //get last insert id
+				$upload = $this->KegiatanM->upload(); // lakukan upload file dengan memanggil function upload yang ada di KegiatanM.php
+				$this->session->set_flashdata('sukses','Data Pengajuan Kegiatan anda berhasil diubah');
+				redirect_back();
+			}else{
+				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil diubah');
+				redirect_back();
 			}
 		}
 	}

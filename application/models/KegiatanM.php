@@ -184,6 +184,13 @@
 		} 
 	}  
 
+	public function insert_ubah_pengajuan_kegiatan($kode_kegiatan, $data){   //post pengguna_jabatan
+		$this->db->Where('kode_kegiatan', $kode_kegiatan);
+		$this->db->update('kegiatan', $data);
+		return TRUE;
+		
+	}  
+
 	public function save($upload,$insert_id){ // Fungsi untuk menyimpan data ke database
 		$data = array(
 			'kode_kegiatan' => $insert_id, //last insert id
