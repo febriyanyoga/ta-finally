@@ -4,10 +4,21 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sistem Pengajuan Kegiatan dan Pengadaan Barang</title>
+  <!-- u/ membuat title berjalan -->
+  <script type="text/javascript">
+    var txt="SISTEM INFORMASI PENGAJUAN KEGIATAN DAN PENGADAAN BARANG- ";
+    var speed=300;
+    var refresh=null;
+    function action(){
+      document.title=txt;
+      txt=txt.substring(1,txt.length)+txt.charAt(0);
+      refresh=setTimeout("action()",speed);
+    }
+    action();
+  </script>        
 
   <!-- CSS -->
- <!--  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
+  <!--  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/css/animate.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/css/form-elements.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style_2.css">

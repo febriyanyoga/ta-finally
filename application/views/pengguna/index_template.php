@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+  <!-- u/ membuat title berjalan -->
+  <script type="text/javascript">
+    var txt="<?php echo $title; ?>- ";
+    var speed=300;
+    var refresh=null;
+    function action(){
+      document.title=txt;
+      txt=txt.substring(1,txt.length)+txt.charAt(0);
+      refresh=setTimeout("action()",speed);
+    }
+    action();
+  </script>
   <link rel="apple-touch-icon" sizes="57x57" href="<?php echo base_url();?>assets/icon/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="<?php echo base_url();?>assets/icon/apple-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="<?php echo base_url();?>assets/icon/apple-icon-72x72.png">
@@ -19,8 +32,6 @@
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
-
-  <title><?php echo $title; ?></title>
 
   <link href="<?php echo base_url();?>assets/css/elegant-icons-style.css" rel="stylesheet" />
   <link href="<?php echo base_url();?>assets/css/font-awesome.min.css" rel="stylesheet" />    
@@ -294,13 +305,31 @@
   </div>
 </div>
 
+<!-- modal edit pengajuan -->
+<div class="modal fade" id="myModal1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ubah Pengajuan Kegiatan</h4>
+      </div>
+      <div class="modal-body">
+        <div class="fetched-data"></div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
 <!-- container section start -->
 <script src="<?php echo base_url();?>assets/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery.js"></script>
 <script src="<?php echo base_url();?>assets/js/scripts.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.4.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery-ui-1.9.2.custom.min.js"></script>
+
 <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+
 <script src="<?php echo base_url();?>assets/js/jquery.scrollTo.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.nicescroll.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.rateit.min.js"></script>
@@ -347,19 +376,6 @@
       });
 
       $(function() {
-        $("#from2").datepicker({
-          defaultDate: new Date(),
-          minDate: new Date(),
-          onSelect: function(dateStr) 
-          {         
-            $("#to2").datepicker("destroy");
-            $("#to2").val(dateStr);
-            $("#to2").datepicker({ minDate: new Date(dateStr)})
-          }
-        });
-      });
-
-       $(function() {
         $("#from").datepicker({
           defaultDate: new Date(),
           minDate: new Date(),
@@ -387,12 +403,12 @@
             });
           });
 
-        $('#modal_edit_keg').on('show.bs.modal', function (e) {
+        $('#myModal1').on('show.bs.modal', function (e) {
           var rowid = $(e.relatedTarget).data('id');
             //menggunakan fungsi ajax untuk pengambilan data
             $.ajax({
               type : 'get',
-              url : '<?php echo base_url().'KegiatanC/edit_pengajuan/'?>'+rowid,
+              url : '<?php echo base_url().'KadepC/edit_pengajuan/'?>'+rowid,
                 //data :  'rowid='+ rowid, // $_POST['rowid'] = rowid
                 success : function(data){
                 $('.fetched-data').html(data);//menampilkan data ke dalam modal
