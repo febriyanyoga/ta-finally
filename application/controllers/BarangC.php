@@ -331,7 +331,7 @@ class BarangC extends CI_Controller {
 				redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
 			}else{ // Jika proses upload gagal
 				$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
-				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 2');
+				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan ');
 				redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
 			}
 
@@ -448,5 +448,50 @@ class BarangC extends CI_Controller {
 		}
 
 	}
+
+	public function post_ajukan_rab(){ //fungsi untuk tambah barang baru
+		$this->form_validation->set_rules('nama_pengajuan', 'Nama Pengajuan','required');
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->ajukan_RAB();
+			//redirect ke halaman ajukan RAB
+		}else{
+
+			$upload_file = $this->BarangM->upload_file(); // lakukan upload file dengan memanggil function upload yang ada di BarangM.php
+
+			$nama_barang 		= $_POST['nama_pengajuan'];
+			$data_rab			= array(
+				'nama_pengajuan'	 => $nama_pengajuan,
+				'file_rab'  		 => $upload_file['file']['file_name']
+			);
+			if($upload_file['result'] == 'success'){
+				$insert_id = $this->BarangM->insert_pengajuan_rab($data_rab);
+				if($insert_id){
+					$kode_pengajuan = $insert_id;
+					$status_pengajuan = 'pengajuan';
+
+					$data_update = array(
+						'kode_pengajuan' => $kode_pengajuan
+					);
+					$update_fk = $this->BarangM->update_fk($status_pengajuan, $data_update);
+					if($update_fk){
+						$this->session->set_flashdata('sukses','Data Barang Baru berhasil ditambahkan');
+						redirect('BarangC/ajukan_RAB');
+					}else{
+						$this->session->set_flashdata('error','Data Barang Baru tidak berhasil ditambahkan3');
+					redirect('BarangC/ajukan_RAB');
+					}
+				}else{
+					$this->session->set_flashdata('error','Data Barang Baru tidak berhasil ditambahkan 2');
+					redirect('BarangC/ajukan_RAB');
+				}
+				
+			}else{
+				$this->session->set_flashdata('error','Data Barang Baru tidak berhasil ditambahkan1');
+				redirect('BarangC/ajukan_RAB');
+			}
+		}
+
+	}	
 
 }

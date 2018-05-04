@@ -1,13 +1,13 @@
 <?php  
- defined('BASEPATH') OR exit('No direct script access allowed');  
- class BarangM extends CI_Model  
- {  
- 	function __construct(){
- 		parent:: __construct();
- 		$this->load->database();
- 	}
+defined('BASEPATH') OR exit('No direct script access allowed');  
+class BarangM extends CI_Model  
+{  
+	function __construct(){
+		parent:: __construct();
+		$this->load->database();
+	}
 
- 	public function get_id_pimpinan($kode_unit){
+	public function get_id_pimpinan($kode_unit){
 		$this->db->select('pengguna.id_pengguna');
 		$this->db->from('pengguna');
 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
@@ -23,29 +23,29 @@
 			echo "kasiyan deh ga punya pimpinan";
 		}
 	}
- 	
+
  	// Ambil Data Pengajuan Barang 
- 	function get_data_item_pengajuan(){
- 		$this->db->select('*');
- 		$this->db->from('item_pengajuan');
- 		$this->db->join('pengguna', 'pengguna.id_pengguna = item_pengajuan.id_pengguna');
- 		$this->db->join('data_diri', 'pengguna.no_identitas = pengguna.no_identitas');
- 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
- 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
- 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
- 		$this->db->join('barang', 'barang.kode_barang = item_pengajuan.kode_barang');
- 		$this->db->join('jenis_barang', 'jenis_barang.kode_jenis_barang = barang.kode_jenis_barang');
- 		$this->db->join('progress', 'progress.kode_fk = item_pengajuan.kode_item_pengajuan');
- 		$this->db->where('progress.jenis_progress ="barang"');
- 		$this->db->where('progress.kode_nama_progress ="1"');
- 		$this->db->group_by('item_pengajuan.kode_item_pengajuan');
- 		$query = $this->db->get();
- 		if($query){
- 			return $query;
- 		}else{
- 			return null;
- 		}
- 	}
+	function get_data_item_pengajuan(){
+		$this->db->select('*');
+		$this->db->from('item_pengajuan');
+		$this->db->join('pengguna', 'pengguna.id_pengguna = item_pengajuan.id_pengguna');
+		$this->db->join('data_diri', 'pengguna.no_identitas = pengguna.no_identitas');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->join('barang', 'barang.kode_barang = item_pengajuan.kode_barang');
+		$this->db->join('jenis_barang', 'jenis_barang.kode_jenis_barang = barang.kode_jenis_barang');
+		$this->db->join('progress', 'progress.kode_fk = item_pengajuan.kode_item_pengajuan');
+		$this->db->where('progress.jenis_progress ="barang"');
+		$this->db->where('progress.kode_nama_progress ="1"');
+		$this->db->group_by('item_pengajuan.kode_item_pengajuan');
+		$query = $this->db->get();
+		if($query){
+			return $query;
+		}else{
+			return null;
+		}
+	}
 
 	function get_data_item_pengajuan_by_id($id){ // menampilkan detail item pengajuan berdasarkan id
 		$this->db->select('*');
@@ -53,8 +53,8 @@
 		$this->db->join('pengguna', 'pengguna.id_pengguna = item_pengajuan.id_pengguna');
 		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
- 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
- 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
 		$this->db->join('barang', 'barang.kode_barang = item_pengajuan.kode_barang');
 		$this->db->join('jenis_barang', 'jenis_barang.kode_jenis_barang = barang.kode_jenis_barang');
 		$this->db->where('kode_item_pengajuan', $id);
@@ -92,6 +92,12 @@
 		} 
 	} 
 
+	public function insert_pengajuan_rab($data){   //insert tabel pengajuan
+		if($this->db->insert('pengajuan', $data)){
+			return $this->db->insert_id(); //return last insert ID
+		} 
+	} 
+
 	public function upload(){ // Fungsi untuk upload gambar ke folder
 		$config['upload_path'] = './assets/file_gambar'; // alamat folder penyimpanan gambar
 		$config['allowed_types'] = 'jpg|png|jpeg|PNG';	 // tipe file yang boleh diunggah
@@ -103,6 +109,25 @@
 		if($this->upload->do_upload('file_gambar')){ // Lakukan upload dan Cek jika proses upload berhasil
 			// Jika berhasil :
 			$return = array('result' => 'success', 'file' => $this->upload->data(), 'error' => ''); // file akan di upload dan pindah ke folder penyimpanan gambar
+			return $return;
+		}else{
+			// Jika gagal :
+			$return = array('result' => 'failed', 'file' => '', 'error' => $this->upload->display_errors()); // akan muncul pesan error 
+			return $return;
+		}
+	}
+
+	public function upload_file(){ // Fungsi untuk upload file RAB ke folder
+		$config['upload_path'] = './assets/file_rab'; // alamat folder penyimpanan gambar
+		$config['allowed_types'] = 'xlsx|xls';	 // tipe file yang boleh diunggah
+		$config['max_size']	= '';					 // maksimal ukuran file yang diunggah
+		$config['remove_space'] = TRUE;					 // menghilangkan spasi pada nama file
+		$config['encrypt_name'] = TRUE;					 // mengenkripsi nama file yang diunggah
+
+		$this->load->library('upload', $config); // Load konfigurasi uploadnya
+		if($this->upload->do_upload('file_rab')){ // Lakukan upload dan Cek jika proses upload berhasil
+			// Jika berhasil :
+			$return = array('result' => 'success', 'file' => $this->upload->data(), 'error' => ''); // file akan di upload dan pindah ke folder penyimpanan RAB
 			return $return;
 		}else{
 			// Jika gagal :
@@ -139,6 +164,12 @@
 	public function update_persetujuan_tersedia($data, $kode_item_pengajuan){ //update persetujuan status persediaan sama progres
 		$this->db->where('item_pengajuan.kode_item_pengajuan', $kode_item_pengajuan);
 		$this->db->update('item_pengajuan', $data);
+		return TRUE;
+	}
+
+	public function update_fk($status_pengajuan, $data_update){ //update persetujuan status persediaan sama progres
+		$this->db->where('item_pengajuan.status_pengajuan', $status_pengajuan);
+		$this->db->update('item_pengajuan', $data_update);
 		return TRUE;
 	}
 
@@ -182,8 +213,8 @@
 		$this->db->from('item_pengajuan');
 		$this->db->join('pengguna', 'pengguna.id_pengguna = item_pengajuan.id_pengguna');
 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
- 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
- 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
 		$this->db->join('barang', 'barang.kode_barang = item_pengajuan.kode_barang');
 		$this->db->join('jenis_barang', 'jenis_barang.kode_jenis_barang = barang.kode_jenis_barang');
 		$this->db->join('progress', 'progress.kode_fk = item_pengajuan.kode_item_pengajuan');
@@ -213,8 +244,8 @@
 		$this->db->join('pengguna', 'progress.id_pengguna = pengguna.id_pengguna');
 		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
- 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
- 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
 		$this->db->join('nama_progress', 'progress.kode_nama_progress = nama_progress.kode_nama_progress');
 		$this->db->where('progress.kode_fk', $id);
 		$this->db->where('progress.jenis_progress = "barang"'); //barang
@@ -257,8 +288,8 @@
 		$this->db->join('barang', 'barang.kode_barang=item_pengajuan.kode_barang');
 		$this->db->join('data_diri', 'data_diri.no_identitas=pengguna.no_identitas');
 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
- 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
- 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
 		$this->db->where('item_pengajuan.status_pengajuan = "pengajuan"');
 		$query = $this->db->get()->result();
 		return $query;
@@ -270,4 +301,6 @@
 		$query = $this->db->get();
 		return $query;
 	}
+
+
 }

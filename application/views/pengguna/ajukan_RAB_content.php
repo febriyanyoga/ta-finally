@@ -188,73 +188,41 @@
   </div>
 </div>
 
-<!-- modal tambah jabatan -->
+<!-- Modal Tambah Pengajuan Barang -->
 <div aria-hidden="true" aria-labelledby="modal_ajukan_rab" role="dialog" tabindex="-1" id="modal_ajukan_rab" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-        <h4 class="modal-title">Ajukan RAB</h4>
+        <h4 class="modal-title">Ajukan Pengajuan RAB</h4>
       </div>
-      <div class="modal-body">
-        <?php echo form_open_multipart('KadepC/tambah_jabatan');?>
-        <form role="form" action="<?php echo base_url(); ?>KadepC/tambah_jabatan" method="post">
+      <form class="form-horizontal" action="<?php echo base_url('BarangC/post_ajukan_rab');?>" method="post">
+        <div class="modal-body">
           <div class="form-group">
-            <label>Nama Jabatan</label>
-            <input class="form-control" placeholder="Nama Jabatan" type="text" id="nama_jabatan" name="nama_jabatan" required>
+            <label class="col-lg-4 col-sm-2 control-label">Nama Pengajuan RAB :</label>
+            <div class="col-lg-8">
+              <input type="text" class="form-control" id="nama_pengajuan" name="nama_pengajuan" placeholder="Nama Pengajuan RAB">
+            </div>
           </div>
-          <div class="modal-footer">
-            <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
-          </div> 
-          <?php echo form_close()?>
-        </form>
-      </div>
+           <div class="form-group">
+            <label class="col-lg-4 col-sm-2 control-label">File RAB :</label>
+            <div class="col-lg-8">
+              <input type="file" id="file_rab" name="file_rab" >
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-info" type="submit"> Simpan </button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+</div>
+<!-- END Modal Tambah Pengajuan Barang-->
 
-<!-- Data tabel jenis_barang-->
-<div id="3" class="tab-pane" role="tabpanel">
-  <div class="row pt-5">
-    <div class="col-lg-12">
-      <div style="margin-top: 20px;">
-        <a class="btn btn-info" data-toggle="modal" data-target="#modal_tambah_jenis_barang"><i class="icon_plus_alt2"> </i> Tambah Jenis Barang </a>
-        <div class="table-responsive">
-         <table id="jenis_barang" class="table table-striped table-bordered" cellspacing="0" width="100%">
-          <thead>
-            <tr>
-              <th style="width: 10px;">No</th>
-              <!-- <th style="width: 10px;">ID</th> -->
-              <th>Nama Jenis Barang</th>
-              <!-- <th>Status</th> -->
-              <th style="width: 50px;">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            $i=0;
-            foreach ($jenis_barang as $jenis_barang) {
-              $i++;
-              ?>
-              <tr>
-                <td><?php echo $i;?></td>
-                <!-- <td><?php echo $jenis_barang->kode_jenis_barang;?></td> -->
-                <td><?php echo $jenis_barang->nama_jenis_barang;?></td>
-                <!-- <td><?php echo "status";?></td> -->
-                <td class="text-center"> 
-                  <a href="#modal_jenis_barang" id="custId" data-toggle="modal" data-id="<?php echo $jenis_barang->kode_jenis_barang;?>" data-toggle="tooltip" title="Edit Jenis Barang" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-                </td>
-              </tr>
-              <?php
-            }
-            ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+
 <!-- ===================================== -->
 </div>
 </div>
@@ -270,3 +238,11 @@
 </section>
 
 <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Untuk sunting
+    $('#modal_ajukan_rab').on('show.bs.modal', function (event) {
+
+    });
+  });
+</script>
