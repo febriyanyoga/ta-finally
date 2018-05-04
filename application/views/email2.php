@@ -65,7 +65,7 @@ a, a:hover {
 			<!-- Set text color to background color -->
 			<div style="display: none; visibility: hidden; overflow: hidden; opacity: 0; font-size: 1px; line-height: 1px; height: 0; max-height: 0; max-width: 0;
 			color: #F0F0F0;" class="preheader">
-				Available on&nbsp;GitHub and&nbsp;CodePen. Highly compatible. Designer friendly. More than 50%&nbsp;of&nbsp;total email opens occurred on&nbsp;a&nbsp;mobile device&nbsp;— a&nbsp;mobile-friendly design is&nbsp;a&nbsp;must for&nbsp;email campaigns.</div>
+				</div>
 
 		</td>
 	</tr>
@@ -108,8 +108,8 @@ a, a:hover {
 		<td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;
 			padding-top: 20px;" class="hero"><a target="_blank" style="text-decoration: none;"
 			href="https://github.com/konsav/email-templates/"><img border="0" vspace="0" hspace="0"
-			src="https://raw.githubusercontent.com/konsav/email-templates/master/images/hero-wide.png"
-			alt="Please enable images to view this content" title="Hero Image"
+			src="https://raw.githubusercontent.com/febriyanyoga/ta-finally/master/assets/img/head-email.png"
+			alt="" title=""
 			width="560" style="
 			width: 100%;
 			max-width: 560px;
@@ -123,7 +123,8 @@ a, a:hover {
 			padding-top: 25px; 
 			color: #000000;
 			font-family: sans-serif;" class="paragraph">
-				More than 50%&nbsp;of&nbsp;total email opens occurred on&nbsp;a&nbsp;mobile device&nbsp;— a&nbsp;mobile-friendly design is&nbsp;a&nbsp;must for&nbsp;email campaigns.
+				Terima kasih telah melakukan pendaftaran akun.<br> Untuk meng-aktifkan akun anda silahkan klik tombol <b>"Konfirmasi Pendaftaran"</b> dibawah :  
+				<!-- More than 50%&nbsp;of&nbsp;total email opens occurred on&nbsp;a&nbsp;mobile device&nbsp;— a&nbsp;mobile-friendly design is&nbsp;a&nbsp;must for&nbsp;email campaigns. -->
 		</td>
 	</tr>
 
@@ -134,10 +135,9 @@ a, a:hover {
 			padding-top: 25px;
 			padding-bottom: 5px;" class="button"><a
 			href="https://github.com/konsav/email-templates/" target="_blank" style="text-decoration: underline;">
-				<table border="0" cellpadding="0" cellspacing="0" align="center" style="max-width: 240px; min-width: 120px; border-collapse: collapse; border-spacing: 0; padding: 0;"><tr><td align="center" valign="middle" style="padding: 12px 24px; margin: 0; text-decoration: underline; border-collapse: collapse; border-spacing: 0; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px;"
-					bgcolor="#E9703E"><a target="_blank" style="text-decoration: underline;
-					color: #FFFFFF; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 120%;"
-					href="https://github.com/konsav/email-templates/">
+				<table border="0" cellpadding="0" cellspacing="0" align="center" style="max-width: 240px; min-width: 120px; border-collapse: collapse; border-spacing: 0; padding: 0;"><tr><td align="center" valign="middle" style="padding: 12px 24px; margin: 0; border-collapse: collapse; border-spacing: 0; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px;"
+					bgcolor="#337ab7"><a target="_blank" style="color: #FFFFFF; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 120%;"
+					href="<?php echo base_url();?>UserC/confirmation/<?php echo $email;?>">
 						Konfirmasi Pendaftaran
 					</a>
 			</td></tr></table></a>
@@ -167,7 +167,7 @@ a, a:hover {
 					padding-right: 20px;"><img
 				border="0" vspace="0" hspace="0" style="padding: 0; margin: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; border: none; display: block;
 					color: #000000;"
-					src="https://raw.githubusercontent.com/konsav/email-templates/master/images/list-item.png"
+					src="https://raw.githubusercontent.com/febriyanyoga/ta-finally/master/assets/image/logo/logo.png"
 					alt="H" title="Highly compatible"
 					width="50" height="50"></td>
 
@@ -177,8 +177,8 @@ a, a:hover {
 					padding-top: 25px;
 					color: #000000;
 					font-family: sans-serif;" class="paragraph">
-						<b style="color: #333333;">Highly compatible</b><br/>
-						Tested on the most popular email clients for web, desktop and mobile. Checklist included.
+						<b style="color: #333333;">Pengajuan Kegiatan</b><br/>
+						Pengguna dapat melakukan pengajuan kegiatan.
 				</td>
 
 			</tr>
@@ -193,7 +193,7 @@ a, a:hover {
 					padding-right: 20px;"><img
 				border="0" vspace="0" hspace="0" style="padding: 0; margin: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; border: none; display: block;
 					color: #000000;"
-					src="https://raw.githubusercontent.com/konsav/email-templates/master/images/list-item.png"
+					src="https://raw.githubusercontent.com/febriyanyoga/ta-finally/master/assets/image/logo/logo.png"
 					alt="D" title="Designer friendly"
 					width="50" height="50"></td>
 
@@ -203,8 +203,8 @@ a, a:hover {
 					padding-top: 25px;
 					color: #000000;
 					font-family: sans-serif;" class="paragraph">
-						<b style="color: #333333;">Designer friendly</b><br/>
-						Sketch app resource file and a&nbsp;bunch of&nbsp;social media icons are&nbsp;also included in&nbsp;GitHub repository.
+						<b style="color: #333333;">Pengadaan Barang</b><br/>
+						Pengguna dapat melakukan pengadaan barang.
 				</td>
 
 			</tr>
@@ -229,7 +229,7 @@ a, a:hover {
 			padding-bottom: 25px;
 			color: #000000;
 			font-family: sans-serif;" class="paragraph">
-				Have a&nbsp;question? <a href="mailto:support@ourteam.com" target="_blank" style="color: #127DB3; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 160%;">support@ourteam.com</a>
+				Punya &nbsp;pertanyaan? <a href="mailto:dtedi.svugm@gmail.com" target="_blank" style="color: #127DB3; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 160%;">Kirim Email</a>
 		</td>
 	</tr>
 
@@ -248,45 +248,7 @@ a, a:hover {
 		<td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%;
 			padding-top: 25px;" class="social-icons"><table
 			width="256" border="0" cellpadding="0" cellspacing="0" align="center" style="border-collapse: collapse; border-spacing: 0; padding: 0;">
-			<tr>
-
-				<!-- ICON 1 -->
-				<td align="center" valign="middle" style="margin: 0; padding: 0; padding-left: 10px; padding-right: 10px; border-collapse: collapse; border-spacing: 0;"><a target="_blank"
-					href="https://raw.githubusercontent.com/konsav/email-templates/"
-				style="text-decoration: none;"><img border="0" vspace="0" hspace="0" style="padding: 0; margin: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; border: none; display: inline-block;
-					color: #000000;"
-					alt="F" title="Facebook"
-					width="44" height="44"
-					src="https://raw.githubusercontent.com/konsav/email-templates/master/images/social-icons/facebook.png"></a></td>
-
-				<!-- ICON 2 -->
-				<td align="center" valign="middle" style="margin: 0; padding: 0; padding-left: 10px; padding-right: 10px; border-collapse: collapse; border-spacing: 0;"><a target="_blank"
-					href="https://raw.githubusercontent.com/konsav/email-templates/"
-				style="text-decoration: none;"><img border="0" vspace="0" hspace="0" style="padding: 0; margin: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; border: none; display: inline-block;
-					color: #000000;"
-					alt="T" title="Twitter"
-					width="44" height="44"
-					src="https://raw.githubusercontent.com/konsav/email-templates/master/images/social-icons/twitter.png"></a></td>				
-
-				<!-- ICON 3 -->
-				<td align="center" valign="middle" style="margin: 0; padding: 0; padding-left: 10px; padding-right: 10px; border-collapse: collapse; border-spacing: 0;"><a target="_blank"
-					href="https://raw.githubusercontent.com/konsav/email-templates/"
-				style="text-decoration: none;"><img border="0" vspace="0" hspace="0" style="padding: 0; margin: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; border: none; display: inline-block;
-					color: #000000;"
-					alt="G" title="Google Plus"
-					width="44" height="44"
-					src="https://raw.githubusercontent.com/konsav/email-templates/master/images/social-icons/googleplus.png"></a></td>		
-
-				<!-- ICON 4 -->
-				<td align="center" valign="middle" style="margin: 0; padding: 0; padding-left: 10px; padding-right: 10px; border-collapse: collapse; border-spacing: 0;"><a target="_blank"
-					href="https://raw.githubusercontent.com/konsav/email-templates/"
-				style="text-decoration: none;"><img border="0" vspace="0" hspace="0" style="padding: 0; margin: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; border: none; display: inline-block;
-					color: #000000;"
-					alt="I" title="Instagram"
-					width="44" height="44"
-					src="https://raw.githubusercontent.com/konsav/email-templates/master/images/social-icons/instagram.png"></a></td>
-
-			</tr>
+			
 			</table>
 		</td>
 	</tr>
@@ -300,7 +262,7 @@ a, a:hover {
 			color: #999999;
 			font-family: sans-serif;" class="footer">
 
-				This email template was sent to&nbsp;you becouse we&nbsp;want to&nbsp;make the&nbsp;world a&nbsp;better place. You&nbsp;could change your <a href="https://github.com/konsav/email-templates/" target="_blank" style="text-decoration: underline; color: #999999; font-family: sans-serif; font-size: 13px; font-weight: 400; line-height: 150%;">subscription settings</a> anytime.
+				Copyright © 2018 <a href="https://ugm.ac.id/" target="_blank" style="text-decoration: underline; color: #999999; font-family: sans-serif; font-size: 13px; font-weight: 400; line-height: 150%;"> UGM </a>. All rights reserved. 
 
 				<!-- ANALYTICS -->
 				<!-- https://www.google-analytics.com/collect?v=1&tid={{UA-Tracking-ID}}&cid={{Client-ID}}&t=event&ec=email&ea=open&cs={{Campaign-Source}}&cm=email&cn={{Campaign-Name}} -->
