@@ -168,7 +168,7 @@ a, a:hover {
 				border="0" vspace="0" hspace="0" style="padding: 0; margin: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; border: none; display: block;
 					color: #000000;"
 					src="https://raw.githubusercontent.com/febriyanyoga/ta-finally/master/assets/image/logo/logo.png"
-					alt="H" title="Highly compatible"
+					alt="H" title="Pengajuan Kegiatan"
 					width="50" height="50"></td>
 
 				<!-- LIST ITEM TEXT -->
@@ -194,7 +194,7 @@ a, a:hover {
 				border="0" vspace="0" hspace="0" style="padding: 0; margin: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; border: none; display: block;
 					color: #000000;"
 					src="https://raw.githubusercontent.com/febriyanyoga/ta-finally/master/assets/image/logo/logo.png"
-					alt="D" title="Designer friendly"
+					alt="D" title="Pengadaan Barang"
 					width="50" height="50"></td>
 
 				<!-- LIST ITEM TEXT -->

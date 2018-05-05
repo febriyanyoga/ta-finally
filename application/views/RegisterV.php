@@ -41,15 +41,27 @@
 					<li class="dropdown" style="">
 						<a href="#" class="dropdown-toggle btn" style="padding: 10px 20px 10px 20px; margin-top: 4px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Unduh Prosedur<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<?php $link_peg = base_url()."assets/file_prosedur/".$prosedur_pegawai[0]->nama_file;?>
-							<li class="dropdown-header">Kegiatan</li>
+							<?php 
+							$new_tgl_brg 		= date('d-m-Y', strtotime($prosedur_barang[0]->created_at)); 
+							$new_time_brg		= date('H:i:s', strtotime($prosedur_barang[0]->created_at));
+							$new_tgl_peg 		= date('d-m-Y', strtotime($prosedur_pegawai[0]->created_at)); 
+							$new_time_peg		= date('H:i:s', strtotime($prosedur_pegawai[0]->created_at));
+							$new_tgl_mhs 		= date('d-m-Y', strtotime($prosedur_mahasiswa[0]->created_at)); 
+							$new_time_mhs		= date('H:i:s', strtotime($prosedur_mahasiswa[0]->created_at));
+							$link_peg = base_url()."assets/file_prosedur/".$prosedur_pegawai[0]->nama_file;
+							?>
+
+							<li class="dropdown-header"><strong>Kegiatan</strong></li>
 							<?php $link_mhs = base_url()."assets/file_prosedur/".$prosedur_mahasiswa[0]->nama_file;?>
 							<li><a href="<?php echo $link_mhs?>" target="_blank">Pengajuan Kegiatan Mahasiswa</a></li>
+							<li class="dropdown-header" style="margin-top: -10px;"><small>diperbarui tanggal <?php echo $new_tgl_mhs." ".$new_time_mhs;?></small></li>
 							<li><a href="<?php echo $link_peg?>" target="_blank">Pengajuan Kegiatan Pegawai</a></li>
+							<li class="dropdown-header" style="margin-top: -10px;"><small>diperbarui tanggal <?php echo $new_tgl_peg." ".$new_time_peg;?></small></li>
 							<li role="separator" class="divider"></li>
-							<li class="dropdown-header">Barang</li>
+							<li class="dropdown-header"><strong>Barang</strong></li>
 							<?php $link_brg = base_url()."assets/file_prosedur/".$prosedur_barang[0]->nama_file;?>
 							<li><a href="<?php echo $link_brg;?>" target="_blank">Pengadaan Barang</a></li>
+							<li class="dropdown-header" style="margin-top: -10px;"><small>diperbarui tanggal <?php echo $new_tgl_brg." ".$new_time_brg;?></small></li>
 						</ul>
 					</li>
 					<li><a class="btn btn-info masuk" style="padding: 10px 20px 10px 20px; margin-top: 4px; margin-left: 10px;" href="<?php echo base_url('LoginC/')?>">Masuk</a></li>

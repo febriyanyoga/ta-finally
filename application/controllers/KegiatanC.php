@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+date_default_timezone_set('Asia/Jakarta');
 class KegiatanC extends CI_Controller {
 
 	var $data = array();
@@ -110,7 +110,7 @@ class KegiatanC extends CI_Controller {
 	public function pengajuan_kegiatan_pegawai(){ //halaman pengajuan kegiatan
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
-		$data['title'] = "Persetujuan Kegiatan Staf | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+		$data['title'] = "Pengajuan Kegiatan Pegawai | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
 		$kode_unit = $this->session->userdata('kode_unit');
 		$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
 		$this->data['id_pimpinan'] = $this->KegiatanM->get_id_pimpinan($kode_unit)->result()[0];
@@ -179,15 +179,15 @@ class KegiatanC extends CI_Controller {
 			redirect_back(); //kembali ke halaman sebelumnya -> helper
 		}else{
 			$id_pengguna		= $_POST['id_pengguna'];
+			$tgl_progress		= $_POST['tgl_progress'];
 			$kode_fk			= $_POST['kode_fk'];
 			$kode_nama_progress	= $_POST['kode_nama_progress'];
 			$komentar			= $_POST['komentar'];
 			$jenis_progress		= $_POST['jenis_progress'];
 
-
 			$format_tgl 	= "%Y-%m-%d";
 			$tgl_progress 	= mdate($format_tgl);
-			$format_waktu 	= "%H:%i";
+			$format_waktu 	= "%H:%i:%s";
 			$waktu_progress	= mdate($format_waktu);
 
 			$data = array(

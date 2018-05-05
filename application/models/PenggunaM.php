@@ -397,4 +397,13 @@
 		$query = $this->db->get();
 		return $query;
 	}
+
+	public function get_jabatan_unit(){
+		$this->db->select('*');
+		$this->db->from('jabatan_unit');
+		$this->db->join('akses_menu', 'akses_menu.kode_jabatan_unit = jabatan_unit.kode_jabatan_unit');
+		$this->db->join('menu', 'akses_menu.kode_menu = menu.kode_menu');
+		$query = $this->db->get();
+		return $query;
+	}
 }
