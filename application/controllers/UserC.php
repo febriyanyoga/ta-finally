@@ -1,5 +1,6 @@
  <?php  
- defined('BASEPATH') OR exit('No direct script access allowed');  
+ defined('BASEPATH') OR exit('No direct script access allowed');
+ date_default_timezone_set('Asia/Jakarta');  
  class UserC extends CI_Controller {  
    function __Construct(){  
     parent::__Construct();  
@@ -18,7 +19,7 @@
 
  public function index(){
   redirect('UserC/daftar');
- }
+}
   public function daftar()  //post pendaftaran
   {  
     $this->form_validation->set_rules('no_identitas', 'Nomor Identitas', 'required|is_unique[pengguna.no_identitas]');  

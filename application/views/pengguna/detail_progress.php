@@ -64,7 +64,7 @@ foreach ($detail_progress as $progress=>$key) {
                                     <span class="qa-message-when-data">
                                     <p class="label label-danger">
                                         <?php
-                                        $tgl =  $key->waktu_progress;
+                                        $tgl =  $key->tgl_progress;
                                         $new_tgl = date('d-m-Y', strtotime($tgl));
                                         echo $new_tgl;
                                         ?>

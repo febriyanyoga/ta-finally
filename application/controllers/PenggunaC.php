@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+date_default_timezone_set('Asia/Jakarta');
 class PenggunaC extends CI_Controller {
 
 	var $data = array();
@@ -72,6 +72,7 @@ class PenggunaC extends CI_Controller {
 		$this->data['jabatan']				= $this->PenggunaM->get_pilihan_jabatan()->result();
 		$this->data['unit']					= $this->PenggunaM->get_pilihan_unit()->result();
 		$this->data['akses_menu']			= $this->PenggunaM->get_akses_menu_2()->result();
+		$this->data['jabatan_unit_menu']	= $this->PenggunaM->get_jabatan_unit()->result();
 		$this->data['data_diri'] 			= $data_diri;  	//get data diri buat nampilin nama di pjok kanan
 		$data['body'] = $this->load->view('pengguna/konfigurasi_sistem_content', $this->data, true);
 		$this->load->view('pengguna/index_template', $data);
@@ -491,9 +492,9 @@ class PenggunaC extends CI_Controller {
         		$config['source_image']='./assets/image/profil/'.$gbr['file_name'];
         		$config['create_thumb']= FALSE;
         		$config['maintain_ratio']= FALSE;
-        		$config['quality']= '50%';
-        		$config['width']= 100;
-        		$config['height']= 100;
+        		$config['quality']= '75%';
+        		$config['width']= 200;
+        		$config['height']= 200;
         		$config['new_image']= './assets/image/profil/'.$gbr['file_name'];
         		$this->load->library('image_lib', $config);
         		// $this->image_lib->crop();

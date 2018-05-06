@@ -536,7 +536,6 @@
        <div style="margin-top: 20px;">
          <a class="btn btn-info" data-toggle="modal" data-target="#modal_tambah_unit"><i class="icon_plus_alt2"> </i> Tambah Unit </a>
          <div class="table-responsive">
-          <?php print_r($akses_menu);?>
            <table id="akses_menu" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
               <tr>

@@ -53,52 +53,64 @@
           <li class="dropdown" style="">
             <a href="#" class="dropdown-toggle btn " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Unduh Prosedur<span class="caret"></span></a>
             <ul class="dropdown-menu">
-             <?php $link_peg = base_url()."assets/file_prosedur/".$prosedur_pegawai[0]->nama_file;?>
-             <li class="dropdown-header">Kegiatan</li>
-             <?php $link_mhs = base_url()."assets/file_prosedur/".$prosedur_mahasiswa[0]->nama_file;?>
-             <li><a href="<?php echo $link_mhs?>" target="_blank">Pengajuan Kegiatan Mahasiswa</a></li>
-             <li><a href="<?php echo $link_peg?>" target="_blank">Pengajuan Kegiatan Pegawai</a></li>
-             <li role="separator" class="divider"></li>
-             <li class="dropdown-header">Barang</li>
-             <?php $link_brg = base_url()."assets/file_prosedur/".$prosedur_barang[0]->nama_file;?>
-             <li><a href="<?php echo $link_brg;?>" target="_blank">Pengadaan Barang</a></li>
-           </ul>
-         </li>
-       </ul>
-     </div><!--/.nav-collapse -->
-   </div>
- </nav>
+              <?php 
+              $new_tgl_brg    = date('d-m-Y', strtotime($prosedur_barang[0]->created_at)); 
+              $new_time_brg   = date('H:i:s', strtotime($prosedur_barang[0]->created_at));
+              $new_tgl_peg    = date('d-m-Y', strtotime($prosedur_pegawai[0]->created_at)); 
+              $new_time_peg   = date('H:i:s', strtotime($prosedur_pegawai[0]->created_at));
+              $new_tgl_mhs    = date('d-m-Y', strtotime($prosedur_mahasiswa[0]->created_at)); 
+              $new_time_mhs   = date('H:i:s', strtotime($prosedur_mahasiswa[0]->created_at));
+              $link_peg       = base_url()."assets/file_prosedur/".$prosedur_pegawai[0]->nama_file;
+              ?>
 
- <!-- Loader -->
- <div class="loader" style="display: none;">
-  <div class="loader-img" style="display: none;"></div>
-</div>
+              <li class="dropdown-header"><strong>Kegiatan</strong></li>
+              <?php $link_mhs = base_url()."assets/file_prosedur/".$prosedur_mahasiswa[0]->nama_file;?>
+              <li><a href="<?php echo $link_mhs?>" target="_blank">Pengajuan Kegiatan Mahasiswa</a></li>
+              <li class="dropdown-header" style="margin-top: -10px;"><small>diperbarui tanggal <?php echo $new_tgl_mhs." ".$new_time_mhs;?></small></li>
+              <li><a href="<?php echo $link_peg?>" target="_blank">Pengajuan Kegiatan Pegawai</a></li>
+              <li class="dropdown-header" style="margin-top: -10px;"><small>diperbarui tanggal <?php echo $new_tgl_peg." ".$new_time_peg;?></small></li>
+              <li role="separator" class="divider"></li>
+              <li class="dropdown-header"><strong>Barang</strong></li>
+              <?php $link_brg = base_url()."assets/file_prosedur/".$prosedur_barang[0]->nama_file;?>
+              <li><a href="<?php echo $link_brg;?>" target="_blank">Pengadaan Barang</a></li>
+              <li class="dropdown-header" style="margin-top: -10px;"><small>diperbarui tanggal <?php echo $new_tgl_brg." ".$new_time_brg;?></small></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
 
-<!-- Top content -->
-<div class="top-content" style="position: relative; z-index: 0; background: none;">
- <header class="header-top">
+  <!-- Loader -->
+  <div class="loader" style="display: none;">
+    <div class="loader-img" style="display: none;"></div>
+  </div>
 
- </header>
- <div class="background">
-  <div class="inner-bg">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-7 text sticky-top sticky-pills">
-          <div class="">
-            <img src="<?php echo base_url();?>assets/img/logo2.png" style="height: 20%; width: 20%;">
-            <h4> Sistem Pengajuan Kegiatan dan Pengadaan Barang</h4>
-            <h4>Departemen Teknik Elektro dan Informatika</h4>
-            <h4>Sekolah Vokasi</h4>
-            <h4>Universitas Gadjah Mada</h4>
-          </div>
-        </div>
-        <div class="col-sm-5 form-box wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
-          <div class="form-top">
-            <div class="form-top-left">
-              <h3>Silahkan Masuk </h3>
-              <p>Masukkan email dan sandi anda disini : </p>
+  <!-- Top content -->
+  <div class="top-content" style="position: relative; z-index: 0; background: none;">
+   <header class="header-top">
+
+   </header>
+   <div class="background">
+    <div class="inner-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-7 text sticky-top sticky-pills">
+            <div class="">
+              <img src="<?php echo base_url();?>assets/img/logo2.png" style="height: 20%; width: 20%;">
+              <h4> Sistem Pengajuan Kegiatan dan Pengadaan Barang</h4>
+              <h4>Departemen Teknik Elektro dan Informatika</h4>
+              <h4>Sekolah Vokasi</h4>
+              <h4>Universitas Gadjah Mada</h4>
             </div>
-            <div>
+          </div>
+          <div class="col-sm-5 form-box wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+            <div class="form-top">
+              <div class="form-top-left">
+                <h3>Silahkan Masuk </h3>
+                <p>Masukkan email dan sandi anda disini : </p>
+              </div>
+              <div>
               <!--   <div>  
                   <p><?php echo $this->session->flashdata('msg'); ?></p>  
                 </div> -->

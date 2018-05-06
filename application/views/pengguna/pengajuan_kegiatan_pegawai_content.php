@@ -283,6 +283,8 @@
             <!-- sampai sini -->
             <div class="form-group">
               <!-- <label>ID Pengguna Jabatan</label> -->
+              <input class="form-control" type="hidden" id="tgl_progress" name="tgl_progress" value="<?php echo mdate("%Y-%m-%d");?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
+              <input class="form-control" type="hidden" id="waktu_progress" name="waktu_progress" value="<?php echo mdate("%H-%i-%s");?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
 
               <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
 
@@ -350,4 +352,26 @@
 </div>
 </div>
 </div>
+
+<script type="text/javascript">
+
+  function harga()
+  {
+  var angka = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('harga').value)))); //input ke dalam angka tanpa titik
+  if (document.getElementById('dana_diajukan').value == "")
+  {
+    alert("Jangan Dikosongi");
+    document.getElementById('dana_diajukan').focus();
+    return false;
+  }
+  else
+    if (angka >= 1)
+    {
+      alert("angka aslinya : "+angka);
+      document.getElementById('dana_diajukan').focus();
+      document.getElementById('dana_diajukan').value = tandaPemisahTitik(angka);
+      return false;
+    }
+  }
+</script>
 
