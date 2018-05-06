@@ -105,7 +105,7 @@
     $data       = array(
       'email'=> $email_encryption
     );
-    $message    = $this->load->view('email.php',$data,TRUE);
+    $message    = $this->load->view('email2.php',$data,TRUE);
     // '<h1>'.$url.'</h1><span style="color: red;"> Departemen Teknik Elektro dan Informatika </span>';
 
     $headers    = 'MIME-Version: 1.0' . "\r\n";

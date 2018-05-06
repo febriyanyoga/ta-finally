@@ -71,6 +71,7 @@ class PenggunaC extends CI_Controller {
 		$this->data['jenis_barang']			= $this->PenggunaM->get_jenis_barang()->result();
 		$this->data['jabatan']				= $this->PenggunaM->get_pilihan_jabatan()->result();
 		$this->data['unit']					= $this->PenggunaM->get_pilihan_unit()->result();
+		$this->data['akses_menu']			= $this->PenggunaM->get_akses_menu_2()->result();
 		$this->data['data_diri'] 			= $data_diri;  	//get data diri buat nampilin nama di pjok kanan
 		$data['body'] = $this->load->view('pengguna/konfigurasi_sistem_content', $this->data, true);
 		$this->load->view('pengguna/index_template', $data);

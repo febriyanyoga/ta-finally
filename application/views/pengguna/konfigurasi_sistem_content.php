@@ -28,17 +28,23 @@
         <li class="nav-item">
           <a class="nav-link program-title" data-toggle="tab" href="#2" role="tab"><span class="glyphicon glyphicon-user"></span><br class="hidden-md-up"> Unit </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link program-title" data-toggle="tab" href="#3" role="tab"><span class="glyphicon glyphicon-gift"></span><br class="hidden-md-up"> Jenis Barang </a>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <!-- <li class="nav-item">
           <a class="nav-link program-title" data-toggle="tab" href="#4" role="tab"><span class="glyphicon glyphicon-list-alt"></span><br class="hidden-md-up"> Jenis Kegiatan </a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link program-title" data-toggle="tab" href="#5" role="tab"><span class="glyphicon glyphicon-time"></span><br class="hidden-md-up"> Nama Progress </a>
         </li>
         <li class="nav-item">
           <a class="nav-link program-title" data-toggle="tab" href="#6" role="tab"><span class="glyphicon glyphicon-ok"></span><br class="hidden-md-up"> Persetujuan Kegiatan </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link program-title" data-toggle="tab" href="#7" role="tab"><span class="glyphicon glyphicon-list"></span><br class="hidden-md-up"> Akses Menu </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link program-title" data-toggle="tab" href="#8" role="tab"><span class="glyphicon glyphicon-th-large"></span><br class="hidden-md-up"> Unit dan Jabatan </a>
         </li>
       </ul>
     </div>
@@ -521,6 +527,59 @@
     </div>
   </div>
 </div>
+</div>
+
+ <!-- Data tabel unit-->
+  <div id="7" class="tab-pane" role="tabpanel">
+    <div class="row pt-5">
+      <div class="col-lg-12">
+       <div style="margin-top: 20px;">
+         <a class="btn btn-info" data-toggle="modal" data-target="#modal_tambah_unit"><i class="icon_plus_alt2"> </i> Tambah Unit </a>
+         <div class="table-responsive">
+          <?php print_r($akses_menu);?>
+           <table id="akses_menu" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th style="width: 10px;">No</th>
+                <!-- <th style="width: 10px;">ID</th> -->
+                <th> Nama Unit</th>
+                <!-- <th>Status</th> -->
+                <th style="width: 50px;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- Data tabel unit-->
+  <div id="8" class="tab-pane" role="tabpanel">
+    <div class="row pt-5">
+      <div class="col-lg-12">
+       <div style="margin-top: 20px;">
+         <a class="btn btn-info" data-toggle="modal" data-target="#modal_tambah_unit"><i class="icon_plus_alt2"> </i> Tambah Unit </a>
+         <div class="table-responsive">
+           <table id="jabatan_unit" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th style="width: 10px;">No</th>
+                <!-- <th style="width: 10px;">ID</th> -->
+                <th> Nama Unit</th>
+                <!-- <th>Status</th> -->
+                <th style="width: 50px;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- modal tambah persetujuan kegiatan -->

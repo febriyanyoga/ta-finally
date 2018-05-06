@@ -383,4 +383,18 @@
 		$this->db->update('dokumen_prosedur', $data);
 		return TRUE;
 	}
+
+	// Akses Menu
+
+	public function get_akses_menu_2(){
+		$this->db->select('*');
+		$this->db->from('akses_menu');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = akses_menu.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->join('menu','akses_menu.kode_menu = menu.kode_menu');
+		// $this->db->group_by('akses_menu.kode_menu');
+		$query = $this->db->get();
+		return $query;
+	}
 }
