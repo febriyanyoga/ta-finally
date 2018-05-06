@@ -79,6 +79,7 @@ public function konfigurasi_sistem(){
 		$this->data['unit']					= $this->PenggunaM->get_pilihan_unit()->result();
 		$this->data['akses_menu']			= $this->PenggunaM->get_akses_menu_2()->result();
 		$this->data['jabatan_unit_menu']	= $this->PenggunaM->get_jabatan_unit()->result();
+		$this->data['PenggunaM']			= $this->PenggunaM;
 		$this->data['data_diri'] 			= $data_diri;  	//get data diri buat nampilin nama di pjok kanan
 		$data['body'] = $this->load->view('pengguna/konfigurasi_sistem_content', $this->data, true);
 		$this->load->view('pengguna/index_template', $data);
@@ -441,29 +442,163 @@ public function konfigurasi_sistem(){
 	}
 
 	public function naik($kode_acc_kegiatan, $ranking, $kode_jenis_kegiatan){
-		$rank_max_peg = $this->PenggunaM->get_max_rank_peg->result()[0]->ranking;
-		$rank_max_mhs = $this->PenggunaM->get_max_rank_mhs->result()[0]->ranking;
-		$rank_min_mhs = $this->PenggunaM->get_min_rank_mhs->result()[0]->ranking;
-		$rank_min_peg = $this->PenggunaM->get_min_rank_peg->result()[0]->ranking;
+		$rank_max_peg = $this->PenggunaM->get_max_rank_peg()->result()[0]->ranking;
+		$rank_max_mhs = $this->PenggunaM->get_max_rank_mhs()->result()[0]->ranking;
+		$rank_min_mhs = $this->PenggunaM->get_min_rank_mhs()->result()[0]->ranking;
+		$rank_min_peg = $this->PenggunaM->get_min_rank_peg()->result()[0]->ranking;
 
 		if($kode_jenis_kegiatan == 1){ //kegiatan pegawai
 			if($ranking == $rank_max_peg){ //rank nya max(terbesar)
-				if($kode_min_1 = $this->PenggunaM->cek_peg_by_rank($ranking-1)->result() != NULL){
+				if($kode_min_1_row = $this->PenggunaM->cek_peg_by_rank($ranking-1)->result() != NULL){
+					$kode_min_1 = $this->PenggunaM->cek_peg_by_rank($ranking-1)->result()[0]; //simpan id rank-1
 					//naikin
-					$ranking_new_naik = (int)$ranking - 1;
-					$data_update_naik = array('ranking' => $ranking_new_naik);
-					$this->PenggunaM->update_acc($kode_acc_kegiatan, $data_update_naik)
+					$ranking_new_naik = (int)$ranking - 1; //ranking nya dikurangin 1
+					$data_update_naik = array('ranking' => $ranking_new_naik); 
+					$this->PenggunaM->update_acc($kode_acc_kegiatan, $data_update_naik); //update datanya dia
 
 					//turunin
-					$ranking_new_turun = (int)$kode_min_1[0]->ranking + 1
+					$ranking_new_turun = (int)$kode_min_1->ranking + 1; //rankingnya tambah 1
 					$data_update_turun = array('ranking' => $ranking_new_turun);
-					$this->PenggunaM->update_acc($this->PenggunaM->$kode_min_1[0]->kode_acc_kegiatan, $data_update_turun)
-				}	
+					$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun); //update data kode acc-1
+					$this->session->set_flashdata('sukses','Berhasil');
+					// redirect_back(); 
+					redirect('PenggunaC/konfigurasi_sistem#6');
+				}else{
+					$this->session->set_flashdata('error','Ranking sudah tertinggi');
+					redirect_back(); 
+				}
 			}elseif ($ranking == $rank_min_peg){ //ranknya terkecil
-				$this->session->set_flashdata('Error','Ranking sudah tertinggi');
+				$this->session->set_flashdata('error','Ranking sudah tertinggi');
+				redirect_back(); 
+			}else{
+				$kode_min_1 = $this->PenggunaM->cek_peg_by_rank($ranking-1)->result()[0];
+					//naikin
+				$ranking_new_naik = (int)$ranking - 1;
+				$data_update_naik = array('ranking' => $ranking_new_naik);
+				$this->PenggunaM->update_acc($kode_acc_kegiatan, $data_update_naik);
+					//turunin
+				$ranking_new_turun = (int)$kode_min_1->ranking + 1;
+				$data_update_turun = array('ranking' => $ranking_new_turun);
+				$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun);
+				$this->session->set_flashdata('sukses','Berhasil');
+				// redirect_back(); 
+				redirect('PenggunaC/konfigurasi_sistem#6');
+			}
+		}elseif ($kode_jenis_kegiatan == 2) {//mahasiswa
+			if($ranking == $rank_max_mhs){ //rank nya max(terbesar)
+				if($kode_min_1_row = $this->PenggunaM->cek_mhs_by_rank($ranking-1)->result() != NULL){
+					$kode_min_1 = $this->PenggunaM->cek_mhs_by_rank($ranking-1)->result()[0]; //simpan id rank-1
+					//naikin
+					$ranking_new_naik = (int)$ranking - 1; //ranking nya dikurangin 1
+					$data_update_naik = array('ranking' => $ranking_new_naik); 
+					$this->PenggunaM->update_acc($kode_acc_kegiatan, $data_update_naik); //update datanya dia
+
+					//turunin
+					$ranking_new_turun = (int)$kode_min_1->ranking + 1; //rankingnya tambah 1
+					$data_update_turun = array('ranking' => $ranking_new_turun);
+					$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun); //update data kode acc-1
+					$this->session->set_flashdata('sukses','Berhasil');
+					redirect_back(); 
+				}else{
+					$this->session->set_flashdata('error','Ranking sudah tertinggi');
+					redirect_back(); 
+				}
+			}elseif ($ranking == $rank_min_mhs){ //ranknya terkecil
+				$this->session->set_flashdata('error','Ranking sudah tertinggi');
+				redirect_back(); 
+			}else{
+				$kode_min_1 = $this->PenggunaM->cek_mhs_by_rank($ranking-1)->result()[0];
+					//naikin
+				$ranking_new_naik = (int)$ranking - 1;
+				$data_update_naik = array('ranking' => $ranking_new_naik);
+				$this->PenggunaM->update_acc($kode_acc_kegiatan, $data_update_naik);
+					//turunin
+				$ranking_new_turun = (int)$kode_min_1->ranking + 1;
+				$data_update_turun = array('ranking' => $ranking_new_turun);
+				$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun);
+				$this->session->set_flashdata('sukses','Berhasil');
 				redirect_back(); 
 			}
+		}
 
+	}
+
+	public function turun($kode_acc_kegiatan, $ranking, $kode_jenis_kegiatan){
+		$rank_max_peg = $this->PenggunaM->get_max_rank_peg()->result()[0]->ranking;
+		$rank_max_mhs = $this->PenggunaM->get_max_rank_mhs()->result()[0]->ranking;
+		$rank_min_mhs = $this->PenggunaM->get_min_rank_mhs()->result()[0]->ranking;
+		$rank_min_peg = $this->PenggunaM->get_min_rank_peg()->result()[0]->ranking;
+
+		if($kode_jenis_kegiatan == 1){ //kegiatan pegawai
+			if($ranking == $rank_max_peg){ //rank nya max(terbesar)
+				$this->session->set_flashdata('error','Ranking sudah terendah');
+				redirect_back(); 
+			}elseif ($ranking == $rank_min_peg){ //ranknya terkecil
+				if($kode_min_1_row = $this->PenggunaM->cek_peg_by_rank($ranking+1)->result() != NULL){
+					$kode_min_1 = $this->PenggunaM->cek_peg_by_rank($ranking+1)->result()[0]; //simpan id rank+1
+					//naikin
+					$ranking_new_naik = (int)$ranking +1; //ranking nya dikurangin 1
+					$data_update_naik = array('ranking' => $ranking_new_naik); 
+					$this->PenggunaM->update_acc($kode_acc_kegiatan, $data_update_naik); //update datanya dia
+
+					//turunin
+					$ranking_new_turun = (int)$kode_min_1->ranking -1; //rankingnya dikurangi 1
+					$data_update_turun = array('ranking' => $ranking_new_turun);
+					$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun); //update data kode acc+1
+					$this->session->set_flashdata('sukses','Berhasil');
+					redirect_back(); 
+				}else{
+					$this->session->set_flashdata('error','Ranking sudah terendah');
+					redirect_back(); 
+				}
+			}else{
+				$kode_min_1 = $this->PenggunaM->cek_peg_by_rank($ranking+1)->result()[0];
+					//naikin
+				$ranking_new_naik = (int)$ranking +1;
+				$data_update_naik = array('ranking' => $ranking_new_naik);
+				$this->PenggunaM->update_acc($kode_acc_kegiatan, $data_update_naik);
+					//turunin
+				$ranking_new_turun = (int)$kode_min_1->ranking -1;
+				$data_update_turun = array('ranking' => $ranking_new_turun);
+				$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun);
+				$this->session->set_flashdata('sukses','Berhasil');
+				redirect_back(); 
+			}
+		}elseif ($kode_jenis_kegiatan == 2) {//mahasiswa
+			if($ranking == $rank_max_mhs){ //rank nya max(terbesar)
+				$this->session->set_flashdata('error','Ranking sudah terendah');
+				redirect_back(); 
+			}elseif ($ranking == $rank_min_mhs){ //ranknya terkecil
+				if($kode_min_1_row = $this->PenggunaM->cek_mhs_by_rank($ranking+1)->result() != NULL){
+					$kode_min_1 = $this->PenggunaM->cek_mhs_by_rank($ranking+1)->result()[0]; //simpan id rank+1
+					//naikin
+					$ranking_new_naik = (int)$ranking +1; //ranking nya dikurangin 1
+					$data_update_naik = array('ranking' => $ranking_new_naik); 
+					$this->PenggunaM->update_acc($kode_acc_kegiatan, $data_update_naik); //update datanya dia
+
+					//turunin
+					$ranking_new_turun = (int)$kode_min_1->ranking -1; //rankingnya dikurangi 1
+					$data_update_turun = array('ranking' => $ranking_new_turun);
+					$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun); //update data kode acc+1
+					$this->session->set_flashdata('sukses','Berhasil');
+					redirect_back(); 
+				}else{
+					$this->session->set_flashdata('error','Ranking sudah terendah');
+					redirect_back(); 
+				}
+			}else{
+				$kode_min_1 = $this->PenggunaM->cek_mhs_by_rank($ranking+1)->result()[0];
+					//naikin
+				$ranking_new_naik = (int)$ranking +1;
+				$data_update_naik = array('ranking' => $ranking_new_naik);
+				$this->PenggunaM->update_acc($kode_acc_kegiatan, $data_update_naik);
+					//turunin
+				$ranking_new_turun = (int)$kode_min_1->ranking -1;
+				$data_update_turun = array('ranking' => $ranking_new_turun);
+				$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun);
+				$this->session->set_flashdata('sukses','Berhasil');
+				redirect_back(); 
+			}
 		}
 
 	}			

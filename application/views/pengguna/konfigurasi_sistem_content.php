@@ -519,18 +519,36 @@
                   <td class="text-center"><?php echo $persetujuan_kegiatan->nama_jenis_kegiatan;?></td>
                   <!-- <td class="text-center"><?php echo "status";?></td> -->
                   <td class="text-center"> 
-                    <a href="<?php echo base_url('PenggunaC/hapus/'.$persetujuan_kegiatan->kode_acc_kegiatan);?>"  onClick="return confirm('Anda yakin akan menghapus data ini?')" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Hapus Persetujuan Kegiatan" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
-                  </td>
-                </tr>
-                <?php
-              }
+                    <?php
+                    if($PenggunaM->get_max_rank_peg()->result()[0]->ranking == $persetujuan_kegiatan->ranking){
+                      if($PenggunaM->get_min_rank_peg()->result()[0]->ranking){
+                       ?>
+                       <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                       <?php
+                     }else{
+                       ?>
+                       <a href="<?php echo base_url('PenggunaC/hapus/'.$persetujuan_kegiatan->kode_acc_kegiatan);?>"  onClick="return confirm('Anda yakin akan menghapus data ini?')" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Hapus Persetujuan Kegiatan" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                       <?php
+                     }
+                   }else{
+                    echo $PenggunaM->get_max_rank_peg()->result()[0]->ranking;
+
+                    ?>
+                    <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                    <?php
+                  }
+                  ?>
+                </td>
+              </tr>
+              <?php
             }
-            ?>
-          </tbody>
-        </table>
-      </div>
+          }
+          ?>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
 </div>
 </div>
 
@@ -620,18 +638,34 @@
                   <td class="text-center"><?php echo $persetujuan_kegiatan_mhs->nama_jenis_kegiatan;?></td>
                   <!-- <td class="text-center"><?php echo "status";?></td> -->
                   <td class="text-center"> 
-                    <a href="<?php echo base_url('PenggunaC/hapus/'.$persetujuan_kegiatan_mhs->kode_acc_kegiatan);?>"  onClick="return confirm('Anda yakin akan menghapus data ini?')" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Hapus Persetujuan Kegiatan" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
-                  </td>
-                </tr>
-                <?php
-              }
-            }
-            ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+                    <?php
+                    if($PenggunaM->get_max_rank_mhs()->result()[0]->ranking == $persetujuan_kegiatan_mhs->ranking){
+                      if($PenggunaM->get_min_rank_mhs()->result()[0]->ranking == $persetujuan_kegiatan_mhs->ranking){
+                        ?>
+                        <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                        <?php
+                      }else{
+                        ?>
+                        <a href="<?php echo base_url('PenggunaC/hapus/'.$persetujuan_kegiatan_mhs->kode_acc_kegiatan);?>"  onClick="return confirm('Anda yakin akan menghapus data ini?')" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Hapus Persetujuan Kegiatan" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                        <?php
+                      }
+                    }else{
+                     ?>
+                     <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                     <?php
+                   }
+                   ?>
+                 </td>
+               </tr>
+               <?php
+             }
+           }
+           ?>
+         </tbody>
+       </table>
+     </div>
+   </div>
+ </div>
 </div>
 </div>
 
