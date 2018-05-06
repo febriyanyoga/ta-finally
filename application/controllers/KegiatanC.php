@@ -21,7 +21,7 @@ class KegiatanC extends CI_Controller {
 
 	public function persetujuan_kegiatan_mahasiswa(){ //halaman persetujuan kegiatan mahasiswa (kadep)
 		// menampilkan kegiatan mahasiswa yang telah di beri porgress oleh manajer Keuangan
-		if(in_array("1", $data_array_akses_menu)){
+		if(in_array("1", $this->data_menu)){
 		$data['menu'] = $this->data_menu;
 		$id_pengguna = $this->session->userdata('id_pengguna');
 		$kode_jenis_kegiatan = 2; //kegiatan mahasiswa
@@ -86,7 +86,7 @@ class KegiatanC extends CI_Controller {
 
 
 	public function persetujuan_kegiatan_staf(){ //halaman persetujuan kegiatan staf (manajer keuangan)
-		if(in_array("3", $data_array_akses_menu)){
+		if(in_array("3", $this->data_menu)){
 		$data['menu'] = $this->data_menu;
 		$id_pengguna = $this->session->userdata('id_pengguna');
 		$kode_unit 	= $this->session->userdata('kode_unit');
@@ -107,7 +107,7 @@ class KegiatanC extends CI_Controller {
 
 
 	public function pengajuan_kegiatan_mahasiswa(){
-		if(in_array("6", $data_array_akses_menu)){
+		if(in_array("6", $this->data_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Pengajuan Kegiatan Mahasiswa | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
@@ -153,7 +153,7 @@ class KegiatanC extends CI_Controller {
 	}
 
 	public function status_pengajuan_kegiatan_pegawai(){ //halaman index Sekretaris Departemen (dashboard)
-		if(in_array("11", $data_array_akses_menu)){
+		if(in_array("11", $this->data_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$this->data['data_diri'] = $data_diri;  	//get data diri buat nampilin nama di pjok kanan
@@ -171,7 +171,7 @@ class KegiatanC extends CI_Controller {
 	}
 
 	public function status_pengajuan_kegiatan_mahasiswa(){ //halaman index Sekretaris Departemen (dashboard)
-		if(in_array("10", $data_array_akses_menu)){
+		if(in_array("10", $this->data_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$this->data['data_diri'] = $data_diri;  	//get data diri buat nampilin nama di pjok kanan
