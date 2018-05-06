@@ -156,60 +156,63 @@
     <div class="row pt-5">
       <div class="col-lg-12">
        <div style="margin-top: 20px;">
-         <a class="btn btn-info" data-toggle="modal" data-target="#modal_ajukan_rab"><i class="icon_plus_alt2"> </i> Ajukan RAB </a>
-         <div class="table-responsive" style="margin-top: 20px">
-           <table id="ajukan_rab" class="table table-striped table-bordered" cellspacing="0" width="100%">
-            <thead>
-              <tr>
-                <th class="text-center">No</th>
-                <th class="text-center">Nama Pengajuan RAB</th>
-                <th class="text-center">File Pengajuan RAB</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              $no=1;
-              foreach ($pengajuan as $barang) {
-                ?>
-                <tr>
-                  <td><?php echo $no;?></td>
-                  <td><?php echo $barang->nama_pengajuan;?></td>
-                  <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/excel.svg" style="height: 30px;"></span></a></td>
-                </tr>
-                <?php
-                $no++;
-              }
+        <a class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i>Ajukan RAB</a>
+        <div class="table-responsive" style="margin-top: 20px">
+         <table id="ajukan_rab" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th class="text-center">No</th>
+              <th class="text-center">Nama Pengajuan RAB</th>
+              <th class="text-center">File Pengajuan RAB</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $no=1;
+            foreach ($pengajuan as $barang) {
               ?>
-            </tbody>
-          </table>
-        </div>
+              <tr>
+                <td><?php echo $no;?></td>
+                <td><?php echo $barang->nama_pengajuan;?></td>
+
+                <?php $link = base_url()."assets/file_rab/".$barang->file_rab;?>
+                <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/excel.svg" style="height: 30px;"></span></a></td>
+
+              </tr>
+              <?php
+              $no++;
+            }
+            ?>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 </div>
+</div>
 
 <!-- Modal Tambah Pengajuan Barang -->
-<div aria-hidden="true" aria-labelledby="modal_ajukan_rab" role="dialog" tabindex="-1" id="modal_ajukan_rab" class="modal fade">
+<div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="myModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-        <h4 class="modal-title">Ajukan Pengajuan RAB</h4>
+        <h4 class="modal-title">Ajukan Barang</h4>
       </div>
-      <form class="form-horizontal" action="<?php echo base_url('BarangC/post_ajukan_rab');?>" method="post">
+      <form class="form-horizontal" action="<?php echo base_url('BarangC/post_ajukan_rab');?>" method="post" enctype="multipart/form-data" role="form">
         <div class="modal-body">
           <div class="form-group">
-            <label class="col-lg-4 col-sm-2 control-label">Nama Pengajuan RAB :</label>
+            <label class="col-lg-4 col-sm-2 control-label">Nama File RAb :</label>
             <div class="col-lg-8">
-              <input type="text" class="form-control" id="nama_pengajuan" name="nama_pengajuan" placeholder="Nama Pengajuan RAB">
+              <input type="text" class="form-control" id="nama_pengajuan" name="nama_pengajuan" placeholder="Nama File RAB">
             </div>
           </div>
-           <div class="form-group">
-            <label class="col-lg-4 col-sm-2 control-label">File RAB :</label>
+          <div class="form-group">
+            <label class="col-lg-4 col-sm-2 control-label">Unggah File :</label>
             <div class="col-lg-8">
               <input type="file" id="file_rab" name="file_rab" >
             </div>
-          </div>
+          </div>           
         </div>
         <div class="modal-footer">
           <button class="btn btn-info" type="submit"> Simpan </button>
@@ -220,7 +223,7 @@
   </div>
 </div>
 </div>
-<!-- END Modal Tambah Pengajuan Barang-->
+<!-- END Modal Tambah Pengajuan Barang -->
 
 
 <!-- ===================================== -->
@@ -241,7 +244,7 @@
 <script>
   $(document).ready(function() {
     // Untuk sunting
-    $('#modal_ajukan_rab').on('show.bs.modal', function (event) {
+    $('#myModal').on('show.bs.modal', function (event) {
 
     });
   });
