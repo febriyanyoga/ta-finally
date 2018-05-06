@@ -92,7 +92,7 @@ tgl_selesai_kegiatan<section id="main-content">
 
                           if($progress_tolak == 1){
                             ?>
-                            <a class="label label-danger" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><b>Selesai</b></a>
+                            <a class="label label-danger" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><b>Ditolak</b></a>
                             <?php
                           }else{
                            if($progress == 1){
@@ -101,11 +101,11 @@ tgl_selesai_kegiatan<section id="main-content">
                             <?php
                           }elseif ($progress > 1) {
                             ?>
-                            <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Selesai</a>
+                            <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Disetujui</a>
                             <?php
                           }elseif ($progress == 0) {
                             ?>
-                            <a class="label label-info" id="custID" data-toggle="modal" title="klik untuk melihat detail progress">Baru</a>
+                            <a class="label label-info">Baru</a>
                             <?php
                           }
                         }

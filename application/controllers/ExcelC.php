@@ -8,7 +8,7 @@ class ExcelC extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(['UserM','BarangM','PenggunaM']);
+        $this->load->model(['BarangM','PenggunaM']);
         in_access(); //helper buat batasi akses login/session
 
         $data_akses_menu = $this->PenggunaM->get_akses_menu()->result();

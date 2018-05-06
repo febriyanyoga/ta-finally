@@ -21,6 +21,7 @@ class KegiatanC extends CI_Controller {
 
 	public function persetujuan_kegiatan_mahasiswa(){ //halaman persetujuan kegiatan mahasiswa (kadep)
 		// menampilkan kegiatan mahasiswa yang telah di beri porgress oleh manajer Keuangan
+		if(in_array("1", $data_array_akses_menu)){
 		$data['menu'] = $this->data_menu;
 		$id_pengguna = $this->session->userdata('id_pengguna');
 		$kode_jenis_kegiatan = 2; //kegiatan mahasiswa
@@ -33,6 +34,9 @@ class KegiatanC extends CI_Controller {
 		$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
 		$data['body'] = $this->load->view('pengguna/persetujuan_kegiatan_mahasiswa_content', $this->data, true) ;
 		$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 	public function detail_progress($id){ //menampilkan modal dengan isi dari detail_kegiatan.php
@@ -61,6 +65,7 @@ class KegiatanC extends CI_Controller {
 	}
 
 	public function persetujuan_kegiatan_pegawai(){ //halaman persetujuan kegiatan pegawai (kadep)
+		if(in_array("2", $data_array_akses_menu)){
 		$data['menu'] = $this->data_menu;
 		$no_identitas = $this->session->userdata('no_identitas');
 		$kode_jenis_kegiatan = 1; //kegiatan pegawai
@@ -74,10 +79,14 @@ class KegiatanC extends CI_Controller {
 		$this->data['data_diri'] = $data_diri;  	//get data diri buat nampilin nama di pjok kanan
 		$data['body'] = $this->load->view('pengguna/persetujuan_kegiatan_pegawai_content', $this->data, true) ;
 		$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 
 	public function persetujuan_kegiatan_staf(){ //halaman persetujuan kegiatan staf (manajer keuangan)
+		if(in_array("3", $data_array_akses_menu)){
 		$data['menu'] = $this->data_menu;
 		$id_pengguna = $this->session->userdata('id_pengguna');
 		$kode_unit 	= $this->session->userdata('kode_unit');
@@ -91,10 +100,14 @@ class KegiatanC extends CI_Controller {
 		$this->data['data_diri'] = $data_diri;  	//get data diri buat nampilin nama di pjok kanan
 		$data['body'] = $this->load->view('pengguna/persetujuan_kegiatan_staf_content', $this->data, true) ;
 		$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 
 	public function pengajuan_kegiatan_mahasiswa(){
+		if(in_array("6", $data_array_akses_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Pengajuan Kegiatan Mahasiswa | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
@@ -105,9 +118,13 @@ class KegiatanC extends CI_Controller {
 		$this->data['KegiatanM'] = $this->KegiatanM ;
 		$data['body'] = $this->load->view('pengguna/pengajuan_kegiatan_mahasiswa_content', $this->data, true) ;
 		$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 	public function pengajuan_kegiatan_pegawai(){ //halaman pengajuan kegiatan
+		if(in_array("7", $data_array_akses_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Pengajuan Kegiatan Pegawai | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
@@ -120,6 +137,9 @@ class KegiatanC extends CI_Controller {
 		$this->data['KegiatanM'] = $this->KegiatanM ;	
 		$data['body'] = $this->load->view('pengguna/pengajuan_kegiatan_pegawai_content', $this->data, true);
 		$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 	public function hapus_pengajuan($kode_kegiatan){//hapus pengajuan kegiatan
@@ -133,6 +153,7 @@ class KegiatanC extends CI_Controller {
 	}
 
 	public function status_pengajuan_kegiatan_pegawai(){ //halaman index Sekretaris Departemen (dashboard)
+		if(in_array("11", $data_array_akses_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$this->data['data_diri'] = $data_diri;  	//get data diri buat nampilin nama di pjok kanan
@@ -144,9 +165,13 @@ class KegiatanC extends CI_Controller {
 		$this->data['cek_id_staf_keu'] = $this->KegiatanM->cek_id_staf_keu()->result();
 		$data['body'] = $this->load->view('pengguna/status_pengajuan_kegiatan_pegawai_content', $this->data, true) ;
 		$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 	public function status_pengajuan_kegiatan_mahasiswa(){ //halaman index Sekretaris Departemen (dashboard)
+		if(in_array("10", $data_array_akses_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$this->data['data_diri'] = $data_diri;  	//get data diri buat nampilin nama di pjok kanan
@@ -159,6 +184,9 @@ class KegiatanC extends CI_Controller {
 		$this->data['cek_id_staf_keu'] = $this->KegiatanM->cek_id_staf_keu()->result();
 		$data['body'] = $this->load->view('pengguna/status_pengajuan_kegiatan_mahasiswa_content', $this->data, true) ;
 		$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 

@@ -8,7 +8,7 @@ class PenggunaC extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model(['UserM','PenggunaM']);
+		$this->load->model(['PenggunaM']);
 		in_access(); //helper buat batasi akses login/session
 
 		$data_akses_menu = $this->PenggunaM->get_akses_menu()->result();
@@ -48,6 +48,7 @@ class PenggunaC extends CI_Controller {
 	}
 
 	public function pengguna(){//halaman pengguna (admin)
+		if(in_array("14", $data_array_akses_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$this->data['data_pengguna'] = $this->PenggunaM->get_data_pengguna()->result();
@@ -55,9 +56,13 @@ class PenggunaC extends CI_Controller {
 		$data['title'] = "Daftar Pengguna | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
 		$data['body'] = $this->load->view('pengguna/pengguna_content', $this->data, true);
 		$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 	public function konfigurasi_sistem(){
+		if(in_array("15", $data_array_akses_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Konfigurasi Sistem | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
@@ -76,9 +81,13 @@ class PenggunaC extends CI_Controller {
 		$this->data['data_diri'] 			= $data_diri;  	//get data diri buat nampilin nama di pjok kanan
 		$data['body'] = $this->load->view('pengguna/konfigurasi_sistem_content', $this->data, true);
 		$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 	public function prosedur(){ //halaman index kadep (dashboard)
+		if(in_array("16", $data_array_akses_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Konfigurasi Sistem | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
@@ -87,6 +96,9 @@ class PenggunaC extends CI_Controller {
 		$this->data['data_prosedur'] = $this->PenggunaM->get_prosedur()->result();
 		$data['body'] = $this->load->view('pengguna/prosedur_content', $this->data, true) ;
 		$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 

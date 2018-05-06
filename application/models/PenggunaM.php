@@ -279,6 +279,7 @@
 
 	// jabatan
 	public function get_pilihan_jabatan(){ //mengambil jabatan dari db jabatan
+		$this->db->order_by('created_at','DESC');
 		$query = $this->db->get('jabatan');	
 		return $query;
 	}

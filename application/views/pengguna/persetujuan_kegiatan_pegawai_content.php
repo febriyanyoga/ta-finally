@@ -105,14 +105,14 @@
                           
                           if($progress_tolak == 1){
                             ?>
-                            <a class="label label-danger" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><b>Selesai</b></a>
+                            <a class="label label-danger" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><b>Ditolak</b></a>
                             <?php
                           }else{
                            if($progress == 1){ //jika sudah punya porgress 1
                           $input_id = $KegiatanM->get_progress_who($kode)[0]->id_pengguna;//jika yang input dia sendiri
                           if($input_id == $own_id && $id_max == $own_id){ //yang inputin progress dia dan dia adalah max
                             ?>
-                            <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Selesai</a>
+                            <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Disetujui</a>
                             <?php
                           }else{
                             ?>
@@ -121,11 +121,11 @@
                           }
                         }elseif ($progress > 1) {
                           ?>
-                          <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Selesai</a>
+                          <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Disetujui</a>
                           <?php
                         }elseif ($progress == 0) {
                           ?>
-                          <a class="label label-info" id="custID" data-toggle="modal" title="klik untuk melihat detail progress">Baru</a>
+                          <span class="label label-info">Baru</span>
                           <?php
                         }
                       }
@@ -137,7 +137,7 @@
                     if($own_id == $id_max){
                        if($own > 0){ //SUDAH INPUT 
                         ?>
-                        <a href="#" disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
+                        <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
                           <?php
                         }else{
                          $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
@@ -166,7 +166,7 @@
                       $progress_id_next = $KegiatanM->get_own_progress($kegiatan->kode_kegiatan, $id_next); //progress id yang ranknya ranksendiri + 1
                       if($progress_id_next == "1"){
                        if($own > 0){?>
-                       <a href="#" disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
+                       <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
                         <?php
                       }else{
                        $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);

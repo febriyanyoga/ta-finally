@@ -344,7 +344,9 @@
       // CSS data DataTable
 
       $(document).ready(function() {
-        $('#jabatan').DataTable();
+        $('#jabatan').DataTable({
+          "aaSorting": []
+        });
         $('#unit').DataTable();
         $('#jenis_barang').DataTable();
         $('#jenis_kegiatan').DataTable();
@@ -355,6 +357,7 @@
         $('#prosedur').DataTable();
         $('#akses_menu').DataTable();
         $('#jabatan_unit').DataTable();
+
 
       } 
       );
