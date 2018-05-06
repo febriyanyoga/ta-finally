@@ -49,27 +49,28 @@ class PenggunaC extends CI_Controller {
 
 	public function pengguna(){//halaman pengguna (admin)
 		if(in_array("14", $this->data_menu)){
-		$data['menu'] = $this->data_menu;
+			$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$this->data['data_pengguna'] = $this->PenggunaM->get_data_pengguna()->result();
 		$this->data['data_diri'] = $data_diri;  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Daftar Pengguna | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
 		$data['body'] = $this->load->view('pengguna/pengguna_content', $this->data, true);
 		$this->load->view('pengguna/index_template', $data);
-		}else{
-			redirect('LoginC/logout');
-		}
+	}else{
+		redirect('LoginC/logout');
 	}
+}
 
-	public function konfigurasi_sistem(){
-		if(in_array("15", $this->data_menu)){
+public function konfigurasi_sistem(){
+	if(in_array("15", $this->data_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Konfigurasi Sistem | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
 
 		$this->data['persetujuan_kegiatan']	= $this->PenggunaM->get_persetujuan_kegiatan()->result();
+		$this->data['persetujuan_kegiatan_mahasiswa']	= $this->PenggunaM->get_persetujuan_kegiatan()->result();
 		// $this->data['detail_jabatan'] 		= $this->PenggunaM->get_pilihan_jabatan_by_id($kode_jabatan)->result()[0];
-		$this->data['nama_pengguna']		= $this->PenggunaM->get_data_pengguna()->result();
+		// $this->data['nama_pengguna']		= $this->PenggunaM->get_data_pengguna()->result();
 		$this->data['nama_progress']		= $this->PenggunaM->get_nama_progress()->result();
 		$this->data['jenis_kegiatan']		= $this->PenggunaM->get_jenis_kegiatan()->result();
 		$this->data['jenis_kegiatan_persetujuan']	= $this->PenggunaM->get_jenis_kegiatan()->result();
@@ -81,14 +82,14 @@ class PenggunaC extends CI_Controller {
 		$this->data['data_diri'] 			= $data_diri;  	//get data diri buat nampilin nama di pjok kanan
 		$data['body'] = $this->load->view('pengguna/konfigurasi_sistem_content', $this->data, true);
 		$this->load->view('pengguna/index_template', $data);
-		}else{
-			redirect('LoginC/logout');
-		}
+	}else{
+		redirect('LoginC/logout');
 	}
+}
 
 	public function prosedur(){ //halaman index kadep (dashboard)
 		if(in_array("16", $this->data_menu)){
-		$data['menu'] = $this->data_menu;
+			$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Konfigurasi Sistem | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
 
@@ -96,10 +97,10 @@ class PenggunaC extends CI_Controller {
 		$this->data['data_prosedur'] = $this->PenggunaM->get_prosedur()->result();
 		$data['body'] = $this->load->view('pengguna/prosedur_content', $this->data, true) ;
 		$this->load->view('pengguna/index_template', $data);
-		}else{
-			redirect('LoginC/logout');
-		}
+	}else{
+		redirect('LoginC/logout');
 	}
+}
 
 
 
@@ -407,22 +408,26 @@ class PenggunaC extends CI_Controller {
 		}
 	}
 
-	public function tambah_persetujuan_kegiatan(){
-		$this->form_validation->set_rules('id_pengguna', ' ID Pengguna','required');
-		$this->form_validation->set_rules('ranking', 'Rangking','required');
-		$this->form_validation->set_rules('kode_jenis_kegiatan', ' Kode Jenis Kegiatan','required');
+	public function tambah_persetujuan_kegiatan($kode){
+		$this->form_validation->set_rules('kode_jabatan_unit', 'Kode Jabatan Unit','required');
 		if($this->form_validation->run() == FALSE){
-			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
+			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan 1');
 			redirect_back(); //kembali ke halaman sebelumnya -> helper
 		}else{
-			$id_pengguna 			= $_POST['id_pengguna'];
-			$ranking 				= $_POST['ranking'];
-			$kode_jenis_kegiatan 	= $_POST['kode_jenis_kegiatan'];
+			$kode_jabatan_unit 		= $_POST['kode_jabatan_unit'];
+
+			if($kode == 1){
+				$ranking = $this->PenggunaM->get_max_rank_peg()->result()[0]->ranking;
+				$ranking_new = (int)$ranking + 1;
+			}elseif ($kode == 2){
+				$ranking = $this->PenggunaM->get_max_rank_mhs()->result()[0]->ranking;
+				$ranking_new = (int)$ranking + 1;
+			}
 
 			$data = array(
-				'id_pengguna'      			=> $id_pengguna,
-				'ranking'      				=> $ranking,
-				'kode_jenis_kegiatan'      	=> $kode_jenis_kegiatan);
+				'kode_jabatan_unit'      	=> $kode_jabatan_unit,
+				'ranking'      				=> $ranking_new,
+				'kode_jenis_kegiatan'      	=> $kode);
 			$db = "acc_kegiatan";
 
 			if($this->PenggunaM->insert($db, $data)){
@@ -434,6 +439,34 @@ class PenggunaC extends CI_Controller {
 			}
 		}
 	}
+
+	public function naik($kode_acc_kegiatan, $ranking, $kode_jenis_kegiatan){
+		$rank_max_peg = $this->PenggunaM->get_max_rank_peg->result()[0]->ranking;
+		$rank_max_mhs = $this->PenggunaM->get_max_rank_mhs->result()[0]->ranking;
+		$rank_min_mhs = $this->PenggunaM->get_min_rank_mhs->result()[0]->ranking;
+		$rank_min_peg = $this->PenggunaM->get_min_rank_peg->result()[0]->ranking;
+
+		if($kode_jenis_kegiatan == 1){ //kegiatan pegawai
+			if($ranking == $rank_max_peg){ //rank nya max(terbesar)
+				if($kode_min_1 = $this->PenggunaM->cek_peg_by_rank($ranking-1)->result() != NULL){
+					//naikin
+					$ranking_new_naik = (int)$ranking - 1;
+					$data_update_naik = array('ranking' => $ranking_new_naik);
+					$this->PenggunaM->update_acc($kode_acc_kegiatan, $data_update_naik)
+
+					//turunin
+					$ranking_new_turun = (int)$kode_min_1[0]->ranking + 1
+					$data_update_turun = array('ranking' => $ranking_new_turun);
+					$this->PenggunaM->update_acc($this->PenggunaM->$kode_min_1[0]->kode_acc_kegiatan, $data_update_turun)
+				}	
+			}elseif ($ranking == $rank_min_peg){ //ranknya terkecil
+				$this->session->set_flashdata('Error','Ranking sudah tertinggi');
+				redirect_back(); 
+			}
+
+		}
+
+	}			
 
 	// Prosedur
 	public function aktif_pro($kode_doc){ //aktifasi akun pengguna

@@ -9874,3 +9874,10 @@ span.customSelect.changed {
     display: block;
     font-size: 11px;
 }
+
+.kecil-arrow{
+    display: block;
+    font-size: 18px;
+    margin-top: -5px;
+    margin-bottom: -10px;
+}

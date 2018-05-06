@@ -351,7 +351,12 @@
         $('#jenis_barang').DataTable();
         $('#jenis_kegiatan').DataTable();
         $('#nama_progress').DataTable();
-        $('#persetujuan_kegiatan').DataTable();
+        $('#persetujuan_kegiatan_peg').DataTable({
+           "aaSorting": []
+        });
+        $('#persetujuan_kegiatan_mhs').DataTable({
+           "aaSorting": []
+        });
         $('#example').DataTable();
         $('#example1').DataTable();
         $('#prosedur').DataTable();

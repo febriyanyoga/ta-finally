@@ -228,12 +228,11 @@
 	public function get_persetujuan_kegiatan(){
 		$this->db->select('*');
 		$this->db->from('acc_kegiatan');
-		$this->db->join('pengguna','pengguna.id_pengguna = acc_kegiatan.id_pengguna');
-		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = acc_kegiatan.kode_jabatan_unit');
 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
-		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
 		$this->db->join('jenis_kegiatan','acc_kegiatan.kode_jenis_kegiatan = jenis_kegiatan.kode_jenis_kegiatan');
+		$this->db->order_by('acc_kegiatan.ranking');
 		return $query = $this->db->get();
 	}
 
@@ -255,6 +254,112 @@
 	public function get_nama_progress_by_id($id){
 		$this->db->where('kode_nama_progress', $id);
 		return $query = $this->db->get('nama_progress');
+	}
+
+	public function get_jabatan_unit(){
+		$this->db->select('*');
+		$this->db->from('jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		
+		$query = $this->db->get();
+		return $query;
+	}
+
+	public function get_max_rank_peg(){
+		$this->db->select_max('ranking');
+		$this->db->where('kode_jenis_kegiatan = "1"'); //peg
+		$query = $this->db->get('acc_kegiatan'); 
+		if ($query) {
+			return $query;
+		}else{
+			return NULL;
+		}
+	}
+
+	public function get_min_rank_peg(){
+		$this->db->select_min('ranking');
+		$this->db->where('kode_jenis_kegiatan = "1"'); //peg
+		$query = $this->db->get('acc_kegiatan'); 
+		if ($query) {
+			return $query;
+		}else{
+			return NULL;
+		}
+	}
+
+	public function get_rank_peg($kode_acc_kegiatan){
+		$this->db->select('ranking');
+		$this->db->where('$kode_acc_kegiatan', $kode_acc_kegiatan);
+		$this->db->where('kode_jenis_kegiatan = "1"'); //peg
+		$query = $this->db->get('acc_kegiatan'); 
+		if ($query) {
+			return $query;
+		}else{
+			return NULL;
+		}
+	}
+
+	public function cek_peg_by_rank($ranking){
+		$this->db->where('ranking', $ranking);
+		$this->db->where('kode_jenis_kegiatan = "1"'); //peg
+		$query = $this->db->get('acc_kegiatan'); 
+		if ($query) {
+			return $query;
+		}else{
+			return NULL;
+		}
+	}
+
+	public function cek_mhs_by_rank($ranking){
+		$this->db->where('ranking', $ranking);
+		$this->db->where('kode_jenis_kegiatan = "2"'); //mhs
+		$query = $this->db->get('acc_kegiatan'); 
+		if ($query) {
+			return $query;
+		}else{
+			return NULL;
+		}
+	}
+
+	public function get_rank_mhs($kode_acc_kegiatan){
+		$this->db->select('ranking');
+		$this->db->where('$kode_acc_kegiatan', $kode_acc_kegiatan);
+		$this->db->where('kode_jenis_kegiatan = "2"'); //mhs
+		$query = $this->db->get('acc_kegiatan'); 
+		if ($query) {
+			return $query;
+		}else{
+			return NULL;
+		}
+	}
+
+	public function get_max_rank_mhs(){
+		$this->db->select_max('ranking');
+		$this->db->where('kode_jenis_kegiatan = "2"'); //mhs
+		$query = $this->db->get('acc_kegiatan'); 
+		if ($query) {
+			return $query;
+		}else{
+			return NULL;
+		}
+	}
+
+	public function get_min_rank_mhs(){
+		$this->db->select_min('ranking');
+		$this->db->where('kode_jenis_kegiatan = "2"'); //mhs
+		$query = $this->db->get('acc_kegiatan'); 
+		if ($query) {
+			return $query;
+		}else{
+			return NULL;
+		}
+	}
+
+	public function update_acc($kode_acc_kegiatan, $data){
+		$this->db->where('kode_acc_kegiatan', $kode_acc_kegiatan);
+		$this->db->update('acc_kegiatan', $data);
+		return TRUE;
 	}
 
 	//jenis kegiatan
@@ -399,12 +504,5 @@
 		return $query;
 	}
 
-	public function get_jabatan_unit(){
-		$this->db->select('*');
-		$this->db->from('jabatan_unit');
-		$this->db->join('akses_menu', 'akses_menu.kode_jabatan_unit = jabatan_unit.kode_jabatan_unit');
-		$this->db->join('menu', 'akses_menu.kode_menu = menu.kode_menu');
-		$query = $this->db->get();
-		return $query;
-	}
+
 }

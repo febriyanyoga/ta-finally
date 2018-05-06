@@ -22,9 +22,9 @@
        <?php } ?>
 
        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link active program-title" data-toggle="tab" href="#1" role="tab"><span class="glyphicon glyphicon-user"></span><br class="hidden-md-up"> Jabatan </a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link program-title" data-toggle="tab" href="#2" role="tab"><span class="glyphicon glyphicon-user"></span><br class="hidden-md-up"> Unit </a>
         </li>
@@ -38,14 +38,17 @@
           <a class="nav-link program-title" data-toggle="tab" href="#5" role="tab"><span class="glyphicon glyphicon-time"></span><br class="hidden-md-up"> Nama Progress </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link program-title" data-toggle="tab" href="#6" role="tab"><span class="glyphicon glyphicon-ok"></span><br class="hidden-md-up"> Persetujuan Kegiatan </a>
+          <a class="nav-link program-title" data-toggle="tab" href="#6" role="tab"><span class="glyphicon glyphicon-ok"></span><br class="hidden-md-up"> Persetujuan Kegiatan Pegawai</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link program-title" data-toggle="tab" href="#9" role="tab"><span class="glyphicon glyphicon-ok"></span><br class="hidden-md-up"> Persetujuan Kegiatan Mahasiswa</a>
         </li>
         <li class="nav-item">
           <a class="nav-link program-title" data-toggle="tab" href="#7" role="tab"><span class="glyphicon glyphicon-list"></span><br class="hidden-md-up"> Akses Menu </a>
         </li>
-        <li class="nav-item">
+       <!--  <li class="nav-item">
           <a class="nav-link program-title" data-toggle="tab" href="#8" role="tab"><span class="glyphicon glyphicon-th-large"></span><br class="hidden-md-up"> Unit dan Jabatan </a>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
@@ -487,14 +490,12 @@
   <div class="row pt-5">
     <div class="col-lg-12">
       <div style="margin-top: 20px;">
-        <a class="btn btn-info" data-toggle="modal" data-target="#tambah_persetujuan_kegiatan"><i class="icon_plus_alt2"> </i> Tambah Persetujuan </a>
+        <a class="btn btn-info" data-toggle="modal" data-target="#tambah_persetujuan_kegiatan_pegawai"><i class="icon_plus_alt2"> </i> Tambah Persetujuan Pegawai </a>
         <div class="table-responsive">
-         <table id="persetujuan_kegiatan" class="table table-striped table-bordered" cellspacing="0" width="100%">
+         <table id="persetujuan_kegiatan_peg" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
             <tr>
-              <th class="text-center" style="width: 10px;">No</th>
               <th class="text-center" style="width: 10px;">Ranking</th>
-              <th class="text-center">Nama Pengguna</th>
               <th class="text-center">Jabatan</th>
               <th class="text-center">Jenis Kegiatan</th>
               <!-- <th class="text-center">Status</th> -->
@@ -503,22 +504,26 @@
           </thead>
           <tbody>
             <?php
-            $i=0;
             foreach ($persetujuan_kegiatan as $persetujuan_kegiatan) {
-              $i++;
-              ?>
-              <tr>
-                <td class="text-center"><?php echo $i;?></td>
-                <td class="text-center"><?php echo $persetujuan_kegiatan->ranking;?></td>
-                <td class="text-center"><?php echo $persetujuan_kegiatan->nama;?></td>
-                <td class="text-center"><?php echo $persetujuan_kegiatan->nama_jabatan." ".$persetujuan_kegiatan->nama_unit;?></td>
-                <td class="text-center"><?php echo $persetujuan_kegiatan->nama_jenis_kegiatan;?></td>
-                <!-- <td class="text-center"><?php echo "status";?></td> -->
-                <td class="text-center"> 
-                  <a href="<?php echo base_url('PenggunaC/hapus/'.$persetujuan_kegiatan->kode_acc_kegiatan);?>"  onClick="return confirm('Anda yakin akan menghapus data ini?')" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Hapus Persetujuan Kegiatan" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
-                </td>
-              </tr>
-              <?php
+              if($persetujuan_kegiatan->kode_jenis_kegiatan == "1"){
+                ?>
+                <tr>
+                  <td class="text-center">
+                    <div class="relative">
+                      <a href="<?php echo base_url('PenggunaC/naik/'.$persetujuan_kegiatan->kode_acc_kegiatan.'/'.$persetujuan_kegiatan->ranking.'/'.$persetujuan_kegiatan->kode_jenis_kegiatan);?>" title="naik"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-up"></i></small></a>
+                      <strong><?php echo $persetujuan_kegiatan->ranking;?></strong>
+                      <a href="<?php echo base_url('PenggunaC/turun/'.$persetujuan_kegiatan->kode_acc_kegiatan.'/'.$persetujuan_kegiatan->ranking.'/'.$persetujuan_kegiatan->kode_jenis_kegiatan);?>" title="turun"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-down"></i></small></a>
+                    </div>
+                  </td>
+                  <td class="text-center"><?php echo $persetujuan_kegiatan->nama_jabatan." ".$persetujuan_kegiatan->nama_unit;?></td>
+                  <td class="text-center"><?php echo $persetujuan_kegiatan->nama_jenis_kegiatan;?></td>
+                  <!-- <td class="text-center"><?php echo "status";?></td> -->
+                  <td class="text-center"> 
+                    <a href="<?php echo base_url('PenggunaC/hapus/'.$persetujuan_kegiatan->kode_acc_kegiatan);?>"  onClick="return confirm('Anda yakin akan menghapus data ini?')" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Hapus Persetujuan Kegiatan" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                  </td>
+                </tr>
+                <?php
+              }
             }
             ?>
           </tbody>
@@ -529,113 +534,134 @@
 </div>
 </div>
 
- <!-- Data tabel unit-->
-  <div id="7" class="tab-pane" role="tabpanel">
-    <div class="row pt-5">
-      <div class="col-lg-12">
-       <div style="margin-top: 20px;">
-         <a class="btn btn-info" data-toggle="modal" data-target="#modal_tambah_unit"><i class="icon_plus_alt2"> </i> Tambah Unit </a>
-         <div class="table-responsive">
-           <table id="akses_menu" class="table table-striped table-bordered" cellspacing="0" width="100%">
-            <thead>
-              <tr>
-                <th style="width: 10px;">No</th>
-                <!-- <th style="width: 10px;">ID</th> -->
-                <th> Nama Unit</th>
-                <!-- <th>Status</th> -->
-                <th style="width: 50px;">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div>
+<!-- Data tabel unit-->
+<div id="7" class="tab-pane" role="tabpanel">
+  <div class="row pt-5">
+    <div class="col-lg-12">
+     <div style="margin-top: 20px;">
+       <a class="btn btn-info" data-toggle="modal" data-target="#modal_tambah_unit"><i class="icon_plus_alt2"> </i> Tambah Unit </a>
+       <div class="table-responsive">
+         <table id="akses_menu" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th style="width: 10px;">No</th>
+              <!-- <th style="width: 10px;">ID</th> -->
+              <th> Nama Unit</th>
+              <!-- <th>Status</th> -->
+              <th style="width: 50px;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 </div>
+</div>
 
- <!-- Data tabel unit-->
-  <div id="8" class="tab-pane" role="tabpanel">
-    <div class="row pt-5">
-      <div class="col-lg-12">
-       <div style="margin-top: 20px;">
-         <a class="btn btn-info" data-toggle="modal" data-target="#modal_tambah_unit"><i class="icon_plus_alt2"> </i> Tambah Unit </a>
-         <div class="table-responsive">
-           <table id="jabatan_unit" class="table table-striped table-bordered" cellspacing="0" width="100%">
-            <thead>
-              <tr>
-                <th style="width: 10px;">No</th>
-                <!-- <th style="width: 10px;">ID</th> -->
-                <th> Nama Unit</th>
-                <!-- <th>Status</th> -->
-                <th style="width: 50px;">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div>
+<!-- Data tabel jabatan_unit-->
+<div id="8" class="tab-pane" role="tabpanel">
+  <div class="row pt-5">
+    <div class="col-lg-12">
+     <div style="margin-top: 20px;">
+       <a class="btn btn-info" data-toggle="modal" data-target="#modal_tambah_unit"><i class="icon_plus_alt2"> </i> Tambah Unit </a>
+       <div class="table-responsive">
+         <table id="jabatan_unit" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th style="width: 10px;">No</th>
+              <!-- <th style="width: 10px;">ID</th> -->
+              <th> Nama Unit</th>
+              <!-- <th>Status</th> -->
+              <th style="width: 50px;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+</div>
+</div>
+
+<!-- Data tabel persetujuan_kegiatan-->
+<div id="9" class="tab-pane" role="tabpanel">
+  <div class="row pt-5">
+    <div class="col-lg-12">
+      <div style="margin-top: 20px;">
+        <a class="btn btn-info" data-toggle="modal" data-target="#tambah_persetujuan_kegiatan_mahasiswa"><i class="icon_plus_alt2"> </i> Tambah Persetujuan Mahasiswa </a>
+        <div class="table-responsive">
+         <table id="persetujuan_kegiatan_mhs" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th class="text-center" style="width: 10px;">Ranking</th>
+              <th class="text-center">Jabatan</th>
+              <th class="text-center">Jenis Kegiatan</th>
+              <!-- <th class="text-center">Status</th> -->
+              <th class="text-center" style="width: 50px;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            foreach ($persetujuan_kegiatan_mahasiswa as $persetujuan_kegiatan_mhs) {
+              if($persetujuan_kegiatan_mhs->kode_jenis_kegiatan == "2"){
+                ?>
+                <tr>
+                  <td class="text-center">
+                    <div class="relative">
+                      <a href="<?php echo base_url('PenggunaC/naik/'.$persetujuan_kegiatan_mhs->kode_acc_kegiatan.'/'.$persetujuan_kegiatan_mhs->ranking.'/'.$persetujuan_kegiatan_mhs->kode_jenis_kegiatan);?>" title="naik"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-up"></i></small></a>
+                      <strong><?php echo $persetujuan_kegiatan_mhs->ranking;?></strong>
+                      <a href="<?php echo base_url('PenggunaC/turun/'.$persetujuan_kegiatan_mhs->kode_acc_kegiatan.'/'.$persetujuan_kegiatan_mhs->ranking.'/'.$persetujuan_kegiatan_mhs->kode_jenis_kegiatan);?>" title="turun"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-down"></i></small></a>
+                    </div>
+                  </td>
+                  <td class="text-center"><?php echo $persetujuan_kegiatan_mhs->nama_jabatan." ".$persetujuan_kegiatan_mhs->nama_unit;?></td>
+                  <td class="text-center"><?php echo $persetujuan_kegiatan_mhs->nama_jenis_kegiatan;?></td>
+                  <!-- <td class="text-center"><?php echo "status";?></td> -->
+                  <td class="text-center"> 
+                    <a href="<?php echo base_url('PenggunaC/hapus/'.$persetujuan_kegiatan_mhs->kode_acc_kegiatan);?>"  onClick="return confirm('Anda yakin akan menghapus data ini?')" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Hapus Persetujuan Kegiatan" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                  </td>
+                </tr>
+                <?php
+              }
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 
 <!-- modal tambah persetujuan kegiatan -->
-<div aria-hidden="true" aria-labelledby="tambah_persetujuan_kegiatan" role="dialog" tabindex="-1" id="tambah_persetujuan_kegiatan" class="modal fade">
+<div aria-hidden="true" aria-labelledby="tambah_persetujuan_kegiatan_pegawai" role="dialog" tabindex="-1" id="tambah_persetujuan_kegiatan_pegawai" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-        <h4 class="modal-title">Tambah Persetujuan Kegiatan</h4>
+        <h4 class="modal-title">Tambah Persetujuan Kegiatan Pegawai</h4>
       </div>
       <div class="modal-body">
         <!-- <?php var_dump($jenis_kegiatan_persetujuan) ?> -->
-        <?php echo form_open_multipart('PenggunaC/tambah_persetujuan_kegiatan');?>
-        <form role="form" action="<?php echo base_url(); ?>PenggunaC/tambah_persetujuan_kegiatan" method="post">
+        <?php echo form_open_multipart('PenggunaC/tambah_persetujuan_kegiatan/1');?>
+        <form role="form" action="<?php echo base_url(); ?>PenggunaC/tambah_persetujuan_kegiatan/1" method="post">
           <div class="form-group">
-            <label>Nama Pengguna</label>
-            <select class="form-control" name="id_pengguna" id="id_pengguna">
-              <option value="">---- Pilih Pengguna ---- </option>
+            <label>Nama Jabatan</label>
+            <select class="form-control" name="kode_jabatan_unit" id="kode_jabatan_unit">
+              <option value="">---- Pilih Jabatan ---- </option>
               <?php 
-              foreach ($nama_pengguna as $pilihan_pengguna) {
+              foreach ($jabatan_unit_menu as $pilihan_jabatan) {
                 ?>
-                <option value="<?php echo $pilihan_pengguna->id_pengguna;?>"> <?php echo $pilihan_pengguna->nama." - ".$pilihan_pengguna->nama_jabatan." ".$pilihan_pengguna->nama_unit;?> </option>
+                <option value="<?php echo $pilihan_jabatan->kode_jabatan_unit;?>"><?php echo $pilihan_jabatan->nama_jabatan." ".$pilihan_jabatan->nama_unit?></option>
                 <?php
               }
               ?>
             </select>
           </div>
           <div class="form-group">
-            <label><strong><h4>Menyetujui : </h4></strong></label>
-          </div>
-          <div class="form-group">
-            <label>Jenis Kegiatan</label>
-            <select class="form-control" name="kode_jenis_kegiatan" id="kode_jenis_kegiatan">
-              <option value="">---- Pilih Jenis Kegiatan ---- </option>
-              <?php 
-              foreach ($jenis_kegiatan_persetujuan as $jenis_kegiatan_persetujuan) {
-                ?>
-                <option value="<?php echo $jenis_kegiatan_persetujuan->kode_jenis_kegiatan ;?>"> <?php echo $jenis_kegiatan_persetujuan->nama_jenis_kegiatan ;?> </option>
-                <?php
-              }
-              ?>
-            </select>
-            <label>Ranking : </label>
-            <select class="form-control" name="ranking" id="ranking">
-              <option>---- Pilih Ranking ----</option>
-              
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
+            <label><strong><h4>Menyetujui Kegiatan Pegawai</h4></strong></label>
           </div>
           <div class="modal-footer">
             <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
@@ -646,6 +672,45 @@
     </div>
   </div>
 </div>
+
+<!-- modal tambah persetujuan kegiatan -->
+<div aria-hidden="true" aria-labelledby="tambah_persetujuan_kegiatan_mahasiswa" role="dialog" tabindex="-1" id="tambah_persetujuan_kegiatan_mahasiswa" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+        <h4 class="modal-title">Tambah Persetujuan Kegiatan Mahasiswa</h4>
+      </div>
+      <div class="modal-body">
+        <!-- <?php var_dump($jenis_kegiatan_persetujuan) ?> -->
+        <?php echo form_open_multipart('PenggunaC/tambah_persetujuan_kegiatan/2');?>
+        <form role="form" action="<?php echo base_url(); ?>PenggunaC/tambah_persetujuan_kegiatan/2" method="post">
+          <div class="form-group">
+            <label>Nama Jabatan</label>
+            <select class="form-control" name="kode_jabatan_unit" id="kode_jabatan_unit">
+              <option value="">---- Pilih Jabatan ---- </option>
+              <?php 
+              foreach ($jabatan_unit_menu as $pilihan_jabatan) {
+                ?>
+                <option value="<?php echo $pilihan_jabatan->kode_jabatan_unit;?>"><?php echo $pilihan_jabatan->nama_jabatan." ".$pilihan_jabatan->nama_unit?></option>
+                <?php
+              }
+              ?>
+            </select>
+          </div>
+          <div class="form-group">
+            <label><strong><h4>Menyetujui Kegiatan Mahasiswa</h4></strong></label>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
+          </div> 
+          <?php echo form_close()?>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 </div>
 <div class="col-md-2 col-lg-3 col-sm-12">
@@ -723,4 +788,4 @@
             });
           });
     });
-        </script>
+  </script>
