@@ -506,5 +506,34 @@
 		return $query;
 	}
 
+	// public function pilihan_jabatan_unit($kode_unit){ //untuk mengambil nama jabatan sesuai dengan unit, untuk dropdown pilihan jabatan
+	// 	$this->db->select('*');
+	// 	$this->db->fm('jabatan_unit');
+	// 	$this->db->join('jabatan', 'jabatan.kode_jabatan=jabatan_unit.kode_jabatan');
+	// 	$this->db->where('jabatan_unit.kode_unit', $kode_unit);
+	// 	$query = $this->db->get()->result();
+	// 	return $query;
+	// }
+	public function get_unit(){
+		$response = array();
+		$this->db->select('*');
+		$this->db->from('jabatan_unit');
+		$this->db->join('unit', 'unit.kode_unit=jabatan_unit.kode_unit');
+		$this->db->group_by('unit.kode_unit');
+		$query = $this->db->get();
+		$response = $query->result_array();
+		return $response;
+	}
+
+	public function get_jabatan($postData){
+		$response = array();
+		$this->db->select('kode_jabatan, nama_jabatan');
+		$this->db->from('jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan=jabatan_unit.kode_jabatan');
+		$this->db->where('jabatan_unit.kode_unit', $postData['kode_unit']);
+		$query = $this->db->get();
+		$response = $query->result_array();
+		return $response;
+	}
 
 }
