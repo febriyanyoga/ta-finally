@@ -21,6 +21,7 @@ class PenggunaC extends CI_Controller {
 	
 	// pindah pindah halaman
 	public function index(){ //halaman index kadep (dashboard)
+		// print_r($this->data_menu);
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['data_diri'] = $data_diri;
@@ -48,7 +49,7 @@ class PenggunaC extends CI_Controller {
 	}
 
 	public function pengguna(){//halaman pengguna (admin)
-		if(in_array("14", $this->data_menu)){
+		if(in_array(14, $this->data_menu)){
 			$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$this->data['data_pengguna'] = $this->PenggunaM->get_data_pengguna()->result();
@@ -62,7 +63,7 @@ class PenggunaC extends CI_Controller {
 }
 
 public function konfigurasi_sistem(){
-	if(in_array("15", $this->data_menu)){
+	if(in_array(15, $this->data_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Konfigurasi Sistem | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
@@ -89,7 +90,7 @@ public function konfigurasi_sistem(){
 }
 
 	public function prosedur(){ //halaman index kadep (dashboard)
-		if(in_array("16", $this->data_menu)){
+		if(in_array(16, $this->data_menu)){
 			$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Konfigurasi Sistem | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;

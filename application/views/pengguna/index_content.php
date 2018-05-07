@@ -19,6 +19,7 @@
                       <!-- <header class="panel-heading">
                           <h3> </Char>
                           </header> -->
+                          <!-- <?php print_r($menu);?> -->
                           
                           <div class="panel-body">
                             <div class="tab-pane" id="chartjs">

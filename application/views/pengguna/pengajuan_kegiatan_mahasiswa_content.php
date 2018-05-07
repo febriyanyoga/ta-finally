@@ -69,13 +69,8 @@ tgl_selesai_kegiatan<section id="main-content">
                           $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
                           $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
 
-
                           $kode = $kegiatan->kode_kegiatan; 
-                          $id_staf_keu = $cek_id_staf_keu[0]->id_pengguna; 
-                          $progress_staf_keu = $KegiatanM->get_own_progress($kode, $id_staf_keu);
-
-                          $kode = $kegiatan->kode_kegiatan; 
-                          $id_staf_keu = $cek_id_staf_keu[0]->id_pengguna; 
+                          $id_staf_keu = $cek_id_staf_keu[0]->kode_jabatan_unit; 
                           $progress_staf_keu = $KegiatanM->get_own_progress($kode, $id_staf_keu);
                            if($progress_staf_keu > 0){ //sudah ada input staf keu
                             $progress_nama = $KegiatanM->get_progress_by_id($id_staf_keu)->result()[0]->nama_progress;

@@ -74,13 +74,13 @@
                             $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
                             $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
                             $kode = $kegiatan->kode_kegiatan; 
-                        $own_id     = $data_diri->id_pengguna; //id sendri
+                        $own_id     = $data_diri->kode_jabatan_unit; //id sendri
                         $max        = $cek_max_pegawai->ranking; //id pengguna rank tertinggi
-                        $id_max     = $KegiatanM->cek_id_by_rank_pegawai($max)->id_pengguna; //id yang rank nya max
+                        $id_max     = $KegiatanM->cek_id_by_rank_pegawai($max)->kode_jabatan_unit; //id yang rank nya max
                         $own  = $KegiatanM->get_own_progress($kode, $own_id);
                           // echo $progress;
                           // echo $progress_tolak;
-                        $id_staf_keu = $cek_id_staf_keu[0]->id_pengguna; 
+                        $id_staf_keu = $cek_id_staf_keu[0]->kode_jabatan_unit; 
                         $progress_staf_keu = $KegiatanM->get_own_progress($kode, $id_staf_keu);
                        if($progress_staf_keu > 0){ //sudah ada input staf keu
                         $progress_nama = $KegiatanM->get_progress_by_id($id_staf_keu, $kode)->result()[0]->nama_progress;
@@ -94,7 +94,7 @@
                           <?php
                         }else{
                          if($progress == 1){
-                          $input_id = $KegiatanM->get_progress_who($kode)[0]->id_pengguna;//jika yang input dia sendiri
+                          $input_id = $KegiatanM->get_progress_who($kode)[0]->kode_jabatan_unit;//jika yang input dia sendiri
                           if($input_id == $own_id && $id_max == $own_id){
                             ?>
                             <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Disetujui</a>
@@ -288,7 +288,7 @@
 
               <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
 
-              <input class="form-control" type="hidden" id="pimpinan" name="pimpinan" value="<?php echo $id_pimpinan->id_pengguna;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
+              <input class="form-control" type="hidden" id="pimpinan" name="pimpinan" value="<?php echo $id_pimpinan->kode_jabatan_unit;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
             </div>
             <div class="form-group">
               <!-- <label>Kode Jenis Kegiatan</label> -->

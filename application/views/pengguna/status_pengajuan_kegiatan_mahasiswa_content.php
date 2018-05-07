@@ -85,13 +85,13 @@
                   <?php 
                   $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
                   $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
-                  $own_id = $data_diri->id_pengguna;
+                  $own_id = $data_diri->kode_jabatan_unit;
                   $kode = $kegiatan->kode_kegiatan; 
                   $own  = $KegiatanM->get_own_progress($kode, $own_id);
 
 
                       // if ada progress dari staf keuangan , nama progress ambil dari database
-                        $id_staf_keu = $cek_id_staf_keu[0]->id_pengguna; 
+                        $id_staf_keu = $cek_id_staf_keu[0]->kode_jabatan_unit; 
                         $progress_staf_keu = $KegiatanM->get_own_progress($kode, $id_staf_keu);
                        if($progress_staf_keu > 0){ //sudah ada input staf keu
                         $progress_nama = $KegiatanM->get_progress_by_id($id_staf_keu, $kode)->result()[0]->nama_progress;
@@ -124,7 +124,7 @@
                   <td>
                     <?php
                     $min = $cek_min_mhs->ranking; //cek rannking min
-                    $id_min     = $KegiatanM->cek_id_by_rank_mhs($min)->id_pengguna; //id yang rank nya min
+                    $id_min     = $KegiatanM->cek_id_by_rank_mhs($min)->kode_jabatan_unit; //id yang rank nya min
                     $progress_min  = $KegiatanM->get_own_progress($kode, $id_min); //progress id min
                     $own  = $KegiatanM->get_own_progress($kode, $own_id); //progress sendiri
                     if($progress_min > 0){

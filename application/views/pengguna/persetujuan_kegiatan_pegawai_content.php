@@ -87,14 +87,14 @@
                         <?php 
                         $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
                         $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
-                        $own_id     = $data_diri->id_pengguna; //id sendri
+                        $own_id     = $data_diri->kode_jabatan_unit; //id sendri
                         $max        = $cek_max_pegawai->ranking; //id pengguna rank tertinggi
-                        $id_max     = $KegiatanM->cek_id_by_rank_pegawai($max)->id_pengguna; //id yang rank nya max
+                        $id_max     = $KegiatanM->cek_id_by_rank_pegawai($max)->kode_jabatan_unit; //id yang rank nya max
                         $kode = $kegiatan->kode_kegiatan; 
                         $own  = $KegiatanM->get_own_progress($kode, $own_id);
                           // echo $progress;
                           // echo $progress_tolak;
-                        $id_staf_keu = $cek_id_staf_keu[0]->id_pengguna; 
+                        $id_staf_keu = $cek_id_staf_keu[0]->kode_jabatan_unit; 
                         $progress_staf_keu = $KegiatanM->get_own_progress($kode, $id_staf_keu);
                         if($progress_staf_keu > 0){ //sudah ada input staf keu
                           $progress_nama = $KegiatanM->get_progress_by_id($id_staf_keu, $kode)->result()[0]->nama_progress;
@@ -109,7 +109,7 @@
                             <?php
                           }else{
                            if($progress == 1){ //jika sudah punya porgress 1
-                          $input_id = $KegiatanM->get_progress_who($kode)[0]->id_pengguna;//jika yang input dia sendiri
+                          $input_id = $KegiatanM->get_progress_who($kode)[0]->kode_jabatan_unit;//jika yang input dia sendiri
                           if($input_id == $own_id && $id_max == $own_id){ //yang inputin progress dia dan dia adalah max
                             ?>
                             <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Disetujui</a>
@@ -162,7 +162,7 @@
                    }else{
                       $own_rank   = $KegiatanM->cek_rank_by_id_pegawai($own_id)->ranking; //rank sendiri
                       $rank_next  = ((int)$own_rank + 1); //id yang punya rank sendri + 1
-                      $id_next    = $KegiatanM->cek_id_by_rank_pegawai($rank_next)->id_pengguna; //id yang ranknya ranksendiri + 1
+                      $id_next    = $KegiatanM->cek_id_by_rank_pegawai($rank_next)->kode_jabatan_unit; //id yang ranknya ranksendiri + 1
                       $progress_id_next = $KegiatanM->get_own_progress($kegiatan->kode_kegiatan, $id_next); //progress id yang ranknya ranksendiri + 1
                       if($progress_id_next == "1"){
                        if($own > 0){?>

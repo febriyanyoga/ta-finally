@@ -112,7 +112,7 @@
                 <td class="text-center">
                   <?php 
                   $kode = $kegiatan->kode_kegiatan;
-                  $id   = $data_diri->id_pengguna;
+                  $id   = $data_diri->kode_jabatan_unit;
                   $own  = $KegiatanM->get_own_progress($kode, $id);
                         // print_r($own);
                   if($own > 0){

@@ -86,7 +86,7 @@
                           // echo $progress;
                           // echo $progress_tolak;
                         $kode = $kegiatan->kode_kegiatan; 
-                        $id_staf_keu = $cek_id_staf_keu[0]->id_pengguna; 
+                        $id_staf_keu = $cek_id_staf_keu[0]->kode_jabatan_unit; 
                         $progress_staf_keu = $KegiatanM->get_own_progress($kode, $id_staf_keu);
                         if($progress_staf_keu > 0){ //sudah ada input staf keu
                           $progress_nama = $KegiatanM->get_progress_by_id($id_staf_keu, $kode)->result()[0]->nama_progress;
@@ -120,9 +120,9 @@
                     </td>
                     <td class="text-center">
                       <?php 
-                      $own_id     = $data_diri->id_pengguna; //id sendri
+                      $own_id     = $data_diri->kode_jabatan_unit; //id jabatan unit sendri
                       $max        = $cek_max->ranking; //id pengguna rank tertinggi
-                      $id_max     = $KegiatanM->cek_id_by_rank_mhs($max)->id_pengguna; //id yang rank nya max
+                      $id_max     = $KegiatanM->cek_id_by_rank_mhs($max)->kode_jabatan_unit; //id yang rank nya max
 
                       $kode = $kegiatan->kode_kegiatan; 
                       $own  = $KegiatanM->get_own_progress($kode, $own_id);
@@ -148,7 +148,7 @@
                      }else{
                       $own_rank   = $KegiatanM->cek_rank_by_id_mhs($own_id)->ranking; //rank sendiri
                       $rank_next  = ((int)$own_rank + 1); //id yang punya rank sendri + 1
-                      $id_next    = $KegiatanM->cek_id_by_rank_mhs($rank_next)->id_pengguna; //id yang ranknya ranksendiri + 1
+                      $id_next    = $KegiatanM->cek_id_by_rank_mhs($rank_next)->kode_jabatan_unit; //id yang ranknya ranksendiri + 1
                       $progress_id_next = $KegiatanM->get_own_progress($kegiatan->kode_kegiatan, $id_next); //progress id yang ranknya ranksendiri + 1
                       if($progress_id_next == "1"){
                        if($own > 0){?>

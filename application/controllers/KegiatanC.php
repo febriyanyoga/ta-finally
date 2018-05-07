@@ -21,7 +21,7 @@ class KegiatanC extends CI_Controller {
 
 	public function persetujuan_kegiatan_mahasiswa(){ //halaman persetujuan kegiatan mahasiswa (kadep)
 		// menampilkan kegiatan mahasiswa yang telah di beri porgress oleh manajer Keuangan
-		if(in_array("1", $this->data_menu)){
+		if(in_array(1, $this->data_menu)){
 		$data['menu'] = $this->data_menu;
 		$id_pengguna = $this->session->userdata('id_pengguna');
 		$kode_jenis_kegiatan = 2; //kegiatan mahasiswa
@@ -65,7 +65,7 @@ class KegiatanC extends CI_Controller {
 	}
 
 	public function persetujuan_kegiatan_pegawai(){ //halaman persetujuan kegiatan pegawai (kadep)
-		if(in_array("2", $data_array_akses_menu)){
+		if(in_array(2, $this->data_menu)){
 		$data['menu'] = $this->data_menu;
 		$no_identitas = $this->session->userdata('no_identitas');
 		$kode_jenis_kegiatan = 1; //kegiatan pegawai
@@ -86,7 +86,7 @@ class KegiatanC extends CI_Controller {
 
 
 	public function persetujuan_kegiatan_staf(){ //halaman persetujuan kegiatan staf (manajer keuangan)
-		if(in_array("3", $this->data_menu)){
+		if(in_array(3, $this->data_menu)){
 		$data['menu'] = $this->data_menu;
 		$id_pengguna = $this->session->userdata('id_pengguna');
 		$kode_unit 	= $this->session->userdata('kode_unit');
@@ -107,7 +107,7 @@ class KegiatanC extends CI_Controller {
 
 
 	public function pengajuan_kegiatan_mahasiswa(){
-		if(in_array("6", $this->data_menu)){
+		if(in_array(6, $this->data_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Pengajuan Kegiatan Mahasiswa | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
@@ -124,7 +124,7 @@ class KegiatanC extends CI_Controller {
 	}
 
 	public function pengajuan_kegiatan_pegawai(){ //halaman pengajuan kegiatan
-		if(in_array("7", $data_array_akses_menu)){
+		if(in_array(7, $this->data_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Pengajuan Kegiatan Pegawai | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
@@ -153,7 +153,7 @@ class KegiatanC extends CI_Controller {
 	}
 
 	public function status_pengajuan_kegiatan_pegawai(){ //halaman index Sekretaris Departemen (dashboard)
-		if(in_array("11", $this->data_menu)){
+		if(in_array(11, $this->data_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$this->data['data_diri'] = $data_diri;  	//get data diri buat nampilin nama di pjok kanan
@@ -171,7 +171,7 @@ class KegiatanC extends CI_Controller {
 	}
 
 	public function status_pengajuan_kegiatan_mahasiswa(){ //halaman index Sekretaris Departemen (dashboard)
-		if(in_array("10", $this->data_menu)){
+		if(in_array(10, $this->data_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$this->data['data_diri'] = $data_diri;  	//get data diri buat nampilin nama di pjok kanan
@@ -197,6 +197,7 @@ class KegiatanC extends CI_Controller {
 
 
 	public function post_progress(){ //posting progress dan update kegiatan (dana disetujuin)
+		$this->form_validation->set_rules('kode_jabatan_unit', 'Kode Jabatan Unit','required');
 		$this->form_validation->set_rules('id_pengguna', 'No Identitas','required');
 		$this->form_validation->set_rules('kode_fk', 'Kode Kegiatan','required');
 		$this->form_validation->set_rules('kode_nama_progress', 'Nama Progress','required'); //diterima/ditolak
@@ -206,6 +207,7 @@ class KegiatanC extends CI_Controller {
 			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
 			redirect_back(); //kembali ke halaman sebelumnya -> helper
 		}else{
+			$kode_jabatan_unit		= $_POST['kode_jabatan_unit'];
 			$id_pengguna		= $_POST['id_pengguna'];
 			$tgl_progress		= $_POST['tgl_progress'];
 			$kode_fk			= $_POST['kode_fk'];
@@ -219,6 +221,7 @@ class KegiatanC extends CI_Controller {
 			$waktu_progress	= mdate($format_waktu);
 
 			$data = array(
+				'kode_jabatan_unit' 			=> $kode_jabatan_unit,
 				'id_pengguna' 			=> $id_pengguna,
 				'kode_fk'				=> $kode_fk,
 				'kode_nama_progress' 	=> $kode_nama_progress,
@@ -301,6 +304,7 @@ class KegiatanC extends CI_Controller {
 			$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan');
 			redirect('KegiatanC/pengajuan_kegiatan_pegawai');
 		}else{
+			$kode_jabatan_unit 	    = $_POST['kode_jabatan_unit'];
 			$id_pengguna 	       	= $_POST['id_pengguna'];
 			$pimpinan 	       		= $_POST['pimpinan'];
 			$kode_jenis_kegiatan 	= $_POST['kode_jenis_kegiatan'];
@@ -338,7 +342,8 @@ class KegiatanC extends CI_Controller {
 					$jenis_progress		= "kegiatan";
 
 					$data = array(
-						'id_pengguna	' 		=> $id_pengguna	,
+						'kode_jabatan_unit	' 	=> $kode_jabatan_unit,
+						'id_pengguna	' 		=> $id_pengguna,
 						'kode_fk'				=> $insert_id,
 						'kode_nama_progress' 	=> $kode_nama_progress,
 						'komentar'				=> $komentar,
@@ -348,7 +353,7 @@ class KegiatanC extends CI_Controller {
 
 					);
 
-					if($id_pengguna == $pimpinan){
+					if($kode_jabatan_unit == $pimpinan){
 					$this->KegiatanM->insert_progress($data); //insert progress langsung ketika mengajukan kegiatan untuk manajer, kepala, dan pimpinan yang lain
 				}
 				}else{ // Jika proses upload gagal

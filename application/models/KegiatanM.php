@@ -31,7 +31,7 @@
  	}
 
  	public function cek_id_staf_keu(){
- 		$this->db->select('id_pengguna');
+ 		$this->db->select('pengguna.kode_jabatan_unit');
  		$this->db->from('pengguna');
  		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
  		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
@@ -83,22 +83,22 @@
 		return $query->num_rows();
 	}
 
-	public function get_own_progress($kode, $id_pengguna){
+	public function get_own_progress($kode, $kode_jabatan_unit){
 		$this->db->select('*');
 		$this->db->from('progress');
 		$this->db->where('progress.kode_fk', $kode);
 		$this->db->where('progress.jenis_progress = "kegiatan"');
-		$this->db->where('progress.id_pengguna', $id_pengguna);
+		$this->db->where('progress.kode_jabatan_unit', $kode_jabatan_unit);
 		$query = $this->db->get();
 		return $query->num_rows();
 	}
 
-	public function get_progress_by_id($id, $kode_kegiatan){
+	public function get_progress_by_id($kode_jabatan_unit, $kode_kegiatan){
 		$this->db->select('*');
 		$this->db->from('progress');
 		$this->db->join('nama_progress','nama_progress.kode_nama_progress = progress.kode_nama_progress');
 		$this->db->join('kegiatan', 'kegiatan.kode_kegiatan = progress.kode_fk');
-		$this->db->where('progress.id_pengguna', $id);
+		$this->db->where('progress.kode_jabatan_unit', $kode_jabatan_unit);
 		$this->db->where('progress.kode_fk = kegiatan.kode_kegiatan');
 		$this->db->where('kegiatan.kode_kegiatan', $kode_kegiatan);
 		$this->db->where('progress.jenis_progress = "kegiatan"');
@@ -129,7 +129,7 @@
 	}
 
 	public function get_id_pimpinan($kode_unit){
-		$this->db->select('pengguna.id_pengguna');
+		$this->db->select('pengguna.kode_jabatan_unit');
 		$this->db->from('pengguna');
 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
@@ -168,9 +168,9 @@
 		}
 	}
 
-	public function cek_rank_by_id_mhs($id_pengguna){
+	public function cek_rank_by_id_mhs($kode_jabatan_unit){
 		$this->db->select('ranking');
-		$this->db->where('id_pengguna', $id_pengguna);
+		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
 		$this->db->where('kode_jenis_kegiatan = "2"'); //mhs
 		if($query = $this->db->get('acc_kegiatan')->row()){
 			return $query;
@@ -262,7 +262,7 @@
 	}
 
 	public function get_progress_who($id){
-		$this->db->select('id_pengguna');
+		$this->db->select('kode_jabatan_unit');
 		$this->db->from('progress');
 		$this->db->where('progress.kode_fk', $id);
 		$this->db->where('progress.jenis_progress = "kegiatan"');
