@@ -103,6 +103,19 @@ class BarangC extends CI_Controller {
 		$this->load->view('pengguna/index_template', $data);
 	}
 
+	public function persetujuan_rab(){ //halaman untuk pengajuan RAB(mansarpras )
+		// menampilkan daftar barang untuk dijadikan RAB dan data RAB
+		$data['menu'] = $this->data_menu;
+		$id_pengguna = $this->session->userdata('id_pengguna');
+		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+		$data['title'] = "Persetujuan RAB | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+		$this->data['rab'] = $this->BarangM->get_rab()->result();
+		$this->data['BarangM'] = $this->BarangM;
+		$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
+		$data['body'] = $this->load->view('pengguna/persetujuan_rab_content', $this->data, true) ;
+		$this->load->view('pengguna/index_template', $data);
+	}
+
 	
 	// ================================FUNGSI DI HALAMAN=====================
 
