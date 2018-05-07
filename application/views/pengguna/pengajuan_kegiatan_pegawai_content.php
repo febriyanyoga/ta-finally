@@ -100,151 +100,157 @@
                             <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Disetujui</a>
                             <?php
                           }else{
-                            ?>
-                            <a class="label label-default" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Proses</a>
-                            <?php
-                          }
-                        }elseif ($progress > 1) {
-                          ?>
-                          <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Disetujui</a>
-                          <?php
-                        }elseif ($progress == 0) {
-                          ?>
-                          <span class="label label-info">Baru</span>
-                          <?php
-                        }
-                      } 
-                    }
-                    ?>
-                  </td>
-                  <td class="text-center">
-                    <?php 
-                    if($progress > 0 || $progress_tolak > 0){?>
-                    <div class="btn-group">
-                      <a disabled data-toggle='tooltip' title='edit' class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-                      <a disabled data-toggle='tooltip' title='hapus' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>                            
-                    </div>
-                    <?php 
-                  }else{?>
+                            if($id_pimpinan->kode_jabatan_unit = $id_max){
+                             ?>
+                             <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Disetujui</a>
+                             <?php
+                           }else{
+                             ?>
+                             <a class="label label-default" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Proses</a>
+                             <?php
+                           }
+                         }
+                       }elseif ($progress > 1) {
+                        ?>
+                        <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Disetujui</a>
+                        <?php
+                      }elseif ($progress == 0) {
+                        ?>
+                        <span class="label label-info">Baru</span>
+                        <?php
+                      }
+                    } 
+                  }
+                  ?>
+                </td>
+                <td class="text-center">
+                  <?php 
+                  if($progress > 0 || $progress_tolak > 0){?>
                   <div class="btn-group">
-                    <a href="#" id="custId" data-toggle="modal" data-target="#modal_edit-<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Ubah Pengajuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-
-                    <a href="<?php echo base_url('KegiatanC/hapus_pengajuan')."/".$kegiatan->kode_kegiatan;?>" onClick="return confirm('Anda yakin akan menghapus data pengajuan ini?')" data-toggle='tooltip' title='hapus' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>                            
+                    <a disabled data-toggle='tooltip' title='edit' class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                    <a disabled data-toggle='tooltip' title='hapus' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>                            
                   </div>
                   <?php 
-                }
-                ?>
-              </td>
-            </tr>  
+                }else{?>
+                <div class="btn-group">
+                  <a href="#" id="custId" data-toggle="modal" data-target="#modal_edit-<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Ubah Pengajuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
 
-
-            <div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="modal_edit-<?php echo $kegiatan->kode_kegiatan;?>" class="modal fade">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                    <h4 class="modal-title">Ubah Pengajuan Kegiatan Pegawai</h4>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="panel-body">
-                       <div class="alert alert-danger">
-                        <ol type="1"> <strong>Perhatian !</strong>
-                          <li>Isi <b>Nama Kegiatan</b> sesuai dengan kegiatan yang ingin dilaksanakan.</li>
-                          <li>Berkas yang diunggah hanya <b>satu(1)</b> berupa berkas <b>.pdf</b>. Apabila membutuhkan lebih dari satu berkas, maka harus dijadikan satu berkas <b>.pdf</b>.</li>
-                          <li>Data yang sudah mendapat persetujuan <b>tidak dapat diubah</b>.</li>
-                        </ol>
-                      </div>
-                      <?php echo form_open_multipart('KegiatanC/post_ubah_pengajuan_kegiatan');?>
-                      <form role="form" action="<?php echo base_url(); ?>KegiatanC/post_ubah_pengajuan_kegiatan" method="post">
-                        <!-- Alert -->
-                        <!-- sampai sini -->
-                        <div class="form-group">
-                          <!-- <label>ID Pengguna Jabatan</label> -->
-                          <input class="form-control" type="hidden" id="kode_kegiatan" name="kode_kegiatan" value="<?php echo $kegiatan->kode_kegiatan;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
-                        </div>
-                        <div class="form-group">
-                          <!-- <label>Kode Jenis Kegiatan</label> -->
-                          <?php
-                          $tgl_kegiatan = $kegiatan->tgl_kegiatan;
-                          $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
-                          $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
-                          $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai)); 
-                          if($data_diri->kode_jabatan == '5'){
-                            ?>  
-                            <input class="form-control" type="hidden" id="kode_jenis_kegiatan" name="kode_jenis_kegiatan" value="2" required>
-                            <?php
-                          }else{
-                            ?>
-                            <input class="form-control" type="hidden" id="kode_jenis_kegiatan" name="kode_jenis_kegiatan" value="1" required>
-                            <?php
-                          }
-                          ?>
-                        </div>
-                        <div class="form-group">
-                          <label>Nama Kegiatan</label>
-                          <input class="form-control" placeholder="Nama Kegiatan" type="text" id="nama_kegiatan" name="nama_kegiatan" value="<?php echo $kegiatan->nama_kegiatan?>" required>
-                          <span class="text-danger" style="color: red;"><?php echo form_error('nama_kegiatan'); ?></span>  
-                        </div>
-                        <div class="form-group">
-                          <label>Tanggal Pelaksanaan Kegiatan</label>
-                          <div class="row">
-                           <div class="col-md-5">
-                            <input type="text" class="form-control"  id="from-<?php echo $kegiatan->kode_kegiatan;?>" placeholder="hh/bb/ttt" name="tgl_kegiatan" value="<?php echo $new_tgl_kegiatan; ?>" required>
-                          </div>
-                          <div class="col-md-2 text-center">Sampai</div>
-                          <div class="col-md-5">
-                            <input type="text" class="form-control" id="to-<?php echo $kegiatan->kode_kegiatan;?>" placeholder="hh/bb/ttt" name="tgl_selesai_kegiatan" value="<?php echo $new_tgl_selesai ?>" required>
-                          </div>
-                        </div>
-                        <span class="text-danger" style="color: red;"><?php echo form_error('tgl_kegiatan'); ?></span>  
-                      </div>
-                      <div class="form-group">
-                        <label>Dana yang diajukan</label>
-                        <input class="form-control" placeholder="Dana yang diajukan" type="text" onkeypress="return hanyaAngka(event)" id="dana_diajukan" name="dana_diajukan" value="<?php echo $kegiatan->dana_diajukan ?>" required>
-                        <span class="text-danger" style="color: red;"><?php echo form_error('dana_diajukan'); ?></span>  
-                      </div>
-                      <div class="form-group">
-                        <input class="form-control" type="hidden" id="dana_disetujui" name="dana_disetujui" value="0">
-                      </div>
-
-                      <div style="color: red;"><?php echo (isset($message))? $message : ""; ?></div>
-                      <div class="form-group">
-                        <label>Unggah Berkas</label>
-                        <input type="file" name="file_upload">
-                      </div>
-                    </div> 
-                    <!-- <button type="reset" class="btn btn-default">Reset Button</button> -->
-                    <div class="modal-footer">
-                      <input type="submit" class="btn btn-info col-lg-2"  value="Submit">
-                    </div> 
-                  </form>
-                  <?php echo form_close()?>
+                  <a href="<?php echo base_url('KegiatanC/hapus_pengajuan')."/".$kegiatan->kode_kegiatan;?>" onClick="return confirm('Anda yakin akan menghapus data pengajuan ini?')" data-toggle='tooltip' title='hapus' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>                            
                 </div>
-                <div class="col-lg-1"></div>
+                <?php 
+              }
+              ?>
+            </td>
+          </tr>  
+
+
+          <div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="modal_edit-<?php echo $kegiatan->kode_kegiatan;?>" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                  <h4 class="modal-title">Ubah Pengajuan Kegiatan Pegawai</h4>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="panel-body">
+                     <div class="alert alert-danger">
+                      <ol type="1"> <strong>Perhatian !</strong>
+                        <li>Isi <b>Nama Kegiatan</b> sesuai dengan kegiatan yang ingin dilaksanakan.</li>
+                        <li>Berkas yang diunggah hanya <b>satu(1)</b> berupa berkas <b>.pdf</b>. Apabila membutuhkan lebih dari satu berkas, maka harus dijadikan satu berkas <b>.pdf</b>.</li>
+                        <li>Data yang sudah mendapat persetujuan <b>tidak dapat diubah</b>.</li>
+                      </ol>
+                    </div>
+                    <?php echo form_open_multipart('KegiatanC/post_ubah_pengajuan_kegiatan');?>
+                    <form role="form" action="<?php echo base_url(); ?>KegiatanC/post_ubah_pengajuan_kegiatan" method="post">
+                      <!-- Alert -->
+                      <!-- sampai sini -->
+                      <div class="form-group">
+                        <!-- <label>ID Pengguna Jabatan</label> -->
+                        <input class="form-control" type="hidden" id="kode_kegiatan" name="kode_kegiatan" value="<?php echo $kegiatan->kode_kegiatan;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
+                      </div>
+                      <div class="form-group">
+                        <!-- <label>Kode Jenis Kegiatan</label> -->
+                        <?php
+                        $tgl_kegiatan = $kegiatan->tgl_kegiatan;
+                        $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
+                        $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
+                        $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai)); 
+                        if($data_diri->kode_jabatan == '5'){
+                          ?>  
+                          <input class="form-control" type="hidden" id="kode_jenis_kegiatan" name="kode_jenis_kegiatan" value="2" required>
+                          <?php
+                        }else{
+                          ?>
+                          <input class="form-control" type="hidden" id="kode_jenis_kegiatan" name="kode_jenis_kegiatan" value="1" required>
+                          <?php
+                        }
+                        ?>
+                      </div>
+                      <div class="form-group">
+                        <label>Nama Kegiatan</label>
+                        <input class="form-control" placeholder="Nama Kegiatan" type="text" id="nama_kegiatan" name="nama_kegiatan" value="<?php echo $kegiatan->nama_kegiatan?>" required>
+                        <span class="text-danger" style="color: red;"><?php echo form_error('nama_kegiatan'); ?></span>  
+                      </div>
+                      <div class="form-group">
+                        <label>Tanggal Pelaksanaan Kegiatan</label>
+                        <div class="row">
+                         <div class="col-md-5">
+                          <input type="text" class="form-control"  id="from-<?php echo $kegiatan->kode_kegiatan;?>" placeholder="hh/bb/ttt" name="tgl_kegiatan" value="<?php echo $new_tgl_kegiatan; ?>" required>
+                        </div>
+                        <div class="col-md-2 text-center">Sampai</div>
+                        <div class="col-md-5">
+                          <input type="text" class="form-control" id="to-<?php echo $kegiatan->kode_kegiatan;?>" placeholder="hh/bb/ttt" name="tgl_selesai_kegiatan" value="<?php echo $new_tgl_selesai ?>" required>
+                        </div>
+                      </div>
+                      <span class="text-danger" style="color: red;"><?php echo form_error('tgl_kegiatan'); ?></span>  
+                    </div>
+                    <div class="form-group">
+                      <label>Dana yang diajukan</label>
+                      <input class="form-control" placeholder="Dana yang diajukan" type="text" onkeypress="return hanyaAngka(event)" id="dana_diajukan" name="dana_diajukan" value="<?php echo $kegiatan->dana_diajukan ?>" required>
+                      <span class="text-danger" style="color: red;"><?php echo form_error('dana_diajukan'); ?></span>  
+                    </div>
+                    <div class="form-group">
+                      <input class="form-control" type="hidden" id="dana_disetujui" name="dana_disetujui" value="0">
+                    </div>
+
+                    <div style="color: red;"><?php echo (isset($message))? $message : ""; ?></div>
+                    <div class="form-group">
+                      <label>Unggah Berkas</label>
+                      <input type="file" name="file_upload">
+                    </div>
+                  </div> 
+                  <!-- <button type="reset" class="btn btn-default">Reset Button</button> -->
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-info col-lg-2"  value="Submit">
+                  </div> 
+                </form>
+                <?php echo form_close()?>
               </div>
+              <div class="col-lg-1"></div>
             </div>
           </div>
         </div>
-        <script type="text/javascript">
-          $(function() {
-            $("#from-<?php echo $kegiatan->kode_kegiatan;?>").datepicker({
-              defaultDate: new Date(),
-              minDate: new Date(),
-              onSelect: function(dateStr) 
-              {         
-                $("#to-<?php echo $kegiatan->kode_kegiatan;?>").datepicker("destroy");
-                $("#to-<?php echo $kegiatan->kode_kegiatan;?>").val(dateStr);
-                $("#to-<?php echo $kegiatan->kode_kegiatan;?>").datepicker({ minDate: new Date(dateStr)})
-              }
-            });
+      </div>
+      <script type="text/javascript">
+        $(function() {
+          $("#from-<?php echo $kegiatan->kode_kegiatan;?>").datepicker({
+            defaultDate: new Date(),
+            minDate: new Date(),
+            onSelect: function(dateStr) 
+            {         
+              $("#to-<?php echo $kegiatan->kode_kegiatan;?>").datepicker("destroy");
+              $("#to-<?php echo $kegiatan->kode_kegiatan;?>").val(dateStr);
+              $("#to-<?php echo $kegiatan->kode_kegiatan;?>").datepicker({ minDate: new Date(dateStr)})
+            }
           });
-        </script>
-        <?php
-      }
-      ?>
-    </tbody>
-  </table>
+        });
+      </script>
+      <?php
+    }
+    ?>
+  </tbody>
+</table>
 </div>
 </div>
 </div>
@@ -289,6 +295,7 @@
               <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
 
               <input class="form-control" type="hidden" id="pimpinan" name="pimpinan" value="<?php echo $id_pimpinan->kode_jabatan_unit;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
+              <input class="form-control" type="hidden" id="kode_jabatan_unit" name="kode_jabatan_unit" value="<?php echo $data_diri->kode_jabatan_unit;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
             </div>
             <div class="form-group">
               <!-- <label>Kode Jenis Kegiatan</label> -->

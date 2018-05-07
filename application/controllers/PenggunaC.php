@@ -76,7 +76,7 @@ public function konfigurasi_sistem(){
 		$this->data['jenis_kegiatan']		= $this->PenggunaM->get_jenis_kegiatan()->result();
 		$this->data['jenis_kegiatan_persetujuan']	= $this->PenggunaM->get_jenis_kegiatan()->result();
 		$this->data['jenis_barang']			= $this->PenggunaM->get_jenis_barang()->result();
-		$this->data['jabatan']				= $this->PenggunaM->get_pilihan_jabatan()->result();
+		$this->data['jabatan_pilihan']				= $this->PenggunaM->get_pilihan_jabatan()->result();
 		$this->data['unit']					= $this->PenggunaM->get_pilihan_unit()->result();
 		$this->data['akses_menu']			= $this->PenggunaM->get_akses_menu_2()->result();
 		$this->data['jabatan_unit_menu']	= $this->PenggunaM->get_jabatan_unit()->result();
@@ -137,13 +137,38 @@ public function konfigurasi_sistem(){
 
     // Jabatan
     public function tambah_jabatan(){
-    	$this->form_validation->set_rules('nama_jabatan', 'Nama Jabatan','required');
+    	$this->form_validation->set_rules('kode_unit', 'Kode Unit','required');
+    	$this->form_validation->set_rules('kode_jabatan', 'Kode Jabatan','required');
     	if($this->form_validation->run() == FALSE){
     		$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
 			redirect_back(); //kembali ke halaman sebelumnya -> helper
 		}else{
-			$nama_jabatan = $_POST['nama_jabatan'];
-			$db 		= "jabatan";
+			$kode_jabatan 	= $_POST['kode_jabatan'];
+			$kode_unit 		= $_POST['kode_unit'];
+
+			$data_jabatan_unit = array(
+				'kode_unit' 	=> $kode_unit, 
+				'kode_jabatan'	=> $kode_jabatan 
+			);
+
+			if($insert_id_2 = $this->PenggunaM->insert('jabatan_unit', $data_jabatan_unit)){
+				$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
+				redirect_back(); // redirect kembali ke halaman sebelumnya
+			}else{
+				$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
+				redirect_back();
+			}
+		}
+	}
+
+	public function tambah_jabatan_2(){
+		$this->form_validation->set_rules('nama_jabatan', 'Nama Jabatan','required');
+		if($this->form_validation->run() == FALSE){
+			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
+			redirect_back(); //kembali ke halaman sebelumnya -> helper
+		}else{
+			$nama_jabatan 	= $_POST['nama_jabatan'];
+			$db 			= "jabatan";
 
 			$data = array(
 				'nama_jabatan'      => $nama_jabatan);

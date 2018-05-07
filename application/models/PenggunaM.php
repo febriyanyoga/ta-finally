@@ -25,6 +25,12 @@
  		return TRUE;
  	}
 
+ 	public function hapus_jabatan_unit($id){
+ 		$this->db->where('kode_jabatan_unit', $id);
+ 		$this->db->delete('jabatan_unit');
+ 		return TRUE;
+ 	}
+
  	public function hapus_data_pengguna($id){
  		$this->db->where('id_pengguna', $id);
  		$this->db->delete('pengguna');
@@ -168,7 +174,8 @@
 	}
 
 	public function insert($db, $data){
-		return $query = $this->db->insert($db, $data);
+		$this->db->insert($db, $data);
+ 		return $this->db->insert_id();
 	}
 
 	public function update($id, $kode, $db, $data){
@@ -399,6 +406,16 @@
 	public function get_pilihan_unit_by_id($id){ //mengambil jabatan dari db jabatan berdasarkan id
 		$this->db->where('kode_unit', $id);
 		$query = $this->db->get('unit');	
+		return $query;
+	}
+	public function get_jabatan_by_unit($unit){
+		$this->db->select('*');
+		$this->db->from('jabatan_unit');
+		$this->db->join('jabatan', 'jabatan_unit.kode_jabatan = jabatan.kode_jabatan');
+		$this->db->join('unit', 'jabatan_unit.kode_unit = unit.kode_unit');
+		$this->db->where('unit.kode_unit', $unit);
+		$this->db->group_by('jabatan_unit.kode_jabatan');
+		$query = $this->db->get();
 		return $query;
 	}
 

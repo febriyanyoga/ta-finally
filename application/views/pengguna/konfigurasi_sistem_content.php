@@ -10,7 +10,6 @@
       <div class="col-lg-12">
 
        <?php 
-       // var_dump($detail_jabatan->kode_jabatan);
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
        <div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
@@ -23,10 +22,10 @@
 
        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
         <!-- <li class="nav-item">
-          <a class="nav-link active program-title" data-toggle="tab" href="#1" role="tab"><span class="glyphicon glyphicon-user"></span><br class="hidden-md-up"> Jabatan </a>
+          <a class="nav-link program-title" data-toggle="tab" href="#1" role="tab"><span class="glyphicon glyphicon-user"></span><br class="hidden-md-up"> Jabatan </a>
         </li> -->
         <li class="nav-item">
-          <a class="nav-link program-title" data-toggle="tab" href="#2" role="tab"><span class="glyphicon glyphicon-user"></span><br class="hidden-md-up"> Unit </a>
+          <a class="nav-link active program-title" data-toggle="tab" href="#2" role="tab"><span class="glyphicon glyphicon-user"></span><br class="hidden-md-up"> Unit </a>
         </li>
         <!-- <li class="nav-item">
           <a class="nav-link program-title" data-toggle="tab" href="#3" role="tab"><span class="glyphicon glyphicon-gift"></span><br class="hidden-md-up"> Jenis Barang </a>
@@ -61,7 +60,7 @@
    <div class="col-md-8 col-lg-8 col-sm-12">
     <div class="tab-content" >
       <!-- Data tabel jabatan-->
-      <div id="1" class="tab-pane active" role="tabpanel">
+      <div id="1" class="tab-pane" role="tabpanel">
         <div class="row pt-5">
           <div class="col-lg-12">
             <div style="margin-top: 20px;">
@@ -102,6 +101,30 @@
       </div>
     </div>
   </div>
+  <!-- modal tambah jabatan -->
+  <div aria-hidden="true" aria-labelledby="modal_tambah_jabatan" role="dialog" tabindex="-1" id="modal_tambah_jabatan" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+          <h4 class="modal-title">Tambah Jabatan</h4>
+        </div>
+        <div class="modal-body">
+          <?php echo form_open_multipart('PenggunaC/tambah_jabatan_2');?>
+          <form role="form" action="<?php echo base_url(); ?>PenggunaC/tambah_jabatan_2" method="post">
+            <div class="form-group">
+              <label>Nama Jabatan</label>
+              <input class="form-control" placeholder="Nama Jabatan" type="text" id="nama_jabatan" name="nama_jabatan" required>
+            </div>
+            <div class="modal-footer">
+              <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
+            </div> 
+            <?php echo form_close()?>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- modal edit jabatan -->
   <div class="modal fade" id="modal_jabatan" role="dialog">
@@ -120,38 +143,13 @@
     </div>
   </div>
 
-  <!-- modal tambah jabatan -->
-  <div aria-hidden="true" aria-labelledby="modal_tambah_jabatan" role="dialog" tabindex="-1" id="modal_tambah_jabatan" class="modal fade">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-          <h4 class="modal-title">Tambah Jabatan</h4>
-        </div>
-        <div class="modal-body">
-          <?php echo form_open_multipart('PenggunaC/tambah_jabatan');?>
-          <form role="form" action="<?php echo base_url(); ?>PenggunaC/tambah_jabatan" method="post">
-            <div class="form-group">
-              <label>Nama Jabatan</label>
-              <input class="form-control" placeholder="Nama Jabatan" type="text" id="nama_jabatan" name="nama_jabatan" required>
-            </div>
-            <div class="modal-footer">
-              <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
-            </div> 
-            <?php echo form_close()?>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
   <!-- Data tabel unit-->
-  <div id="2" class="tab-pane" role="tabpanel">
+  <div id="2" class="tab-pane active" role="tabpanel">
     <div class="row pt-5">
       <div class="col-lg-12">
        <div style="margin-top: 20px;">
          <a class="btn btn-info" data-toggle="modal" data-target="#modal_tambah_unit"><i class="icon_plus_alt2"> </i> Tambah Unit </a>
+         <a class="btn btn-info pull-right" data-toggle="modal" data-target="#modal_tambah_jabatan"><i class="icon_plus_alt2"> </i> Tambah Jabatan </a>
          <div class="table-responsive">
            <table id="unit" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
@@ -171,13 +169,73 @@
                 ?>
                 <tr>
                   <td><?php echo $i;?></td>
-                  <!-- <td><?php echo $unit->kode_unit;?></td> -->
-                  <td><?php echo $unit->nama_unit;?></td>
+                  <td>
+                    <div class="relative">
+                      <strong><?php echo $unit->nama_unit;?></strong>
+                      <p><small class="kecil" style="font-size: 12px; color: blue;">
+                        <?php
+                        if($jabatan = $PenggunaM->get_jabatan_by_unit($unit->kode_unit)){
+                          $max = count($jabatan->result());
+                          $j = 0;
+                          foreach ($jabatan->result() as $nama_jabatan) {
+                            $j++;
+                            if($j == $max){
+                              echo $nama_jabatan->nama_jabatan.' '.$unit->nama_unit.'.';
+                            }else{
+                              echo $nama_jabatan->nama_jabatan.' '.$unit->nama_unit.', ';
+                            }
+                          } 
+                        }else{
+                          echo "Belum ada Jabatan";
+                        }
+                        ?>
+                      </small></p>
+                    </div>
+                  </td>
                   <!-- <td><?php echo "status";?></td> -->
                   <td class="text-center"> 
-                    <a href="#modal_unit" id="custId" data-toggle="modal" data-id="<?php echo $unit->kode_unit;?>" data-toggle="tooltip" title="Edit Unit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                    <div class="btn-group">
+                      <a href="#modal_unit" id="custId" data-toggle="modal" data-id="<?php echo $unit->kode_unit;?>" data-toggle="tooltip" title="Edit Unit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                      <a data-toggle="modal" title="Tambah Jabatan" class="btn btn-primary btn-sm" data-target="#modal_tambah_jabatan-<?php echo $unit->kode_unit?>"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                    </div>
                   </td>
                 </tr>
+
+                <!-- modal tambah jabatan -->
+                <div aria-hidden="true" aria-labelledby="modal_tambah_jabatan-<?php echo $unit->kode_unit?>" role="dialog" tabindex="-1" id="modal_tambah_jabatan-<?php echo $unit->kode_unit?>" class="modal fade">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                        <h4 class="modal-title">Tambah Jabatan</h4>
+                      </div>
+                      <div class="modal-body">
+                        <?php echo form_open_multipart('PenggunaC/tambah_jabatan');?>
+                        <form role="form" action="<?php echo base_url(); ?>PenggunaC/tambah_jabatan" method="post">
+                          <div class="form-group">
+                            <label>Nama Jabatan</label>
+                            <input class="form-control" placeholder="Nama Jabatan" type="hidden" id="kode_unit" name="kode_unit" value="<?php echo $unit->kode_unit?>" required>
+                            <select class="form-control" name="kode_jabatan" id="kode_jabatan">
+                              <option value="">---- Pilih Jabatan ---- </option>
+                              <?php 
+                              foreach ($jabatan_pilihan as $pilihan_jabatan) {
+                                ?>
+                                <option value="<?php echo $pilihan_jabatan->kode_jabatan;?>"><?php echo $pilihan_jabatan->nama_jabatan." ".$unit->nama_unit?></option>
+                                <?php
+                              }
+                              ?>
+                            </select>
+                          </div>
+                          <div class="modal-footer">
+                            <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
+                          </div> 
+                          <?php echo form_close()?>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <?php
               }
               ?>
