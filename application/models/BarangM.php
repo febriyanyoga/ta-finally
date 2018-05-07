@@ -302,5 +302,11 @@ class BarangM extends CI_Model
 		return $query;
 	}
 
+	public function get_rab(){
+		$this->db->select('*');
+		$this->db->from('pengajuan');
+		$query= $this->db->get();
+		return $query;
+	}
 
 }
