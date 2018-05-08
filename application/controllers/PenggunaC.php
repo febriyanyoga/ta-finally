@@ -50,6 +50,7 @@ class PenggunaC extends CI_Controller {
 	public function pengguna(){//halaman pengguna (admin)
 		if(in_array(14, $this->data_menu)){
 			$data['menu'] = $this->data_menu;
+			$this->data['pilihan_unit'] = $this->PenggunaM->get_unit();
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$this->data['data_pengguna'] = $this->PenggunaM->get_data_pengguna()->result();
 		$this->data['data_diri'] = $data_diri;  	//get data diri buat nampilin nama di pjok kanan
@@ -88,9 +89,9 @@ public function konfigurasi_sistem(){
 	}
 }
 
-	public function prosedur(){ //halaman index kadep (dashboard)
-		if(in_array(16, $this->data_menu)){
-			$data['menu'] = $this->data_menu;
+public function prosedur(){ //halaman index kadep (dashboard)
+	if(in_array(16, $this->data_menu)){
+		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Konfigurasi Sistem | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
 
@@ -104,7 +105,26 @@ public function konfigurasi_sistem(){
 }
 
 
+	//pengguna
+public function ganti_jabatan(){
+	$this->form_validation->set_rules('id_pengguna', 'ID Pengguna','required');
+	$this->form_validation->set_rules('kode_unit', 'Kode Unit','required');
+	$this->form_validation->set_rules('kode_jabatan', 'Kode Jabatan','required');
+	if($this->form_validation->run() == FALSE){
+		$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
+		redirect_back(); //kembali ke halaman sebelumnya -> helper
+	}else{
+		$id_pengguna 	= $_POST['id_pengguna'];
+		$kode_unit 		= $_POST['kode_unit'];
+		$kode_jabatan 	= $_POST['kode_jabatan'];
 
+		$kode_jabatan_unit = $this->PenggunaM->cek_kode_jabatan_unit($kode_unit, $kode_jabatan)->result()[0]->kode_jabatan_unit;
+
+		$data_update_jabatan_unit = array('kode_jabatan_unit' => $kode_jabatan_unit);
+
+		$this->PenggunaM->update_jabatan_unit($id_pengguna, $data_jabatan_unit);
+	}
+}
 
 
 
@@ -744,8 +764,8 @@ public function konfigurasi_sistem(){
         		$config['create_thumb']= FALSE;
         		$config['maintain_ratio']= FALSE;
         		$config['quality']= '75%';
-        		$config['width']= 200;
-        		$config['height']= 200;
+        		$config['width']= '';
+        		$config['height']= '';
         		$config['new_image']= './assets/image/profil/'.$gbr['file_name'];
         		$this->load->library('image_lib', $config);
         		// $this->image_lib->crop();
@@ -756,6 +776,9 @@ public function konfigurasi_sistem(){
         		$this->session->set_flashdata('sukses','Foto berhasil diunggah');
         		redirect('PenggunaC/data_diri');
         		// echo "Image berhasil diupload";
+        	}else{
+        		$this->session->set_flashdata('error','Foto tidak berhasil diunggah. Ukuran terlalu besar');
+        		redirect('PenggunaC/data_diri');
         	}
 
         }else{

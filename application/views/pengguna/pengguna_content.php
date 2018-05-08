@@ -126,13 +126,59 @@
                                 <div class="btn-group">
                                   <a  data-toggle='tooltip' title='Aktif' class="btn btn-info btn-sm" disabled><span class="glyphicon glyphicon-ok"></span></a>
                                   <a data-toggle='tooltip' title='Non-aktif' class="btn btn-danger btn-sm" href="<?php echo base_url('PenggunaC/non_aktif')."/".$pengguna->id_pengguna;?>" ><span class="glyphicon glyphicon-remove"></span></a>
-                                  <a data-toggle='tooltip' title='Ganti Jabatan' class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-refresh"></span></a>  
+                                  <a data-toggle="modal" title="Ganti Jabatan" class="btn btn-warning btn-sm" data-target="#modal_ubah_jabatan-<?php echo $pengguna->kode_jabatan_unit?>"><span class="glyphicon glyphicon-refresh"></span></a>
                                 </div>
                                 <?php
                               }
                               ?>
                             </td>
                           </tr>
+
+                          <div aria-hidden="true" aria-labelledby="modal_ubah_jabatan-<?php echo $pengguna->kode_jabatan_unit?>" role="dialog" tabindex="-1" id="modal_ubah_jabatan-<?php echo $pengguna->kode_jabatan_unit?>" class="modal fade">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                  <h4 class="modal-title">Ubah Jabatan</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <?php echo form_open_multipart('PenggunaC/tambah_jabatan');?>
+                                  <form role="form" action="<?php echo base_url(); ?>PenggunaC/tambah_jabatan" method="post">
+                                    <div class="form-group">
+                                      <!-- <input type="hidden" name="id_pengguna" id="id_pengguna" value="<?php echo $pengguna->id_pengguna?>"> -->
+                                      <label for="bidang"> Pindah Ke Jabatan Unit :</label> 
+                                      <select class="form-control" name="kode_unit" id="kode_unit" required>
+
+                                        <option value="">---- Pilih Unit ---- </option>
+                                        <?php 
+                                        foreach ($pilihan_unit as $unit) {
+                                          ?>
+                                          <option value="<?php echo $unit['kode_unit'] ;?>"> <?php echo $unit['nama_unit'] ;?> </option>
+                                          <?php
+                                        }
+                                        ?>
+                                      </select> 
+
+                                      <span class="text-danger" style="color: red;"><?php echo form_error('kode_jabatan'); ?></span>  
+                                    </div>
+                                    <div class="form-group">
+                                      <!-- <label for="bidang"> Bidang yang akan di lamar :</label> -->
+                                      <select class="form-control" name="kode_jabatan" id="kode_jabatan" required>
+                                        <option>---- Pilih Jabatan ---- </option>
+                                      </select>
+                                      <span class="text-danger" style="color: red;"><?php echo form_error('kode_jabatan'); ?></span>  
+                                    </div>
+                                    <div class="modal-footer">
+                                      <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
+                                    </div> 
+                                    <?php echo form_close()?>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          
 
                           <?php
                         }
@@ -188,5 +234,28 @@
               }
             });
           });
-    });
-  </script>
+
+          // City change
+          $('#kode_unit').change(function(){
+            var unit = $(this).val(); //ambil value dr kode_unit
+            // window.alert(unit);
+
+              // AJAX request
+              $.ajax({
+                url:'<?=base_url()?>UserC/get_jabatan',
+                method: 'post',
+                data: {kode_unit: unit}, // data post ke controller 
+                dataType: 'json',
+                success: function(response){
+                      // Remove options
+                      $('#kode_jabatan').find('option').not(':first').remove();
+
+                      // Add options
+                      $.each(response,function(daftar,data){
+                        $('#kode_jabatan').append('<option value="'+data['kode_jabatan']+'">'+data['nama_jabatan']+' '+data['nama_unit']+'</option>');
+                      });
+                    }
+                  });
+            });
+        });
+      </script>

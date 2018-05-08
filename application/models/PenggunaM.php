@@ -238,6 +238,11 @@
 		}
 	} 
 
+	public function update_jabatan_unit($id_pengguna, $data){
+		$this->db->where('id_pengguna', $id_pengguna);
+		$this->db->update('pengguna', $data);
+		return "berhasil";
+	}
 	// =====Konfigurasi Sistem=======
 	//acc kegiatan (persetujuan  kegiatan)
 	public function get_persetujuan_kegiatan(){
