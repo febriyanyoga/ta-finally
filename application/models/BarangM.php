@@ -8,7 +8,7 @@ class BarangM extends CI_Model
 	}
 
 	public function get_id_pimpinan($kode_unit){
-		$this->db->select('pengguna.id_pengguna');
+		$this->db->select('pengguna.kode_jabatan_unit');
 		$this->db->from('pengguna');
 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
@@ -38,6 +38,7 @@ class BarangM extends CI_Model
 		$this->db->join('progress', 'progress.kode_fk = item_pengajuan.kode_item_pengajuan');
 		$this->db->where('progress.jenis_progress ="barang"');
 		$this->db->where('progress.kode_nama_progress ="1"');
+ 		$this->db->order_by('item_pengajuan.tgl_item_pengajuan', 'DESC');
 		$this->db->group_by('item_pengajuan.kode_item_pengajuan');
 		$query = $this->db->get();
 		if($query){
@@ -295,18 +296,31 @@ class BarangM extends CI_Model
 		return $query;
 	}
 
-	public function get_pengajuan_rab(){
+	public function get_pengajuan_rab(){ //menampilkan data rab
 		$this->db->select('*');
 		$this->db->from('pengajuan');
 		$query = $this->db->get();
 		return $query;
 	}
 
-	public function get_rab(){
+	public function get_data_item_pengajuan_staf($kode_unit, $kode_jabatan){
 		$this->db->select('*');
-		$this->db->from('pengajuan');
+		$this->db->from('item_pengajuan');
+		$this->db->join('barang', 'barang.kode_barang = item_pengajuan.kode_barang');
+		$this->db->join('jenis_barang', 'barang.kode_jenis_barang = jenis_barang.kode_jenis_barang');
+		$this->db->join('pengguna', 'pengguna.id_pengguna = item_pengajuan.id_pengguna');
+		$this->db->join('data_diri', 'data_diri.no_identitas = pengguna.no_identitas');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->where('unit.kode_unit', $kode_unit);
+		$this->db->where('jabatan.kode_jabatan !=', $kode_jabatan);
 		$query= $this->db->get();
-		return $query;
+		if($query){
+			return $query;
+		}else{
+			return null;
+		}
 	}
 
 }
