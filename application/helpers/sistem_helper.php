@@ -2,7 +2,7 @@
 if ( ! function_exists('in_access')){
     function in_access(){
         $ci=& get_instance();
-        if($ci->session->userdata('logged_in') != TRUE){
+        if($ci->session->userdata('logged_in') != TRUE && $ci->session->userdata('status') != "aktif" && $ci->session->userdata('status_email') != "1"){
             redirect('LoginC/logout');
         }
     }

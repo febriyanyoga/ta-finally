@@ -10,7 +10,6 @@ class PenggunaC extends CI_Controller {
 		parent::__construct();
 		$this->load->model(['PenggunaM']);
 		in_access(); //helper buat batasi akses login/session
-
 		$data_akses_menu = $this->PenggunaM->get_akses_menu()->result();
 		$data_array_akses_menu = array();
 		foreach ($data_akses_menu as $menu) {
@@ -295,6 +294,22 @@ public function konfigurasi_sistem(){
 				redirect_back();
 			}
 		}
+	}
+
+	public function update_pimpinan($kode_jabatan_unit, $kode_unit){
+		$data_ya = array('atasan' => "ya");
+		$data_tidak = array('atasan' => "tidak");
+
+		$atasan_lama = $this->PenggunaM->get_pimpinan_unit($kode_unit)->result()[0]->kode_jabatan_unit;
+		if($this->PenggunaM->update_pimpinan($kode_jabatan_unit, $data_ya)){
+			$this->PenggunaM->update_pimpinan($atasan_lama, $data_tidak);
+			$this->session->set_flashdata('sukses','Data anda berhasil diubah');
+			redirect_back();
+		}else{
+			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+			redirect_back();
+		}
+
 	}
 
 	// Jenis Barang

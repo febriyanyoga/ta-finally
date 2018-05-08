@@ -18,17 +18,17 @@
        // var_dump($data_pengguna("1")); 
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
-       <div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
-       <?php } ?>
-       <?php 
-       $data2=$this->session->flashdata('error');
-       if($data2!=""){ ?>
-       <div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
-       <?php } ?>
-       <div class="card mb-3">
-        <div class="card-header">
-          <div class="card-body">
-            <div class="table-responsive">
+         <div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
+         <?php } ?>
+         <?php 
+         $data2=$this->session->flashdata('error');
+         if($data2!=""){ ?>
+           <div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
+           <?php } ?>
+           <div class="card mb-3">
+            <div class="card-header">
+              <div class="card-body">
+                <div class="table-responsive">
                <!--  <?php
                   var_dump($data_pengguna);
                   ?> -->
@@ -45,7 +45,7 @@
                         <!-- <th class="text-center">No. HP</th> -->
                         <th class="text-center">Email</th>
                         <th class="text-center">Akun</th>
-                        <th class="text-center" style="width: 50px;">Aksi</th>
+                        <th class="text-center" style="width: 150px;">Aksi</th>
                       </tr>
                     </thead>
                     <!-- <tfoot>
@@ -99,76 +99,81 @@
                               <?php 
                               if($pengguna->status_email == 0){
                                 ?>
-                                <td>
-                                  <a data-toggle='tooltip' title='Aktifkan email terlebih dahulu' class="btn btn-info btn-sm" disabled><span class="glyphicon glyphicon-ok"></span></a>
-                                 <a data-toggle='tooltip' title='Non-aktif' class="btn btn-danger btn-sm" disabled><span class="glyphicon glyphicon-remove"></span></a>  
-                               </td>
-                               <?php
-                             }else{?>
-                             <td class="text-center">
-                              <div class="btn-group">
-                                <a data-toggle='tooltip' title='Aktif' class="btn btn-info btn-sm" href="<?php echo base_url('PenggunaC/aktif')."/".$pengguna->id_pengguna;?>"><span class="glyphicon glyphicon-ok"></span></a>
-                                <a data-toggle='tooltip' title='Non-aktif' class="btn btn-danger btn-sm" disabled><span class="glyphicon glyphicon-remove"></span></a>                                 
-                              </div>
-                            </td>
-                            <?php 
-                          }
-                        }else{
-                          ?>
-                          <td class="text-center">
-                            <a title="Aktif"><span class="glyphicon glyphicon-ok"></a>
-                            </td>
-                            <td class="text-center">
-                              <div class="btn-group">
-                                <a  data-toggle='tooltip' title='Aktif' class="btn btn-info btn-sm" disabled><span class="glyphicon glyphicon-ok"></span></a>
-                                <a data-toggle='tooltip' title='Non-aktif' class="btn btn-danger btn-sm" href="<?php echo base_url('PenggunaC/non_aktif')."/".$pengguna->id_pengguna;?>" ><span class="glyphicon glyphicon-remove"></span></a>                                 
-                              </div>
-                              <?php
+                                <td class="text-center">
+                                  <div class="btn-group">
+                                    <a data-toggle='tooltip' title='Aktifkan email terlebih dahulu' class="btn btn-info btn-sm" disabled><span class="glyphicon glyphicon-ok"></span></a>
+                                    <a data-toggle='tooltip' title='Non-aktif' class="btn btn-danger btn-sm" disabled><span class="glyphicon glyphicon-remove"></span></a>  
+                                    <a data-toggle='tooltip' title='Ganti Jabatan' class="btn btn-warning btn-sm" disabled><span class="glyphicon glyphicon-refresh"></span></a>  
+                                  </div>
+                                </td>
+                                <?php
+                              }else{?>
+                               <td class="text-center">
+                                <div class="btn-group">
+                                  <a data-toggle='tooltip' title='Aktif' class="btn btn-info btn-sm" href="<?php echo base_url('PenggunaC/aktif')."/".$pengguna->id_pengguna;?>"><span class="glyphicon glyphicon-ok"></span></a>
+                                  <a data-toggle='tooltip' title='Non-aktif' class="btn btn-danger btn-sm" disabled><span class="glyphicon glyphicon-remove"></span></a>   
+                                  <a data-toggle='tooltip' title='Ganti Jabatan' class="btn btn-warning btn-sm" disabled><span class="glyphicon glyphicon-refresh"></span></a>  
+                                </div>
+                              </td>
+                              <?php 
                             }
+                          }else{
                             ?>
-                          </td>
-                        </tr>
+                            <td class="text-center">
+                              <a title="Aktif"><span class="glyphicon glyphicon-ok"></a>
+                              </td>
+                              <td class="text-center">
+                                <div class="btn-group">
+                                  <a  data-toggle='tooltip' title='Aktif' class="btn btn-info btn-sm" disabled><span class="glyphicon glyphicon-ok"></span></a>
+                                  <a data-toggle='tooltip' title='Non-aktif' class="btn btn-danger btn-sm" href="<?php echo base_url('PenggunaC/non_aktif')."/".$pengguna->id_pengguna;?>" ><span class="glyphicon glyphicon-remove"></span></a>
+                                  <a data-toggle='tooltip' title='Ganti Jabatan' class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-refresh"></span></a>  
+                                </div>
+                                <?php
+                              }
+                              ?>
+                            </td>
+                          </tr>
 
-                        <?php
-                      }
-                      ?>
-                    </tbody>
-                  </table>
+                          <?php
+                        }
+                        ?>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- batas content -->
+
+        </section>
+        <div class="text-center">
+          <div class="credits">
+            <!-- <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+          </div>
         </div>
-
-        <!-- batas content -->
-
       </section>
-      <div class="text-center">
-        <div class="credits">
-          <!-- <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-        </div>
-      </div>
-    </section>
 
 
-    <!-- modal detail kegiatan -->
-    <div class="modal fade" id="detail_pengguna" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Detail Pengguna</h4>
-          </div>
-          <div class="modal-body">
-            <div class="fetched-data"></div>
-          </div>
-          <div class="modal-footer">
+      <!-- modal detail kegiatan -->
+      <div class="modal fade" id="detail_pengguna" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Detail Pengguna</h4>
+            </div>
+            <div class="modal-body">
+              <div class="fetched-data"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <script type="text/javascript">
+      <script type="text/javascript">
     // js detail pengajuan
     $(document).ready(function(){
       $('#detail_pengguna').on('show.bs.modal', function (e) {

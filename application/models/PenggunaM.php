@@ -439,6 +439,28 @@
 		return "berhasil";
 	}
 
+	public function update_pimpinan($kode_jabatan_unit, $data){
+		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
+		$this->db->update('jabatan_unit', $data);
+		return TRUE;
+	}
+
+	public function get_pimpinan_unit($kode_unit){
+		$this->db->select('jabatan_unit.kode_jabatan_unit');
+		$this->db->from('jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->where('unit.kode_unit', $kode_unit);
+		$this->db->where('jabatan_unit.atasan = "ya"');
+
+		$query = $this->db->get();
+		if($query){
+			return $query;
+		}else{
+			echo "kasiyan deh ga punya pimpinan";
+		}
+	}
+
 
 	// Prosedur
 	public function get_prosedur_pegawai(){

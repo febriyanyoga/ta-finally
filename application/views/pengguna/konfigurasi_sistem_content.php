@@ -180,13 +180,31 @@
                           foreach ($jabatan->result() as $nama_jabatan) {
                             $j++;
                             if($j == $max){
-                              ?>
-                              <?php echo $nama_jabatan->nama_jabatan.' '.$nama_jabatan->nama_unit?> <a href="<?php echo base_url('PenggunaC/hapus_jabatan_unit/').$nama_jabatan->kode_jabatan_unit ?>" onClick="return confirm('Anda yakin akan menghapus Jabatan <?php echo $nama_jabatan->nama_jabatan.' '.$unit->nama_unit?>?')" style="color: red;"><i class="glyphicon glyphicon-trash text-danger"></i></a>.
-                              <?php
+                              if($nama_jabatan->atasan == "tidak"){
+                                ?>
+                                <a href="<?php echo base_url('PenggunaC/update_pimpinan/').$nama_jabatan->kode_jabatan_unit.'/'.$nama_jabatan->kode_unit ?>" onClick="return confirm('Anda yakin akan menjadikan Jabatan <?php echo $nama_jabatan->nama_jabatan.' '.$unit->nama_unit?> sebagai pimpinan ?')" title="jadikan pimpinan" style="color: red;"><i class="glyphicon glyphicon-certificate text-warning"></i></a>
+                                <?php echo $nama_jabatan->nama_jabatan.' '.$nama_jabatan->nama_unit?> 
+                                <a href="<?php echo base_url('PenggunaC/hapus_jabatan_unit/').$nama_jabatan->kode_jabatan_unit ?>" onClick="return confirm('Anda yakin akan menghapus Jabatan <?php echo $nama_jabatan->nama_jabatan.' '.$unit->nama_unit?>?')" style="color: red;"><i class="glyphicon glyphicon-trash text-danger"></i></a>.
+                                <?php
+                              }else{
+                                ?>
+                                <a disabled title="Pimpinan Unit" class="label label-warning"><?php echo $nama_jabatan->nama_jabatan.' '.$nama_jabatan->nama_unit?> </a>
+                                <a href="<?php echo base_url('PenggunaC/hapus_jabatan_unit/').$nama_jabatan->kode_jabatan_unit ?>" onClick="return confirm('Anda yakin akan menghapus Jabatan <?php echo $nama_jabatan->nama_jabatan.' '.$unit->nama_unit?>?')" style="color: red;"><i class="glyphicon glyphicon-trash text-danger"></i></a>.
+                                <?php
+                              }
                             }else{
-                              ?>
-                              <?php echo $nama_jabatan->nama_jabatan.' '.$nama_jabatan->nama_unit ?> <a href="<?php echo base_url('PenggunaC/hapus_jabatan_unit/').$nama_jabatan->kode_jabatan_unit ?>" onClick="return confirm('Anda yakin akan menghapus Jabatan <?php echo $nama_jabatan->nama_jabatan.' '.$unit->nama_unit?>?')" style="color: red;"><i class="glyphicon glyphicon-trash text-danger"></i></a>,
-                              <?php
+                              if($nama_jabatan->atasan == "tidak"){
+                                ?>
+                                <a href="<?php echo base_url('PenggunaC/update_pimpinan/').$nama_jabatan->kode_jabatan_unit.'/'.$nama_jabatan->kode_unit ?>" onClick="return confirm('Anda yakin akan menjadikan Jabatan <?php echo $nama_jabatan->nama_jabatan.' '.$unit->nama_unit?> sebagai pimpinan ?')" title="jadikan pimpinan" style="color: red;"><i class="glyphicon glyphicon-certificate text-warning"></i></a>
+                                <?php echo $nama_jabatan->nama_jabatan.' '.$nama_jabatan->nama_unit ?>
+                                <a href="<?php echo base_url('PenggunaC/hapus_jabatan_unit/').$nama_jabatan->kode_jabatan_unit ?>" onClick="return confirm('Anda yakin akan menghapus Jabatan <?php echo $nama_jabatan->nama_jabatan.' '.$unit->nama_unit?>?')" style="color: red;"><i class="glyphicon glyphicon-trash text-danger"></i></a>,
+                                <?php
+                              }else{
+                                ?>
+                                <a disabled title="Pimpinan Unit" class="label label-warning"><?php echo $nama_jabatan->nama_jabatan.' '.$nama_jabatan->nama_unit ?> </a>
+                                <a href="<?php echo base_url('PenggunaC/hapus_jabatan_unit/').$nama_jabatan->kode_jabatan_unit ?>" onClick="return confirm('Anda yakin akan menghapus Jabatan <?php echo $nama_jabatan->nama_jabatan.' '.$unit->nama_unit?>?')" style="color: red;"><i class="glyphicon glyphicon-trash text-danger"></i></a>,
+                                <?php
+                              }
                             }
                           } 
                         }else{
@@ -884,5 +902,19 @@
               }
             });
           });
-    });
-  </script>
+
+
+  //buat reoad ke current tab pane 
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        // save the latest tab; use cookies if you like 'em better:
+        localStorage.setItem('lastTab', $(this).attr('href'));
+      });
+
+    // go to the latest tab, if it exists:
+    var lastTab = localStorage.getItem('lastTab');
+    if (lastTab) {
+      $('[href="' + lastTab + '"]').tab('show');
+    }
+
+  });
+</script>
