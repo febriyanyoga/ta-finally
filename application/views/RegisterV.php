@@ -237,22 +237,22 @@
 			
                 // City change
                 $('#kode_unit').change(function(){
-                	var unit = $(this).val();
+                	var unit = $(this).val(); //ambil value dr kode_unit
+                	// window.alert(unit);
 
                     // AJAX request
                     $.ajax({
                     	url:'<?=base_url()?>UserC/get_jabatan',
                     	method: 'post',
-                    	data: {unit: unit},
+                    	data: {kode_unit: unit}, // data post ke controller 
                     	dataType: 'json',
                     	success: function(response){
-
                             // Remove options
                             $('#kode_jabatan').find('option').not(':first').remove();
 
                             // Add options
-                            $.each(response,function(index,data){
-                            	$('#kode_jabatan').append('<option value="'+data['kode_jabatan']+'">'+data['nama_jabatan']+'</option>');
+                            $.each(response,function(daftar,data){
+                            	$('#kode_jabatan').append('<option value="'+data['kode_jabatan']+'">'+data['nama_jabatan']+' '+data['nama_unit']+'</option>');
                             });
                         }
                     });

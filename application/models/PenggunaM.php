@@ -25,12 +25,6 @@
  		return TRUE;
  	}
 
- 	public function hapus_jabatan_unit($id){
- 		$this->db->where('kode_jabatan_unit', $id);
- 		$this->db->delete('jabatan_unit');
- 		return TRUE;
- 	}
-
  	public function hapus_data_pengguna($id){
  		$this->db->where('id_pengguna', $id);
  		$this->db->delete('pengguna');
@@ -42,6 +36,20 @@
  		$this->db->from('pengguna');
  		$this->db->where('id_pengguna', $id_pengguna);
  		return $this->db->get();
+ 	}
+
+ 	public function get_pengguna_by_kode_jabatan_unit($kode_jabatan_unit){
+ 		$this->db->select('*');
+ 		$this->db->from('pengguna');
+ 		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
+ 		return $this->db->get()->num_rows();
+ 	}
+
+ 	public function get_jabatan_unit_by_unit($kode_unit){
+ 		$this->db->select('*');
+ 		$this->db->from('jabatan_unit');
+ 		$this->db->where('kode_unit', $kode_unit);
+ 		return $this->db->get()->num_rows();
  	}
 
  	public function insert_data_resend($data, $id_pengguna){ //post resend data email
@@ -175,7 +183,7 @@
 
 	public function insert($db, $data){
 		$this->db->insert($db, $data);
- 		return $this->db->insert_id();
+		return $this->db->insert_id();
 	}
 
 	public function update($id, $kode, $db, $data){
@@ -419,6 +427,18 @@
 		return $query;
 	}
 
+	public function hapus_jabatan_unit($kode_jabatan_unit){//hapus persetujuan kegiatan
+		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
+		$this->db->delete('jabatan_unit');
+		return "berhasil";
+	}
+
+	public function hapus_unit($kode_unit){//hapus persetujuan kegiatan
+		$this->db->where('kode_unit', $kode_unit);
+		$this->db->delete('unit');
+		return "berhasil";
+	}
+
 
 	// Prosedur
 	public function get_prosedur_pegawai(){
@@ -544,9 +564,10 @@
 
 	public function get_jabatan($postData){
 		$response = array();
-		$this->db->select('kode_jabatan, nama_jabatan');
+		$this->db->select('jabatan_unit.kode_jabatan, jabatan.nama_jabatan, unit.nama_unit');
 		$this->db->from('jabatan_unit');
 		$this->db->join('jabatan', 'jabatan.kode_jabatan=jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit=jabatan_unit.kode_unit');
 		$this->db->where('jabatan_unit.kode_unit', $postData['kode_unit']);
 		$query = $this->db->get();
 		$response = $query->result_array();

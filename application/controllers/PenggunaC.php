@@ -267,6 +267,36 @@ public function konfigurasi_sistem(){
 		}
 	}
 
+	public function hapus_jabatan_unit($kode_jabatan_unit){
+		if($this->PenggunaM->get_pengguna_by_kode_jabatan_unit($kode_jabatan_unit) > 0){
+			$this->session->set_flashdata('error','Data anda tidak berhasil dihapus, karena masih ada pengguna yang menjabat. Silahkan ganti atau pindah jabatan terlebih dahulu.');
+			redirect_back();
+		}else{
+			if($this->PenggunaM->hapus_jabatan_unit($kode_jabatan_unit)){
+				$this->session->set_flashdata('sukses','Data anda berhasil dihapus');
+				redirect_back();
+			}else{
+				$this->session->set_flashdata('error','Data anda tidak berhasil dihapus');
+				redirect_back();
+			}
+		}
+	}
+
+	public function hapus_unit($kode_unit){
+		if($this->PenggunaM->get_jabatan_unit_by_unit($kode_unit) > 0){
+			$this->session->set_flashdata('error','Data anda tidak berhasil dihapus, karena masih ada pengguna yang menjabat. Silahkan ganti atau pindah jabatan terlebih dahulu.');
+			redirect_back();
+		}else{
+			if($this->PenggunaM->hapus_unit($kode_unit)){
+				$this->session->set_flashdata('sukses','Data anda berhasil dihapus');
+				redirect_back();
+			}else{
+				$this->session->set_flashdata('error','Data anda tidak berhasil dihapus');
+				redirect_back();
+			}
+		}
+	}
+
 	// Jenis Barang
 	public function tambah_jenis_barang(){
 		$this->form_validation->set_rules('nama_jenis_barang', 'Nama Jenis Barang','required');

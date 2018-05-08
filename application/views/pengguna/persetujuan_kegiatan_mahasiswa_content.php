@@ -75,7 +75,7 @@
                            <small class="kecil"><strong><?php echo $new_tgl_selesai; ?></strong></small>
                          </div>
                        </td>
-                       <td><?php echo $kegiatan->dana_diajukan;?></td>
+                      <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,-</td>
                        <?php $link = base_url()."assets/file_upload/".$kegiatan->nama_file;?>
                        <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
                        <td><?php echo $kegiatan->nama_jenis_kegiatan;?></td>

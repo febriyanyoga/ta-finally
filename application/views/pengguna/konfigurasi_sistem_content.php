@@ -12,15 +12,15 @@
        <?php 
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
-       <div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
-       <?php } ?>
-       <?php 
-       $data2=$this->session->flashdata('error');
-       if($data2!=""){ ?>
-       <div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
-       <?php } ?>
+         <div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
+         <?php } ?>
+         <?php 
+         $data2=$this->session->flashdata('error');
+         if($data2!=""){ ?>
+           <div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
+           <?php } ?>
 
-       <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+           <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
         <!-- <li class="nav-item">
           <a class="nav-link program-title" data-toggle="tab" href="#1" role="tab"><span class="glyphicon glyphicon-user"></span><br class="hidden-md-up"> Jabatan </a>
         </li> -->
@@ -64,7 +64,7 @@
         <div class="row pt-5">
           <div class="col-lg-12">
             <div style="margin-top: 20px;">
-             <a class="btn btn-info" data-toggle="modal" data-target="#modal_tambah_jabatan"><i class="icon_plus_alt2"> </i> Tambah Jabatan </a>
+             <a class="btn btn-primary" data-toggle="modal" data-target="#modal_tambah_jabatan"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Jabatan </a>
              <div class="table-responsive">
                <table id="jabatan" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
@@ -117,7 +117,7 @@
               <input class="form-control" placeholder="Nama Jabatan" type="text" id="nama_jabatan" name="nama_jabatan" required>
             </div>
             <div class="modal-footer">
-              <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
+              <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
             </div> 
             <?php echo form_close()?>
           </form>
@@ -148,8 +148,8 @@
     <div class="row pt-5">
       <div class="col-lg-12">
        <div style="margin-top: 20px;">
-         <a class="btn btn-info" data-toggle="modal" data-target="#modal_tambah_unit"><i class="icon_plus_alt2"> </i> Tambah Unit </a>
-         <a class="btn btn-info pull-right" data-toggle="modal" data-target="#modal_tambah_jabatan"><i class="icon_plus_alt2"> </i> Tambah Jabatan </a>
+         <a class="btn btn-primary" data-toggle="modal" data-target="#modal_tambah_unit"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Unit </a>
+         <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal_tambah_jabatan"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Jabatan </a>
          <div class="table-responsive">
            <table id="unit" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
@@ -158,7 +158,7 @@
                 <!-- <th style="width: 10px;">ID</th> -->
                 <th> Nama Unit</th>
                 <!-- <th>Status</th> -->
-                <th style="width: 50px;">Aksi</th>
+                <th style="width: auto;">Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -180,9 +180,13 @@
                           foreach ($jabatan->result() as $nama_jabatan) {
                             $j++;
                             if($j == $max){
-                              echo $nama_jabatan->nama_jabatan.' '.$unit->nama_unit.'.';
+                              ?>
+                              <?php echo $nama_jabatan->nama_jabatan.' '.$nama_jabatan->nama_unit?> <a href="<?php echo base_url('PenggunaC/hapus_jabatan_unit/').$nama_jabatan->kode_jabatan_unit ?>" onClick="return confirm('Anda yakin akan menghapus Jabatan <?php echo $nama_jabatan->nama_jabatan.' '.$unit->nama_unit?>?')" style="color: red;"><i class="glyphicon glyphicon-trash text-danger"></i></a>.
+                              <?php
                             }else{
-                              echo $nama_jabatan->nama_jabatan.' '.$unit->nama_unit.', ';
+                              ?>
+                              <?php echo $nama_jabatan->nama_jabatan.' '.$nama_jabatan->nama_unit ?> <a href="<?php echo base_url('PenggunaC/hapus_jabatan_unit/').$nama_jabatan->kode_jabatan_unit ?>" onClick="return confirm('Anda yakin akan menghapus Jabatan <?php echo $nama_jabatan->nama_jabatan.' '.$unit->nama_unit?>?')" style="color: red;"><i class="glyphicon glyphicon-trash text-danger"></i></a>,
+                              <?php
                             }
                           } 
                         }else{
@@ -196,7 +200,8 @@
                   <td class="text-center"> 
                     <div class="btn-group">
                       <a href="#modal_unit" id="custId" data-toggle="modal" data-id="<?php echo $unit->kode_unit;?>" data-toggle="tooltip" title="Edit Unit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-                      <a data-toggle="modal" title="Tambah Jabatan" class="btn btn-primary btn-sm" data-target="#modal_tambah_jabatan-<?php echo $unit->kode_unit?>"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                      <a data-toggle="modal" title="Tambah Jabatan Unit" class="btn btn-primary btn-sm" data-target="#modal_tambah_jabatan-<?php echo $unit->kode_unit?>"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                      <a href="<?php echo base_url('PenggunaC/hapus_unit/').$unit->kode_unit?>" title="Hapus Unit" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
                     </div>
                   </td>
                 </tr>
@@ -220,14 +225,14 @@
                               <?php 
                               foreach ($jabatan_pilihan as $pilihan_jabatan) {
                                 ?>
-                                <option value="<?php echo $pilihan_jabatan->kode_jabatan;?>"><?php echo $pilihan_jabatan->nama_jabatan." ".$unit->nama_unit?></option>
+                                <option value="<?php echo $pilihan_jabatan->kode_jabatan;?>"><?php echo $pilihan_jabatan->nama_jabatan." - ".$unit->nama_unit?></option>
                                 <?php
                               }
                               ?>
                             </select>
                           </div>
                           <div class="modal-footer">
-                            <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
+                            <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
                           </div> 
                           <?php echo form_close()?>
                         </form>
@@ -280,7 +285,7 @@
             <input class="form-control" placeholder="Nama Unit" type="text" id="nama_unit" name="nama_unit" required>
           </div>
           <div class="modal-footer">
-            <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
+            <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
           </div> 
           <?php echo form_close()?>
         </form>
@@ -294,7 +299,7 @@
   <div class="row pt-5">
     <div class="col-lg-12">
       <div style="margin-top: 20px;">
-        <a class="btn btn-info" data-toggle="modal" data-target="#modal_tambah_jenis_barang"><i class="icon_plus_alt2"> </i> Tambah Jenis Barang </a>
+        <a class="btn btn-primary" data-toggle="modal" data-target="#modal_tambah_jenis_barang"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Jenis Barang </a>
         <div class="table-responsive">
          <table id="jenis_barang" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
@@ -365,7 +370,7 @@
             <input class="form-control" placeholder="Nama Jenis Barang" type="text" id="nama_jenis_barang" name="nama_jenis_barang" required>
           </div>
           <div class="modal-footer">
-            <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
+            <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
           </div> 
           <?php echo form_close()?>
         </form>
@@ -379,7 +384,7 @@
 <div id="4" class="tab-pane" role="tabpanel">
   <div class="row pt-5">
     <div style="margin-top: 20px;">
-      <a class="btn btn-info" data-toggle="modal" data-target="#modal_tambah_jenis_kegiatan"><i class="icon_plus_alt2"> </i> Tambah Jenis Kegiatan </a>
+      <a class="btn btn-primary" data-toggle="modal" data-target="#modal_tambah_jenis_kegiatan"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Jenis Kegiatan </a>
       <div class="table-responsive">
        <table id="jenis_kegiatan" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
@@ -449,7 +454,7 @@
             <input class="form-control" placeholder="Nama Jenis Kegiatan" type="text" id="nama_jenis_kegiatan" name="nama_jenis_kegiatan" required>
           </div>
           <div class="modal-footer">
-            <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
+            <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
           </div> 
           <?php echo form_close()?>
         </form>
@@ -463,7 +468,7 @@
   <div class="row pt-5">
     <div class="col-lg-12">
       <div style="margin-top: 20px;">
-        <a class="btn btn-info" data-toggle="modal" data-target="#tambah_nama_progress"><i class="icon_plus_alt2"> </i> Tambah Nama Progress </a>
+        <a class="btn btn-primary" data-toggle="modal" data-target="#tambah_nama_progress"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Nama Progress </a>
         <div class="table-responsive">
           <table id="nama_progress" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
@@ -534,7 +539,7 @@
             <input class="form-control" placeholder="Nama Progress" type="text" id="nama_progress" name="nama_progress" required>
           </div>
           <div class="modal-footer">
-            <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
+            <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
           </div> 
           <?php echo form_close()?>
         </form>
@@ -548,7 +553,7 @@
   <div class="row pt-5">
     <div class="col-lg-12">
       <div style="margin-top: 20px;">
-        <a class="btn btn-info" data-toggle="modal" data-target="#tambah_persetujuan_kegiatan_pegawai"><i class="icon_plus_alt2"> </i> Tambah Persetujuan Pegawai </a>
+        <a class="btn btn-primary" data-toggle="modal" data-target="#tambah_persetujuan_kegiatan_pegawai"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Persetujuan Pegawai </a>
         <div class="table-responsive">
          <table id="persetujuan_kegiatan_peg" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
@@ -615,7 +620,7 @@
   <div class="row pt-5">
     <div class="col-lg-12">
      <div style="margin-top: 20px;">
-       <a class="btn btn-info" data-toggle="modal" data-target="#modal_tambah_unit"><i class="icon_plus_alt2"> </i> Tambah Unit </a>
+       <a class="btn btn-primary" data-toggle="modal" data-target="#modal_tambah_unit"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Unit </a>
        <div class="table-responsive">
          <table id="akses_menu" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
@@ -641,7 +646,7 @@
   <div class="row pt-5">
     <div class="col-lg-12">
      <div style="margin-top: 20px;">
-       <a class="btn btn-info" data-toggle="modal" data-target="#modal_tambah_unit"><i class="icon_plus_alt2"> </i> Tambah Unit </a>
+       <a class="btn btn-primary" data-toggle="modal" data-target="#modal_tambah_unit"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Unit </a>
        <div class="table-responsive">
          <table id="jabatan_unit" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
@@ -667,7 +672,7 @@
   <div class="row pt-5">
     <div class="col-lg-12">
       <div style="margin-top: 20px;">
-        <a class="btn btn-info" data-toggle="modal" data-target="#tambah_persetujuan_kegiatan_mahasiswa"><i class="icon_plus_alt2"> </i> Tambah Persetujuan Mahasiswa </a>
+        <a class="btn btn-primary" data-toggle="modal" data-target="#tambah_persetujuan_kegiatan_mahasiswa"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Persetujuan Mahasiswa </a>
         <div class="table-responsive">
          <table id="persetujuan_kegiatan_mhs" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
@@ -756,7 +761,7 @@
             <label><strong><h4>Menyetujui Kegiatan Pegawai</h4></strong></label>
           </div>
           <div class="modal-footer">
-            <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
+            <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
           </div> 
           <?php echo form_close()?>
         </form>
@@ -794,7 +799,7 @@
             <label><strong><h4>Menyetujui Kegiatan Mahasiswa</h4></strong></label>
           </div>
           <div class="modal-footer">
-            <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
+            <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
           </div> 
           <?php echo form_close()?>
         </form>

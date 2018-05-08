@@ -16,134 +16,134 @@
        <?php 
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
-       <div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
-       <?php } ?>
-       <?php 
-       $data2=$this->session->flashdata('error');
-       if($data2!=""){ ?>
-       <div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
-       <?php } ?>
-       
-       <div class="card mb-3">
-        <div class="card-header">
-          <div class="card-body">
-            <div class="table-responsive">
-              <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
-                <thead>
-                 <tr class="text-center">
-                  <th class="text-center">Nama Kegiatan</th>
-                  <th class="text-center">Nama Pengaju</th>
-                  <th class="text-center">Jabatan Pengaju</th>
-                  <th class="text-center">Tgl Pengajuan</th>
-                  <th class="text-center">Tgl Kegiatan</th>
-                  <th class="text-center">Dana Diajukan</th>
-                  <th class="text-center">File</th>
-                  <th class="text-center">Status</th>
-                  <th class="text-center">Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
+         <div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
+         <?php } ?>
+         <?php 
+         $data2=$this->session->flashdata('error');
+         if($data2!=""){ ?>
+           <div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
+           <?php } ?>
+           
+           <div class="card mb-3">
+            <div class="card-header">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
+                    <thead>
+                     <tr class="text-center">
+                      <th class="text-center">Nama Kegiatan</th>
+                      <th class="text-center">Nama Pengaju</th>
+                      <th class="text-center">Jabatan Pengaju</th>
+                      <th class="text-center">Tgl Pengajuan</th>
+                      <th class="text-center">Tgl Kegiatan</th>
+                      <th class="text-center">Dana Diajukan</th>
+                      <th class="text-center">File</th>
+                      <th class="text-center">Status</th>
+                      <th class="text-center">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
                 // print_r($data_pengajuan_kegiatan);
-                foreach ($data_pengajuan_kegiatan as $kegiatan) {
-                  $jabatan        = $KegiatanM->get_data_pengajuan_by_id_staf($kegiatan->kode_kegiatan)->result();
-                  $unit           = $KegiatanM->get_data_pengajuan_by_id_staf($kegiatan->kode_kegiatan)->result();
+                    foreach ($data_pengajuan_kegiatan as $kegiatan) {
+                      $jabatan        = $KegiatanM->get_data_pengajuan_by_id_staf($kegiatan->kode_kegiatan)->result();
+                      $unit           = $KegiatanM->get_data_pengajuan_by_id_staf($kegiatan->kode_kegiatan)->result();
                   // print_r($kegiatan->kode_kegiatan);
-                  ?>
-                  <tr>
-                    <td class="text-center relative">
-                      <div class="relative">
-                        <strong><?php echo $kegiatan->nama_kegiatan;?></strong>
-                        <a href="#myModal1" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail kegiatan"><small class="kecil">Lihat detail</small></a>
-                      </div>
-                    </td>
-                    <td class="text-center"><?php echo $kegiatan->nama;?></td>
-                    <td class="text-center"><?php echo $kegiatan->nama_jabatan;?></td>
-                    <!-- <td class="text-center"><?php echo $jabatan->nama;?></td> -->
-                    <!-- <td class="text-center"><?php echo $jabatan->nama_jabatan." ".$unit->nama_unit;?></td> -->
-                    <?php 
-                    $tgl_pengajuan = $kegiatan->tgl_pengajuan;
-                    $new_tgl_pengajuan = date('d-m-Y',strtotime($tgl_pengajuan));
-                    $tgl_kegiatan = $kegiatan->tgl_kegiatan;
-                    $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
-                    $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
-                    $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai));
-                    ?>
-                    <td class="text-center"><?php echo $new_tgl_pengajuan; ?></td>
-                    <td class="text-center">
-                      <div class="relative">
-                       <small class="kecil"><strong><?php echo $new_tgl_kegiatan?></strong></small>
-                       <small class="kecil">sampai</small>
-                       <small class="kecil"><strong><?php echo $new_tgl_selesai; ?></strong></small>
-                     </div>
-                   </td>
-                   <td><?php echo $kegiatan->dana_diajukan;?></td>
-                   <?php $link = base_url()."assets/file_upload/".$kegiatan->nama_file;?>
-                   <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
-                   <!-- <td><?php echo $kegiatan->nama;?></td> -->
-                   <!-- <td><?php echo $kegiatan->nama_jabatan." ".$kegiatan->nama_unit;?></td> -->
-                   <td class="text-center">
-                    <?php 
-                    $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
-                    $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
+                      ?>
+                      <tr>
+                        <td class="text-center relative">
+                          <div class="relative">
+                            <strong><?php echo $kegiatan->nama_kegiatan;?></strong>
+                            <a href="#myModal1" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail kegiatan"><small class="kecil">Lihat detail</small></a>
+                          </div>
+                        </td>
+                        <td class="text-center"><?php echo $kegiatan->nama;?></td>
+                        <td class="text-center"><?php echo $kegiatan->nama_jabatan;?></td>
+                        <!-- <td class="text-center"><?php echo $jabatan->nama;?></td> -->
+                        <!-- <td class="text-center"><?php echo $jabatan->nama_jabatan." ".$unit->nama_unit;?></td> -->
+                        <?php 
+                        $tgl_pengajuan = $kegiatan->tgl_pengajuan;
+                        $new_tgl_pengajuan = date('d-m-Y',strtotime($tgl_pengajuan));
+                        $tgl_kegiatan = $kegiatan->tgl_kegiatan;
+                        $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
+                        $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
+                        $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai));
+                        ?>
+                        <td class="text-center"><?php echo $new_tgl_pengajuan; ?></td>
+                        <td class="text-center">
+                          <div class="relative">
+                           <small class="kecil"><strong><?php echo $new_tgl_kegiatan?></strong></small>
+                           <small class="kecil">sampai</small>
+                           <small class="kecil"><strong><?php echo $new_tgl_selesai; ?></strong></small>
+                         </div>
+                       </td>
+                       <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,-</td>
+                       <?php $link = base_url()."assets/file_upload/".$kegiatan->nama_file;?>
+                       <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
+                       <!-- <td><?php echo $kegiatan->nama;?></td> -->
+                       <!-- <td><?php echo $kegiatan->nama_jabatan." ".$kegiatan->nama_unit;?></td> -->
+                       <td class="text-center">
+                        <?php 
+                        $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
+                        $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
                           // echo $progress;
                           // echo $progress_tolak;
-                    if($progress_tolak == 1){
+                        if($progress_tolak == 1){
+                          ?>
+                          <a class="label label-danger" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><b>Ditolak</b></a>
+                          <?php
+                        }else{
+                         if($progress == 1){
+                          ?>
+                          <a class="label label-default" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Proses</a>
+                          <?php
+                        }elseif ($progress > 1) {
+                          ?>
+                          <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Disetujui</a>
+                          <?php
+                        }elseif ($progress == 0) {
+                          ?>
+                          <span class="label label-info">Baru</span>
+                          <?php
+                        }
+                      }
                       ?>
-                      <a class="label label-danger" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><b>Ditolak</b></a>
-                      <?php
-                    }else{
-                     if($progress == 1){
-                      ?>
-                      <a class="label label-default" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Proses</a>
-                      <?php
-                    }elseif ($progress > 1) {
-                      ?>
-                      <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Disetujui</a>
-                      <?php
-                    }elseif ($progress == 0) {
-                      ?>
-                      <span class="label label-info">Baru</span>
-                      <?php
-                    }
+                    </td>
+                    <td class="text-center">
+                      <?php 
+                      $kode = $kegiatan->kode_kegiatan;
+                      $id   = $data_diri->kode_jabatan_unit;
+                      $own  = $KegiatanM->get_own_progress($kode, $id);
+                        // print_r($own);
+                      if($own > 0){
+                        ?>
+                        <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
+                          <?php
+                        }elseif ($own == 0) {
+                          ?>
+                          <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan Persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                          <?php
+                        }
+                        ?>
+
+                      </td>
+                    </tr>
+                    <?php
                   }
                   ?>
-                </td>
-                <td class="text-center">
-                  <?php 
-                  $kode = $kegiatan->kode_kegiatan;
-                  $id   = $data_diri->kode_jabatan_unit;
-                  $own  = $KegiatanM->get_own_progress($kode, $id);
-                        // print_r($own);
-                  if($own > 0){
-                    ?>
-                    <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
-                      <?php
-                    }elseif ($own == 0) {
-                      ?>
-                      <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan Persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-                      <?php
-                    }
-                    ?>
-
-                  </td>
-                </tr>
-                <?php
-              }
-              ?>
-            </tbody>
-          </table>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  </section>
+  <div class="text-center">
+    <div class="credits">
+      <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
   </div>
-</div>
-</section>
-<div class="text-center">
-  <div class="credits">
-    <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-  </div>
-</div>
 </section>
 
 
