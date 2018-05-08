@@ -60,14 +60,27 @@
                      <td>
                       <?php
                       $progress_saya = $BarangM->get_progress_barang_by_id($barang->kode_item_pengajuan, $data_diri->id_pengguna);
+                      $pimpinan = $data_pimpinan->kode_jabatan_unit;
+                      $jabatan_saya = $data_diri->kode_jabatan_unit;
 
-                      if($progress_saya == 1){?>
-                      <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
-                      <?php
-                    }else{?>
-                    <a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-pencil"></span></a>
-                    <?php
-                  }
+                      if($pimpinan == $jabatan_saya){
+                        if($progress_saya == 1){?>
+                          <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                          <?php
+                        }else{?>
+                          <a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-pencil"></span></a>
+                          <?php
+                        }
+                      }else if($pimpinan != $jabatan_saya){
+                        if($progress_saya == 0){?>
+                          <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <?php
+                        }else{?>
+                          <a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-pencil"></span></a>
+                        <?php
+                        }
+                      }
+                  
                   ?>
                 </td>
               </tr>
@@ -213,13 +226,15 @@
         </div>
         <div class="form-group">
           <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
+           <input class="form-control" type="hidden" id="pimpinan" name="pimpinan" value="<?php echo $data_pimpinan->kode_jabatan_unit;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
+            <input class="form-control" type="hidden" id="kode_jabatan_unit" name="kode_jabatan_unit" value="<?php echo $data_diri->kode_jabatan_unit;?>" required> 
+            <!-- ambil kode_jabatan_unit yang login -->
           <label class="col-lg-4 col-sm-2 control-label">Nama Item Pengajuan Barang :</label>
           <div class="col-lg-8">
             <input type="text" class="form-control" id="nama_item_pengajuan" name="nama_item_pengajuan" placeholder="Nama Item Pengajuan Barang">
           </div>
         </div>
         <input type="hidden" class="form-control" placeholder id="tgl_item_pengajuan" name="tgl_item_pengajuan" required value="<?php echo date('Y-m-d');?>">
-        <input type="hidden" class="form-control" placeholder id="pimpinan" name="pimpinan" required value="<?php echo $data_pimpinan->id_pengguna;?>">
         <div class="form-group">
           <label class="col-lg-4 col-sm-2 control-label">url :</label>
           <div class="col-lg-8">

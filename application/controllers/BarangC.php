@@ -34,6 +34,21 @@ class BarangC extends CI_Controller {
 		$this->load->view('pengguna/index_template', $data);
 	}
 
+	public function persetujuan_barang_staf(){ //halaman persetujuan barang staf 
+		// menampilkan pengajuan item barang yang telah di beri porgress oleh pimpinan 
+		$data['menu'] = $this->data_menu;
+		$id_pengguna = $this->session->userdata('id_pengguna');
+		$kode_unit 	= $this->session->userdata('kode_unit');
+		$kode_jabatan = $this->session->userdata('kode_jabatan');
+		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+		$data['title'] = "Persetujuan Item Pengajuan | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+		$this->data['data_barang_staf'] = $this->BarangM->get_data_item_pengajuan_staf($kode_unit, $kode_jabatan)->result();
+		$this->data['BarangM'] = $this->BarangM ;
+		$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
+		$data['body'] = $this->load->view('pengguna/persetujuan_barang_staf_content', $this->data, true) ;
+		$this->load->view('pengguna/index_template', $data);
+	}
+
 	public function kelola_barang(){ //halaman kelola barang (mansarpras & staf sarpras)
 		// menampilkan daftar semua barang
 		$data['menu'] = $this->data_menu;
@@ -270,6 +285,7 @@ class BarangC extends CI_Controller {
 
 	public function post_tambah_ajukan_barang(){ //fungsi untuk tambah pengajuan barang
 		$this->form_validation->set_rules('id_pengguna', 'Id Pengguna','required');
+		$this->form_validation->set_rules('pimpinan', 'ID Pimpinan','required');
 		$this->form_validation->set_rules('kode_barang', 'Nama Barang','required');
 		$this->form_validation->set_rules('tgl_item_pengajuan', 'Tanggal Item Pengajuan','required');
 		$this->form_validation->set_rules('nama_item_pengajuan', 'Nama Item Pengajuan','required');
@@ -294,6 +310,7 @@ class BarangC extends CI_Controller {
 			$merk 				= $_POST['merk'];
 			$jumlah 			= $_POST['jumlah'];
 			$pimpinan			= $_POST['pimpinan'];
+			$kode_jabatan_unit 	= $_POST['kode_jabatan_unit'];
 
 			$baru = "baru"; //buat status pengajuan berstatus baru ketika baru dibuat
 
@@ -325,6 +342,7 @@ class BarangC extends CI_Controller {
 					$jenis_progress		= "barang";
 
 					$data = array(
+						'kode_jabatan_unit	' 	=> $kode_jabatan_unit,
 						'id_pengguna' 			=> $id_pengguna,
 						'kode_fk'				=> $insert_id,
 						'kode_nama_progress' 	=> $kode_nama_progress,
@@ -334,7 +352,9 @@ class BarangC extends CI_Controller {
 						'waktu_progress'		=> $waktu_progress
 
 					);
+				if($kode_jabatan_unit == $pimpinan){
 				$this->BarangM->insert_progress($data); //insert progress langsung ketika mengajukan kegiatan untuk manajer, kepala, dan pimpinan yang lain
+				}
 			}else{ 
 				$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan');
 				redirect('BarangC/ajukan_barang');
