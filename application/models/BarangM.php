@@ -229,12 +229,21 @@ class BarangM extends CI_Model
 
 	}
 
-	public function get_progress_barang_by_id($kode_item_pengajuan, $id_pengguna){ //untuk mengecek apakah user sudah memberikan progres barang di item pengajuan . Berhubungan dengan tombol persetujuan akan hilang jika sudah dimasukan persetujuan
+	public function get_progress_barang($kode_item_pengajuan){ //untuk mengecek apakah user sudah memberikan progres barang di item pengajuan . Berhubungan dengan tombol persetujuan akan hilang jika sudah dimasukan persetujuan
 		$this->db->select('*');
 		$this->db->from('progress');
 		$this->db->where('jenis_progress = "barang"');
 		$this->db->where('kode_fk', $kode_item_pengajuan);
-		$this->db->where('id_pengguna', $id_pengguna);
+		$query = $this->db->get();
+		return $query->num_rows();
+	}	
+
+	public function get_progress_barang_by_id($kode_item_pengajuan, $kode_jabatan_unit){ //untuk mengecek apakah user sudah memberikan progres barang di item pengajuan . Berhubungan dengan tombol persetujuan akan hilang jika sudah dimasukan persetujuan
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->where('jenis_progress = "barang"');
+		$this->db->where('kode_fk', $kode_item_pengajuan);
+		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
 		$query = $this->db->get();
 		return $query->num_rows();
 	}

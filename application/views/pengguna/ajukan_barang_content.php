@@ -59,11 +59,12 @@
 
                      <td>
                       <?php
-                      $progress_saya = $BarangM->get_progress_barang_by_id($barang->kode_item_pengajuan, $data_diri->id_pengguna);
-                      $pimpinan = $data_pimpinan->kode_jabatan_unit;
+                      $progress_saya = $BarangM->get_progress_barang_by_id($barang->kode_item_pengajuan, $data_diri->kode_jabatan_unit);
+                      $progress_barang = $BarangM->get_progress_barang($barang->kode_item_pengajuan);
+                      $pimpinan_saya = $data_pimpinan->kode_jabatan_unit;
                       $jabatan_saya = $data_diri->kode_jabatan_unit;
 
-                      if($pimpinan == $jabatan_saya){
+                      if($pimpinan_saya == $jabatan_saya){
                         if($progress_saya == 1){?>
                           <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
                           <?php
@@ -71,8 +72,8 @@
                           <a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-pencil"></span></a>
                           <?php
                         }
-                      }else if($pimpinan != $jabatan_saya){
-                        if($progress_saya == 0){?>
+                      }else{
+                        if($progress_barang == 0){?>
                           <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
                         <?php
                         }else{?>
