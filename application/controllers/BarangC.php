@@ -249,15 +249,17 @@ class BarangC extends CI_Controller {
 			$format_tgl 		= "%Y-%m-%d";
 			$tgl_progress 		= mdate($format_tgl);
 
+			$kode_jabatan_unit 	= $_POST['kode_jabatan_unit'];
 
 			$data_progress		= array(
-				'id_pengguna'		=> $id_pengguna,
-				'kode_fk'			=> $kode_fk,
-				'kode_nama_progress'=> $kode_nama_progress,
-				'komentar'			=> $komentar,
-				'jenis_progress'	=> $jenis_progress,
-				'tgl_progress'		=> $tgl_progress,
-				'waktu_progress'	=> $waktu_progress
+				'id_pengguna'			=> $id_pengguna,
+				'kode_fk'				=> $kode_fk,
+				'kode_nama_progress'	=> $kode_nama_progress,
+				'komentar'				=> $komentar,
+				'jenis_progress'		=> $jenis_progress,
+				'tgl_progress'			=> $tgl_progress,
+				'waktu_progress'		=> $waktu_progress,
+				'kode_jabatan_unit	' 	=> $kode_jabatan_unit
 
 			);
 
@@ -352,15 +354,15 @@ class BarangC extends CI_Controller {
 						'waktu_progress'		=> $waktu_progress
 
 					);
-				if($kode_jabatan_unit == $pimpinan){
+					if($kode_jabatan_unit == $pimpinan){
 				$this->BarangM->insert_progress($data); //insert progress langsung ketika mengajukan kegiatan untuk manajer, kepala, dan pimpinan yang lain
-				}
-			}else{ 
-				$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan');
-				redirect('BarangC/ajukan_barang');
 			}
-			
-			$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+		}else{ 
+			$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan');
+			redirect('BarangC/ajukan_barang');
+		}
+
+		$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
 				redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
 			}else{ // Jika proses upload gagal
 				$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
@@ -521,9 +523,9 @@ class BarangC extends CI_Controller {
 
 				}else{
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
-				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan ');
+					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan ');
 				redirect('BarangC/ajukan_RAB');//redirect ke halaman pengajuan barang
-				}
+			}
 			
 			}else{ // Jika proses upload gagal
 				$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan

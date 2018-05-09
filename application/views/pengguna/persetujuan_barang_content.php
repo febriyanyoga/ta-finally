@@ -82,7 +82,7 @@
                   <td><center>
                     <?php 
                     // mengambil data progress dari semua item pengajuan pada halaman persetujuan man sarpras yang sudah memiliki progres yang diberikan oleh mas sarpras 
-                    $progress_saya = $BarangM->get_progress_barang_by_id($barang->kode_item_pengajuan,$data_diri->id_pengguna);
+                    $progress_saya = $BarangM->get_progress_barang_by_id($barang->kode_item_pengajuan,$data_diri->kode_jabatan_unit);
 
                     // jika progress baru 1 maka belum diberikan progress oleh man sarpras tetapi sudah oleh pimpinan 
                     // jika lebih dari satu maka sudah ditambahkan progres oleh man sarpras
@@ -91,7 +91,7 @@
                     <div class="btn-group">
                       <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
                       <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                      <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info"><span class="glyphicon glyphicon-briefcase"></span></a>
+                      <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info"><span class="glyphicon glyphicon-briefcase"></span></a>
                     </div>
                     <?php
                   }else{
@@ -160,6 +160,8 @@
                       <input class="form-control" type="hidden" id="kode_fk" name="kode_fk" value="<?php echo $barang->kode_item_pengajuan;?>" required>
                       <!-- kirim kode_nama_progress = 1 untuk terima -->
                       <input type="hidden" class="form-control" placeholder id="kode_nama_progress" name="kode_nama_progress" required value="1">
+                      <input class="form-control" type="hidden" id="kode_jabatan_unit" name="kode_jabatan_unit" value="<?php echo $data_diri->kode_jabatan_unit;?>" required> 
+                       <!-- ambil kode_jabatan_unit yang login -->
                       <label class="col-lg-4 col-sm-2 control-label">Komentar Persetujuan:</label>
                       <div class="modal-body">
                        <textarea name="komentar" value="" class="form-control" placeholder="Komentar" rows="3" required></textarea>
@@ -192,6 +194,8 @@
                     <!-- kirim kode_fk berdasarkan kode_item_pengajuan dari barang yang terpilih -->
                     <input class="form-control" type="hidden" id="kode_fk" name="kode_fk" value="<?php echo $barang->kode_item_pengajuan;?>" required>
                     <!-- kirim kode_nama_progress = 2 untuk tolak -->
+                    <input class="form-control" type="hidden" id="kode_jabatan_unit" name="kode_jabatan_unit" value="<?php echo $data_diri->kode_jabatan_unit;?>" required> 
+                    <!-- ambil kode_jabatan_unit yang login -->
                     <input type="hidden" class="form-control" placeholder id="kode_nama_progress" name="kode_nama_progress" required value="2">
                     <label class="col-lg-4 col-sm-2 control-label">Komentar Penolakan:</label>
                     <div class="modal-body">
