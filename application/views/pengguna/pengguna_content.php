@@ -33,7 +33,7 @@
                     <thead>
                       <tr>
                         <th class="text-center">No.</th>
-                        <th class="text-center">Nama</th>
+                        <th class="text-center" style="width: 150px;">Nama</th>
                         <th class="text-center">No. Identitas</th>
                         <th class="text-center">Unit</th>
                         <th class="text-center">Jabatan</th>
