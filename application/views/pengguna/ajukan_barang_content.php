@@ -38,6 +38,7 @@
                     <th>Jenis Barang</th>
                     <th>Harga Satuan</th>
                     <th>Jumlah Barang</th>
+                    <th>Tanggal Pengajuan</th>
                     <th>Status</th>
                     <th>Aksi</th>
                   </tr>
@@ -53,7 +54,11 @@
                       <td><?php echo $barang->nama_jenis_barang; ?></td>
                       <td><?php echo $barang->harga_satuan; ?></td>
                       <td><?php echo $barang->jumlah; ?></td>
+                      <td><?php echo $barang->tgl_item_pengajuan; ?></td>
                       <td> 
+                        <?php
+                        
+                        ?>
                        <a href="#myModal2" id="custId" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" data-toggle="tooltip" title="Aksi"><?php echo $barang->status_pengajuan; ?></a>
                      </td>
 
