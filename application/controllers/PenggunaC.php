@@ -48,11 +48,11 @@ class PenggunaC extends CI_Controller {
 	}
 
 	public function pengguna(){//halaman pengguna (admin)
-	if(in_array(14, $this->data_menu)){
+		if(in_array(14, $this->data_menu)){
 
-		$data['menu'] = $this->data_menu;
-		$this->data['PenggunaM']			= $this->PenggunaM;
-		$this->data['pilihan_unit'] = $this->PenggunaM->get_unit();
+			$data['menu'] = $this->data_menu;
+			$this->data['PenggunaM']			= $this->PenggunaM;
+			$this->data['pilihan_unit'] = $this->PenggunaM->get_unit();
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$this->data['data_pengguna'] = $this->PenggunaM->get_data_pengguna()->result();
 		$this->data['data_diri'] = $data_diri;  	//get data diri buat nampilin nama di pjok kanan
@@ -412,6 +412,17 @@ public function ganti_jabatan(){
 				redirect_back();
 			}
 		}
+	}
+
+	public function hapus_akses_menu($kode_akses_menu){
+		if($this->PenggunaM->hapus_akses_menu($kode_akses_menu)){
+			$this->session->set_flashdata('sukses','Data anda berhasil dihapus');
+			redirect_back();
+		}else{
+			$this->session->set_flashdata('error','Data anda tidak berhasil dihapus');
+			redirect_back();
+		}
+
 	}
 
 	public function hapus_unit($kode_unit){

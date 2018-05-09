@@ -663,17 +663,56 @@
                     <?php
                     if($jabatan_unit_pengguna = $PenggunaM->get_jabatan_unit_by_menu($menu->kode_menu)){
                       foreach ($jabatan_unit_pengguna->result() as $pengguna) {
-                         echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit.'<br>';
-                       } 
+                        echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit;
+                        ?>
+                        <a  href="<?php echo base_url('PenggunaC/hapus_akses_menu/').$pengguna->kode_akses_menu ?>"  onClick="return confirm('Anda yakin akan menghapus Jabatan <?php echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit?>?')" style="color: red;"><i class="glyphicon glyphicon-trash text-danger"></i></a><br>
+                        <?php
+                      } 
                     }
                     ?>
                     <p><small class="kecil" style="font-size: 12px; color: blue;"></small></p>
                   </div>
                 </td>
                 <td>
-                  <a data-toggle="modal" title="Tambah Jabatan Unit" class="btn btn-primary btn-sm" data-target=""><span class="glyphicon glyphicon-plus-sign"></span></a>
+                  <a data-toggle="modal" title="Tambah Jabatan Unit" class="btn btn-primary btn-sm" data-target="#modal_tambah_akses_menu-<?php echo $pengguna->kode_akses_menu?>"><span class="glyphicon glyphicon-plus-sign"></span></a>
                 </td>
               </tr>
+
+              <!-- modal tambah jabatan -->
+              <div aria-hidden="true" aria-labelledby="modal_tambah_akses_menu-<?php echo $pengguna->kode_akses_menu?>" role="dialog" tabindex="-1" id="modal_tambah_akses_menu-<?php echo $pengguna->kode_akses_menu?>" class="modal fade">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                      <h4 class="modal-title">Tambah Akses Menu</h4>
+                    </div>
+                    <div class="modal-body">
+                      <?php echo form_open_multipart('PenggunaC/tambah_jabatan');?>
+                      <form role="form" action="<?php echo base_url(); ?>PenggunaC/tambah_jabatan" method="post">
+                        <div class="form-group">
+                          <label>Nama Jabatan</label>
+                          <input class="form-control" placeholder="Nama Jabatan" type="hidden" id="kode_unit" name="kode_unit" value="<?php echo $unit->kode_unit?>" required>
+                          <select class="form-control" name="kode_jabatan" id="kode_jabatan">
+                            <option value="">---- Pilih Jabatan ---- </option>
+                            <?php 
+                            foreach ($jabatan_pilihan as $pilihan_jabatan) {
+                              ?>
+                              <option value="<?php echo $pilihan_jabatan->kode_jabatan;?>"><?php echo $pilihan_jabatan->nama_jabatan." - ".$unit->nama_unit?></option>
+                              <?php
+                            }
+                            ?>
+                          </select>
+                        </div>
+                        <div class="modal-footer">
+                          <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
+                        </div> 
+                        <?php echo form_close()?>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <?php
             }
             ?>
@@ -754,6 +793,7 @@
                       }else{
                         ?>
                         <a href="<?php echo base_url('PenggunaC/hapus/'.$persetujuan_kegiatan_mhs->kode_acc_kegiatan);?>"  onClick="return confirm('Anda yakin akan menghapus data ini?')" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Hapus Persetujuan Kegiatan" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+
                         <?php
                       }
                     }else{

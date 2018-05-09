@@ -465,6 +465,12 @@
 		return "berhasil";
 	}
 
+	public function hapus_akses_menu($kodde_akses_menu){
+		$this->db->where('kodde_akses_menu', $kodde_akses_menu);
+		$this->db->delete('akses_menu');
+		return TRUE;
+	}
+
 	public function hapus_unit($kode_unit){//hapus persetujuan kegiatan
 		$this->db->where('kode_unit', $kode_unit);
 		$this->db->delete('unit');
