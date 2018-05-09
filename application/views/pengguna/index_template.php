@@ -357,7 +357,9 @@
         $('#persetujuan_kegiatan_mhs').DataTable({
          "aaSorting": []
        });
-        $('#example').DataTable();
+        $('#example').DataTable({
+         "aaSorting": []
+       });
         $('#example1').DataTable();
         $('#prosedur').DataTable();
         $('#akses_menu').DataTable();

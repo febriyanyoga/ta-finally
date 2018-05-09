@@ -29,6 +29,20 @@
             <div class="card-header">
               <div class="card-body">
                 <div class="table-responsive">
+                 <!--  <?php
+                  $kadep = $PenggunaM->get_pengguna_by_kode_jabatan_unit('1');
+                  $sekdep = $PenggunaM->get_pengguna_by_kode_jabatan_unit('2');
+                  $manajer_sarpras = $PenggunaM->get_pengguna_by_kode_jabatan_unit('3');
+                  $staf_sarpras = $PenggunaM->get_pengguna_by_kode_jabatan_unit('4');
+                  $manajer_keuangan = $PenggunaM->get_pengguna_by_kode_jabatan_unit('5');
+                  $staf_keuangan = $PenggunaM->get_pengguna_by_kode_jabatan_unit('6');
+                  ?>
+                  <div class="alert alert-danger">
+                    <i class="glyphicon glyphicon-exclamation-sign"></i><strong> Perhatian!</strong> Masih ada Jabatan penting yang kosong. Silahkan dilengkapi terlebih dahulu, agar sistem dapat berjalan dengan baik.
+                  </div>
+                  <div class="alert alert-success">
+                    <i class="glyphicon glyphicon-ok"></i><strong> Sukses!</strong> Semua Jabatan Penting telah terpenuhi, Sistem dapat berjalan dengan baik.
+                  </div> -->
                   <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                       <tr>
@@ -129,6 +143,10 @@
                                   <form role="form" action="<?php echo base_url(); ?>PenggunaC/ganti_jabatan" method="post">
                                     <div class="form-group">
                                       <input type="hidden" name="id_pengguna" value="<?php echo $pengguna->id_pengguna?>">
+                                      <input type="text" name="own_kode_unit" value="<?php echo $pengguna->kode_unit?>">
+                                      <input type="text" name="own_kode_jabatan" value="<?php echo $pengguna->kode_jabatan?>">
+                                      <input type="text" name="own_kode_jabatan_unit" value="<?php echo $pengguna->kode_jabatan_unit?>">
+                                      <input type="text" name="own_atasan" value="<?php echo $pengguna->atasan?>">
                                       <div class="relative">
                                         <h4><strong><?php echo $pengguna->nama?></strong></h4>
                                         <h5><?php echo $pengguna->nama_jabatan." ".$pengguna->nama_unit?></h5> 

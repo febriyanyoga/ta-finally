@@ -143,6 +143,7 @@
 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
 		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
+		$this->db->order_by('unit.kode_unit');
 		$query = $this->db->get(); 
 		return $query;
 	}
@@ -192,12 +193,38 @@
 	}
 
 	public function cek_kode_jabatan_unit($kode_unit, $kode_jabatan){
-		$this->db->select('kode_jabatan_unit');
+		$this->db->select('*');
 		$this->db->from('jabatan_unit');
 		$this->db->where('kode_unit', $kode_unit);
 		$this->db->where('kode_jabatan', $kode_jabatan);
 		$query = $this->db->get();
 		return $query;
+	}
+
+	public function get_id_bukan_atasan($kode_unit){
+		$this->db->select('*');
+		$this->db->from('pengguna');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->where('unit.kode_unit', $kode_unit);
+		$this->db->where('jabatan_unit.atasan = "tidak"');
+		$query = $this->db->get();
+		return $query;
+	}
+
+	public function cek_atasan_by_kode_jabatan_unit($kode_jabatan_unit){
+		$this->db->select('*');
+		$this->db->from('pengguna');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->where('jabatan_unit.atasan = "ya"');
+		$this->db->where('pengguna.status = "aktif"');
+		$query = $this->db->get()->num_rows();
+
+		if($query){
+			return TRUE;
+		}else{
+			return FALSE;
+		}
 	}
 
 	public function get_data_pengajuan($kode_jenis_kegiatan){
@@ -560,24 +587,25 @@
 
 	public function get_akses_menu_2(){
 		$this->db->select('*');
-		$this->db->from('akses_menu');
-		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = akses_menu.kode_jabatan_unit');
-		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
-		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
-		$this->db->join('menu','akses_menu.kode_menu = menu.kode_menu');
-		// $this->db->group_by('akses_menu.kode_menu');
+		$this->db->from('menu');
 		$query = $this->db->get();
 		return $query;
 	}
 
-	// public function pilihan_jabatan_unit($kode_unit){ //untuk mengambil nama jabatan sesuai dengan unit, untuk dropdown pilihan jabatan
-	// 	$this->db->select('*');
-	// 	$this->db->fm('jabatan_unit');
-	// 	$this->db->join('jabatan', 'jabatan.kode_jabatan=jabatan_unit.kode_jabatan');
-	// 	$this->db->where('jabatan_unit.kode_unit', $kode_unit);
-	// 	$query = $this->db->get()->result();
-	// 	return $query;
-	// }
+	public function get_jabatan_unit_by_menu($kode_menu){
+		$this->db->select('*');
+		$this->db->from('menu');
+		$this->db->join('akses_menu','akses_menu.kode_menu = menu.kode_menu');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = akses_menu.kode_jabatan_unit');
+		$this->db->join('jabatan','jabatan_unit.kode_jabatan = jabatan.kode_jabatan');
+		$this->db->join('unit','unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->where('menu.kode_menu',$kode_menu);
+		$this->db->group_by('jabatan_unit.kode_jabatan_unit');
+		$this->db->order_by('jabatan_unit.kode_jabatan_unit');
+		$query = $this->db->get();
+		return $query;
+	}
+
 	public function get_unit(){
 		$response = array();
 		$this->db->select('*');

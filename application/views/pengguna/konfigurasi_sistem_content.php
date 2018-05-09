@@ -638,19 +638,45 @@
   <div class="row pt-5">
     <div class="col-lg-12">
      <div style="margin-top: 20px;">
-       <a class="btn btn-primary" data-toggle="modal" data-target="#modal_tambah_unit"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Unit </a>
        <div class="table-responsive">
          <table id="akses_menu" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th style="width: 10px;">No</th>
               <!-- <th style="width: 10px;">ID</th> -->
-              <th> Nama Unit</th>
+              <th> Nama Menu</th>
               <!-- <th>Status</th> -->
               <th style="width: 50px;">Aksi</th>
             </tr>
           </thead>
           <tbody>
+            <?php
+            $i = 0;
+            foreach ($akses_menu as $menu) {
+              $i++;
+              ?>
+              <tr>
+                <td><?php echo $i?></td>
+                <td>
+                  <div class="relative">
+                    <strong><?php echo $menu->nama_menu?><br></strong>
+                    <?php
+                    if($jabatan_unit_pengguna = $PenggunaM->get_jabatan_unit_by_menu($menu->kode_menu)){
+                      foreach ($jabatan_unit_pengguna->result() as $pengguna) {
+                         echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit.'<br>';
+                       } 
+                    }
+                    ?>
+                    <p><small class="kecil" style="font-size: 12px; color: blue;"></small></p>
+                  </div>
+                </td>
+                <td>
+                  <a data-toggle="modal" title="Tambah Jabatan Unit" class="btn btn-primary btn-sm" data-target=""><span class="glyphicon glyphicon-plus-sign"></span></a>
+                </td>
+              </tr>
+              <?php
+            }
+            ?>
           </tbody>
         </table>
       </div>
@@ -905,7 +931,7 @@
 
 
   //buat reoad ke current tab pane 
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         // save the latest tab; use cookies if you like 'em better:
         localStorage.setItem('lastTab', $(this).attr('href'));
       });
