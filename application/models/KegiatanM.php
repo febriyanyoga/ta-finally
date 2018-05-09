@@ -111,12 +111,13 @@
 	public function get_detail_progress($id){
 		$this->db->select('*');
 		$this->db->from('progress');
-		$this->db->join('pengguna', 'progress.id_pengguna = pengguna.id_pengguna');
-		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
-		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = progress.kode_jabatan_unit');
 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
 		$this->db->join('nama_progress', 'progress.kode_nama_progress = nama_progress.kode_nama_progress');
+
+		$this->db->join('pengguna', 'progress.id_pengguna = pengguna.id_pengguna');
+		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
 		$this->db->where('progress.kode_fk', $id);
 		$this->db->where('progress.jenis_progress = "kegiatan"'); //kegiatan bukan barang
 		$query = $this->db->get();
@@ -134,7 +135,7 @@
 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
-		$this->db->where('unit.kode_unit', $kode_unit);
+		$this->db->where('jabatan_unit.kode_unit', $kode_unit);
 		$this->db->where('jabatan_unit.atasan = "ya"');
 
 		$query = $this->db->get();

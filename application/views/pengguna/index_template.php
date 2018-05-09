@@ -352,20 +352,20 @@
         $('#jenis_kegiatan').DataTable();
         $('#nama_progress').DataTable();
         $('#persetujuan_kegiatan_peg').DataTable({
-           "aaSorting": []
-        });
+         "aaSorting": []
+       });
         $('#persetujuan_kegiatan_mhs').DataTable({
-           "aaSorting": []
-        });
+         "aaSorting": []
+       });
         $('#example').DataTable();
         $('#example1').DataTable();
         $('#prosedur').DataTable();
         $('#akses_menu').DataTable();
         $('#jabatan_unit').DataTable();
-
-
       } 
       );
+
+
 
       function hanyaAngka(evt) {
         var charCode = (evt.which) ? evt.which : event.keyCode
@@ -422,7 +422,6 @@
 });
   });
     });
-
   </script>
 
 </body>

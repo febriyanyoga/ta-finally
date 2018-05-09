@@ -29,37 +29,19 @@
             <div class="card-header">
               <div class="card-body">
                 <div class="table-responsive">
-               <!--  <?php
-                  var_dump($data_pengguna);
-                  ?> -->
                   <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                       <tr>
-                        <!-- <th>No. Identitas</th> -->
                         <th class="text-center">No.</th>
                         <th class="text-center">Nama</th>
                         <th class="text-center">No. Identitas</th>
                         <th class="text-center">Unit</th>
                         <th class="text-center">Jabatan</th>
-                        <!-- <th class="text-center">Jenis Kelamin</th> -->
-                        <!-- <th class="text-center">No. HP</th> -->
                         <th class="text-center">Email</th>
                         <th class="text-center">Akun</th>
                         <th class="text-center" style="width: 150px;">Aksi</th>
                       </tr>
                     </thead>
-                    <!-- <tfoot>
-                      <tr>
-                        <th>Nama</th>
-                        <th>No. Identitas</th>
-                        <th>Jabatan</th>
-                        <th>Jenis Kelamin</th>
-                        <th>No. HP</th>
-                        <th>Status Email</th>
-                        <th>Status Akun</th>
-                        <th>Aksi</th>
-                      </tr>
-                    </tfoot> -->
                     <tbody>
                       <?php
                       $i=0;
@@ -77,8 +59,6 @@
                           <td class="text-center"><?php echo $pengguna->no_identitas; ?></td>
                           <td class="text-center"><?php echo $pengguna->nama_unit; ?></td>                          
                           <td class="text-center"><?php echo $pengguna->nama_jabatan." ". $pengguna->nama_unit; ?></td>
-                          <!-- <td class="text-center"><?php echo $pengguna->jen_kel; ?></td> -->
-                          <!-- <td class="text-center"><?php echo $pengguna->no_hp; ?></td> -->
                           <td class="text-center"><?php if($pengguna->status_email == 0){
                             ?>
                             <a title="Belum Aktif"><span class="glyphicon glyphicon-remove"></a>  
@@ -126,7 +106,10 @@
                                 <div class="btn-group">
                                   <a  data-toggle='tooltip' title='Aktif' class="btn btn-info btn-sm" disabled><span class="glyphicon glyphicon-ok"></span></a>
                                   <a data-toggle='tooltip' title='Non-aktif' class="btn btn-danger btn-sm" href="<?php echo base_url('PenggunaC/non_aktif')."/".$pengguna->id_pengguna;?>" ><span class="glyphicon glyphicon-remove"></span></a>
+
                                   <a data-toggle="modal" title="Ganti Jabatan" class="btn btn-warning btn-sm" data-target="#modal_ubah_jabatan-<?php echo $pengguna->kode_jabatan_unit?>"><span class="glyphicon glyphicon-refresh"></span></a>
+
+                                  <!--  <a href="#ganti_jabatan" id="custId" data-toggle="modal" data-id="<?php echo $pengguna->kode_jabatan_unit;?>" data-toggle="tooltip" title="Ganti Jabatan" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-refresh"></span></a> -->
                                 </div>
                                 <?php
                               }
@@ -142,12 +125,17 @@
                                   <h4 class="modal-title">Ubah Jabatan</h4>
                                 </div>
                                 <div class="modal-body">
-                                  <?php echo form_open_multipart('PenggunaC/tambah_jabatan');?>
-                                  <form role="form" action="<?php echo base_url(); ?>PenggunaC/tambah_jabatan" method="post">
+                                  <?php echo form_open_multipart('PenggunaC/ganti_jabatan');?>
+                                  <form role="form" action="<?php echo base_url(); ?>PenggunaC/ganti_jabatan" method="post">
                                     <div class="form-group">
-                                      <!-- <input type="hidden" name="id_pengguna" id="id_pengguna" value="<?php echo $pengguna->id_pengguna?>"> -->
+                                      <input type="hidden" name="id_pengguna" value="<?php echo $pengguna->id_pengguna?>">
+                                      <div class="relative">
+                                        <h4><strong><?php echo $pengguna->nama?></strong></h4>
+                                        <h5><?php echo $pengguna->nama_jabatan." ".$pengguna->nama_unit?></h5> 
+                                      </div>
+                                      <br>
                                       <label for="bidang"> Pindah Ke Jabatan Unit :</label> 
-                                      <select class="form-control" name="kode_unit" id="kode_unit" required>
+                                      <select class="form-control" name="kode_unit" id="kode_unit-<?php echo $pengguna->kode_jabatan_unit?>" required>
 
                                         <option value="">---- Pilih Unit ---- </option>
                                         <?php 
@@ -162,14 +150,13 @@
                                       <span class="text-danger" style="color: red;"><?php echo form_error('kode_jabatan'); ?></span>  
                                     </div>
                                     <div class="form-group">
-                                      <!-- <label for="bidang"> Bidang yang akan di lamar :</label> -->
-                                      <select class="form-control" name="kode_jabatan" id="kode_jabatan" required>
+                                      <select class="form-control" name="kode_jabatan" id="kode_jabatan-<?php echo $pengguna->kode_jabatan_unit?>" required>
                                         <option>---- Pilih Jabatan ---- </option>
                                       </select>
                                       <span class="text-danger" style="color: red;"><?php echo form_error('kode_jabatan'); ?></span>  
                                     </div>
                                     <div class="modal-footer">
-                                      <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
+                                      <input type="submit" class="btn btn-primary"  value="Ganti Jabatan">
                                     </div> 
                                     <?php echo form_close()?>
                                   </form>
@@ -178,48 +165,69 @@
                             </div>
                           </div>
 
-                          
+                          <script type="text/javascript">
+                             // kode_unit change
+                             $('#kode_unit-<?php echo $pengguna->kode_jabatan_unit?>').change(function(){
+                                var unit = $(this).val(); //ambil value dr kode_unit
+                                  // AJAX request
+                                  $.ajax({
+                                    url:'<?=base_url()?>UserC/get_jabatan',
+                                    method: 'post',
+                                    asycn : false,
+                                    data: {kode_unit: unit}, // data post ke controller 
+                                    dataType: 'json',
+                                    success: function(response){
+                                          // Remove options
+                                          $('#kode_jabatan-<?php echo $pengguna->kode_jabatan_unit?>').find('option').not(':first').remove();
 
-                          <?php
-                        }
-                        ?>
-                      </tbody>
-                    </table>
+                                          // Add options
+                                          $.each(response,function(daftar,data){
+                                            $('#kode_jabatan-<?php echo $pengguna->kode_jabatan_unit?>').append('<option value="'+data['kode_jabatan']+'">'+data['nama_jabatan']+' '+data['nama_unit']+'</option>');
+                                          });
+                                        }
+                                      });
+                                });
+                              </script>
+                              <?php
+                            }
+                            ?>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
+                </div>
+              </div>
+
+              <!-- batas content -->
+
+            </section>
+            <div class="text-center">
+              <div class="credits">
+                <!-- <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+              </div>
+            </div>
+          </section>
+
+
+          <!-- modal detail kegiatan -->
+          <div class="modal fade" id="detail_pengguna" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Detail Pengguna</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="fetched-data"></div>
+                </div>
+                <div class="modal-footer">
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- batas content -->
-
-        </section>
-        <div class="text-center">
-          <div class="credits">
-            <!-- <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-          </div>
-        </div>
-      </section>
-
-
-      <!-- modal detail kegiatan -->
-      <div class="modal fade" id="detail_pengguna" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Detail Pengguna</h4>
-            </div>
-            <div class="modal-body">
-              <div class="fetched-data"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <script type="text/javascript">
+          <script type="text/javascript">
     // js detail pengajuan
     $(document).ready(function(){
       $('#detail_pengguna').on('show.bs.modal', function (e) {
@@ -235,27 +243,29 @@
             });
           });
 
-          // City change
-          $('#kode_unit').change(function(){
-            var unit = $(this).val(); //ambil value dr kode_unit
-            // window.alert(unit);
+       // City change
+       $('#kode_unit').change(function(){
+        alert("assassass");
+        var unit = $(this).val(); //ambil value dr kode_unit
+        // window.alert(unit);
 
-              // AJAX request
-              $.ajax({
-                url:'<?=base_url()?>UserC/get_jabatan',
-                method: 'post',
-                data: {kode_unit: unit}, // data post ke controller 
-                dataType: 'json',
-                success: function(response){
-                      // Remove options
-                      $('#kode_jabatan').find('option').not(':first').remove();
+          // AJAX request
+          $.ajax({
+            url:'<?=base_url()?>UserC/get_jabatan',
+            method: 'post',
+            asycn : false,
+            data: {kode_unit: unit}, // data post ke controller 
+            dataType: 'json',
+            success: function(response){
+                  // Remove options
+                  $('#kode_jabatan').find('option').not(':first').remove();
 
-                      // Add options
-                      $.each(response,function(daftar,data){
-                        $('#kode_jabatan').append('<option value="'+data['kode_jabatan']+'">'+data['nama_jabatan']+' '+data['nama_unit']+'</option>');
-                      });
-                    }
+                  // Add options
+                  $.each(response,function(daftar,data){
+                    $('#kode_jabatan').append('<option value="'+data['kode_jabatan']+'">'+data['nama_jabatan']+' '+data['nama_unit']+'</option>');
                   });
-            });
+                }
+              });
         });
-      </script>
+     });
+   </script>

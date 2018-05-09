@@ -122,11 +122,15 @@ public function ganti_jabatan(){
 
 		$data_update_jabatan_unit = array('kode_jabatan_unit' => $kode_jabatan_unit);
 
-		$this->PenggunaM->update_jabatan_unit($id_pengguna, $data_jabatan_unit);
+		if($this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_jabatan_unit)){
+			$this->session->set_flashdata('sukses','Jabatan berhasil diubah');	
+			redirect_back();
+		}else{
+			$this->session->set_flashdata('error','Jabatan tidak berhasil diubah');	
+			redirect_back();
+		}
 	}
 }
-
-
 
 	// umum
 	public function detail_pengguna($id_pengguna){ //menampilkan modal dengan isi dari detail_kegiatan.php
@@ -553,7 +557,7 @@ public function ganti_jabatan(){
 					$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun); //update data kode acc-1
 					$this->session->set_flashdata('sukses','Berhasil');
 					// redirect_back(); 
-					redirect('PenggunaC/konfigurasi_sistem#6');
+					redirect('PenggunaC/konfigurasi_sistem');
 				}else{
 					$this->session->set_flashdata('error','Ranking sudah tertinggi');
 					redirect_back(); 
@@ -573,7 +577,7 @@ public function ganti_jabatan(){
 				$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun);
 				$this->session->set_flashdata('sukses','Berhasil');
 				// redirect_back(); 
-				redirect('PenggunaC/konfigurasi_sistem#6');
+				redirect('PenggunaC/konfigurasi_sistem');
 			}
 		}elseif ($kode_jenis_kegiatan == 2) {//mahasiswa
 			if($ranking == $rank_max_mhs){ //rank nya max(terbesar)
