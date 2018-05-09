@@ -440,7 +440,7 @@ class BarangC extends CI_Controller {
 
     }
 
-	public function post_persetujuan_tersedia($kode_item_pengajuan){ // untuk mengubah status persediaan dan pengajuan jd selese serta tambah progres
+	public function post_persetujuan_tersedia($kode_item_pengajuan, $kode_jabatan_unit){ // untuk mengubah status persediaan dan pengajuan jd selese serta tambah progres
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];
 
 		
@@ -465,13 +465,14 @@ class BarangC extends CI_Controller {
 
 
 			$data_progress		= array(
-				'id_pengguna'		=> $id_pengguna,
-				'kode_fk'			=> $kode_fk,
-				'kode_nama_progress'=> $kode_nama_progress,
-				'komentar'			=> $komentar,
-				'jenis_progress'	=> $jenis_progress,
-				'tgl_progress'		=> $tgl_progress,
-				'waktu_progress'	=> $waktu_progress
+				'kode_jabatan_unit	' 	=> $kode_jabatan_unit,
+				'id_pengguna'			=> $id_pengguna,
+				'kode_fk'				=> $kode_fk,
+				'kode_nama_progress'	=> $kode_nama_progress,
+				'komentar'				=> $komentar,
+				'jenis_progress'		=> $jenis_progress,
+				'tgl_progress'			=> $tgl_progress,
+				'waktu_progress'		=> $waktu_progress
 
 			);
 			$this->BarangM->insert_progress($data_progress);
