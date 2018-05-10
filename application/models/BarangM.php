@@ -332,4 +332,43 @@ class BarangM extends CI_Model
 		}
 	}
 
+	public function cek_id_staf_sarpras(){ //untuk mengetahui ketika staf sarpras sudah memasukan progres 
+ 		$this->db->select('pengguna.kode_jabatan_unit');
+ 		$this->db->from('pengguna');
+ 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+ 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+ 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->where('unit.kode_unit = "2"'); //keuangan
+		$this->db->where('jabatan.kode_jabatan = "4"'); //staf
+		$this->db->where('status = "aktif"');
+		$query = $this->db->get();
+		return $query;
+	}
+
+	public function get_progress_oleh_staf($kode_fk, $kode_jabatan_unit){ //untuk mengetahui barang sudah mendapat progres dari kode_jabatan_unit apa saja
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->where('progress.kode_fk', $kode_fk);
+		$this->db->where('progress.jenis_progress = "barang"');
+		$this->db->where('progress.kode_jabatan_unit', $kode_jabatan_unit);
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
+	public function get_nama_progress_by_id($kode_jabatan_unit, $kode_fk){ //untuk menampilkan nama progress yang dimasukkan oleh kode_jabatan_unit berdasarkan kode_itempengajuan
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('nama_progress','nama_progress.kode_nama_progress = progress.kode_nama_progress');
+		$this->db->join('item_pengajuan', 'item_pengajuan.kode_item_pengajuan = progress.kode_fk');
+		$this->db->where('progress.kode_jabatan_unit', $kode_jabatan_unit);
+		$this->db->where('progress.kode_fk = item_pengajuan.kode_item_pengajuan');
+		$this->db->where('item_pengajuan.kode_item_pengajuan', $kode_fk);
+		$this->db->where('progress.jenis_progress = "barang"');
+		$this->db->order_by('progress.created_at','DESC');
+		$this->db->limit(1);
+		$query = $this->db->get();
+		return $query;
+	}
+
+
 }
