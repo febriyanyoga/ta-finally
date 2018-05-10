@@ -693,11 +693,11 @@
                           <label>Nama Jabatan</label>
                           <input class="form-control" placeholder="Nama Jabatan" type="hidden" id="kode_unit" name="kode_unit" value="<?php echo $unit->kode_unit?>" required>
                           <select class="form-control" name="kode_jabatan" id="kode_jabatan">
-                            <option value="">---- Pilih Jabatan ---- </option>
+                            <option value="">---- Pilih Jabatan Unit ---- </option>
                             <?php 
-                            foreach ($jabatan_pilihan as $pilihan_jabatan) {
+                            foreach ($jabatan_unit_menu as $pilihan_unit_menu) {
                               ?>
-                              <option value="<?php echo $pilihan_jabatan->kode_jabatan;?>"><?php echo $pilihan_jabatan->nama_jabatan." - ".$unit->nama_unit?></option>
+                              <option value="<?php echo $pilihan_unit_menu->kode_jabatan_unit;?>"><?php echo $pilihan_unit_menu->nama_jabatan." - ".$pilihan_unit_menu->nama_unit?></option>
                               <?php
                             }
                             ?>
