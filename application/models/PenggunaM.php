@@ -124,6 +124,19 @@
 		return $query;
 	}
 
+	public function insert_akses_menu($data){
+		$query = $this->db->insert('akses_menu', $data);
+		return $query;
+	}
+
+	public function get_kode_jabatan_unit_by_menu($kode_menu){
+		$this->db->select('kode_jabatan_unit');
+		$this->db->from('akses_menu');
+		$this->db->where('akses_menu.kode_menu', $kode_menu);
+		$query = $this->db->get();
+		return $query;
+	}
+
 	public function cek_row($id_pengguna, $password){ //cek akun di db pengguna jabatan (berapa rows)
 		$this->db->where('id_pengguna', $id_pengguna);
 		$this->db->where('password', md5($password));
@@ -465,8 +478,8 @@
 		return "berhasil";
 	}
 
-	public function hapus_akses_menu($kodde_akses_menu){
-		$this->db->where('kodde_akses_menu', $kodde_akses_menu);
+	public function hapus_akses_menu($kode_akses_menu){
+		$this->db->where('kode_akses_menu', $kode_akses_menu);
 		$this->db->delete('akses_menu');
 		return TRUE;
 	}

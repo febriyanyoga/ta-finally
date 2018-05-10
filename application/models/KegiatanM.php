@@ -271,9 +271,9 @@
 		return $query = $this->db->get()->result();
 	}
 
-	public function cek_rank_by_id_pegawai($id_pengguna){
+	public function cek_rank_by_id_pegawai($kode_jabatan_unit){
 		$this->db->select('ranking');
-		$this->db->where('id_pengguna', $id_pengguna);
+		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
 		$this->db->where('kode_jenis_kegiatan = "1"'); //pegawai
 		if($query = $this->db->get('acc_kegiatan')->row()){
 			return $query;

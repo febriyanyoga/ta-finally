@@ -602,7 +602,7 @@
                   <td class="text-center"> 
                     <?php
                     if($PenggunaM->get_max_rank_peg()->result()[0]->ranking == $persetujuan_kegiatan->ranking){
-                      if($PenggunaM->get_min_rank_peg()->result()[0]->ranking){
+                      if($PenggunaM->get_min_rank_peg()->result()[0]->ranking == $persetujuan_kegiatan->ranking){
                        ?>
                        <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
                        <?php
@@ -612,8 +612,6 @@
                        <?php
                      }
                    }else{
-                    echo $PenggunaM->get_max_rank_peg()->result()[0]->ranking;
-
                     ?>
                     <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
                     <?php
@@ -687,17 +685,17 @@
                       <h4 class="modal-title">Tambah Akses Menu</h4>
                     </div>
                     <div class="modal-body">
-                      <?php echo form_open_multipart('PenggunaC/tambah_jabatan');?>
-                      <form role="form" action="<?php echo base_url(); ?>PenggunaC/tambah_jabatan" method="post">
+                      <?php echo form_open_multipart('PenggunaC/tambah_akses_menu');?>
+                      <form role="form" action="<?php echo base_url(); ?>PenggunaC/tambah_akses_menu" method="post">
                         <div class="form-group">
                           <label>Nama Jabatan</label>
-                          <input class="form-control" placeholder="Nama Jabatan" type="hidden" id="kode_unit" name="kode_unit" value="<?php echo $unit->kode_unit?>" required>
-                          <select class="form-control" name="kode_jabatan" id="kode_jabatan">
+                          <input class="form-control" type="text" id="kode_menu" name="kode_menu" value="<?php echo $menu->kode_menu?>" required>
+                          <select class="form-control" name="kode_jabatan_unit" id="kode_jabatan_unit">
                             <option value="">---- Pilih Jabatan Unit ---- </option>
                             <?php 
                             foreach ($jabatan_unit_menu as $pilihan_unit_menu) {
                               ?>
-                              <option value="<?php echo $pilihan_unit_menu->kode_jabatan_unit;?>"><?php echo $pilihan_unit_menu->nama_jabatan." - ".$pilihan_unit_menu->nama_unit?></option>
+                              <option value="<?php echo $pilihan_unit_menu->kode_jabatan_unit;?>"><?php echo $pilihan_unit_menu->nama_jabatan.' '.$pilihan_unit_menu->nama_unit?></option>
                               <?php
                             }
                             ?>
@@ -755,65 +753,65 @@
   <div class="row pt-5">
     <div class="col-lg-12">
       <div style="margin-top: 20px;">
-        <a class="btn btn-primary" data-toggle="modal" data-target="#tambah_persetujuan_kegiatan_mahasiswa"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Persetujuan Mahasiswa </a>
+        <a class="btn btn-primary" data-toggle="modal" data-target="#tambah_persetujuan_kegiatan_mahasiswa"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Persetujuan Kegiatan Mahasiswa </a>
         <div class="table-responsive">
-         <table id="persetujuan_kegiatan_mhs" class="table table-striped table-bordered" cellspacing="0" width="100%">
-          <thead>
-            <tr>
-              <th class="text-center" style="width: 10px;">Ranking</th>
-              <th class="text-center">Jabatan</th>
-              <th class="text-center">Jenis Kegiatan</th>
-              <!-- <th class="text-center">Status</th> -->
-              <th class="text-center" style="width: 50px;">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            foreach ($persetujuan_kegiatan_mahasiswa as $persetujuan_kegiatan_mhs) {
-              if($persetujuan_kegiatan_mhs->kode_jenis_kegiatan == "2"){
-                ?>
-                <tr>
-                  <td class="text-center">
-                    <div class="relative">
-                      <a href="<?php echo base_url('PenggunaC/naik/'.$persetujuan_kegiatan_mhs->kode_acc_kegiatan.'/'.$persetujuan_kegiatan_mhs->ranking.'/'.$persetujuan_kegiatan_mhs->kode_jenis_kegiatan);?>" title="naik"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-up"></i></small></a>
-                      <strong><?php echo $persetujuan_kegiatan_mhs->ranking;?></strong>
-                      <a href="<?php echo base_url('PenggunaC/turun/'.$persetujuan_kegiatan_mhs->kode_acc_kegiatan.'/'.$persetujuan_kegiatan_mhs->ranking.'/'.$persetujuan_kegiatan_mhs->kode_jenis_kegiatan);?>" title="turun"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-down"></i></small></a>
-                    </div>
-                  </td>
-                  <td class="text-center"><?php echo $persetujuan_kegiatan_mhs->nama_jabatan." ".$persetujuan_kegiatan_mhs->nama_unit;?></td>
-                  <td class="text-center"><?php echo $persetujuan_kegiatan_mhs->nama_jenis_kegiatan;?></td>
-                  <!-- <td class="text-center"><?php echo "status";?></td> -->
-                  <td class="text-center"> 
-                    <?php
-                    if($PenggunaM->get_max_rank_mhs()->result()[0]->ranking == $persetujuan_kegiatan_mhs->ranking){
-                      if($PenggunaM->get_min_rank_mhs()->result()[0]->ranking == $persetujuan_kegiatan_mhs->ranking){
-                        ?>
-                        <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
-                        <?php
-                      }else{
-                        ?>
-                        <a href="<?php echo base_url('PenggunaC/hapus/'.$persetujuan_kegiatan_mhs->kode_acc_kegiatan);?>"  onClick="return confirm('Anda yakin akan menghapus data ini?')" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Hapus Persetujuan Kegiatan" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+          <table id="persetujuan_kegiatan_mhs" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th class="text-center" style="width: 10px;">Ranking</th>
+                <th class="text-center">Jabatan</th>
+                <th class="text-center">Jenis Kegiatan</th>
+                <!-- <th class="text-center">Status</th> -->
+                <th class="text-center" style="width: 50px;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              foreach ($persetujuan_kegiatan_mahasiswa as $persetujuan_kegiatan_mhs) {
+                if($persetujuan_kegiatan_mhs->kode_jenis_kegiatan == "2"){
+                  ?>
+                  <tr>
+                    <td class="text-center">
+                      <div class="relative">
+                        <a href="<?php echo base_url('PenggunaC/naik/'.$persetujuan_kegiatan_mhs->kode_acc_kegiatan.'/'.$persetujuan_kegiatan_mhs->ranking.'/'.$persetujuan_kegiatan_mhs->kode_jenis_kegiatan);?>" title="naik"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-up"></i></small></a>
+                        <strong><?php echo $persetujuan_kegiatan_mhs->ranking;?></strong>
+                        <a href="<?php echo base_url('PenggunaC/turun/'.$persetujuan_kegiatan_mhs->kode_acc_kegiatan.'/'.$persetujuan_kegiatan_mhs->ranking.'/'.$persetujuan_kegiatan_mhs->kode_jenis_kegiatan);?>" title="turun"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-down"></i></small></a>
+                      </div>
+                    </td>
+                    <td class="text-center"><?php echo $persetujuan_kegiatan_mhs->nama_jabatan." ".$persetujuan_kegiatan_mhs->nama_unit;?></td>
+                    <td class="text-center"><?php echo $persetujuan_kegiatan_mhs->nama_jenis_kegiatan;?></td>
+                    <!-- <td class="text-center"><?php echo "status";?></td> -->
+                    <td class="text-center"> 
+                      <?php
+                      if($PenggunaM->get_max_rank_mhs()->result()[0]->ranking == $persetujuan_kegiatan_mhs->ranking){
+                        if($PenggunaM->get_min_rank_mhs()->result()[0]->ranking == $persetujuan_kegiatan_mhs->ranking){
+                          ?>
+                          <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                          <?php
+                        }else{
+                          ?>
+                          <a href="<?php echo base_url('PenggunaC/hapus/'.$persetujuan_kegiatan_mhs->kode_acc_kegiatan);?>"  onClick="return confirm('Anda yakin akan menghapus data ini?')" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Hapus Persetujuan Kegiatan" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
 
-                        <?php
-                      }
-                    }else{
+                          <?php
+                        }
+                      }else{
+                       ?>
+                       <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                       <?php
+                     }
                      ?>
-                     <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
-                     <?php
-                   }
-                   ?>
-                 </td>
-               </tr>
-               <?php
+                   </td>
+                 </tr>
+                 <?php
+               }
              }
-           }
-           ?>
-         </tbody>
-       </table>
+             ?>
+           </tbody>
+         </table>
+       </div>
      </div>
    </div>
  </div>
-</div>
 </div>
 
 <!-- modal tambah persetujuan kegiatan -->
@@ -834,9 +832,11 @@
               <option value="">---- Pilih Jabatan ---- </option>
               <?php 
               foreach ($jabatan_unit_menu as $pilihan_jabatan) {
-                ?>
-                <option value="<?php echo $pilihan_jabatan->kode_jabatan_unit;?>"><?php echo $pilihan_jabatan->nama_jabatan." ".$pilihan_jabatan->nama_unit?></option>
-                <?php
+                if(in_array($pilihan_jabatan->kode_jabatan_unit, $data_jabatan_unit_pegawai)){ 
+                  ?>
+                  <option value="<?php echo $pilihan_jabatan->kode_jabatan_unit;?>"><?php echo $pilihan_jabatan->nama_jabatan." ".$pilihan_jabatan->nama_unit?></option>
+                  <?php
+                }
               }
               ?>
             </select>
@@ -872,9 +872,11 @@
               <option value="">---- Pilih Jabatan ---- </option>
               <?php 
               foreach ($jabatan_unit_menu as $pilihan_jabatan) {
-                ?>
-                <option value="<?php echo $pilihan_jabatan->kode_jabatan_unit;?>"><?php echo $pilihan_jabatan->nama_jabatan." ".$pilihan_jabatan->nama_unit?></option>
-                <?php
+                if(in_array($pilihan_jabatan->kode_jabatan_unit, $data_jabatan_unit_mahasiswa)){ 
+                  ?>
+                  <option value="<?php echo $pilihan_jabatan->kode_jabatan_unit;?>"><?php echo $pilihan_jabatan->nama_jabatan." ".$pilihan_jabatan->nama_unit?></option>
+                  <?php
+                }
               }
               ?>
             </select>

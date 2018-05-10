@@ -49,7 +49,6 @@ class PenggunaC extends CI_Controller {
 
 	public function pengguna(){//halaman pengguna (admin)
 		if(in_array(14, $this->data_menu)){
-
 			$data['menu'] = $this->data_menu;
 			$this->data['PenggunaM']			= $this->PenggunaM;
 			$this->data['pilihan_unit'] = $this->PenggunaM->get_unit();
@@ -66,6 +65,23 @@ class PenggunaC extends CI_Controller {
 
 public function konfigurasi_sistem(){
 	if(in_array(15, $this->data_menu)){
+
+		$data_kode_jabatan_unit = $this->PenggunaM->get_kode_jabatan_unit_by_menu('1')->result(); //pers keg mahasiswa
+		$data_array_jabatan_unit = array();
+		foreach ($data_kode_jabatan_unit as $jabatan_unit) {
+			array_push($data_array_jabatan_unit, $jabatan_unit->kode_jabatan_unit);
+		}
+		$this->data['data_jabatan_unit_mahasiswa'] = $data_array_jabatan_unit;
+
+
+		$data_kode_jabatan_unit_peg = $this->PenggunaM->get_kode_jabatan_unit_by_menu('2')->result();//pers keg peg
+		$data_array_jabatan_unit_peg = array();
+		foreach ($data_kode_jabatan_unit_peg as $jabatan_unit_peg) {
+			array_push($data_array_jabatan_unit_peg, $jabatan_unit_peg->kode_jabatan_unit);
+		}
+		$this->data['data_jabatan_unit_pegawai'] = $data_array_jabatan_unit_peg;
+
+
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Konfigurasi Sistem | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
@@ -423,6 +439,28 @@ public function ganti_jabatan(){
 			redirect_back();
 		}
 
+	}
+
+	public function tambah_akses_menu(){
+		$this->form_validation->set_rules('kode_menu', 'Kode Menu','required');
+		$this->form_validation->set_rules('kode_jabatan_unit', 'Kode Jabatan Unit','required');
+		if($this->form_validation->run() == FALSE){
+			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
+			redirect_back(); //kembali ke halaman sebelumnya -> helper
+		}else{
+			$kode_menu 			= $_POST['kode_menu'];
+			$kode_jabatan_unit 	= $_POST['kode_jabatan_unit'];
+
+			$data_insert_akses_menu = array(
+				'kode_menu' 		=> $kode_menu, 
+				'kode_jabatan_unit' => $kode_jabatan_unit
+			);
+
+			if($this->PenggunaM->insert_akses_menu($data_insert_akses_menu)){
+				$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
+				redirect_back();
+			}
+		}
 	}
 
 	public function hapus_unit($kode_unit){
