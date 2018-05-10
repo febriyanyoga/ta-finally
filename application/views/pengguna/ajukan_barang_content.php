@@ -57,9 +57,48 @@
                       <td><?php echo $barang->tgl_item_pengajuan; ?></td>
                       <td> 
                         <?php
-                        
+                        $kode_fk = $barang->kode_item_pengajuan; //untuk mengambil kode_item_pengajuan
+                        $id_staf_sarpras = $BarangM->cek_id_staf_sarpras()->result()[0]->kode_jabatan_unit; // untuk menmeriksa pengajuan tersebut mendapatkan progress dari siapa saja
+                        $progress_oleh_staf = $BarangM->get_progress_oleh_staf($kode_fk, $id_staf_sarpras);//untuk mengetahui jika pengajuan sudah mendapat progress yang diberikan oleh staff sarpras, dimana staff sarpras adalah yang paling akhir memberikan progress tambahan
+
+                        if($progress_oleh_staf > 0){ //jika item_pengajuan sudah mendapat progress dari staf sarpras
+                            $nama_progress = $BarangM->get_nama_progress_by_id($id_staf_sarpras, $kode_fk)->result()[0]->nama_progress; //untuk menampilkan nama_progress yangdiberikan oleh staf_sarpras 
                         ?>
-                       <a href="#myModal2" id="custId" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" data-toggle="tooltip" title="Aksi"><?php echo $barang->status_pengajuan; ?></a>
+                             <a href="#myModal2" id="custId" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" data-toggle="tooltip" title="Aksi"><?php echo $nama_progress; ?></a>
+                        <?php
+                        }else{
+                              if($barang->status_pengajuan = "baru"){
+                              ?>
+                                   <a class="label label-primary" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress"> Baru</a>
+                              <?php
+                              }else if($barang->status_pengajuan = "proses"){
+                              ?>
+                                    <a class="label label-info" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Proses</a>
+                              <?php
+                              }else if($barang->status_pengajuan = "pengajuan"){
+                              ?>
+                                    <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Pengajuan</a>
+                              <?php
+                              }else if($barang->status_pengajuan = "selesai"){
+                              ?>
+                                    <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Selesai</a>
+                              <?php
+                              }else if($barang->status_pengajuan = "tunda"){
+                              ?>
+                                    <a class="label label-warning" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Tunda</a>
+                              <?php
+                              }else if($barang->status_pengajuan = "disetujui"){
+                              ?>
+                                    <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Disetujui</a>
+                              <?php
+                              }else if($barang->status_pengajuan = "tolak"){
+                              ?>
+                                    <a class="label label-danger" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Tolak</a>
+                              <?php
+                              }
+                        }
+                        ?>
+                      
                      </td>
 
                      <td>

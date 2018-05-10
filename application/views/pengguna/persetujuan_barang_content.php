@@ -191,7 +191,7 @@
               <div class="modal-body">
                 <div class="form-group">
                   <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
-                  <input class="form-control" type="hidden" id="no_identitas" name="no_identitas" value="<?php echo $data_diri->id_pengguna;?>" required> 
+                  <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> 
                   <!-- kirim kode_fk berdasarkan kode_item_pengajuan dari barang yang terpilih -->
                   <input class="form-control" type="hidden" id="kode_fk" name="kode_fk" value="<?php echo $barang->kode_item_pengajuan;?>" required>
                   <!-- kirim kode_nama_progress = 2 untuk tolak -->
