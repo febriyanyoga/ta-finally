@@ -151,7 +151,7 @@
   </div>
 
 
-  <!-- Data tabel unit-->
+  <!-- Data tabel pengajuan RAB-->
   <div id="2" class="tab-pane" role="tabpanel">
     <div class="row pt-5">
       <div class="col-lg-12">
@@ -164,6 +164,8 @@
               <th class="text-center">No</th>
               <th class="text-center">Nama Pengajuan RAB</th>
               <th class="text-center">File Pengajuan RAB</th>
+              <th class="text-center">Status Pengajuan</th>
+              <th class="text-center"> Aksi </th>
             </tr>
           </thead>
           <tbody>
@@ -177,6 +179,12 @@
 
                 <?php $link = base_url()."assets/file_rab/".$barang->file_rab;?>
                 <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/excel.svg" style="height: 30px;"></span></a></td>
+                <td class="text-center">
+                  <a class="label label-primary" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="" title="klik untuk melihat detail progress"> Baru</a>
+                </td>
+                <td class="text-center">
+                   <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target=""><span class="glyphicon glyphicon-pencil"></span></a>
+                </td>
 
               </tr>
               <?php
@@ -222,8 +230,53 @@
     </div>
   </div>
 </div>
+
+  <!-- Data tabel  RAB-->
+  <div id="3" class="tab-pane" role="tabpanel">
+    <div class="row pt-5">
+      <div class="col-lg-12">
+       <div style="margin-top: 20px;">
+        <div class="table-responsive" style="margin-top: 20px">
+         <table id="ajukan_rab" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th class="text-center">No</th>
+              <th class="text-center">Nama Pengajuan RAB</th>
+              <th class="text-center">File Pengajuan RAB</th>
+              <th class="text-center"> Aksi </th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $no=1;
+            foreach ($pengajuan as $barang) {
+              ?>
+              <tr>
+                <td><?php echo $no;?></td>
+                <td><?php echo $barang->nama_pengajuan;?></td>
+
+                <?php $link = base_url()."assets/file_rab/".$barang->file_rab;?>
+                <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/excel.svg" style="height: 30px;"></span></a></td>
+                <td class="text-center">
+                   <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target=""><span class="glyphicon glyphicon-search" title="Lihat Detail"></span></a>
+                </td>
+
+              </tr>
+              <?php
+              $no++;
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>         
+
 </div>
 <!-- END Modal Tambah Pengajuan Barang -->
+
 
 
 <!-- ===================================== -->

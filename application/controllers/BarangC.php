@@ -124,10 +124,23 @@ class BarangC extends CI_Controller {
 		$id_pengguna = $this->session->userdata('id_pengguna');
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Persetujuan RAB | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
-		$this->data['rab'] = $this->BarangM->get_rab()->result();
+		$this->data['rab'] = $this->BarangM->get_rab_diajukan()->result();
 		$this->data['BarangM'] = $this->BarangM;
 		$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
 		$data['body'] = $this->load->view('pengguna/persetujuan_rab_content', $this->data, true) ;
+		$this->load->view('pengguna/index_template', $data);
+	}
+
+	public function status_pengajuan_barang(){ //halaman untuk tambah progress lanjutan item_pengajuan
+		// menampilkan daftar barang untuk diberikan progress lanjutan
+		$data['menu'] = $this->data_menu;
+		$id_pengguna = $this->session->userdata('id_pengguna');
+		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+		$data['title'] = "Status Pengajuan Barang | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+		$this->data['item_barang_disetujui'] = $this->BarangM->get_barang_disetujui()->result();
+		$this->data['BarangM'] = $this->BarangM;
+		$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
+		$data['body'] = $this->load->view('pengguna/status_pengajuan_barang_content', $this->data, true) ;
 		$this->load->view('pengguna/index_template', $data);
 	}
 
@@ -136,7 +149,7 @@ class BarangC extends CI_Controller {
 
 	public function detail_progress_barang($id){ //menampilkan modal dengan isi dari detail progres barang.php
 		$data['detail_progress_barang']	= $this->BarangM->get_detail_progress_barang_by_id($id)->result();
-		$this->load->view('penggunaB/detail_progress_barang', $data);
+		$this->load->view('pengguna/detail_progress_barang', $data);
 	}
 
 	public function ubah_barang($kode_barang){ //menampilkan modal dengan isi dari ubah_barang.php
@@ -296,13 +309,11 @@ class BarangC extends CI_Controller {
 		$this->form_validation->set_rules('merk', 'Merk','required');
 		$this->form_validation->set_rules('jumlah', 'Jumlah Barang','required');
 		
-		if($this->form_validation->run() == FALSE)
-		{
+		if($this->form_validation->run() == FALSE){
 			$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 1');
 			redirect('BarangC/ajukan_barang') ;
 			//redirect ke halaman pengajuan barang
 		}else{
-			$upload = $this->BarangM->upload(); // lakukan upload file dengan memanggil function upload yang ada di BarangMprasM.php
 			$id_pengguna 		= $_POST['id_pengguna'];
 			$kode_barang 		= $_POST['kode_barang'];
 			$tgl_item_pengajuan = $_POST['tgl_item_pengajuan'];
@@ -326,22 +337,26 @@ class BarangC extends CI_Controller {
 				'harga_satuan'			=> $harga_satuan,
 				'merk'					=> $merk,
 				'jumlah'				=> $jumlah,
-				'file_gambar' 			=> $upload['file']['file_name'],
 				'pimpinan'				=> $pimpinan
 
 			);
-			if($upload['result'] == "success"){ // Jika proses upload sukses
-				$insert_id = $this->BarangM->insert_pengajuan_barang($data_pengguna);  // untuk memasukkan data ke tabel item_pengajuan
+			$insert_id = $this->BarangM->insert_pengajuan_barang($data_pengguna);  // untuk memasukkan data ke tabel item_pengajuan
+			if($insert_id){ // Jika proses insert data item_pengajuan sukses
+				
+				$upload = $this->BarangM->upload($insert_id); // lakukan upload file dengan memanggil function upload yang ada di BarangM.php
 
-				if($insert_id){ // Jika proses insert ke item barang sukses
+				if($upload['result'] == "success"){ // Jika proses insert ke item barang sukses
 
-					$format_tgl 	= "%Y-%m-%d";
-					$tgl_progress 	= mdate($format_tgl);
-					$format_waktu 	= "%H:%i:%s";
-					$waktu_progress	= mdate($format_waktu);
+					$format_tgl 		= "%Y-%m-%d";
+					$tgl_progress 		= mdate($format_tgl);
+					$format_waktu 		= "%H:%i:%s";
+					$waktu_progress		= mdate($format_waktu);
 					$kode_nama_progress	= "1";
 					$komentar			= "insert otomatis";
 					$jenis_progress		= "barang";
+					$file 				= array(
+						'file_gambar'	=> $upload['file']['file_name']
+					);
 
 					$data = array(
 						'kode_jabatan_unit	' 	=> $kode_jabatan_unit,
@@ -354,24 +369,99 @@ class BarangC extends CI_Controller {
 						'waktu_progress'		=> $waktu_progress
 
 					);
-					if($kode_jabatan_unit == $pimpinan){
-				$this->BarangM->insert_progress($data); //insert progress langsung ketika mengajukan kegiatan untuk manajer, kepala, dan pimpinan yang lain
-			}
-		}else{ 
-			$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan');
-			redirect('BarangC/ajukan_barang');
-		}
+					$update_file = $this->BarangM->update_nama_file($insert_id, $file);
+					if($update_file = TRUE){
+						if($kode_jabatan_unit == $pimpinan){
+							if($this->BarangM->insert_progress($data)){ //insert progress langsung ketika mengajukan kegiatan untuk manajer, kepala, dan pimpinan yang lain
+								$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+								redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
+							}else{
+								$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan ');
+								redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
+							}
+						}
+					}else{
+						$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan');
+						redirect('BarangC/ajukan_barang');
+					}
 
-		$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
-				redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
+				}else{ 
+					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
+					$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan');
+					redirect('BarangC/ajukan_barang');
+				}
+
+				$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+			redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
+
 			}else{ // Jika proses upload gagal
-				$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan ');
 				redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
 			}
 
 		}
+	}
 
+	public function post_ubah_ajukan_barang(){ //fungsi untuk tambah pengajuan barang
+		$this->form_validation->set_rules('id_pengguna', 'Id Pengguna','required');
+		$this->form_validation->set_rules('kode_item_pengajuan', 'Kode Item Pengajuan','required');
+		$this->form_validation->set_rules('kode_barang', 'Nama Barang','required');
+		$this->form_validation->set_rules('tgl_item_pengajuan', 'Tanggal Item Pengajuan','required');
+		$this->form_validation->set_rules('nama_item_pengajuan', 'Nama Item Pengajuan','required');
+		$this->form_validation->set_rules('url', 'URL','required');
+		$this->form_validation->set_rules('harga_satuan', 'Harga Satuan','required');
+		$this->form_validation->set_rules('merk', 'Merk','required');
+		$this->form_validation->set_rules('jumlah', 'Jumlah Barang','required');
+		
+		if($this->form_validation->run() == FALSE){
+			$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 1');
+			redirect('BarangC/ajukan_barang') ;
+			//redirect ke halaman pengajuan barang
+		}else{
+			$id_pengguna 		= $_POST['id_pengguna'];
+			$kode_item_pengajuan= $_POST['kode_item_pengajuan'];
+			$kode_barang 		= $_POST['kode_barang'];
+			$tgl_item_pengajuan = $_POST['tgl_item_pengajuan'];
+			$nama_item_pengajuan= $_POST['nama_item_pengajuan'];
+			$url 				= $_POST['url'];
+			$harga_satuan 		= $_POST['harga_satuan'];
+			$merk 				= $_POST['merk'];
+			$jumlah 			= $_POST['jumlah'];
+
+			$baru = "baru"; //buat status pengajuan berstatus baru ketika baru dibuat
+
+			$data_update		= array(
+				'id_pengguna'			=> $id_pengguna,
+				'kode_barang'			=> $kode_barang,
+				'status_pengajuan'		=> $baru,
+				'tgl_item_pengajuan'	=> $tgl_item_pengajuan,
+				'nama_item_pengajuan'	=> $nama_item_pengajuan,
+				'url'					=> $url,
+				'harga_satuan'			=> $harga_satuan,
+				'merk'					=> $merk,
+				'jumlah'				=> $jumlah,
+				'file_gambar' 			=> $upload['file']['file_name'],
+
+			);
+
+			if($this->BarangM->update_item_pengajuan($kode_item_pengajuan, $data_update)){ // Jika proses insert data item_pengajuan sukses
+				$kode_item_pengajuan= $_POST['kode_item_pengajuan'];
+				$upload = $this->BarangM->upload($kode_item_pengajuan); // lakukan upload file dengan memanggil function upload yang ada di BarangM.php
+
+				if($upload['result'] == "success"){ // Jika proses insert ke item barang sukses
+					$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+					redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
+				}else{ 
+					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
+					$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan 2');
+					redirect('BarangC/ajukan_barang');
+				}
+			}else{ // Jika proses upload gagal
+				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 3');
+				redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
+			}
+
+		}
 	}
 
 	public function post_tambah_barang_baru(){ //fungsi untuk tambah barang baru
@@ -397,48 +487,6 @@ class BarangC extends CI_Controller {
 		}
 
 	}
-	
-	function upload_image(){
-		$id_pengguna=$this->input->post('id_pengguna');
-
-        $config['upload_path'] = './assets/image/profil'; //path folder
-        $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang dapat diakses bisa anda sesuaikan
-        $config['encrypt_name'] = FALSE; //Enkripsi nama yang terupload
-        $config['overwrite'] = TRUE;
-        $new_name = md5($id_pengguna);
-        $config['file_name'] = $new_name;
-        $this->load->library('upload');
-        $this->upload->initialize($config);
-        if(!empty($_FILES['foto_profil']['name'])){
-
-        	if ($this->upload->do_upload('foto_profil')){
-        		$gbr = $this->upload->data();
-                //Compress Image
-        		$config['image_library']='gd2';
-        		$config['source_image']='./assets/image/profil/'.$gbr['file_name'];
-        		$config['create_thumb']= FALSE;
-        		$config['maintain_ratio']= FALSE;
-        		$config['quality']= '50%';
-        		$config['width']= 100;
-        		$config['height']= 100;
-        		$config['new_image']= './assets/image/profil/'.$gbr['file_name'];
-        		$this->load->library('image_lib', $config);
-        		// $this->image_lib->crop();
-        		$this->image_lib->resize();
-
-        		$gambar=$gbr['file_name'];
-        		$this->BarangM->simpan_upload($id_pengguna,$gambar);
-        		$this->session->set_flashdata('sukses','Foto berhasil diunggah');
-        		redirect('BarangC/data_diri');
-        		// echo "Image berhasil diupload";
-        	}
-
-        }else{
-        	$this->session->set_flashdata('error','Foto tidak berhasil diunggah');
-        	redirect('BarangC/data_diri');
-        }
-
-    }
 
 	public function post_persetujuan_tersedia($kode_item_pengajuan, $kode_jabatan_unit){ // untuk mengubah status persediaan dan pengajuan jd selese serta tambah progres
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];
@@ -518,19 +566,19 @@ class BarangC extends CI_Controller {
 						redirect('BarangC/ajukan_RAB');//redirect ke halaman pengajuan barang
 					}else{
 						$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
-						$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan ');
+						$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 1');
 						redirect('BarangC/ajukan_RAB');//redirect ke halaman pengajuan barang	
 					}
 
 				}else{
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
-					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan ');
+					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 2');
 				redirect('BarangC/ajukan_RAB');//redirect ke halaman pengajuan barang
 			}
 			
 			}else{ // Jika proses upload gagal
 				$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
-				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan ');
+				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 3');
 				redirect('BarangC/ajukan_RAB');//redirect ke halaman pengajuan barang
 			}
 
