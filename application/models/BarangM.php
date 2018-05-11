@@ -99,12 +99,14 @@ class BarangM extends CI_Model
 		} 
 	} 
 
-	public function upload(){ // Fungsi untuk upload gambar ke folder
-		$config['upload_path'] = './assets/file_gambar'; // alamat folder penyimpanan gambar
-		$config['allowed_types'] = 'jpg|png|jpeg|PNG';	 // tipe file yang boleh diunggah
-		$config['max_size']	= '2048';					 // maksimal ukuran file yang diunggah
-		$config['remove_space'] = TRUE;					 // menghilangkan spasi pada nama file
-		$config['encrypt_name'] = TRUE;					 // mengenkripsi nama file yang diunggah
+	public function upload($kode_item_pengajuan){ // Fungsi untuk upload gambar ke folder
+		$config['upload_path'] 		= './assets/file_gambar'; 	// alamat folder penyimpanan gambar
+		$config['allowed_types'] 	= 'jpg|png|jpeg|PNG';	 	// tipe file yang boleh diunggah
+		$config['max_size']			= '2048';					// maksimal ukuran file yang diunggah
+		$config['encrypt_name'] 	= FALSE;					// mengenkripsi nama file yang diunggah
+		$config['overwrite'] 		= TRUE; 					//supaya bisa di replace file gambarnya
+		$new_name 					= md5($kode_item_pengajuan);// mengenkripsi kode_item_pengajuan untuk dijadikan nama file gambar
+		$config['file_name'] 		= $new_name; 				//mengisi nama file dengan enkripsi dari kode_item_pengajuan
 
 		$this->load->library('upload', $config); // Load konfigurasi uploadnya
 		if($this->upload->do_upload('file_gambar')){ // Lakukan upload dan Cek jika proses upload berhasil
@@ -170,6 +172,18 @@ class BarangM extends CI_Model
 
 	public function update_fk($status_pengajuan, $data_update){ //update persetujuan status persediaan sama progres
 		$this->db->where('item_pengajuan.status_pengajuan', $status_pengajuan);
+		$this->db->update('item_pengajuan', $data_update);
+		return TRUE;
+	}
+
+	public function update_nama_file($insert_id, $file_name){ //untuk memasukkan data item pengajuan yang telah diubah
+		$this->db->where('item_pengajuan.kode_item_pengajuan', $insert_id);
+		$this->db->update('item_pengajuan', $file_name);
+		return TRUE;
+	}
+
+	public function update_item_pengajuan($kode_item_pengajuan, $data_update){ //untuk memasukkan data item pengajuan yang telah diubah
+		$this->db->where('item_pengajuan.kode_item_pengajuan', $kode_item_pengajuan);
 		$this->db->update('item_pengajuan', $data_update);
 		return TRUE;
 	}
@@ -370,5 +384,31 @@ class BarangM extends CI_Model
 		return $query;
 	}
 
+	public function get_rab_diajukan(){ //untuk menampilkan rab yang sedang diajukan untuk di setujui
+		$this->db->select('*');
+		$this->db->from('pengajuan');
+		$this->db->where('pengajuan.status_pengajuan_rab = "baru"');
+		$query = $this->db->get();
+		return $query;
+	}
+
+	public function get_barang_disetujui(){ //untuk menampilkan item_pengajuan yang memiliki status disetujui yaitu yang telah disetujui di rab, untuk diberikan progress lanjutan
+		$this->db->select('*');
+		$this->db->from('item_pengajuan');
+		$this->db->join('pengguna', 'pengguna.id_pengguna = item_pengajuan.id_pengguna');
+		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->join('barang', 'barang.kode_barang = item_pengajuan.kode_barang');
+		$this->db->join('jenis_barang', 'jenis_barang.kode_jenis_barang = barang.kode_jenis_barang');
+		$this->db->where('item_pengajuan.status_pengajuan = "disetujui"');
+		$query = $this->db->get();
+		if($query){
+			return $query;
+		}else{
+			return null;
+		}
+	}
 
 }
