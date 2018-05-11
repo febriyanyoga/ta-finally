@@ -94,7 +94,8 @@ class KegiatanC extends CI_Controller {
 
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Persetujuan Kegiatan Staf | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
-
+		$this->data['cek_id_staf_keu'] = $this->KegiatanM->cek_id_staf_keu()->result();
+		$this->data['cek_min_pegawai'] = $this->KegiatanM->cek_min_pegawai();
 		$this->data['data_pengajuan_kegiatan'] = $this->KegiatanM->get_data_pengajuan_staf($kode_unit, $kode_jabatan)->result();
 		$this->data['KegiatanM'] = $this->KegiatanM ;
 		$this->data['data_diri'] = $data_diri;  	//get data diri buat nampilin nama di pjok kanan
@@ -144,6 +145,7 @@ class KegiatanC extends CI_Controller {
 
 	public function hapus_pengajuan($kode_kegiatan){//hapus pengajuan kegiatan
 		if($this->KegiatanM->hapus_pengajuan($kode_kegiatan)){
+			unlink("../assets/file_upload/".md5($kode_kegiatan));
 			$this->session->set_flashdata('sukses','Data anda berhasil dihapus');
 			redirect_back();
 		}else{
@@ -151,6 +153,7 @@ class KegiatanC extends CI_Controller {
 			redirect_back();
 		}
 	}
+
 
 	public function status_pengajuan_kegiatan_pegawai(){ //halaman index Sekretaris Departemen (dashboard)
 		if(in_array(11, $this->data_menu)){
@@ -328,7 +331,7 @@ class KegiatanC extends CI_Controller {
 
 			$insert_id = $this->KegiatanM->insert_pengajuan_kegiatan($data_pengajuan_kegiatan);
 			if($insert_id){ //get last insert id
-				$upload = $this->KegiatanM->upload(); // lakukan upload file dengan memanggil function upload yang ada di KegiatanM.php
+				$upload = $this->KegiatanM->upload($insert_id); // lakukan upload file dengan memanggil function upload yang ada di KegiatanM.php
 				if($upload['result'] == "success"){ // Jika proses upload sukses
 					$this->KegiatanM->save($upload,$insert_id); // Panggil function save yang ada di KegiatanM.php untuk menyimpan data ke database
 
@@ -353,9 +356,9 @@ class KegiatanC extends CI_Controller {
 
 					);
 
-					if($kode_jabatan_unit == $pimpinan){
-					$this->KegiatanM->insert_progress($data); //insert progress langsung ketika mengajukan kegiatan untuk manajer, kepala, dan pimpinan yang lain
-				}
+				// 	if($kode_jabatan_unit == $pimpinan){
+				// 	$this->KegiatanM->insert_progress($data); //insert progress langsung ketika mengajukan kegiatan untuk manajer, kepala, dan pimpinan yang lain
+				// }
 				}else{ // Jika proses upload gagal
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 					$this->KegiatanM->delete($insert_id);//hapus data pengajuan kegiatan ketka gagal upload file
@@ -395,7 +398,7 @@ class KegiatanC extends CI_Controller {
 
 			$insert_id = $this->KegiatanM->insert_ubah_pengajuan_kegiatan($kode_kegiatan, $data_ubah_pengajuan_kegiatan);
 			if($insert_id){ //get last insert id
-				$upload = $this->KegiatanM->upload(); // lakukan upload file dengan memanggil function upload yang ada di KegiatanM.php
+				$upload = $this->KegiatanM->upload($kode_kegiatan); // lakukan upload file dengan memanggil function upload yang ada di KegiatanM.php
 				$this->session->set_flashdata('sukses','Data Pengajuan Kegiatan anda berhasil diubah');
 				redirect_back();
 			}else{

@@ -93,6 +93,16 @@
 		return $query->num_rows();
 	}
 
+	public function cek_atasan_by_kode_jabatan_unit($kode_jabatan_unit){
+		$this->db->select('*');
+		$this->db->from('jabatan_unit');
+		$this->db->join('pengguna', 'pengguna.kode_jabatan_unit = jabatan_unit.kode_jabatan_unit');
+		// $this->db->where('jabatan_unit.atasan = "ya"');
+		$this->db->where('jabatan_unit.kode_jabatan_unit',$kode_jabatan_unit);
+		return $query = $this->db->get();
+
+	}
+
 	public function get_progress_by_id($kode_jabatan_unit, $kode_kegiatan){
 		$this->db->select('*');
 		$this->db->from('progress');
@@ -209,14 +219,14 @@
 		return "berhasil delete";
 	}
 
-	public function upload(){ // Fungsi untuk upload file ke folder
+	public function upload($kode_kegiatan){ // Fungsi untuk upload file ke folder
 		$config['upload_path'] = './assets/file_upload';
 		$config['allowed_types'] = 'pdf';
 		$config['max_size']	= '';
 		$config['remove_space'] = TRUE;
 		$config['encrypt_name'] = FALSE;
 		$config['overwrite'] = TRUE;
-		$new_name = md5($id_pengguna);
+		$new_name = md5($kode_kegiatan);
 		$config['file_name'] = $new_name;
 
 		$this->load->library('upload', $config); // Load konfigurasi uploadnya
@@ -258,7 +268,7 @@
 		if($query = $this->db->get('acc_kegiatan')->row()){
 			return $query;
 		}else{
-			return "data tidak ada";
+			return FALSE;
 		}
 	}
 
@@ -278,7 +288,7 @@
 		if($query = $this->db->get('acc_kegiatan')->row()){
 			return $query;
 		}else{
-			return "data tidak ada";
+			return ;
 		}	
 	}
 
