@@ -120,12 +120,38 @@ class BarangM extends CI_Model
 		}
 	}
 
-	public function upload_file(){ // Fungsi untuk upload file RAB ke folder
-		$config['upload_path'] = './assets/file_rab'; // alamat folder penyimpanan gambar
-		$config['allowed_types'] = 'xlsx|xls';	 // tipe file yang boleh diunggah
-		$config['max_size']	= '';					 // maksimal ukuran file yang diunggah
-		$config['remove_space'] = TRUE;					 // menghilangkan spasi pada nama file
-		$config['encrypt_name'] = TRUE;					 // mengenkripsi nama file yang diunggah
+	public function upload_edit($kode_item_pengajuan){ // Fungsi untuk upload file ke folder
+		$config['upload_path'] = './assets/file_gambar';
+		$config['allowed_types'] = 'jpg|png|jpeg|PNG';
+		$config['max_size']	= '';
+		$config['remove_space'] = TRUE;
+		$config['encrypt_name'] = FALSE;
+		$config['overwrite'] = TRUE;
+		$new_name = md5($kode_item_pengajuan);
+		$config['file_name'] = $new_name;
+
+		$this->load->library('upload', $config); // Load konfigurasi uploadnya
+		if($this->upload->do_upload('file_gambar')){ // Lakukan upload dan Cek jika proses upload berhasil
+			// Jika berhasil :
+			$return = array('result' => 'success', 'file' => $this->upload->data(), 'error' => '');
+			return $return;
+		}else{
+			// Jika gagal :
+			$return = array('result' => 'failed', 'file' => '', 'error' => $this->upload->display_errors());
+			return $return;
+		}
+	}
+
+	public function upload_file($kode_pengajuan){ // Fungsi untuk upload file RAB ke folder
+		$config['upload_path'] 		= './assets/file_rab'; // alamat folder penyimpanan gambar
+		$config['allowed_types'] 	= 'xlsx|xls';	 // tipe file yang boleh diunggah
+		$config['max_size']			= '';					 // maksimal ukuran file yang diunggah
+		$config['remove_space'] 	= TRUE;					 // menghilangkan spasi pada nama file
+		$config['encrypt_name'] 	= TRUE;					 // mengenkripsi nama file yang diunggah
+		$config['overwrite'] 		= TRUE; 					//supaya bisa di replace file gambarnya
+		$new_name 					= md5($kode_pengajuan);// mengenkripsi kode_item_pengajuan untuk dijadikan nama file gambar
+		$config['file_name'] 		= $new_name; 				//mengisi nama file dengan enkripsi dari kode_item_pengajuan
+
 
 		$this->load->library('upload', $config); // Load konfigurasi uploadnya
 		if($this->upload->do_upload('file_rab')){ // Lakukan upload dan Cek jika proses upload berhasil
@@ -179,6 +205,12 @@ class BarangM extends CI_Model
 	public function update_nama_file($insert_id, $file_name){ //untuk memasukkan data item pengajuan yang telah diubah
 		$this->db->where('item_pengajuan.kode_item_pengajuan', $insert_id);
 		$this->db->update('item_pengajuan', $file_name);
+		return TRUE;
+	}
+
+	public function update_nama_file_rab($insert_id, $file_name){ //untuk memasukkan data item pengajuan yang telah diubah
+		$this->db->where('pengajuan.kode_pengajuan', $insert_id);
+		$this->db->update('pengajuan', $file_name);
 		return TRUE;
 	}
 
