@@ -144,7 +144,7 @@
                           <div class="modal-body">
                             <label class="col-lg-4 col-sm-2 control-label" for="jenis_barang"> Barang :</label>
                             <div class="col-lg-8">
-                               <input type="text" class="form-control" placeholder id="kode_item_pengajuan" name="kode_item_pengajuan" required value="<?php echo $barang->kode_item_pengajuan;?>">
+                               <input type="text" class="form-control" placeholder id="kode_item_pengajuan" name="kode_item_pengajuan" required value="<?php echo $barang->kode_item_pengajuan;?>"> kode item
                                <!-- untuk mengirimkan kode_item_pengajuan -->
                                <select class="form-control" name="kode_barang" id="kode_barang">
                                 <option value="">---- Pilih Barang ---- </option>
@@ -206,8 +206,8 @@
                         <div class="modal-body">
                           <label class="col-lg-4 col-sm-2 control-label">Unggah Foto :</label>
                           <div class="col-lg-8">
-                           <img style="height: 50px; margin-bottom: 20px" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>">
-                           <input type="file" id="file_gambar" name="file_gambar" value="<?php echo $barang->file_gambar; ?>">
+                           <!-- <img style="height: 50px; margin-bottom: 20px" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>"> -->
+                           <input type="file" id="file_gambar" name="file_gambar">
                          </div>
                        </div>
                      </div>           

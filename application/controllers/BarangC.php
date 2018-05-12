@@ -429,6 +429,7 @@ class BarangC extends CI_Controller {
 			$jumlah 			= $_POST['jumlah'];
 
 			$baru = "baru"; //buat status pengajuan berstatus baru ketika baru dibuat
+			$upload = $this->BarangM->upload_edit($kode_item_pengajuan); // lakukan upload file dengan memanggil function upload yang ada di BarangM.php
 
 			$data_update		= array(
 				'id_pengguna'			=> $id_pengguna,
@@ -440,13 +441,11 @@ class BarangC extends CI_Controller {
 				'harga_satuan'			=> $harga_satuan,
 				'merk'					=> $merk,
 				'jumlah'				=> $jumlah,
-				'file_gambar' 			=> $upload['file']['file_name'],
+				'file_gambar' 			=> $upload['file']['file_name']
 
 			);
 
 			if($this->BarangM->update_item_pengajuan($kode_item_pengajuan, $data_update)){ // Jika proses insert data item_pengajuan sukses
-				$kode_item_pengajuan= $_POST['kode_item_pengajuan'];
-				$upload = $this->BarangM->upload($kode_item_pengajuan); // lakukan upload file dengan memanggil function upload yang ada di BarangM.php
 
 				if($upload['result'] == "success"){ // Jika proses insert ke item barang sukses
 					$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
@@ -541,18 +540,18 @@ class BarangC extends CI_Controller {
 		{
 			$this->session->set_flashdata('error','Data Barang Baru tidak berhasil ditambahkan 0');
 			$this->ajukan_RAB();
-	// 		//redirect ke halaman ajukan RAB
+		//redirect ke halaman ajukan RAB
 		}else{
-			$upload = $this->BarangM->upload_file(); // lakukan upload file dengan memanggil function upload yang ada di BarangMprasM.php
 			$nama_pengajuan 		= $_POST['nama_pengajuan'];
 			$data_rab			= array(
-				'nama_pengajuan'	 => $nama_pengajuan,
-				'file_rab'  		 => $upload['file']['file_name']
+				'nama_pengajuan'	 => $nama_pengajuan
 			);
+			$insert_id = $this->BarangM->insert_pengajuan_rab($data_rab);
+			if($insert_id){ // Jika proses insert sukses
+				
+				$upload = $this->BarangM->upload_file($insert_id); // lakukan upload file dengan memanggil function upload yang ada di BarangM.php
 
-			if($upload['result'] == "success"){ // Jika proses upload sukses
-				$insert_id = $this->BarangM->insert_pengajuan_rab($data_rab);
-				if($insert_id){
+				if($upload['result'] == "success"){
 
 					$kode_pengajuan = $insert_id;
 					$status_pengajuan = 'pengajuan';
