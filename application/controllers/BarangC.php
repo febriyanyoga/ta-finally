@@ -402,12 +402,12 @@ class BarangC extends CI_Controller {
 		}
 	}
 
-	public function post_ajukan_rab(){ //fungsi untuk tambah pengajuan barang
+	public function post_ajukan_rab(){ //fungsi untuk tambah pengajuan barang / RAB
 		$this->form_validation->set_rules('nama_pengajuan', 'Nama Pengajuan','required');
 		
 		if($this->form_validation->run() == FALSE)
 		{
-			$this->session->set_flashdata('error','Data Barang Baru tidak berhasil ditambahkan 0');
+			$this->session->set_flashdata('error','Data Barang Baru tidak berhasil ditambahkan 00');
 			$this->ajukan_RAB();
 		//redirect ke halaman ajukan RAB
 		}else{
@@ -425,20 +425,20 @@ class BarangC extends CI_Controller {
 					$kode_pengajuan = $insert_id;
 					$status_pengajuan = 'pengajuan';
 					$file 				= array(
-						'file_gambar'	=> $upload['file']['file_name']
+						'file_rab'	=> $upload['file']['file_name']
 					);
 
 					$data_update = array(
 						'kode_pengajuan' => $kode_pengajuan
 					);
-					$update_file = $this->BarangM->update_nama_file($insert_id, $file);
+					$update_file = $this->BarangM->update_nama_file_rab($kode_pengajuan, $file);
 					if($update_file = TRUE){
 						$update_fk = $this->BarangM->update_fk($status_pengajuan, $data_update);
 						if($update_fk){
 							$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
 							redirect('BarangC/ajukan_RAB');//redirect ke halaman pengajuan barang
 						}else{
-							$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 1');
+							$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 0');
 							redirect('BarangC/ajukan_RAB');//redirect ke halaman pengajuan barang	
 						}
 					}else{
@@ -446,9 +446,10 @@ class BarangC extends CI_Controller {
 						redirect('BarangC/ajukan_RAB');//redirect ke halaman pengajuan barang	
 					}
 				}else{
+					$this->BarangM->delete_data_rab_gagal($insert_id);
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 2');
-				redirect('BarangC/ajukan_RAB');//redirect ke halaman pengajuan barang
+					redirect('BarangC/ajukan_RAB');//redirect ke halaman pengajuan barang
 			}
 			
 			}else{ // Jika proses upload gagal
@@ -488,7 +489,7 @@ class BarangC extends CI_Controller {
 			$jumlah 			= $_POST['jumlah'];
 
 			$baru = "baru"; //buat status pengajuan berstatus baru ketika baru dibuat
-			$upload = $this->BarangM->upload_edit($kode_item_pengajuan); // lakukan upload file dengan memanggil function upload yang ada di BarangM.php
+			$upload = $this->BarangM->upload($kode_item_pengajuan); // lakukan upload file dengan memanggil function upload yang ada di BarangM.php
 
 			$data_update		= array(
 				'id_pengguna'			=> $id_pengguna,
@@ -505,7 +506,6 @@ class BarangC extends CI_Controller {
 			);
 
 			if($this->BarangM->update_item_pengajuan($kode_item_pengajuan, $data_update)){ // Jika proses insert data item_pengajuan sukses
-
 				if($upload['result'] == "success"){ // Jika proses insert ke item barang sukses
 					$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
 					redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
@@ -520,6 +520,51 @@ class BarangC extends CI_Controller {
 			}
 
 		}
+	}
+
+	public function post_ubah_ajukan_rab(){ //fungsi untuk tambah pengajuan barang
+		$this->form_validation->set_rules('nama_pengajuan', 'Nama Pengajuan','required');
+		$this->form_validation->set_rules('kode_pengajuan', 'Kode Pengajuan','required');
+		
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->session->set_flashdata('error','Data Barang Baru tidak berhasil ditambahkan 00');
+			$this->ajukan_RAB();
+		//redirect ke halaman ajukan RAB
+		}else{
+			$nama_pengajuan 		= $_POST['nama_pengajuan'];
+			$kode_pengajuan 		= $_POST['kode_pengajuan'];
+
+			$upload = $this->BarangM->upload_file($kode_pengajuan); // lakukan upload file dengan memanggil function upload yang ada di BarangM.php
+
+			$data_rab				= array(
+				'kode_pengajuan'	 => $kode_pengajuan,
+				'nama_pengajuan'	 => $nama_pengajuan,
+				'file_rab'			 => $upload['file']['file_name']
+			);
+			
+			if($upload['result'] == "success"){ // Jika proses update sukses
+				if($this->BarangM->update_ajukan_rab($data_rab, $kode_pengajuan)){
+					$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+					redirect('BarangC/ajukan_RAB');//redirect ke halaman pengajuan barang
+				}else{
+					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 1');
+					redirect('BarangC/ajukan_RAB');//redirect ke halaman pengajuan barang	
+				}
+			}else{ // Jika proses upload gagal
+				if($this->BarangM->update_ajukan_rab($data_rab, $kode_pengajuan)){
+					$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+					redirect('BarangC/ajukan_RAB');//redirect ke halaman pengajuan barang
+				}else{
+					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
+					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 3');
+					redirect('BarangC/ajukan_RAB');//redirect ke halaman pengajuan barang	
+				}
+				
+			}
+
+		}
+
 	}
 
 	public function post_tambah_barang_baru(){ //fungsi untuk tambah barang baru
@@ -591,6 +636,87 @@ class BarangC extends CI_Controller {
 
 	}
 
+	public function post_persetujuan_rab(){ //fungsi untuk tambah progress persetujuan barang
+		$this->form_validation->set_rules('id_pengguna', 'Id Pengguna','required');
+		$this->form_validation->set_rules('kode_fk', 'Kode FK','required');
+		$this->form_validation->set_rules('kode_nama_progress', 'Kode Nama Progress','required');
+		$this->form_validation->set_rules('komentar', 'Komentar','required');
+		$this->form_validation->set_rules('kode_jabatan_unit', 'Kode Jabatan Unit','required');
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->session->set_flashdata('error','Data Persetujuan anda tidak berhasil ditambahkan1 ');
+			redirect('BarangC/persetujuan_rab') ;
+			//redirect ke halaman pengajuan barang
+		}else{
+			
+			$id_pengguna 		= $_POST['id_pengguna'];
+			$kode_fk 		    = $_POST['kode_fk'];
+			$kode_nama_progress = $_POST['kode_nama_progress'];
+			$komentar           = $_POST['komentar'];
+			$jenis_progress 	= "rab";
 
+			$format_waktu 		= "%H:%i";
+			$waktu_progress 	= mdate($format_waktu);
+
+			$format_tgl 		= "%Y-%m-%d";
+			$tgl_progress 		= mdate($format_tgl);
+
+			$kode_jabatan_unit 	= $_POST['kode_jabatan_unit'];
+
+			$data_progress		= array(
+				'id_pengguna'			=> $id_pengguna,
+				'kode_fk'				=> $kode_fk,
+				'kode_nama_progress'	=> $kode_nama_progress,
+				'komentar'				=> $komentar,
+				'jenis_progress'		=> $jenis_progress,
+				'tgl_progress'			=> $tgl_progress,
+				'waktu_progress'		=> $waktu_progress,
+				'kode_jabatan_unit	' 	=> $kode_jabatan_unit
+
+			);
+
+			if($this->BarangM->insert_progress($data_progress)){
+				if($kode_nama_progress == '1'){
+					$status_pengajuan_rab = 'diterima';
+					$status_pengajuan 	  = 'disetujui';
+					$data1 = array(
+						'status_pengajuan' => $status_pengajuan
+					);
+					$data2 = array(
+						'status_pengajuan_rab' => $status_pengajuan_rab
+					);
+					if($this->BarangM->update_item_pengajuan_rab_terima($data1, $kode_fk)){
+						if($this->BarangM->update_pengajuan_rab_terima($data2, $kode_fk)){
+							$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+							redirect('BarangC/persetujuan_rab');
+						}else{
+							$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
+							redirect('BarangC/persetujuan_rab');
+						}
+					}else{
+						$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
+						redirect('BarangC/persetujuan_rab');
+					}
+				}elseif ($kode_nama_progress == "2") {
+					$status_pengajuan_rab = 'ditolak';
+					$data = array(
+						'status_pengajuan_rab' => $status_pengajuan_rab
+					);
+					if($this->BarangM->update_persetujuan_rab_tolak($data, $kode_fk)){
+						$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+						redirect('BarangC/persetujuan_rab');
+					}else{
+						$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan3');
+						redirect('BarangC/persetujuan_rab');
+					}
+				}
+			}else{
+				$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan4');
+				redirect('BarangC/persetujuan_rab');
+			}
+
+		}
+
+	}	
 
 }

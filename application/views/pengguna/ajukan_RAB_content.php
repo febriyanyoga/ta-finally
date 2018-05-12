@@ -180,22 +180,72 @@
                 <?php $link = base_url()."assets/file_rab/".$barang->file_rab;?>
                 <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/excel.svg" style="height: 30px;"></span></a></td>
                 <td class="text-center">
-                  <a class="label label-primary" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="" title="klik untuk melihat detail progress"> Baru</a>
+                  <?php
+                    if($barang->status_pengajuan_rab == "baru"){
+                      ?>
+                      <a class="label label-primary" id="custID" data-toggle="modal" data-id="">Baru</a>
+                      <?php
+                    }elseif ($barang->status_pengajuan_rab == "diterima") {
+                      ?>
+                      <a class="label label-success" id="custID" data-toggle="modal" data-id="">Diterima</a>
+                      <?php
+                    }elseif ($barang->status_pengajuan_rab == "ditolak") {
+                      ?>
+                      <a class="label label-danger" id="custID" data-toggle="modal" data-id="">Ditolak</a>
+                      <?php
+                    }
+                  ?>
                 </td>
                 <td class="text-center">
-                   <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target=""><span class="glyphicon glyphicon-pencil"></span></a>
-                </td>
+                  <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalEdit<?php echo $barang->kode_pengajuan;?>"><span class="glyphicon glyphicon-pencil"></span></a>
+               </td>
 
-              </tr>
-              <?php
-              $no++;
-            }
-            ?>
-          </tbody>
-        </table>
-      </div>
+               <!-- Modal Tambah Pengajuan Barang -->
+               <div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="modalEdit<?php echo $barang->kode_pengajuan;?>" class="modal fade">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                      <h4 class="modal-title">Ubah Ajukan RAB</h4>
+                    </div>
+                    <form class="form-horizontal" action="<?php echo base_url('BarangC/post_ubah_ajukan_rab');?>" method="post" enctype="multipart/form-data" role="form">
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <input type="text" class="form-control" placeholder id="kode_pengajuan" name="kode_pengajuan" required value="<?php echo $barang->kode_pengajuan;?>">
+                          <!-- untuk mengirimkan kode_pengajuan -->
+                          <label class="col-lg-4 col-sm-2 control-label">Nama File RAb :</label>
+                          <div class="col-lg-8">
+                            <input type="text" class="form-control" id="nama_pengajuan" name="nama_pengajuan" value="<?php echo $barang->nama_pengajuan?>">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label class="col-lg-4 col-sm-2 control-label">Unggah File :</label>
+                          <div class="col-lg-8">
+                            <input type="file" id="file_rab" name="file_rab">
+                          </div>
+                        </div>           
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn btn-info" type="submit" style="margin-top: 10px"> Simpan </button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+            </tr>
+            <?php
+            $no++;
+          }
+          ?>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
 </div>
 </div>
 
@@ -205,7 +255,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-        <h4 class="modal-title">Ajukan Barang</h4>
+        <h4 class="modal-title">Ajukan RAB</h4>
       </div>
       <form class="form-horizontal" action="<?php echo base_url('BarangC/post_ajukan_rab');?>" method="post" enctype="multipart/form-data" role="form">
         <div class="modal-body">
@@ -231,46 +281,46 @@
   </div>
 </div>
 
-  <!-- Data tabel  RAB-->
-  <div id="3" class="tab-pane" role="tabpanel">
-    <div class="row pt-5">
-      <div class="col-lg-12">
-       <div style="margin-top: 20px;">
-        <div class="table-responsive" style="margin-top: 20px">
-         <table id="ajukan_rab" class="table table-striped table-bordered" cellspacing="0" width="100%">
-          <thead>
-            <tr>
-              <th class="text-center">No</th>
-              <th class="text-center">Nama Pengajuan RAB</th>
-              <th class="text-center">File Pengajuan RAB</th>
-              <th class="text-center"> Aksi </th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            $no=1;
-            foreach ($pengajuan as $barang) {
-              ?>
-              <tr>
-                <td><?php echo $no;?></td>
-                <td><?php echo $barang->nama_pengajuan;?></td>
-
-                <?php $link = base_url()."assets/file_rab/".$barang->file_rab;?>
-                <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/excel.svg" style="height: 30px;"></span></a></td>
-                <td class="text-center">
-                   <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target=""><span class="glyphicon glyphicon-search" title="Lihat Detail"></span></a>
-                </td>
-
-              </tr>
-              <?php
-              $no++;
-            }
+<!-- Data tabel  RAB-->
+<div id="3" class="tab-pane" role="tabpanel">
+  <div class="row pt-5">
+    <div class="col-lg-12">
+     <div style="margin-top: 20px;">
+      <div class="table-responsive" style="margin-top: 20px">
+       <table id="ajukan_rab" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th class="text-center">No</th>
+            <th class="text-center">Nama Pengajuan RAB</th>
+            <th class="text-center">File Pengajuan RAB</th>
+            <th class="text-center"> Aksi </th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          $no=1;
+          foreach ($pengajuan as $barang) {
             ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+            <tr>
+              <td><?php echo $no;?></td>
+              <td><?php echo $barang->nama_pengajuan;?></td>
+
+              <?php $link = base_url()."assets/file_rab/".$barang->file_rab;?>
+              <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/excel.svg" style="height: 30px;"></span></a></td>
+              <td class="text-center">
+               <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target=""><span class="glyphicon glyphicon-search" title="Lihat Detail"></span></a>
+             </td>
+
+           </tr>
+           <?php
+           $no++;
+         }
+         ?>
+       </tbody>
+     </table>
+   </div>
+ </div>
+</div>
 </div>
 </div>         
 
