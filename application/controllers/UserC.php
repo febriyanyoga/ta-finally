@@ -154,6 +154,9 @@
 public function resend_email(){
   $this->load->view('resend_email');
 }
+public function atur_ulang(){
+  $this->load->view('ResetPasswordV');
+}
 
 public function post_resend_email(){
   $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[pengguna.email]');  

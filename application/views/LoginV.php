@@ -139,10 +139,6 @@
                 <label class="sr-only" for="form-password">Sandi</label>
                 <!-- <div class="input-group"> -->
                   <input type="password" name="password" class="form-password form-control" placeholder="Masukkan Password" required oninvalid="this.setCustomValidity('Password tidak boleh kosong')" oninput="setCustomValidity('')">
-                  <!-- <span class="input-group-btn"> -->
-                    <!-- <button class="btn reveal" type="button"><i class="glyphicon glyphicon-eye-open"></i></button> -->
-                    <!-- </span> -->
-                    <!-- </div> -->
                   </div>
 
                   <div class="form-group">
@@ -154,9 +150,9 @@
                   </div>
 
                   <button type="submit" class="btn">Masuk</button>
-                  <div class="form-links">
-                    <p>Belum punya akun? <a href="<?php echo site_url('UserC/daftar')?>" class="launch-modal" data-modal-id="modal-privacy"> - Daftar</a></p>
-                    <!-- <a href="" class="launch-modal" data-modal-id="modal-faq">FAQ</a> -->
+                  <div class="form-group" style="color: white;">
+                    <p>Belum punya akun? -  <a href="<?php echo site_url('UserC/daftar')?>">Daftar</a></p>
+                    <p>Lupa Password? -  <a href="<?php echo site_url('UserC/atur_ulang')?>">Atur Ulang</a></p>
                   </div>
                 </form>
               </div>
@@ -170,17 +166,6 @@
   </div>             
 </body>
 </html>
-<!-- <script type="text/javascript">
-  $(".reveal").on('click',function() {
-    var $pwd = $(".pwd");
-    if ($pwd.attr('type') === 'password') {
-      $pwd.attr('type', 'text');
-    } else {
-      $pwd.attr('type', 'password');
-    }
-  });
-</script> -->
-
 <script src="<?php echo base_url()?>assets_2/js/jquery-1.11.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.4.min.js"></script>

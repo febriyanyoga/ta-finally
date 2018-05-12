@@ -347,26 +347,33 @@
 </div>
 </div>
 </div>
-
 <script type="text/javascript">
+ /* Dengan Rupiah */
+ var dp = document.getElementById('dana_diajukan');
+ dp.addEventListener('keyup', function(e){
+  dp.value = formatRupiah(this.value, 'Rp. ');
+});
 
-  function harga()
-  {
-  var angka = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('harga').value)))); //input ke dalam angka tanpa titik
-  if (document.getElementById('dana_diajukan').value == "")
-  {
-    alert("Jangan Dikosongi");
-    document.getElementById('dana_diajukan').focus();
-    return false;
+//  var cash = document.getElementById('cash');
+//  cash.addEventListener('keyup', function(e){
+//   cash.value = formatRupiah(this.value, 'Rp. ');
+// });
+
+/* Fungsi */
+function formatRupiah(angka, prefix){
+  var number_string = angka.replace(/[^,\d]/g, '').toString(),
+  split    = number_string.split(','),
+  sisa     = split[0].length % 3,
+  rupiah     = split[0].substr(0, sisa),
+  ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
+
+  if (ribuan){
+    separator = sisa ? '.' : '';
+    rupiah += separator + ribuan.join('.');
   }
-  else
-    if (angka >= 1)
-    {
-      alert("angka aslinya : "+angka);
-      document.getElementById('dana_diajukan').focus();
-      document.getElementById('dana_diajukan').value = tandaPemisahTitik(angka);
-      return false;
-    }
-  }
+
+  rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+  return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+}
 </script>
 

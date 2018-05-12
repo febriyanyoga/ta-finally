@@ -256,7 +256,7 @@ img { max-width: 100%; }
 	}
 
 	.form-bottom {
-		padding: 25px 25px 30px 25px;
+		padding: 25px 25px 10px 25px;
 		background: #444;
 		background: rgba(0, 0, 0, 0.3);
 		text-align: left;
@@ -296,7 +296,7 @@ img { max-width: 100%; }
 
   }
   .header-top{
-  	height: 100px;
+  	height: 80px;
   }
 
 
