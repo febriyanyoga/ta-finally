@@ -138,13 +138,13 @@
                       <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                       <h4 class="modal-title" id="titlemodal">Edit Pengajuan Barang</h4>
                     </div>
-                    <form class="form-horizontal" action="<?php echo base_url('BarangC/post_ubah_ajukan_barang');?>" method="post">
+                    <form class="form-horizontal" action="<?php echo base_url('BarangC/post_ubah_ajukan_barang');?>" method="post" enctype="multipart/form-data" role="form">
                       <div class="modal-body">
                         <div class="form-group">
                           <div class="modal-body">
                             <label class="col-lg-4 col-sm-2 control-label" for="jenis_barang"> Barang :</label>
                             <div class="col-lg-8">
-                               <input type="text" class="form-control" placeholder id="kode_item_pengajuan" name="kode_item_pengajuan" required value="<?php echo $barang->kode_item_pengajuan;?>"> kode item
+                               <input type="hidden" class="form-control" placeholder id="kode_item_pengajuan" name="kode_item_pengajuan" required value="<?php echo $barang->kode_item_pengajuan;?>">
                                <!-- untuk mengirimkan kode_item_pengajuan -->
                                <select class="form-control" name="kode_barang" id="kode_barang">
                                 <option value="">---- Pilih Barang ---- </option>
@@ -162,14 +162,14 @@
                       </div>
                       <div class="form-group">
                         <div class="modal-body">
-                          <input class="form-control" type="text" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
+                          <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
                           <label class="col-lg-4 col-sm-2 control-label">Nama Item Pengajuan Barang :</label>
                           <div class="col-lg-8">
                             <input type="text" name="nama_item_pengajuan" class="form-control" value="<?php echo $barang->nama_item_pengajuan ?>">
                           </div>
                         </div>
                       </div>
-                      <input type="text" class="form-control" placeholder id="tgl_item_pengajuan" name="tgl_item_pengajuan" required value="<?php echo date('Y-m-d');?>">
+                      <input type="hidden" class="form-control" placeholder id="tgl_item_pengajuan" name="tgl_item_pengajuan" required value="<?php echo date('Y-m-d');?>">
                       <div class="form-group">
                         <div class="modal-body">
                           <label class="col-lg-4 col-sm-2 control-label">url :</label>
@@ -206,7 +206,7 @@
                         <div class="modal-body">
                           <label class="col-lg-4 col-sm-2 control-label">Unggah Foto :</label>
                           <div class="col-lg-8">
-                           <!-- <img style="height: 50px; margin-bottom: 20px" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>"> -->
+                           <img style="height: 50px; margin-bottom: 20px" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>"> 
                            <input type="file" id="file_gambar" name="file_gambar">
                          </div>
                        </div>
