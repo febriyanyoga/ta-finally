@@ -197,6 +197,7 @@ class BarangM extends CI_Model
 	}
 
 	public function update_fk($status_pengajuan, $data_update){ //update persetujuan status persediaan sama progres
+		$this->db->where('item_pengajuan.status_pengajuan IS NULL');
 		$this->db->where('item_pengajuan.status_pengajuan', $status_pengajuan);
 		$this->db->update('item_pengajuan', $data_update);
 		return TRUE;
