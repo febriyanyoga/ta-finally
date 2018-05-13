@@ -340,8 +340,10 @@ class BarangM extends CI_Model
 
 	public function tunda($kode){ //mengubah status item_pengajuan menjadi pengajuan karena item pengajuan masuk ke dalam RAb
 		$status = 'tunda';
+		$kode_pengajuan = NULL;
 		$data = array(
-			'status_pengajuan' => $status
+			'status_pengajuan' => $status,
+			'kode_pengajuan'   => $kode_pengajuan
 		);
 		$this->db->where('kode_item_pengajuan', $kode);
 		$this->db->update('item_pengajuan',$data);

@@ -82,26 +82,8 @@
                 <td><?php echo $barang->status_pengajuan;?></td>
                 <td><center>
                   <?php 
-                    // mengambil data progress dari semua item pengajuan pada halaman persetujuan man sarpras yang sudah memiliki progres yang diberikan oleh mas sarpras 
-                  $progress_saya = $BarangM->get_progress_barang_by_id($barang->kode_item_pengajuan,$data_diri->kode_jabatan_unit);
-
-                    // jika progress baru 1 maka belum diberikan progress oleh man sarpras tetapi sudah oleh pimpinan 
-                    // jika lebih dari satu maka sudah ditambahkan progres oleh man sarpras
-
-                  if($progress_saya == 1){?>
-                  <div class="btn-group">
-                    <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                    <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                    <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info"><span class="glyphicon glyphicon-briefcase"></span></a>
-                  </div>
-                  <?php
-                }else{
-                  echo "selesai";
                   ?>
-                  <center><span class="glyphicon glyphicon-ok"></span></center>
-                  <?php
-                }
-                ?>
+                  <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tambah Progress" class="btn btn-info"><span class="glyphicon glyphicon-edit"></span></a>
               </center>
             </td>
           </tr>
