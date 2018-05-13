@@ -8,7 +8,7 @@ class PenggunaC extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model(['PenggunaM']);
+		$this->load->model(['PenggunaM','BarangM']);
 		in_access(); //helper buat batasi akses login/session
 		$data_akses_menu = $this->PenggunaM->get_akses_menu()->result();
 		$data_array_akses_menu = array();
@@ -22,6 +22,8 @@ class PenggunaC extends CI_Controller {
 	public function index(){ //halaman index kadep (dashboard)
 		// print_r($this->data_menu);
 		$data['menu'] = $this->data_menu;
+		$data['data_kegiatan'] = $this->PenggunaM->get_kegiatan_pegawai()->num_rows();	//menampilkan kegiatan yang diajukan user sebagai pegwai
+		$data['data_ajukan_barang'] = $this->BarangM->get_ajukan_barang()->num_rows();
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['data_diri'] = $data_diri;
 		$data['PenggunaM']			= $this->PenggunaM;
@@ -64,8 +66,8 @@ class PenggunaC extends CI_Controller {
 	}
 }
 
-	public function konfigurasi_sistem(){
-		if(in_array(15, $this->data_menu)){
+public function konfigurasi_sistem(){
+	if(in_array(15, $this->data_menu)){
 
 			$data_kode_jabatan_unit = $this->PenggunaM->get_kode_jabatan_unit_by_menu('1')->result(); //pers keg mahasiswa
 			$data_array_jabatan_unit = array();

@@ -53,37 +53,29 @@
       }
     }
     ?>
-    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <div class="info-box blue-bg">
-        <i class="fa fa-cloud-download"></i>
-        <div class="count">6.674</div>
-        <div class="title">Download</div>           
+        <i class="fa fa fa-edit"></i>
+        <div class="count"><?php echo $data_kegiatan?></div>
+        <div class="title">Pengajuan Kegiatan</div>           
       </div><!--/.info-box-->     
     </div><!--/.col-->
 
-    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-      <div class="info-box brown-bg">
-        <i class="fa fa-shopping-cart"></i>
-        <div class="count">7.538</div>
-        <div class="title">Purchased</div>            
-      </div><!--/.info-box-->     
-    </div><!--/.col-->  
-
-    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-      <div class="info-box dark-bg">
-        <i class="fa fa-thumbs-o-up"></i>
-        <div class="count">4.362</div>
-        <div class="title">Order</div>            
-      </div><!--/.info-box-->     
-    </div><!--/.col-->
-
-    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <div class="info-box green-bg">
         <i class="fa fa-cubes"></i>
-        <div class="count">1.426</div>
-        <div class="title">Stock</div>            
+        <div class="count"><?php echo $data_ajukan_barang;?></div>
+        <div class="title">Pengajuan Barang</div>            
       </div><!--/.info-box-->     
     </div><!--/.col-->
+
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <div class="info-box brown-bg">
+        <i class="fa fa fa-check"></i>
+        <div class="count">7.538</div>
+        <div class="title">Persetujuan</div>            
+      </div><!--/.info-box-->     
+    </div><!--/.col--> 
   </div>
 </div>
 
