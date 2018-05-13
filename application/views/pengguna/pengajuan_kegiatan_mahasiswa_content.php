@@ -3,7 +3,7 @@ tgl_selesai_kegiatan<section id="main-content">
     <!--overview start-->
     <div class="row">
       <div class="col-lg-12">
-        <h3 class="page-header" style="margin-top: 0;"><i class="fa fa-pencil"></i>Daftar Kegiatan</h3>
+        <h3 class="page-header text-center" style="margin-top: 0;">Pengajuan Kegiatan Mahasiswa</h3>
         <!-- <ol class="breadcrumb">
           <li><i class="fa fa-user"></i><a href="#">Pegawai</a></li>
           <li><i class="fa fa-pencil"></i>Kegiatan</li>                
@@ -265,8 +265,6 @@ tgl_selesai_kegiatan<section id="main-content">
            <div class="alert alert-danger">
             <ol type="1"> <strong>Perhatian !</strong>
               <li>Isi <b>Nama Kegiatan</b> sesuai dengan kegiatan yang ingin dilaksanakan.</li>
-              <li>Pengisian <b>Tanggal Kegiatan</b> minimal <b>1 bulan</b> setelah tanggal pengajuan.</li>
-              <li>Pengisian <b>Dana yang diajukan</b> hanya menggunakan <b>angka</b> tanpa <b>titik(.)</b>.</li>
               <li>Berkas yang diunggah hanya <b>satu(1)</b> berupa berkas <b>.pdf</b>. Apabila membutuhkan lebih dari satu berkas, maka harus dijadikan satu berkas <b>.pdf</b>.</li>
               <li>Data yang sudah mendapat persetujuan <b>tidak dapat diubah</b>.</li>
             </ol>
@@ -342,3 +340,33 @@ tgl_selesai_kegiatan<section id="main-content">
 </div>
 </div>
 </div>
+
+<script type="text/javascript">
+  /* Dengan Rupiah */
+  var dp = document.getElementById('dana_diajukan');
+  dp.addEventListener('keyup', function(e){
+    dp.value = formatRupiah(this.value, 'Rp');
+  });
+
+//  var cash = document.getElementById('cash');
+//  cash.addEventListener('keyup', function(e){
+//   cash.value = formatRupiah(this.value, 'Rp. ');
+// });
+
+/* Fungsi */
+function formatRupiah(angka, prefix){
+  var number_string = angka.replace(/[^,\d]/g, '').toString(),
+  split    = number_string.split(','),
+  sisa     = split[0].length % 3,
+  rupiah     = split[0].substr(0, sisa),
+  ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
+
+  if (ribuan){
+    separator = sisa ? '.' : '';
+    rupiah += separator + ribuan.join('.');
+  }
+
+  rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+  return prefix == undefined ? rupiah : (rupiah ? 'Rp' + rupiah : '');
+}
+</script>

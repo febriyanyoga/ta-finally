@@ -2,7 +2,7 @@
  defined('BASEPATH') OR exit('No direct script access allowed');
  date_default_timezone_set('Asia/Jakarta');  
  class UserC extends CI_Controller {  
-   function __Construct(){  
+   function __construct(){  
     parent::__Construct();  
     $this->load->database();  
     $this->load->model('PenggunaM');  
@@ -10,39 +10,22 @@
 
   public function halaman_daftar() //get option jabatan
   {
-     $data['prosedur_pegawai'] = $this->PenggunaM->get_prosedur_pegawai()->result();
-     $data['prosedur_mahasiswa'] = $this->PenggunaM->get_prosedur_mahasiswa()->result();
-     $data['prosedur_barang'] = $this->PenggunaM->get_prosedur_barang()->result();
-     $data['jabatan'] = $this->PenggunaM->get_pilihan_jabatan();
-     $data['unit'] = $this->PenggunaM->get_pilihan_unit();
-     $data['pilihan_unit'] = $this->PenggunaM->get_unit();
-     $this->load->view('RegisterV',$data);
-   }   
+   $data['prosedur_pegawai'] = $this->PenggunaM->get_prosedur_pegawai()->result();
+   $data['prosedur_mahasiswa'] = $this->PenggunaM->get_prosedur_mahasiswa()->result();
+   $data['prosedur_barang'] = $this->PenggunaM->get_prosedur_barang()->result();
+   $data['jabatan'] = $this->PenggunaM->get_pilihan_jabatan();
+   $data['unit'] = $this->PenggunaM->get_pilihan_unit();
+   $data['pilihan_unit'] = $this->PenggunaM->get_unit();
+   $this->load->view('RegisterV',$data);
+ }   
 
-   public function get_jabatan(){
-    $postData = $this->input->post();
-    $data = $this->PenggunaM->get_jabatan($postData);
-    echo json_encode($data);
-   }
+ public function get_jabatan(){
+  $postData = $this->input->post();
+  $data = $this->PenggunaM->get_jabatan($postData);
+  echo json_encode($data);
+}
 
-  // public function getjabatanunit(){
-  //   $kode_unit = $this->input->post('kode_unit');
-  //   $data_jabatan_unit = $this->PenggunaM->pillihan_jabatan_unit($kode_unit);
-  //   echo '<select class="form-control" name="kode_jabatan" id="kode_jabatan">';
-  //   echo '<option value="">---- Pilih Jabatan ---- </option>';
-  //   if(! empty($data_jabatan_unit)){
-  //     foreach ($data_jabatan_unit as $val ){
-  //       echo '<option value="'.$val->kode_jabatan.'">'.$val->nama_jabatan.'</option>';
-  //     }
-  //   }else{
-  //     echo '<option>- Data Belum Tersedia -</option>';
-  //   }
-  //   echo '</select>';
-  // }
-
-
-
- public function index(){
+public function index(){
   redirect('UserC/daftar');
 }
 
@@ -61,11 +44,8 @@
     $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]|max_length[50]|matches[confirmpswd]');
     $this->form_validation->set_rules('confirmpswd', 'Password Confirmation', 'trim|required|min_length[6]|max_length[50]'); 
     $this->form_validation->set_message('is_unique', 'Data %s sudah dipakai'); 
-    if ($this->form_validation->run() == FALSE)  
-    {  
+    if ($this->form_validation->run() == FALSE){  
       $this->halaman_daftar();
-      // redirect(base_url('UserC/halaman_daftar'));  
-      // $this->load->view('RegisterV');  
     }else{  
       $no_identitas   = $_POST['no_identitas'];  
       $nama           = $_POST['nama'];  
@@ -132,7 +112,7 @@
     $data       = array(
       'email'=> $email_encryption
     );
-    $message    = $this->load->view('email2.php',$data,TRUE);
+    $message    = $this->load->view('konfirmasi_email.php',$data,TRUE);
     // '<h1>'.$url.'</h1><span style="color: red;"> Departemen Teknik Elektro dan Informatika </span>';
 
     $headers    = 'MIME-Version: 1.0' . "\r\n";
@@ -153,9 +133,6 @@
 
 public function resend_email(){
   $this->load->view('resend_email');
-}
-public function atur_ulang(){
-  $this->load->view('ResetPasswordV');
 }
 
 public function post_resend_email(){
@@ -209,5 +186,5 @@ public function post_resend_email(){
       redirect('LoginC');
     }  
   }
-}  
+} 
 }  

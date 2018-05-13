@@ -5,17 +5,91 @@
     <!--overview start-->
     <div class="row">
       <div class="col-lg-12">
-
         <h3 class="page-header text-center" style="margin-top: 0;">Beranda</h3>
-        <!-- <ol class="breadcrumb">
-          <li><i class="fa fa-home"></i><a href="#">Beranda</a></li>
-        </ol> -->
       </div>
     </div>
-    
     <div class="row">
-     <div class="col-lg-12">
-      <section class="panel">
+      <div class="col-lg-12">
+       <?php
+       if(in_array('15', $menu)){
+
+         $kadep = $PenggunaM->get_pengguna_by_kode_jabatan_unit('1');
+         $sekdep = $PenggunaM->get_pengguna_by_kode_jabatan_unit('2');
+         $manajer_sarpras = $PenggunaM->get_pengguna_by_kode_jabatan_unit('3');
+         $staf_sarpras = $PenggunaM->get_pengguna_by_kode_jabatan_unit('4');
+         $manajer_keuangan = $PenggunaM->get_pengguna_by_kode_jabatan_unit('5');
+         $staf_keuangan = $PenggunaM->get_pengguna_by_kode_jabatan_unit('6');
+
+         $acc_keg = $PenggunaM->get_persetujuan_kegiatan()->result();
+         $i=0;
+         $j=0;
+         foreach ($acc_keg as $acc) {
+          $i++;
+
+          if($PenggunaM->get_pengguna_by_kode_jabatan_unit($acc->kode_jabatan_unit)->num_rows() == 1){
+            $j++;
+          }
+        }
+        if($kadep->num_rows() > 0 && $sekdep->num_rows() > 0 && $manajer_sarpras->num_rows() > 0 && $staf_sarpras->num_rows() > 0 && $manajer_keuangan->num_rows() > 0 && $staf_keuangan->num_rows() > 0){
+          ?>   
+          <div class="alert alert-success">
+            <i class="glyphicon glyphicon-ok"></i><strong> Sempurna!</strong> Semua Jabatan Penting telah terpenuhi, Sistem dapat berjalan dengan baik.
+          </div> 
+          <?php
+        }else{
+          if($i != $j){
+           ?>
+           <div class="alert alert-danger">
+            <i class="glyphicon glyphicon-exclamation-sign"></i><strong> Perhatian!</strong> Masih ada Jabatan penting yang kosong. Silahkan dilengkapi terlebih dahulu, agar sistem dapat berjalan dengan baik.<br>
+          </div>
+          <?php
+        }else{
+          ?>
+          <div class="alert alert-danger">
+            <i class="glyphicon glyphicon-exclamation-sign"></i><strong> Perhatian!</strong> Masih ada Jabatan penting yang kosong. Silahkan dilengkapi terlebih dahulu, agar sistem dapat berjalan dengan baik.<br>
+          </div>
+          <?php
+        }
+      }
+    }
+    ?>
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+      <div class="info-box blue-bg">
+        <i class="fa fa-cloud-download"></i>
+        <div class="count">6.674</div>
+        <div class="title">Download</div>           
+      </div><!--/.info-box-->     
+    </div><!--/.col-->
+
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+      <div class="info-box brown-bg">
+        <i class="fa fa-shopping-cart"></i>
+        <div class="count">7.538</div>
+        <div class="title">Purchased</div>            
+      </div><!--/.info-box-->     
+    </div><!--/.col-->  
+
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+      <div class="info-box dark-bg">
+        <i class="fa fa-thumbs-o-up"></i>
+        <div class="count">4.362</div>
+        <div class="title">Order</div>            
+      </div><!--/.info-box-->     
+    </div><!--/.col-->
+
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+      <div class="info-box green-bg">
+        <i class="fa fa-cubes"></i>
+        <div class="count">1.426</div>
+        <div class="title">Stock</div>            
+      </div><!--/.info-box-->     
+    </div><!--/.col-->
+  </div>
+</div>
+
+<div class="row">
+ <div class="col-lg-12">
+  <section class="panel">
                       <!-- <header class="panel-heading">
                           <h3> </Char>
                           </header> -->

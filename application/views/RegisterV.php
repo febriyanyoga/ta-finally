@@ -185,16 +185,16 @@
 										</div>
 										<div class="form-group">
 											<label class="sr-only" for="form-password">Password</label>
-											<input type="password" class="form-control" id="pswd" name="password" placeholder="Kata Sandi..." required>  
+											<input type="password" class="form-control" id="password" name="password" placeholder="Kata Sandi..." required>  
 											<span class="text-danger"><?php echo form_error('password'); ?></span>
 										</div>
 										<div class="form-group">
 											<label class="sr-only" for="form-repeat-password">Repeat password</label>
-											<input type="password" class="form-control" id="cn-pswd" name="confirmpswd" placeholder="konfirmasi Kata Sandi..." required>  
+											<input type="password" class="form-control" id="confirmpswd" name="confirmpswd" placeholder="konfirmasi Kata Sandi..." required>  
 											<span class="text-danger"><?php echo form_error('confirmpswd'); ?></span>
 										</div>
 										<button type="button" class="btn btn-previous">Previous</button>
-										<button type="submit" class="btn pull-right">Daftar</button>
+										<button type="submit" id="btnSubmit" class="btn pull-right">Daftar</button>
 									</div>
 								</div>
 							</fieldset>
@@ -259,21 +259,32 @@
                 });
             });
         </script>
-	<!-- <script> 
-		function get_jabatan_unit(){
-			var kode_unit = $("#kode_unit").val();
-			$.ajax({
-				type: "POST",
-				url : "<?php echo base_url(); ?>UserC/getjabatanunit",
-				data: "kode_unit="+kode_unit,
-				success: function(msg){
-					$('#nama_jabatan').html(msg);
-				}
-			});
-		};
-	</script> -->
-
-
+        <script type="text/javascript">
+		$(function () {
+			$("#btnSubmit").click(function () {
+				var password = $("#password").val();
+				var confirmPassword = $("#confirmpswd").val();
+				var pass_length = password.length;
+				if (password != confirmPassword) {
+					alert("Kata sandi tidak sama.");
+                    // document.getElementById("demo").innerHTML = "Kata sandi tidak sama.";
+                    return false;
+                }else{
+                	if(pass_length < 6){
+                		alert("Panjang Kata sandi minimal 6 karakter");
+                		return false;
+                	}else{
+                		if(pass_length > 50){
+                			alert("Panjang Kata sandi maksimal 50 karakter");
+                			return false;
+                		}else{
+                			return true;
+                		}
+                	}
+                }
+            });
+		});
+	</script>
 </body>
 
 </html>

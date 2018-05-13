@@ -85,8 +85,9 @@
                            <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
                            <td class="text-center">
                             <?php 
-                            $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
-                            $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
+                        $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
+                        $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
+                        $kegiatan->kode_kegiatan;
                         $own_id     = $data_diri->kode_jabatan_unit; //id sendri
                         $max        = $cek_max_pegawai->ranking; //id pengguna rank tertinggi
                         $id_max     = $KegiatanM->cek_id_by_rank_pegawai($max)->kode_jabatan_unit; //id yang rank nya max

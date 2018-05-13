@@ -63,4 +63,30 @@ class LoginM extends CI_Model{
 	}
 
 
+	// Lupa kata sandi
+
+	public function getByEmail($email){
+		$this->db->where('email',$email);
+		$result = $this->db->get('pengguna');
+		return $result;
+	}
+
+	public function simpanToken($data){
+		$this->db->insert('lupa_kata_sandi', $data);
+		return $this->db->affected_rows();
+	}
+
+	public function cekToken($token){
+		$this->db->where('token',$token);
+		$result = $this->db->get('lupa_kata_sandi');
+		return $result;
+	}
+
+	public function ubahData($data, $id_pengguna){
+		$this->db->where('id_pengguna', $id_pengguna);
+		$this->db->update('pengguna', $data);
+		return TRUE;
+	}
+
+
 }

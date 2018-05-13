@@ -41,8 +41,11 @@
  	public function get_pengguna_by_kode_jabatan_unit($kode_jabatan_unit){
  		$this->db->select('*');
  		$this->db->from('pengguna');
- 		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
- 		return $this->db->get()->num_rows();
+ 		$this->db->join('jabatan_unit','pengguna.kode_jabatan_unit = jabatan_unit.kode_jabatan_unit');
+ 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+ 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+ 		$this->db->where('jabatan_unit.kode_jabatan_unit', $kode_jabatan_unit);
+ 		return $this->db->get();
  	}
 
  	public function get_jabatan_unit_by_unit($kode_unit){
@@ -231,6 +234,7 @@
 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
 		$this->db->where('jabatan_unit.atasan = "ya"');
 		$this->db->where('pengguna.status = "aktif"');
+		$this->db->where('jabatan_unit.kode_jabatan_unit', $kode_jabatan_unit);
 		$query = $this->db->get()->num_rows();
 
 		if($query){
@@ -267,6 +271,7 @@
 		$this->db->select('*');
 		$this->db->from('kegiatan');
 		$this->db->join('pengguna', 'pengguna.id_pengguna = kegiatan.id_pengguna');
+		$this->db->join('jabatan_unit','jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
 		$this->db->join('file_upload', 'kegiatan.kode_kegiatan = file_upload.kode_kegiatan');
 		$this->db->where('pengguna.id_pengguna', $id_pengguna);
 

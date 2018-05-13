@@ -24,6 +24,7 @@ class PenggunaC extends CI_Controller {
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['data_diri'] = $data_diri;
+		$data['PenggunaM']			= $this->PenggunaM;
 		$data['title'] = "Beranda | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
 		$data['body'] = $this->load->view('pengguna/index_content', $data, true) ;
 		$this->load->view('pengguna/index_template', $data);
@@ -63,49 +64,49 @@ class PenggunaC extends CI_Controller {
 	}
 }
 
-public function konfigurasi_sistem(){
-	if(in_array(15, $this->data_menu)){
+	public function konfigurasi_sistem(){
+		if(in_array(15, $this->data_menu)){
 
-		$data_kode_jabatan_unit = $this->PenggunaM->get_kode_jabatan_unit_by_menu('1')->result(); //pers keg mahasiswa
-		$data_array_jabatan_unit = array();
-		foreach ($data_kode_jabatan_unit as $jabatan_unit) {
-			array_push($data_array_jabatan_unit, $jabatan_unit->kode_jabatan_unit);
+			$data_kode_jabatan_unit = $this->PenggunaM->get_kode_jabatan_unit_by_menu('1')->result(); //pers keg mahasiswa
+			$data_array_jabatan_unit = array();
+			foreach ($data_kode_jabatan_unit as $jabatan_unit) {
+				array_push($data_array_jabatan_unit, $jabatan_unit->kode_jabatan_unit);
+			}
+			$this->data['data_jabatan_unit_mahasiswa'] = $data_array_jabatan_unit;
+
+
+			$data_kode_jabatan_unit_peg = $this->PenggunaM->get_kode_jabatan_unit_by_menu('2')->result();//pers keg peg
+			$data_array_jabatan_unit_peg = array();
+			foreach ($data_kode_jabatan_unit_peg as $jabatan_unit_peg) {
+				array_push($data_array_jabatan_unit_peg, $jabatan_unit_peg->kode_jabatan_unit);
+			}
+			$this->data['data_jabatan_unit_pegawai'] = $data_array_jabatan_unit_peg;
+
+
+			$data['menu'] = $this->data_menu;
+			$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+			$data['title'] = "Konfigurasi Sistem | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+
+			$this->data['persetujuan_kegiatan']	= $this->PenggunaM->get_persetujuan_kegiatan()->result();
+			$this->data['persetujuan_kegiatan_mahasiswa']	= $this->PenggunaM->get_persetujuan_kegiatan()->result();
+			// $this->data['detail_jabatan'] 		= $this->PenggunaM->get_pilihan_jabatan_by_id($kode_jabatan)->result()[0];
+			// $this->data['nama_pengguna']		= $this->PenggunaM->get_data_pengguna()->result();
+			$this->data['nama_progress']		= $this->PenggunaM->get_nama_progress()->result();
+			$this->data['jenis_kegiatan']		= $this->PenggunaM->get_jenis_kegiatan()->result();
+			$this->data['jenis_kegiatan_persetujuan']	= $this->PenggunaM->get_jenis_kegiatan()->result();
+			$this->data['jenis_barang']			= $this->PenggunaM->get_jenis_barang()->result();
+			$this->data['jabatan_pilihan']		= $this->PenggunaM->get_pilihan_jabatan()->result();
+			$this->data['unit']					= $this->PenggunaM->get_pilihan_unit()->result();
+			$this->data['akses_menu']			= $this->PenggunaM->get_akses_menu_2()->result();
+			$this->data['jabatan_unit_menu']	= $this->PenggunaM->get_jabatan_unit()->result();
+			$this->data['PenggunaM']			= $this->PenggunaM;
+			$this->data['data_diri'] 			= $data_diri;  	//get data diri buat nampilin nama di pjok kanan
+			$data['body'] = $this->load->view('pengguna/konfigurasi_sistem_content', $this->data, true);
+			$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
 		}
-		$this->data['data_jabatan_unit_mahasiswa'] = $data_array_jabatan_unit;
-
-
-		$data_kode_jabatan_unit_peg = $this->PenggunaM->get_kode_jabatan_unit_by_menu('2')->result();//pers keg peg
-		$data_array_jabatan_unit_peg = array();
-		foreach ($data_kode_jabatan_unit_peg as $jabatan_unit_peg) {
-			array_push($data_array_jabatan_unit_peg, $jabatan_unit_peg->kode_jabatan_unit);
-		}
-		$this->data['data_jabatan_unit_pegawai'] = $data_array_jabatan_unit_peg;
-
-
-		$data['menu'] = $this->data_menu;
-		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
-		$data['title'] = "Konfigurasi Sistem | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
-
-		$this->data['persetujuan_kegiatan']	= $this->PenggunaM->get_persetujuan_kegiatan()->result();
-		$this->data['persetujuan_kegiatan_mahasiswa']	= $this->PenggunaM->get_persetujuan_kegiatan()->result();
-		// $this->data['detail_jabatan'] 		= $this->PenggunaM->get_pilihan_jabatan_by_id($kode_jabatan)->result()[0];
-		// $this->data['nama_pengguna']		= $this->PenggunaM->get_data_pengguna()->result();
-		$this->data['nama_progress']		= $this->PenggunaM->get_nama_progress()->result();
-		$this->data['jenis_kegiatan']		= $this->PenggunaM->get_jenis_kegiatan()->result();
-		$this->data['jenis_kegiatan_persetujuan']	= $this->PenggunaM->get_jenis_kegiatan()->result();
-		$this->data['jenis_barang']			= $this->PenggunaM->get_jenis_barang()->result();
-		$this->data['jabatan_pilihan']		= $this->PenggunaM->get_pilihan_jabatan()->result();
-		$this->data['unit']					= $this->PenggunaM->get_pilihan_unit()->result();
-		$this->data['akses_menu']			= $this->PenggunaM->get_akses_menu_2()->result();
-		$this->data['jabatan_unit_menu']	= $this->PenggunaM->get_jabatan_unit()->result();
-		$this->data['PenggunaM']			= $this->PenggunaM;
-		$this->data['data_diri'] 			= $data_diri;  	//get data diri buat nampilin nama di pjok kanan
-		$data['body'] = $this->load->view('pengguna/konfigurasi_sistem_content', $this->data, true);
-		$this->load->view('pengguna/index_template', $data);
-	}else{
-		redirect('LoginC/logout');
 	}
-}
 
 public function prosedur(){ //halaman index kadep (dashboard)
 	if(in_array(16, $this->data_menu)){
@@ -152,14 +153,13 @@ public function ganti_jabatan(){
 
 		if($own_atasan == "ya"){
 			if($atasan_baru == "ya"){
-				if($cek_atasan_tujuan > 0){//ada pengguna diposisi yang dituju
-					$this->session->set_flashdata('error','Jabatan tidak berhasil diubah. Sudah ada Pengguna sebagai atasan di unit yang anda tuju');	
+				if($cek_atasan_tujuan == 1){//ada pengguna diposisi yang dituju
+					$this->session->set_flashdata('error','Jabatan tidak berhasil diubah. Sudah ada Pengguna sebagai atasan di unit yang anda tuju 1');
 					redirect_back();
-				}else{
-					if($this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_jabatan_unit)){
+				}else{ //tidak ada pengguna diposisi yang dituju
+					if($this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_jabatan_unit)){ //ganti jabatan
 						$get_id_bukan_atasan = $this->PenggunaM->get_id_bukan_atasan($own_kode_unit)->result()[0]->id_pengguna;//id pengguna yang bukan atasan yang satu unit
 						$data_update_ganti_atasan = array('kode_jabatan_unit' => $own_kode_jabatan_unit);
-
 						if($this->PenggunaM->update_jabatan_unit($get_id_bukan_atasan, $data_update_ganti_atasan)){
 							$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan diganti pengguna lain');	
 							redirect_back();
@@ -192,8 +192,8 @@ public function ganti_jabatan(){
 			}else{
 				if($own_kode_unit == 1 || $own_kode_unit == 2 || $own_kode_unit == 3){
 					if($atasan_baru == "ya"){
-					if($cek_atasan_tujuan > 0){//ada pengguna diposisi yang dituju
-						$this->session->set_flashdata('error','Jabatan tidak berhasil diubah. Sudah ada Pengguna sebagai atasan di unit yang anda tuju');	
+					if($cek_atasan_tujuan == 1){//ada pengguna diposisi yang dituju
+						$this->session->set_flashdata('error','Jabatan tidak berhasil diubah. Sudah ada Pengguna sebagai atasan di unit yang anda tuju 2');	
 						redirect_back();
 					}else{
 						if($this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_jabatan_unit)){
@@ -230,9 +230,9 @@ public function ganti_jabatan(){
 						}
 					}
 				}else{
-					if($atasan_baru == "ya"){
-						if($cek_atasan_tujuan > 0){
-							$this->session->set_flashdata('error','Jabatan tidak berhasil diubah. Sudah ada Pengguna sebagai atasan di unit yang anda tuju');	
+					if($atasan_baru == "ya"){ //jabatan yang dituju merupakan pimpinan
+						if($cek_atasan_tujuan == 1){ //ada penggunanya
+							$this->session->set_flashdata('error','Jabatan tidak berhasil diubah. Sudah ada Pengguna sebagai atasan di unit yang anda tuju 3');	
 							redirect_back();
 						}else{
 							if($this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_jabatan_unit)){
@@ -416,7 +416,7 @@ public function ganti_jabatan(){
 	}
 
 	public function hapus_jabatan_unit($kode_jabatan_unit){
-		if($this->PenggunaM->get_pengguna_by_kode_jabatan_unit($kode_jabatan_unit) > 0){
+		if($this->PenggunaM->get_pengguna_by_kode_jabatan_unit($kode_jabatan_unit)->num_rows() > 0){
 			$this->session->set_flashdata('error','Data anda tidak berhasil dihapus, karena masih ada pengguna yang menjabat. Silahkan ganti atau pindah jabatan terlebih dahulu.');
 			redirect_back();
 		}else{

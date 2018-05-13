@@ -130,6 +130,16 @@
               <div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
               <?php } ?>
 
+               <!-- Alert -->
+
+              <?php if ($this->session->flashdata('message')): ?>
+              <div class="alert alert-<?php echo $this->session->flashdata('style'); ?> fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong><?php echo $this->session->flashdata('alert'); ?></strong>&nbsp; <?php echo $this->session->flashdata('message'); ?>
+              </div>
+              <?php endif; ?>
+              <!-- End Alert -->
+
               <div class="form-group">
                 <label class="sr-only" for="form-email">Email</label>
                 <input type="email" name="email" class="form-email form-control" placeholder="Masukkan Email" autofocus required oninvalid="this.setCustomValidity('email tidak boleh kosong')" oninput="setCustomValidity('')">
@@ -152,7 +162,7 @@
                   <button type="submit" class="btn">Masuk</button>
                   <div class="form-group" style="color: white;">
                     <p>Belum punya akun? -  <a href="<?php echo site_url('UserC/daftar')?>">Daftar</a></p>
-                    <p>Lupa Password? -  <a href="<?php echo site_url('UserC/atur_ulang')?>">Atur Ulang</a></p>
+                    <p>Lupa Password? -  <a href="<?php echo site_url('LoginC/atur_ulang')?>">Atur Ulang</a></p>
                   </div>
                 </form>
               </div>
