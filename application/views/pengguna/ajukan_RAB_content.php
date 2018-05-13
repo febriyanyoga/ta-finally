@@ -29,9 +29,6 @@
         <li class="nav-item">
           <a class="nav-link program-title" data-toggle="tab" href="#2" role="tab"><span class="glyphicon glyphicon-open"></span><br class="hidden-md-up"> Pengajuan RAB </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link program-title" data-toggle="tab" href="#3" role="tab"><span class="glyphicon glyphicon-file"></span><br class="hidden-md-up"> RAB </a>
-        </li>
       </ul>
       <!-- tab menu atas -->
     </div>
@@ -163,6 +160,7 @@
             <tr>
               <th class="text-center">No</th>
               <th class="text-center">Nama Pengajuan RAB</th>
+              <th class="text-center">Tanggal Pengajuan RAB</th>
               <th class="text-center">File Pengajuan RAB</th>
               <th class="text-center">Status Pengajuan</th>
               <th class="text-center"> Aksi </th>
@@ -176,7 +174,15 @@
               <tr>
                 <td><?php echo $no;?></td>
                 <td><?php echo $barang->nama_pengajuan;?></td>
-
+                <td>
+                    <center>
+                      <?php
+                      $tgl =  $barang->updated_at;
+                      $new_tgl = date('d-m-Y', strtotime($tgl));
+                      echo $new_tgl;
+                      ?>
+                    </center>
+                </td>
                 <?php $link = base_url()."assets/file_rab/".$barang->file_rab;?>
                 <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/excel.svg" style="height: 30px;"></span></a></td>
                 <td class="text-center">
@@ -197,7 +203,18 @@
                   ?>
                 </td>
                 <td class="text-center">
-                  <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalEdit<?php echo $barang->kode_pengajuan;?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                  <?php
+                    if($barang->status_pengajuan_rab == "diterima"){
+                      echo "selesai";
+                      ?>
+                        <center><span class="glyphicon glyphicon-ok"></span></center>
+                      <?php
+                    }else{
+                      ?>
+                         <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalEdit<?php echo $barang->kode_pengajuan;?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                      <?php
+                    }
+                  ?>
                </td>
 
                <!-- Modal Tambah Pengajuan Barang -->
@@ -279,50 +296,7 @@
       </form>
     </div>
   </div>
-</div>
-
-<!-- Data tabel  RAB-->
-<div id="3" class="tab-pane" role="tabpanel">
-  <div class="row pt-5">
-    <div class="col-lg-12">
-     <div style="margin-top: 20px;">
-      <div class="table-responsive" style="margin-top: 20px">
-       <table id="ajukan_rab" class="table table-striped table-bordered" cellspacing="0" width="100%">
-        <thead>
-          <tr>
-            <th class="text-center">No</th>
-            <th class="text-center">Nama Pengajuan RAB</th>
-            <th class="text-center">File Pengajuan RAB</th>
-            <th class="text-center"> Aksi </th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-          $no=1;
-          foreach ($pengajuan as $barang) {
-            ?>
-            <tr>
-              <td><?php echo $no;?></td>
-              <td><?php echo $barang->nama_pengajuan;?></td>
-
-              <?php $link = base_url()."assets/file_rab/".$barang->file_rab;?>
-              <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/excel.svg" style="height: 30px;"></span></a></td>
-              <td class="text-center">
-               <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target=""><span class="glyphicon glyphicon-search" title="Lihat Detail"></span></a>
-             </td>
-
-           </tr>
-           <?php
-           $no++;
-         }
-         ?>
-       </tbody>
-     </table>
-   </div>
- </div>
-</div>
-</div>
-</div>         
+</div>        
 
 </div>
 <!-- END Modal Tambah Pengajuan Barang -->
@@ -350,5 +324,18 @@
     $('#myModal').on('show.bs.modal', function (event) {
 
     });
+
+    //buat reoad ke current tab pane 
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+          // save the latest tab; use cookies if you like 'em better:
+          localStorage.setItem('lastTab', $(this).attr('href'));
+      });
+
+    // go to the latest tab, if it exists:
+    var lastTab = localStorage.getItem('lastTab');
+    if (lastTab) {
+      $('[href="' + lastTab + '"]').tab('show');
+    }
+
   });
 </script>
