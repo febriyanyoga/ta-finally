@@ -8,7 +8,7 @@ class PenggunaC extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model(['PenggunaM','BarangM']);
+		$this->load->model(['PenggunaM','BarangM','KegiatanM']);
 		in_access(); //helper buat batasi akses login/session
 		$data_akses_menu = $this->PenggunaM->get_akses_menu()->result();
 		$data_array_akses_menu = array();
@@ -27,6 +27,9 @@ class PenggunaC extends CI_Controller {
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['data_diri'] = $data_diri;
 		$data['PenggunaM']			= $this->PenggunaM;
+		$data['KegiatanM']			= $this->KegiatanM;
+		$data['KegiatanM']			= $this->KegiatanM;
+		$data['BarangM']			= $this->BarangM;
 		$data['title'] = "Beranda | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
 		$data['body'] = $this->load->view('pengguna/index_content', $data, true) ;
 		$this->load->view('pengguna/index_template', $data);

@@ -53,29 +53,108 @@
       }
     }
     ?>
-    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-      <div class="info-box blue-bg">
-        <i class="fa fa fa-edit"></i>
-        <div class="count"><?php echo $data_kegiatan?></div>
-        <div class="title">Pengajuan Kegiatan</div>           
-      </div><!--/.info-box-->     
-    </div><!--/.col-->
 
-    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-      <div class="info-box green-bg">
-        <i class="fa fa-cubes"></i>
-        <div class="count"><?php echo $data_ajukan_barang;?></div>
-        <div class="title">Pengajuan Barang</div>            
-      </div><!--/.info-box-->     
-    </div><!--/.col-->
+    <?php
+    if(in_array('1', $menu) || in_array('2', $menu) || in_array('3', $menu) || in_array('4', $menu) || in_array('5', $menu) || in_array('17', $menu)){
+      ?>  
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="info-box blue-bg">
+          <i class="fa fa fa-edit"></i>
+          <div class="count"><?php echo $data_kegiatan?></div>
+          <div class="title">Pengajuan Kegiatan</div>           
+        </div><!--/.info-box-->     
+      </div><!--/.col-->
 
-    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-      <div class="info-box brown-bg">
-        <i class="fa fa fa-check"></i>
-        <div class="count">7.538</div>
-        <div class="title">Persetujuan</div>            
-      </div><!--/.info-box-->     
-    </div><!--/.col--> 
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="info-box green-bg">
+          <i class="fa fa-cubes"></i>
+          <div class="count"><?php echo $data_ajukan_barang;?></div>
+          <div class="title">Pengajuan Barang</div>            
+        </div><!--/.info-box-->     
+      </div><!--/.col-->
+
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="info-box brown-bg">
+          <i class="fa fa fa-check"></i>
+          <?php
+          if(in_array('1', $menu)){
+            $p1 = $KegiatanM->get_data_pengajuan('2')->num_rows(); //kegiatan mahasiswa
+          }else{
+            $p1 = 0;
+          }
+
+          if(in_array('2', $menu)){
+            $p2 = $KegiatanM->get_data_pengajuan('1')->num_rows(); //kegiatan Pegawai
+          }else{
+            $p2 = 0;
+          }
+
+          if(in_array('3', $menu)){
+            $kode_unit = $data_diri->kode_unit;
+            $kode_jabatan = $data_diri->kode_jabatan;
+            $p3 = $KegiatanM->get_data_pengajuan_staf($kode_unit, $kode_jabatan)->num_rows();
+          }else{
+            $p3 = 0;
+          }
+
+          if(in_array('4', $menu)){
+            $p4 = $BarangM->get_rab_diajukan()->num_rows();
+          }else{
+            $p4=0;
+          }
+
+          if(in_array('5', $menu)){
+            $p5 = $BarangM->get_data_item_pengajuan()->num_rows();
+          }else{
+            $p5 = 0;
+          }
+
+          if(in_array('17', $menu)){
+            $kode_unit = $data_diri->kode_unit;
+            $kode_jabatan = $data_diri->kode_jabatan;
+            $p6 = $BarangM->get_data_item_pengajuan_staf($kode_unit, $kode_jabatan)->num_rows();
+          }else{
+            $p6 = 0;
+          }
+          ?>
+          <div class="count"><?php echo $p1+$p2+$p3+$p4+$p5+$p6?></div>
+          <div class="title">Persetujuan</div>            
+        </div><!--/.info-box-->     
+      </div><!--/.col-->     
+      <?php
+    }else{
+      if(in_array('6', $menu)){
+        ?>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="info-box blue-bg">
+            <i class="fa fa fa-edit"></i>
+            <div class="count"><?php echo $data_kegiatan?></div>
+            <div class="title">Pengajuan Kegiatan</div>           
+          </div><!--/.info-box-->     
+        </div><!--/.col-->
+        <?php
+      }else{
+        ?>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="info-box blue-bg">
+            <i class="fa fa fa-edit"></i>
+            <div class="count"><?php echo $data_kegiatan?></div>
+            <div class="title">Pengajuan Kegiatan</div>           
+          </div><!--/.info-box-->     
+        </div><!--/.col-->
+
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="info-box green-bg">
+            <i class="fa fa-cubes"></i>
+            <div class="count"><?php echo $data_ajukan_barang;?></div>
+            <div class="title">Pengajuan Barang</div>            
+          </div><!--/.info-box-->     
+        </div><!--/.col-->
+        <?php
+      }
+    }
+    ?>
+
   </div>
 </div>
 
@@ -90,82 +169,97 @@
                           <div class="panel-body">
                             <div class="tab-pane" id="chartjs">
                               <div class="row">
-                                <div class="col-lg-6">
+                                <?php 
+                                if(in_array('7', $menu)){ //jika punya akses menu pengajuan kegiatan pegawai
+                                  ?>  
+                                  <div class="col-lg-6">
+                                    <section class="panel">
+                                      <header class="panel-heading">
+                                        Pengajuan Kegiatan Pegawai
+                                      </header>
+                                      <div class="panel-body text-center">
+                                        <canvas id="grafik1" width="300" height="200"></canvas>
+                                      </div>
+                                    </section>
+                                  </div>  
+                                  <?php
+                                }
+                                if(in_array('6', $menu)){
+                                  ?>  
+                                  <div class="col-lg-6">
+                                    <section class="panel">
+                                      <header class="panel-heading">
+                                        Pengajuan Kegiatan Mahasiswa
+                                      </header>
+                                      <div class="panel-body text-center">
+                                        <canvas id="grafik2" height="200" width="300"></canvas>
+                                      </div>
+                                    </section>
+                                  </div>
+                                  <?php
+                                }
+                                if(in_array('9', $menu)){
+                                 ?>  
+                                 <div class="col-lg-6">
                                   <section class="panel">
                                     <header class="panel-heading">
-                                      Grafik Jumlah Pelamar berdasarkan jenis kelamin
-                                    </header>
-                                    <div class="panel-body text-center">
-                                      <canvas id="grafik1" width="300" height="200"></canvas>
-                                    </div>
-                                  </section>
-                                </div>  
-                                <div class="col-lg-6">
-                                  <section class="panel">
-                                    <header class="panel-heading">
-                                      Grafik Jumlah Pelamar berdasarkan Bidang yang dilamar
+                                      Pengajuan Barang
                                     </header>
                                     <div class="panel-body text-center">
                                       <canvas id="grafik2" height="200" width="300"></canvas>
                                     </div>
                                   </section>
                                 </div>
-                                <div class="col-lg-12">
-                                  <section class="panel">
-                                    <header class="panel-heading">
-                                      Grafik Jumlah pengguna berdasarkan Tingkatan Pendidikan
-                                    </header>
-                                    <div class="panel-body text-center">
-                                      <canvas id="grafik3" height="300" width="600"></canvas>
-                                    </div>
-                                  </section>
-                                </div> 
+                                <?php
+                              }
+                              if(in_array('8', $menu)){
+                               ?>  
+                               <div class="col-lg-6">
+                                <section class="panel">
+                                  <header class="panel-heading">
+                                    Pengajuan RAB
+                                  </header>
+                                  <div class="panel-body text-center">
+                                    <canvas id="grafik2" height="200" width="300"></canvas>
+                                  </div>
+                                </section>
                               </div>
-                            </div>
-                          </div> 
-                        </section>
-                      </div>
-
-                    </div>
-                    <!-- project team & activity end -->
-
-                  </section>
-                  <div class="text-center">
-                    <div class="credits">
-                      <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                    </div>
+                              <?php
+                            }
+                            ?>
+                          </div>
+                        </div>
+                      </div> 
+                    </section>
                   </div>
-                </section>
 
-                <?php
+                </div>
+                <!-- project team & activity end -->
 
-                $cewRow = '15';
-                $cowRow ='10';
-                $saRow = '17';
-                $feRow = '19';
-                $beRow = '34';
-                $smaRow = '56';
-                $dipRow = '78';
-                $sarRow = '13';
-                $magRow = '66';
-
-
-
-
-
-
-                ?>
-
-                <script>
-                  var ctx = document.getElementById("grafik1");
-                  var myChart = new Chart(ctx, {
-                    type: 'pie',
-                    data: {
-                      labels: ["Perempuan", "Laki-laki"],
-                      datasets: [{
-                        label: 'Jumlah layanan',
-                        data: [<?php echo $cewRow?>, <?php echo $cowRow?>],
-                        backgroundColor: [
+              </section>
+              <div class="text-center">
+                <div class="credits">
+                  <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                </div>
+              </div>
+            </section>
+            <?php
+            if(in_array('7', $menu)){ //pengajuan kegiatan pegawai
+              $rank_min_pegawai =  $KegiatanM->cek_min_pegawai()->ranking;
+              $id_rank_min_pegawai = $KegiatanM->cek_id_by_rank_pegawai($rank_min_pegawai)->kode_jabatan_unit;
+              $setuju = $PenggunaM->get_kegiatan_pegawai_setuju($id_rank_min_pegawai)->num_rows();
+              $belum = $data_kegiatan-$setuju;
+              ?>   
+              <script>
+                var ctx = document.getElementById("grafik1");
+                var myChart = new Chart(ctx, {
+                  type: 'pie',
+                  data: {
+                    labels: ["Disetujui", "Belum Disetujui"],
+                    datasets: [{
+                      label: 'Jumlah layanan',
+                      data: [<?php echo $setuju?>, <?php echo $belum?>],
+                      backgroundColor: [
                                 // 'rgba(255, 206, 86, 1)', //kuning
                                 'rgba(54, 162, 235, 1)', //biru
                                 // 'rgba(255, 99, 132, 0.2)', //pink
@@ -195,16 +289,68 @@
                             }
                           });
                         </script>
-
+                        <?php
+                      }
+                      if(in_array('6', $menu)){ //pengajuan kegiatan mahasiswa
+                       $rank_min_pegawai =  $KegiatanM->cek_min_pegawai()->ranking;
+                       $id_rank_min_pegawai = $KegiatanM->cek_id_by_rank_pegawai($rank_min_pegawai)->kode_jabatan_unit;
+                       $setuju = $PenggunaM->get_kegiatan_pegawai_setuju($id_rank_min_pegawai)->num_rows();
+                       $belum = $data_kegiatan-$setuju;
+                       ?>   
+                       <script>
+                        var ctx = document.getElementById("grafik2");
+                        var myChart = new Chart(ctx, {
+                          type: 'pie',
+                          data: {
+                            labels: ["Disetujui", "Belum Disetujui"],
+                            datasets: [{
+                              label: 'Bidang',
+                              data: [<?php echo $setuju?> , <?php echo $belum?>],
+                              backgroundColor: [
+                                'rgba(255, 206, 86, 1)', //kuning
+                                // 'rgba(54, 162, 235, 1)', //biru
+                                // 'rgba(255, 99, 132, 1)', //pink
+                                'rgba(75, 192, 192, 1)', //hijau
+                                // 'rgba(153, 102, 255, 1)',//ungu
+                                // 'rgba(255, 159, 64, 1)'//orange
+                                ],
+                                borderColor: [
+                                'rgba(255, 206, 86, 0.2)',
+                                // 'rgba(54, 162, 235, 0.2)',
+                                // 'rgba(255,99,132,1)',
+                                'rgba(75, 192, 192, 1)',
+                                // 'rgba(153, 102, 255, 1)',
+                                // 'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                              }]
+                            },
+                            options: {
+                              scales: {
+                                yAxes: [{
+                                  ticks: {
+                                    beginAtZero: true
+                                  }
+                                }]
+                              }
+                            }
+                          });
+                        </script>
+                        <?php
+                      }
+                      if(in_array('9', $menu)){ //pengajuan barang
+                        $setuju = $BarangM->get_barang_disetujui()->num_rows();
+                        $belum = $data_ajukan_barang-$setuju;
+                        ?>   
                         <script>
                           var ctx = document.getElementById("grafik2");
                           var myChart = new Chart(ctx, {
                             type: 'pie',
                             data: {
-                              labels: ["System Analyst", "Front-End Developer","Back-End Developer" ],
+                              labels: ["Disetujui", "Belum Disetujui"],
                               datasets: [{
                                 label: 'Bidang',
-                                data: [<?php echo $saRow?> , <?php echo $feRow?> , <?php echo $beRow?>],
+                                data: [<?php echo $setuju?> , <?php echo $belum?>],
                                 backgroundColor: [
                                 'rgba(255, 206, 86, 1)', //kuning
                                 // 'rgba(54, 162, 235, 1)', //biru
@@ -235,18 +381,24 @@
                             }
                           });
                         </script>
-
+                        <?php
+                      }
+                      if(in_array('8', $menu)){ //pengajuan RAB
+                        $semua = $BarangM->get_rab_diajukan()->num_rows();
+                        $setuju = 12;
+                        $belum = $semua-$setuju;
+                        ?>   
                         <script>
-                          var ctx = document.getElementById("grafik3");
+                          var ctx = document.getElementById("grafik2");
                           var myChart = new Chart(ctx, {
-                            type: 'line',
+                            type: 'pie',
                             data: {
-                              labels: ["SMA/SMK/SEDERAJAT", "DIPLOMA","SARJANA","MAGISTER"],
+                              labels: ["Disetujui", "Belum Disetujui"],
                               datasets: [{
-                                label: 'Tingkatan',
-                                data: [<?php echo $smaRow ?>,<?php echo $dipRow ?>,<?php echo $sarRow ?>,<?php echo $magRow ?>],
+                                label: 'Bidang',
+                                data: [<?php echo $setuju?> , <?php echo $belum?>],
                                 backgroundColor: [
-                                // 'rgba(255, 206, 86, 1)', //kuning
+                                'rgba(255, 206, 86, 1)', //kuning
                                 // 'rgba(54, 162, 235, 1)', //biru
                                 // 'rgba(255, 99, 132, 1)', //pink
                                 'rgba(75, 192, 192, 1)', //hijau
@@ -275,3 +427,6 @@
                             }
                           });
                         </script>
+                        <?php
+                      }
+                      ?>

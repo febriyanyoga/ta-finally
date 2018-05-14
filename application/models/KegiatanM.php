@@ -297,6 +297,7 @@
 		$this->db->select('*');
 		$this->db->from('kegiatan');
 		$this->db->join('pengguna', 'pengguna.id_pengguna = kegiatan.id_pengguna');
+		$this->db->join('jabatan_unit','jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
 		$this->db->join('file_upload', 'kegiatan.kode_kegiatan = file_upload.kode_kegiatan');
 		$this->db->where('pengguna.id_pengguna', $id_pengguna);
 
