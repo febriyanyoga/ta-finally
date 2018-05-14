@@ -18,12 +18,12 @@
        // var_dump($data_kegiatan); 
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
-         <div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
+         <div class="alert alert-success" id="success-alert"><strong>Sukses! </strong> <?=$data;?></div>
          <?php } ?>
          <?php 
          $data2=$this->session->flashdata('error');
          if($data2!=""){ ?>
-           <div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
+           <div class="alert alert-danger" id="success-alert"><strong> Error! </strong> <?=$data2;?></div>
            <?php } ?>
 
            <div class="card mb-3">
@@ -334,7 +334,7 @@
           </div>
           <div class="form-group">
             <label>Dana yang diajukan</label>
-            <input class="form-control" placeholder="Dana yang diajukan" type="text" onkeypress="return hanyaAngka(event)" id="dana_diajukan" name="dana_diajukan" required>
+            <input class="form-control" placeholder="Dana yang diajukan" type="text" onkeypress="return hanyaAngka(event)" id="dana_diajukan2" name="dana_diajukan" required>
             <span class="text-danger" style="color: red;"><?php echo form_error('dana_diajukan'); ?></span>  
           </div>
           <div class="form-group">
@@ -360,26 +360,32 @@
 </div>
 </div>
 <script type="text/javascript">
- /* Dengan Rupiah */
- var dp = document.getElementById('dana_diajukan');
- dp.addEventListener('keyup', function(e){
-  dp.value = formatRupiah(this.value, 'Rp');
-});
-/* Fungsi */
-function formatRupiah(angka, prefix){
-  var number_string = angka.replace(/[^,\d]/g, '').toString(),
-  split    = number_string.split(','),
-  sisa     = split[0].length % 3,
-  rupiah     = split[0].substr(0, sisa),
-  ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
+  /* Dengan Rupiah */
+  var dp = document.getElementById('dana_diajukan');
+  dp.addEventListener('keyup', function(e){
+    dp.value = formatRupiah(this.value, 'Rp');
+  });
+  /* Fungsi */
+   var dp = document.getElementById('dana_diajukan2');
+  dp.addEventListener('keyup', function(e){
+    dp.value = formatRupiah(this.value, 'Rp');
+  });
+  
+  function formatRupiah(angka, prefix){
+    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+    split    = number_string.split(','),
+    sisa     = split[0].length % 3,
+    rupiah     = split[0].substr(0, sisa),
+    ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
 
-  if (ribuan){
-    separator = sisa ? '.' : '';
-    rupiah += separator + ribuan.join('.');
+    if (ribuan){
+      separator = sisa ? '.' : '';
+      rupiah += separator + ribuan.join('.');
+    }
+
+    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    return prefix == undefined ? rupiah : (rupiah ? 'Rp' + rupiah : '');
   }
 
-  rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-  return prefix == undefined ? rupiah : (rupiah ? 'Rp' + rupiah : '');
-}
 </script>
 

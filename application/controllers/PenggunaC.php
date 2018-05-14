@@ -149,41 +149,51 @@ public function ganti_jabatan(){
 		$own_kode_unit 			= $_POST['own_kode_unit']; //kode unit sendiri
 		$own_kode_jabatan_unit 	= $_POST['own_kode_jabatan_unit']; //kode jabatan unit sendiri
 		$own_atasan 			= $_POST['own_atasan']; //apakah atasan ?(own)
+		$ganti 					= $_POST['ganti']; //apakah atasan ?(own)
 
 		$kode_jabatan_unit = $this->PenggunaM->cek_kode_jabatan_unit($kode_unit, $kode_jabatan)->result()[0]->kode_jabatan_unit;//kode jabatan unit berdasarkan unit dan jabatan yang dipilih
 		$atasan_baru = $this->PenggunaM->cek_kode_jabatan_unit($kode_unit, $kode_jabatan)->result()[0]->atasan; //apakah dia atasan(jabatan unit yang dituju)
 
 		$data_update_jabatan_unit = array('kode_jabatan_unit' => $kode_jabatan_unit);
-		$cek_atasan_tujuan = $this->PenggunaM->cek_atasan_by_kode_jabatan_unit($kode_jabatan_unit);
+		$cek_atasan_tujuan = $this->PenggunaM->cek_atasan_by_kode_jabatan_unit($kode_jabatan_unit); //pengguna, atasan, aktif
 
-		if($own_atasan == "ya"){
-			if($atasan_baru == "ya"){
+		if($atasan_baru == "ya"){
 				if($cek_atasan_tujuan == 1){//ada pengguna diposisi yang dituju
-					$this->session->set_flashdata('error','Jabatan tidak berhasil diubah. Sudah ada Pengguna sebagai atasan di unit yang anda tuju 1');
+					$this->session->set_flashdata('error','Jabatan tidak berhasil diubah. Sudah ada Pengguna sebagai atasan di unit yang anda tuju');
 					redirect_back();
 				}else{ //tidak ada pengguna diposisi yang dituju
-					if($this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_jabatan_unit)){ //ganti jabatan
-						$get_id_bukan_atasan = $this->PenggunaM->get_id_bukan_atasan($own_kode_unit)->result()[0]->id_pengguna;//id pengguna yang bukan atasan yang satu unit
-						$data_update_ganti_atasan = array('kode_jabatan_unit' => $own_kode_jabatan_unit);
-						if($this->PenggunaM->update_jabatan_unit($get_id_bukan_atasan, $data_update_ganti_atasan)){
-							$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan diganti pengguna lain');	
-							redirect_back();
+					if($ganti == 1){ //ya (minta ganti)
+							$get_id_bukan_atasan = $this->PenggunaM->get_id_bukan_atasan($own_kode_unit)->result()[0]->id_pengguna;//id pengguna yang bukan atasan yang satu unit, aktif
+						if($this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_jabatan_unit)){ //ganti jabatan
+							$data_update_ganti_atasan = array('kode_jabatan_unit' => $own_kode_jabatan_unit);
+							if($this->PenggunaM->update_jabatan_unit($get_id_bukan_atasan, $data_update_ganti_atasan)){
+								$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan diganti pengguna lain');	
+								redirect_back();
+							}else{
+								$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan tapi tidak berhasil diganti pengguna lain');
+								redirect_back();
+							}
 						}else{
-							$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan tapi tidak berhasil diganti pengguna lain');
+							$this->session->set_flashdata('error','Jabatan tidak berhasil diubah');	
 							redirect_back();
 						}
 					}else{
-						$this->session->set_flashdata('error','Jabatan tidak berhasil diubah');	
-						redirect_back();
+						if($this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_jabatan_unit)){ //ganti jabatan
+							$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan tidak diganti pengguna lain');	
+							redirect_back();
+						}else{
+							$this->session->set_flashdata('error','Jabatan tidak berhasil diubah');	
+							redirect_back();
+						}
 					}
 				}
-			}else{
-				if($this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_jabatan_unit)){
-						$get_id_bukan_atasan = $this->PenggunaM->get_id_bukan_atasan($own_kode_unit)->result()[0]->id_pengguna;//id pengguna yang bukan atasan yang satu unit
+		}else{ //jabatan yang dituju bukan atasan
+				if($ganti == 1){ //ya (minta ganti)
+						$get_id_bukan_atasan = $this->PenggunaM->get_id_bukan_atasan($own_kode_unit)->result()[0]->id_pengguna;//id pengguna yang bukan atasan yang satu unit, aktif
+					if($this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_jabatan_unit)){ //ganti jabatan
 						$data_update_ganti_atasan = array('kode_jabatan_unit' => $own_kode_jabatan_unit);
-
 						if($this->PenggunaM->update_jabatan_unit($get_id_bukan_atasan, $data_update_ganti_atasan)){
-							$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan diganti pengguna lain');	
+							$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan diganti pengguna lain 1');	
 							redirect_back();
 						}else{
 							$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan tapi tidak berhasil diganti pengguna lain');
@@ -193,69 +203,13 @@ public function ganti_jabatan(){
 						$this->session->set_flashdata('error','Jabatan tidak berhasil diubah');	
 						redirect_back();
 					}
-				} 
-			}else{
-				if($own_kode_unit == 1 || $own_kode_unit == 2 || $own_kode_unit == 3){
-					if($atasan_baru == "ya"){
-					if($cek_atasan_tujuan == 1){//ada pengguna diposisi yang dituju
-						$this->session->set_flashdata('error','Jabatan tidak berhasil diubah. Sudah ada Pengguna sebagai atasan di unit yang anda tuju 2');	
+				}else{
+					if($this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_jabatan_unit)){ //ganti jabatan
+						$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan tidak diganti pengguna lain 2');	
 						redirect_back();
 					}else{
-						if($this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_jabatan_unit)){
-							$get_id_bukan_atasan = $this->PenggunaM->get_id_bukan_atasan($own_kode_unit)->result()[0]->id_pengguna;//id pengguna yang bukan atasan yang satu unit
-							$data_update_ganti_atasan = array('kode_jabatan_unit' => $own_kode_jabatan_unit);
-
-							if($this->PenggunaM->update_jabatan_unit($get_id_bukan_atasan, $data_update_ganti_atasan)){
-								$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan diganti pengguna lain');	
-								redirect_back();
-							}else{
-								$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan tapi tidak berhasil diganti pengguna lain');
-								redirect_back();
-							}
-						}else{
-							$this->session->set_flashdata('error','Jabatan tidak berhasil diubah');	
-							redirect_back();
-						}
-					}
-				}else{
-					if($this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_jabatan_unit)){
-							$get_id_bukan_atasan = $this->PenggunaM->get_id_bukan_atasan($own_kode_unit)->result()[0]->id_pengguna;//id pengguna yang bukan atasan yang satu unit
-							$data_update_ganti_atasan = array('kode_jabatan_unit' => $own_kode_jabatan_unit);
-
-							if($this->PenggunaM->update_jabatan_unit($get_id_bukan_atasan, $data_update_ganti_atasan)){
-								$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan diganti pengguna lain');	
-								redirect_back();
-							}else{
-								$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan tapi tidak berhasil diganti pengguna lain');
-								redirect_back();
-							}
-						}else{
-							$this->session->set_flashdata('error','Jabatan tidak berhasil diubah');	
-							redirect_back();
-						}
-					}
-				}else{
-					if($atasan_baru == "ya"){ //jabatan yang dituju merupakan pimpinan
-						if($cek_atasan_tujuan == 1){ //ada penggunanya
-							$this->session->set_flashdata('error','Jabatan tidak berhasil diubah. Sudah ada Pengguna sebagai atasan di unit yang anda tuju 3');	
-							redirect_back();
-						}else{
-							if($this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_jabatan_unit)){
-								$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan diganti pengguna lain');	
-								redirect_back();
-							}else{
-								$this->session->set_flashdata('error','Jabatan tidak berhasil diubah');	
-								redirect_back();
-							}
-						}
-					}else{
-						if($this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_jabatan_unit)){
-							$this->session->set_flashdata('sukses','Jabatan berhasil diubah dan diganti pengguna lain');	
-							redirect_back();
-						}else{
-							$this->session->set_flashdata('error','Jabatan tidak berhasil diubah');	
-							redirect_back();
-						}
+						$this->session->set_flashdata('error','Jabatan tidak berhasil diubah');	
+						redirect_back();
 					}
 				}
 			}
@@ -268,13 +222,32 @@ public function ganti_jabatan(){
 		$this->load->view('pengguna/detail_pengguna', $data);
 	}
 
-	public function aktif($id_pengguna){ //aktifasi akun pengguna
-		if($this->PenggunaM->aktif($id_pengguna)){
-			$this->session->set_flashdata('sukses','Akun berhasil diaktifkan');	
-			redirect('PenggunaC/pengguna');
+	public function aktif($id_pengguna, $kode_jabatan_unit, $kode_unit, $kode_jabatan){ //aktifasi akun pengguna
+		$cek_atasan_tujuan = $this->PenggunaM->cek_atasan_by_kode_jabatan_unit($kode_jabatan_unit); //pengguna, atasan, aktif
+		$own_atasan = $this->PenggunaM->cek_kode_jabatan_unit($kode_unit, $kode_jabatan)->result()[0]->atasan; //apakah dia atasan(jabatan unit yang dituju)
+		$get_id_bukan_atasan = $this->PenggunaM->jabatan_unit_by_unit($kode_unit)->result()[0]->kode_jabatan_unit;//id pengguna yang bukan atasan yang satu unit, aktif
+		if($cek_atasan_tujuan > 0){//ada pengguna di jabatan itu
+			if($own_atasan == "ya"){
+				if($get_id_bukan_atasan){
+					$data_update_ganti_atasan = array('kode_jabatan_unit' => $get_id_bukan_atasan);
+					$this->PenggunaM->aktif($id_pengguna);
+					$this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_ganti_atasan);
+					$this->session->set_flashdata('sukses','Akun berhasil diaktifkan. Ada Pengguna Aktif di Jabatan tersebut sehingga dirubah menjadi staf');	
+					redirect('PenggunaC/pengguna');
+				}else{
+					$this->session->set_flashdata('error','Akun tidak berhasil diaktifkan. Ada Pengguna Aktif di Jabatan tersebut');	
+					redirect('PenggunaC/pengguna');
+				}
+			}
+
 		}else{
-			$this->session->set_flashdata('error','Akun tidak berhasil diaktifkan');	
-			redirect('PenggunaC/pengguna');
+			if($this->PenggunaM->aktif($id_pengguna)){
+				$this->session->set_flashdata('sukses','Akun berhasil diaktifkan');	
+				redirect('PenggunaC/pengguna');
+			}else{
+				$this->session->set_flashdata('error','Akun tidak berhasil diaktifkan');	
+				redirect('PenggunaC/pengguna');
+			}	
 		}
 	}
 
@@ -421,7 +394,7 @@ public function ganti_jabatan(){
 	}
 
 	public function hapus_jabatan_unit($kode_jabatan_unit){
-		if($this->PenggunaM->get_pengguna_by_kode_jabatan_unit($kode_jabatan_unit)->num_rows() > 0){
+		if($this->PenggunaM->get_pengguna_by_kode_jabatan_unit($kode_jabatan_unit, 'aktif')->num_rows() > 0 || $this->PenggunaM->get_pengguna_by_kode_jabatan_unit($kode_jabatan_unit, 'tidak aktif')->num_rows() > 0){
 			$this->session->set_flashdata('error','Data anda tidak berhasil dihapus, karena masih ada pengguna yang menjabat. Silahkan ganti atau pindah jabatan terlebih dahulu.');
 			redirect_back();
 		}else{

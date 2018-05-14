@@ -18,24 +18,24 @@
        // var_dump($data_pengguna("1")); 
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
-         <div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
+         <div class="alert alert-success"  id="success-alert"><strong>Sukses! </strong> <?=$data;?></div>
          <?php } ?>
          <?php 
          $data2=$this->session->flashdata('error');
          if($data2!=""){ ?>
-           <div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
+           <div class="alert alert-danger" id="success-alert"><strong> Error! </strong> <?=$data2;?></div>
            <?php } ?>
            <div class="card mb-3">
             <div class="card-header">
               <div class="card-body">
                 <div class="table-responsive">
                  <?php
-                 $kadep = $PenggunaM->get_pengguna_by_kode_jabatan_unit('1');
-                 $sekdep = $PenggunaM->get_pengguna_by_kode_jabatan_unit('2');
-                 $manajer_sarpras = $PenggunaM->get_pengguna_by_kode_jabatan_unit('3');
-                 $staf_sarpras = $PenggunaM->get_pengguna_by_kode_jabatan_unit('4');
-                 $manajer_keuangan = $PenggunaM->get_pengguna_by_kode_jabatan_unit('5');
-                 $staf_keuangan = $PenggunaM->get_pengguna_by_kode_jabatan_unit('6');
+                 $kadep = $PenggunaM->get_pengguna_by_kode_jabatan_unit('1','aktif');
+                 $sekdep = $PenggunaM->get_pengguna_by_kode_jabatan_unit('2','aktif');
+                 $manajer_sarpras = $PenggunaM->get_pengguna_by_kode_jabatan_unit('3','aktif');
+                 $staf_sarpras = $PenggunaM->get_pengguna_by_kode_jabatan_unit('4','aktif');
+                 $manajer_keuangan = $PenggunaM->get_pengguna_by_kode_jabatan_unit('5','aktif');
+                 $staf_keuangan = $PenggunaM->get_pengguna_by_kode_jabatan_unit('6','aktif');
 
                  $acc_keg = $PenggunaM->get_persetujuan_kegiatan()->result();
                  $i=0;
@@ -43,7 +43,7 @@
                  foreach ($acc_keg as $acc) {
                   $i++;
 
-                  if($PenggunaM->get_pengguna_by_kode_jabatan_unit($acc->kode_jabatan_unit)->num_rows() == 1){
+                  if($PenggunaM->get_pengguna_by_kode_jabatan_unit($acc->kode_jabatan_unit, 'aktif')->num_rows() == 1){
                     $j++;
                   }
                 }
@@ -60,22 +60,22 @@
                     <p>Jabatan yang kosong adalah : </p>
                     <?php 
                     if($sekdep->num_rows() == 0){
-                      echo "<strong>".$sekdep->result()[0]->nama_jabatan." ".$sekdep->result()[0]->nama_unit."</strong><br>";
+                      echo "<strong>Sekretaris Departemen</strong><br>";
                     }
                     if ($kadep->num_rows() == 0) {
-                      echo "<strong>".$kadep->result()[0]->nama_jabatan." ".$kadep->result()[0]->nama_unit."</strong><br>";
+                      echo "<strong>Kepala Departemen</strong><br>";
                     }
                     if ($manajer_sarpras->num_rows() == 0) {
-                      echo "<strong>".$manajer_sarpras->result()[0]->nama_jabatan." ".$manajer_sarpras->result()[0]->nama_unit."</strong><br>";
+                      echo "<strong>Manajer Sarana dan Prasarana</strong><br>";
                     }
                     if ($staf_sarpras->num_rows() == 0) {
-                      echo "<strong>".$staf_sarpras->result()[0]->nama_jabatan." ".$staf_sarpras->result()[0]->nama_unit."</strong><br>";
+                      echo "<strong>Staf Sarana dan Prasarana</strong><br>";
                     }
                     if ($manajer_keuangan->num_rows() == 0) {
-                      echo "<strong>".$manajer_keuangan->result()[0]->nama_jabatan." ".$manajer_keuangan->result()[0]->nama_unit."</strong><br>";
+                      echo "<strong>Manajer Keuangan</strong><br>";
                     }
                     if ($staf_keuangan->num_rows() == 0) {
-                      echo "<strong>".$staf_keuangan->result()[0]->nama_jabatan." ".$staf_keuangan->result()[0]->nama_unit."</strong><br>";
+                      echo "<strong> Staf Keuangan</strong><br>";
                     }
 
                     if($i != $j){
@@ -148,7 +148,7 @@
                             }else{?>
                              <td class="text-center">
                               <div class="btn-group">
-                                <a data-toggle='tooltip' title='Aktif' class="btn btn-info btn-sm" href="<?php echo base_url('PenggunaC/aktif')."/".$pengguna->id_pengguna;?>"><span class="glyphicon glyphicon-ok"></span></a>
+                                <a data-toggle='tooltip' title='Aktif' class="btn btn-info btn-sm" href="<?php echo base_url('PenggunaC/aktif')."/".$pengguna->id_pengguna."/".$pengguna->kode_jabatan_unit."/".$pengguna->kode_unit."/".$pengguna->kode_jabatan;?>"><span class="glyphicon glyphicon-ok"></span></a>
                                 <a data-toggle='tooltip' title='Non-aktif' class="btn btn-danger btn-sm" disabled><span class="glyphicon glyphicon-remove"></span></a>   
                                 <a data-toggle='tooltip' title='Ganti Jabatan' class="btn btn-warning btn-sm" disabled><span class="glyphicon glyphicon-refresh"></span></a>  
                               </div>
@@ -217,6 +217,21 @@
                                     </select>
                                     <span class="text-danger" style="color: red;"><?php echo form_error('kode_jabatan'); ?></span>  
                                   </div>
+                                  <?php
+                                  $pengganti = $PenggunaM->get_id_bukan_atasan_bukan_dia($pengguna->kode_unit, $pengguna->id_pengguna)->num_rows();
+                                  if($pengganti == 0 || $pengguna->atasan == "tidak"){
+
+                                  }else{
+                                  ?>  
+                                  <div class="form-group">
+                                    <label for="bidang"> Cari Pengganti : </label> 
+                                    <input type="radio" name="ganti" id="ganti" value="1" checked> Ya
+                                    <input type="radio" name="ganti" id="ganti" value="2"> Tidak
+                                  </div>
+                                  <label for="bidang"><?php echo "ada ".$pengganti." orang yang dapat mengganti";?> </label> 
+                                  <?php
+                                  }
+                                  ?>
                                   <div class="modal-footer">
                                     <input type="submit" class="btn btn-primary"  value="Ganti Jabatan">
                                   </div> 

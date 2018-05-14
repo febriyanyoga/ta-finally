@@ -357,7 +357,10 @@
 <script src="<?php echo base_url();?>assets/datatables/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/datatables/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
-
+  
+ $("#success-alert").fadeTo(800, 800).slideUp(800, function(){
+  $("#success-alert").slideUp(800);
+});
       // CSS data DataTable
 
       $(document).ready(function() {
@@ -443,19 +446,19 @@
     });
 
      // js detail_progress_brang
-    $(document).ready(function(){
+     $(document).ready(function(){
       $('#modal_progress_barang').on('show.bs.modal', function (e) {
         var rowid = $(e.relatedTarget).data('id');
     //menggunakan fungsi ajax untuk pengambilan data
-        $.ajax({
-          type : 'get',
-          url : '<?php echo base_url().'BarangC/detail_progress_barang/'?>'+rowid,
+    $.ajax({
+      type : 'get',
+      url : '<?php echo base_url().'BarangC/detail_progress_barang/'?>'+rowid,
           //data :  'rowid='+ rowid, // $_POST['rowid'] = rowid
           success : function(data){
           $('.fetched-data').html(data);//menampilkan data ke dalam modal
-          }
-        });
+        }
       });
+  });
     });
 
   </script>

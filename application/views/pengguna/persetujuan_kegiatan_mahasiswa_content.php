@@ -17,12 +17,12 @@
         <?php 
         $data=$this->session->flashdata('sukses');
         if($data!=""){ ?>
-          <div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
+          <div class="alert alert-success" id="success-alert"><strong>Sukses! </strong> <?=$data;?></div>
           <?php } ?>
           <?php 
           $data2=$this->session->flashdata('error');
           if($data2!=""){ ?>
-            <div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
+            <div class="alert alert-danger" id="success-alert"><strong> Error! </strong> <?=$data2;?></div>
             <?php } ?>
 
             <div class="card mb-3">

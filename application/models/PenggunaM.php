@@ -38,13 +38,14 @@
  		return $this->db->get();
  	}
 
- 	public function get_pengguna_by_kode_jabatan_unit($kode_jabatan_unit){
+ 	public function get_pengguna_by_kode_jabatan_unit($kode_jabatan_unit, $status){
  		$this->db->select('*');
  		$this->db->from('pengguna');
  		$this->db->join('jabatan_unit','pengguna.kode_jabatan_unit = jabatan_unit.kode_jabatan_unit');
  		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
  		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
  		$this->db->where('jabatan_unit.kode_jabatan_unit', $kode_jabatan_unit);
+ 		$this->db->where('pengguna.status', $status);
  		return $this->db->get();
  	}
 
@@ -223,6 +224,28 @@
 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
 		$this->db->where('unit.kode_unit', $kode_unit);
+		$this->db->where('pengguna.status = "aktif"');
+		$this->db->where('jabatan_unit.atasan = "tidak"');
+		$query = $this->db->get();
+		return $query;
+	}
+
+	public function jabatan_unit_by_unit($kode_unit){
+		$this->db->select('*');
+		$this->db->from('jabatan_unit');
+		$this->db->where('kode_unit', $kode_unit);
+		$this->db->where('atasan = "tidak"');
+		return $this->db->get();
+	}
+
+	public function get_id_bukan_atasan_bukan_dia($kode_unit, $id_pengguna){
+		$this->db->select('*');
+		$this->db->from('pengguna');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->where('unit.kode_unit', $kode_unit);
+		$this->db->where('pengguna.status = "aktif"');
+		$this->db->where('pengguna.id_pengguna !=', $id_pengguna);
 		$this->db->where('jabatan_unit.atasan = "tidak"');
 		$query = $this->db->get();
 		return $query;
