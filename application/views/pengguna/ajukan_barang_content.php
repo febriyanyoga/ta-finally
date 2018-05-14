@@ -52,7 +52,8 @@
                       <td><center><img style="height: 50px;" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>"></center></td>
                       <td><?php echo $barang->nama_barang; ?></td>
                       <td><?php echo $barang->nama_jenis_barang; ?></td>
-                      <td><?php echo $barang->harga_satuan; ?></td>
+                      <!-- <td><?php echo $barang->harga_satuan; ?></td> -->
+                      <td>Rp<?php echo number_format($barang->harga_satuan, 0,',','.') ?>,-</td>
                       <td><?php echo $barang->jumlah; ?></td>
                       <td><?php echo $barang->tgl_item_pengajuan; ?></td>
                       <td> 
@@ -182,7 +183,7 @@
                         <div class="modal-body">
                           <label class="col-lg-4 col-sm-2 control-label">Harga Satuan :</label>
                           <div class="col-lg-8">
-                            <input type="text" class="form-control" id="harga_satuan" name="harga_satuan" value="<?php echo $barang->harga_satuan ?>">
+                            <input type="text" class="form-control" id="harga_satuan" name="harga_satuan" value="<?php echo $barang->harga_satuan ?>" onkeypress="return hanyaAngka(event)">
                           </div>
                         </div>
                       </div>
@@ -290,7 +291,7 @@
         <div class="form-group">
           <label class="col-lg-4 col-sm-2 control-label">Harga Satuan :</label>
           <div class="col-lg-8">
-            <input type="text" class="form-control" id="harga_satuan" name="harga_satuan" placeholder="Harga Satuan">
+            <input type="text" class="form-control" id="harga_satuan_barang" name="harga_satuan" placeholder="Harga Satuan" onkeypress="return hanyaAngka(event)" required>
           </div>
         </div>
         <div class="form-group">
@@ -302,7 +303,7 @@
         <div class="form-group">
           <label class="col-lg-4 col-sm-2 control-label">Jumlah :</label>
           <div class="col-lg-8">
-            <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah">
+            <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah"onkeypress="return hanyaAngka(event)" required="">
           </div>
         </div>
         <div class="form-group">
@@ -394,5 +395,28 @@
             });
           });
     });
+
+    /* Dengan Rupiah */
+    var dp = document.getElementById('harga_satuan_barang');
+    dp.addEventListener('keyup', function(e){
+      dp.value = formatRupiah(this.value, 'Rp');
+    });
+    
+    /* Fungsi */
+    function formatRupiah(angka, prefix){
+      var number_string = angka.replace(/[^,\d]/g, '').toString(),
+      split    = number_string.split(','),
+      sisa     = split[0].length % 3,
+      rupiah     = split[0].substr(0, sisa),
+      ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
+
+      if (ribuan){
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+      }
+
+      rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+      return prefix == undefined ? rupiah : (rupiah ? 'Rp' + rupiah : '');
+    }
 
   </script>

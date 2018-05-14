@@ -367,6 +367,7 @@ class BarangM extends CI_Model
 	public function get_pengajuan_rab(){ //menampilkan data rab
 		$this->db->select('*');
 		$this->db->from('pengajuan');
+		$this->db->order_by('pengajuan.updated_at','DESC');
 		$query = $this->db->get();
 		return $query;
 	}
@@ -432,6 +433,7 @@ class BarangM extends CI_Model
 	public function get_rab_diajukan(){ //untuk menampilkan rab yang sedang diajukan untuk di setujui
 		$this->db->select('*');
 		$this->db->from('pengajuan');
+		$this->db->order_by('pengajuan.updated_at','DESC');
 		$query = $this->db->get();
 		return $query;
 	}
