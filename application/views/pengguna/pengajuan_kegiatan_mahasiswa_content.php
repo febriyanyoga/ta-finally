@@ -189,13 +189,9 @@ tgl_selesai_kegiatan<section id="main-content">
                               </div>
                               <div class="form-group">
                                 <label>Dana yang diajukan</label>
-                                <input class="form-control" placeholder="Dana yang diajukan" type="text" onkeypress="return hanyaAngka(event)" id="dana_diajukan" name="dana_diajukan" value="<?php echo $kegiatan->dana_diajukan ?>" required>
+                                <input class="form-control" placeholder="Dana yang diajukan" type="text" onkeypress="return hanyaAngka(event)" id="dana_diajukan-<?php echo $kegiatan->kode_kegiatan;?>" name="dana_diajukan" value="<?php echo $kegiatan->dana_diajukan ?>" required>
                                 <span class="text-danger" style="color: red;"><?php echo form_error('dana_diajukan'); ?></span>  
                               </div>
-                              <div class="form-group">
-                                <input class="form-control" type="hidden" id="dana_disetujui" name="dana_disetujui" value="0">
-                              </div>
-
                               <div style="color: red;"><?php echo (isset($message))? $message : ""; ?></div>
                               <div class="form-group">
                                 <label>Unggah Berkas</label>
@@ -216,31 +212,51 @@ tgl_selesai_kegiatan<section id="main-content">
                 </div>
                 <script type="text/javascript">
                   $(function() {
-                    $("#from-<?php echo $kegiatan->kode_kegiatan;?>").datepicker({
-                      defaultDate: new Date(),
-                      minDate: new Date(),
-                      onSelect: function(dateStr) 
-                      {         
-                        $("#to-<?php echo $kegiatan->kode_kegiatan;?>").datepicker("destroy");
-                        $("#to-<?php echo $kegiatan->kode_kegiatan;?>").val(dateStr);
-                        $("#to-<?php echo $kegiatan->kode_kegiatan;?>").datepicker({ minDate: new Date(dateStr)})
-                      }
-                    });
+                   var dp = document.getElementById('dana_diajukan-<?php echo $kegiatan->kode_kegiatan?>');
+                   dp.addEventListener('keyup', function(e){
+                    dp.value = formatRupiah(this.value, 'Rp');
                   });
-                </script>
+
+                   function formatRupiah(angka, prefix){
+                    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                    split    = number_string.split(','),
+                    sisa     = split[0].length % 3,
+                    rupiah     = split[0].substr(0, sisa),
+                    ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
+
+                    if (ribuan){
+                      separator = sisa ? '.' : '';
+                      rupiah += separator + ribuan.join('.');
+                    }
+
+                    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                    return prefix == undefined ? rupiah : (rupiah ? 'Rp' + rupiah : '');
+                  }
+                  $("#from-<?php echo $kegiatan->kode_kegiatan;?>").datepicker({
+                    defaultDate: new Date(),
+                    minDate: new Date(),
+                    onSelect: function(dateStr) 
+                    {         
+                      $("#to-<?php echo $kegiatan->kode_kegiatan;?>").datepicker("destroy");
+                      $("#to-<?php echo $kegiatan->kode_kegiatan;?>").val(dateStr);
+                      $("#to-<?php echo $kegiatan->kode_kegiatan;?>").datepicker({ minDate: new Date(dateStr)})
+                    }
+                  });
+                });
+              </script>
 
 
 
-                <?php
+              <?php
                         # code...
-              }
-              ?>
-            </tbody>
-          </table>
-        </div>
+            }
+            ?>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+</div>
 </div>
 <!-- project team & activity end -->
 
@@ -330,7 +346,7 @@ tgl_selesai_kegiatan<section id="main-content">
         </div> 
         <!-- <button type="reset" class="btn btn-default">Reset Button</button> -->
         <div class="modal-footer">
-          <input type="submit" class="btn btn-info col-lg-2"  value="Submit">
+          <input type="submit" class="btn btn-info col-lg-2"  value="Kirim">
         </div> 
         <?php echo form_close()?>
       </form>

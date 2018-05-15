@@ -980,7 +980,7 @@ public function ganti_jabatan(){
 
 			$upload = $this->PenggunaM->upload_prosedur(); // lakukan upload file dengan memanggil function upload yang ada di UserM.php
 			if($upload['result'] == "success"){ // Jika proses upload sukses
-				$this->UserM->save_prosedur($upload, $data_prosedur); // Panggil function save_prosedur yang ada di UserM.php untuk menyimpan data ke database
+				$this->PenggunaM->save_prosedur($upload, $data_prosedur); // Panggil function save_prosedur yang ada di UserM.php untuk menyimpan data ke database
 			}else{ // Jika proses upload gagal
 				$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan');

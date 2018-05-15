@@ -294,6 +294,8 @@ public function pengajuan_kegiatan_mahasiswa(){
 			$tgl_kegiatan 			= date('Y-m-d',strtotime($_POST['tgl_kegiatan']));
 			$tgl_selesai_kegiatan 	= date('Y-m-d',strtotime($_POST['tgl_selesai_kegiatan']));
 			$dana_diajukan 			= $_POST['dana_diajukan'];
+			$dana_diajukan = str_replace('.', '', $dana_diajukan);
+			$dana_diajukan = str_replace('Rp', '', $dana_diajukan);
 			$tgl_pengajuan 			= $_POST['tgl_pengajuan'];
 
 			$data_pengajuan_kegiatan = array(
@@ -307,7 +309,7 @@ public function pengajuan_kegiatan_mahasiswa(){
 
 			$insert_id = $this->KegiatanM->insert_pengajuan_kegiatan($data_pengajuan_kegiatan);
 				if($insert_id){ //get last insert id
-					$upload = $this->KegiatanM->upload(); // lakukan upload file dengan memanggil function upload yang ada di KegiatanM.php
+					$upload = $this->KegiatanM->upload($insert_id); // lakukan upload file dengan memanggil function upload yang ada di KegiatanM.php
 				if($upload['result'] == "success"){ // Jika proses upload sukses
 					$this->KegiatanM->save($upload,$insert_id); // Panggil function save yang ada di KegiatanM.php untuk menyimpan data ke database
 				}else{ // Jika proses upload gagal

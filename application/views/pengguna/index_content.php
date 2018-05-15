@@ -13,12 +13,12 @@
        <?php
        if(in_array('15', $menu)){
 
-         $kadep = $PenggunaM->get_pengguna_by_kode_jabatan_unit('1');
-         $sekdep = $PenggunaM->get_pengguna_by_kode_jabatan_unit('2');
-         $manajer_sarpras = $PenggunaM->get_pengguna_by_kode_jabatan_unit('3');
-         $staf_sarpras = $PenggunaM->get_pengguna_by_kode_jabatan_unit('4');
-         $manajer_keuangan = $PenggunaM->get_pengguna_by_kode_jabatan_unit('5');
-         $staf_keuangan = $PenggunaM->get_pengguna_by_kode_jabatan_unit('6');
+         $kadep = $PenggunaM->get_pengguna_by_kode_jabatan_unit('1','aktif');
+         $sekdep = $PenggunaM->get_pengguna_by_kode_jabatan_unit('2','aktif');
+         $manajer_sarpras = $PenggunaM->get_pengguna_by_kode_jabatan_unit('3','aktif');
+         $staf_sarpras = $PenggunaM->get_pengguna_by_kode_jabatan_unit('4','aktif');
+         $manajer_keuangan = $PenggunaM->get_pengguna_by_kode_jabatan_unit('5','aktif');
+         $staf_keuangan = $PenggunaM->get_pengguna_by_kode_jabatan_unit('6','aktif');
 
          $acc_keg = $PenggunaM->get_persetujuan_kegiatan()->result();
          $i=0;
@@ -26,7 +26,7 @@
          foreach ($acc_keg as $acc) {
           $i++;
 
-          if($PenggunaM->get_pengguna_by_kode_jabatan_unit($acc->kode_jabatan_unit)->num_rows() == 1){
+          if($PenggunaM->get_pengguna_by_kode_jabatan_unit($acc->kode_jabatan_unit,'aktif')->num_rows() == 1){
             $j++;
           }
         }
