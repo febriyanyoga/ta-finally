@@ -23,86 +23,110 @@ class BarangC extends CI_Controller {
 
 	public function persetujuan_barang(){ //halaman persetujuan barang (mansarpras)
 		// menampilkan pengajuan item barang yang telah di beri porgress oleh pimpinan 
-		$data['menu'] = $this->data_menu;
-		$id_pengguna = $this->session->userdata('id_pengguna');
-		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
-		$data['title'] = "Persetujuan Item Pengajuan | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
-		$this->data['data_persetujuan_barang'] = $this->BarangM->get_data_item_pengajuan()->result();
-		$this->data['BarangM'] = $this->BarangM ;
-		$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
-		$data['body'] = $this->load->view('pengguna/persetujuan_barang_content', $this->data, true) ;
-		$this->load->view('pengguna/index_template', $data);
+		if(in_array(5, $this->data_menu)){
+			$data['menu'] = $this->data_menu;
+			$id_pengguna = $this->session->userdata('id_pengguna');
+			$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+			$data['title'] = "Persetujuan Item Pengajuan | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+			$this->data['data_persetujuan_barang'] = $this->BarangM->get_data_item_pengajuan()->result();
+			$this->data['BarangM'] = $this->BarangM ;
+			$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
+			$data['body'] = $this->load->view('pengguna/persetujuan_barang_content', $this->data, true) ;
+			$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 	public function persetujuan_barang_staf(){ //halaman persetujuan barang staf 
 		// menampilkan pengajuan item barang yang telah di beri porgress oleh pimpinan 
-		$data['menu'] = $this->data_menu;
-		$id_pengguna = $this->session->userdata('id_pengguna');
-		$kode_unit 	= $this->session->userdata('kode_unit');
-		$kode_jabatan = $this->session->userdata('kode_jabatan');
-		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
-		$data['title'] = "Persetujuan Item Pengajuan | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
-		$this->data['data_barang_staf'] = $this->BarangM->get_data_item_pengajuan_staf($kode_unit, $kode_jabatan)->result();
-		$this->data['BarangM'] = $this->BarangM ;
-		$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
-		$data['body'] = $this->load->view('pengguna/persetujuan_barang_staf_content', $this->data, true) ;
-		$this->load->view('pengguna/index_template', $data);
+		if(in_array(17, $this->data_menu)){
+			$data['menu'] = $this->data_menu;
+			$id_pengguna = $this->session->userdata('id_pengguna');
+			$kode_unit 	= $this->session->userdata('kode_unit');
+			$kode_jabatan = $this->session->userdata('kode_jabatan');
+			$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+			$data['title'] = "Persetujuan Item Pengajuan | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+			$this->data['data_barang_staf'] = $this->BarangM->get_data_item_pengajuan_staf($kode_unit, $kode_jabatan)->result();
+			$this->data['BarangM'] = $this->BarangM ;
+			$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
+			$data['body'] = $this->load->view('pengguna/persetujuan_barang_staf_content', $this->data, true) ;
+			$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 	public function kelola_barang(){ //halaman kelola barang (mansarpras & staf sarpras)
 		// menampilkan daftar semua barang
-		$data['menu'] = $this->data_menu;
-		$id_pengguna = $this->session->userdata('id_pengguna');
-		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
-		$data['title'] = "Kelola Barang | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
-		$this->data['data_barang'] = $this->BarangM->get_barang()->result();
-		$this->data['jenis_barang'] = $this->BarangM->get_pilihan_jenis_barang()->result();
-		$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
-		$data['body'] = $this->load->view('pengguna/barang_content', $this->data, true) ;
-		$this->load->view('pengguna/index_template', $data);
+		if(in_array(12, $this->data_menu)){
+			$data['menu'] = $this->data_menu;
+			$id_pengguna = $this->session->userdata('id_pengguna');
+			$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+			$data['title'] = "Kelola Barang | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+			$this->data['data_barang'] = $this->BarangM->get_barang()->result();
+			$this->data['jenis_barang'] = $this->BarangM->get_pilihan_jenis_barang()->result();
+			$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
+			$data['body'] = $this->load->view('pengguna/barang_content', $this->data, true) ;
+			$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 	public function klasifikasi_barang(){ //halaman klasifikasi barang (mansarpras & staf sarpras)
 		// menampilkan daftar barang yang belum terklasifikasi
-		$data['menu'] = $this->data_menu;
-		$id_pengguna = $this->session->userdata('id_pengguna');
-		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
-		$data['title'] = "Klasifikasi Barang | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
-		$this->data['data_klasifikasi'] = $this->BarangM->get_data_klasifikasi_barang()->result();
-		$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
-		$data['body'] = $this->load->view('pengguna/klasifikasi_barang_content', $this->data, true) ;
-		$this->load->view('pengguna/index_template', $data);
+		if(in_array(13, $this->data_menu)){
+			$data['menu'] = $this->data_menu;
+			$id_pengguna = $this->session->userdata('id_pengguna');
+			$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+			$data['title'] = "Klasifikasi Barang | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+			$this->data['data_klasifikasi'] = $this->BarangM->get_data_klasifikasi_barang()->result();
+			$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
+			$data['body'] = $this->load->view('pengguna/klasifikasi_barang_content', $this->data, true) ;
+			$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 	public function ajukan_barang(){ //halaman untuk pengajuan RAB(mansarpras )
 		// menampilkan daftar barang untuk dijadikan RAB dan data RAB
-		$data['menu'] = $this->data_menu;
-		$id_pengguna = $this->session->userdata('id_pengguna');
-		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
-		$data['title'] = " Daftar Pengajuan Barang | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
-		$this->data['data_ajukan_barang'] = $this->BarangM->get_ajukan_barang()->result();
-		$kode_unit = $this->session->userdata('kode_unit');
-		$this->data['data_pimpinan'] = $this->BarangM->get_id_pimpinan($kode_unit)->result()[0];
-		$this->data['pilihan_barang'] = $this->BarangM->get_pilihan_barang()->result();
-		$this->data['pilihan_barang_tambah'] = $this->BarangM->get_pilihan_barang()->result();
-		$this->data['BarangM'] = $this->BarangM;
-		$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
-		$data['body'] = $this->load->view('pengguna/ajukan_barang_content', $this->data, true) ;
-		$this->load->view('pengguna/index_template', $data);
+		if(in_array(9, $this->data_menu)){
+			$data['menu'] = $this->data_menu;
+			$id_pengguna = $this->session->userdata('id_pengguna');
+			$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+			$data['title'] = " Daftar Pengajuan Barang | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+			$this->data['data_ajukan_barang'] = $this->BarangM->get_ajukan_barang()->result();
+			$kode_unit = $this->session->userdata('kode_unit');
+			$this->data['data_pimpinan'] = $this->BarangM->get_id_pimpinan($kode_unit)->result()[0];
+			$this->data['pilihan_barang'] = $this->BarangM->get_pilihan_barang()->result();
+			$this->data['pilihan_barang_tambah'] = $this->BarangM->get_pilihan_barang()->result();
+			$this->data['BarangM'] = $this->BarangM;
+			$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
+			$data['body'] = $this->load->view('pengguna/ajukan_barang_content', $this->data, true) ;
+			$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 	public function ajukan_RAB(){ //halaman untuk pengajuan RAB(mansarpras )
 		// menampilkan daftar barang untuk dijadikan RAB dan data RAB
-		$data['menu'] = $this->data_menu;
-		$id_pengguna = $this->session->userdata('id_pengguna');
-		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
-		$data['title'] = "Pengajuan RAB | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
-		$this->data['data_barang_setuju'] = $this->BarangM->get_barang_setuju()->result();
-		$this->data['pengajuan'] = $this->BarangM->get_pengajuan_rab()->result();
-		$this->data['BarangM'] = $this->BarangM;
-		$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
-		$data['body'] = $this->load->view('pengguna/ajukan_RAB_content', $this->data, true) ;
-		$this->load->view('pengguna/index_template', $data);
+		if(in_array(8, $this->data_menu)){
+			$data['menu'] = $this->data_menu;
+			$id_pengguna = $this->session->userdata('id_pengguna');
+			$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+			$data['title'] = "Pengajuan RAB | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+			$this->data['data_barang_setuju'] = $this->BarangM->get_barang_setuju()->result();
+			$this->data['pengajuan'] = $this->BarangM->get_pengajuan_rab()->result();
+			$this->data['BarangM'] = $this->BarangM;
+			$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
+			$data['body'] = $this->load->view('pengguna/ajukan_RAB_content', $this->data, true) ;
+			$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 	public function buat_rab(){ //halaman untuk pengajuan RAB(mansarpras )
@@ -120,28 +144,37 @@ class BarangC extends CI_Controller {
 
 	public function persetujuan_rab(){ //halaman untuk pengajuan RAB(mansarpras )
 		// menampilkan daftar barang untuk dijadikan RAB dan data RAB
-		$data['menu'] = $this->data_menu;
-		$id_pengguna = $this->session->userdata('id_pengguna');
-		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
-		$data['title'] = "Persetujuan RAB | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
-		$this->data['rab'] = $this->BarangM->get_rab_diajukan()->result();
-		$this->data['BarangM'] = $this->BarangM;
-		$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
-		$data['body'] = $this->load->view('pengguna/persetujuan_rab_content', $this->data, true) ;
-		$this->load->view('pengguna/index_template', $data);
+		if(in_array(4, $this->data_menu)){
+			$data['menu'] = $this->data_menu;
+			$id_pengguna = $this->session->userdata('id_pengguna');
+			$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+			$data['title'] = "Persetujuan RAB | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+			$this->data['rab'] = $this->BarangM->get_rab_diajukan()->result();
+			$this->data['BarangM'] = $this->BarangM;
+			$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
+			$data['body'] = $this->load->view('pengguna/persetujuan_rab_content', $this->data, true) ;
+			$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 	public function status_pengajuan_barang(){ //halaman untuk tambah progress lanjutan item_pengajuan
 		// menampilkan daftar barang untuk diberikan progress lanjutan
-		$data['menu'] = $this->data_menu;
-		$id_pengguna = $this->session->userdata('id_pengguna');
-		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
-		$data['title'] = "Status Pengajuan Barang | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
-		$this->data['item_barang_disetujui'] = $this->BarangM->get_barang_disetujui()->result();
-		$this->data['BarangM'] = $this->BarangM;
-		$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
-		$data['body'] = $this->load->view('pengguna/status_pengajuan_barang_content', $this->data, true) ;
-		$this->load->view('pengguna/index_template', $data);
+		if(in_array(18, $this->data_menu)){
+			$data['menu'] = $this->data_menu;
+			$id_pengguna = $this->session->userdata('id_pengguna');
+			$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+			$data['title'] = "Status Pengajuan Barang | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+			$this->data['item_barang_disetujui'] = $this->BarangM->get_barang_disetujui()->result();
+			$this->data['pilihan_progress'] = $this->BarangM->get_pilihan_progress()->result();
+			$this->data['BarangM'] = $this->BarangM;
+			$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
+			$data['body'] = $this->load->view('pengguna/status_pengajuan_barang_content', $this->data, true) ;
+			$this->load->view('pengguna/index_template', $data);
+		}else{
+			redirect('LoginC/logout');
+		}
 	}
 
 	
@@ -152,28 +185,9 @@ class BarangC extends CI_Controller {
 		$this->load->view('pengguna/detail_progress_barang', $data);
 	}
 
-	public function ubah_barang($kode_barang){ //menampilkan modal dengan isi dari ubah_barang.php
-		$data['ubah_barang']          = $this->BarangM->get_barang_by_kode_barang($kode_barang)->result()[0];
-		$data['pilihan_jenis_barang'] = $this->BarangM->get_pilihan_jenis_barang($kode_barang)->result();
-		echo json_encode($data);
-	}
-
-	public function getListAjax() 
-	{
-		$data = $this->db->get('jenis_barang')->result();
-		echo json_encode($data);
-	}
-
-	public function ubah_data_barang(){ //update data barang
-		$id 				= $_POST['id'];
-		$nama_barang 		= $_POST['nama_barang'];
-		$kode_jenis_barang  = $_POST['kode_jenis_barang'];
-		$data = array(
-			'nama_barang'       => $nama_barang,
-			'kode_jenis_barang' => $kode_jenis_barang
-		);
-		$this->BarangM->ubah_data_barang($id,$data);
-		redirect('BarangC/kelola_barang');
+	public function detail_progress_rab($id){ //menampilkan modal dengan isi dari detail progres rab.php
+		$data['detail_progress_rab']	= $this->BarangM->get_detail_progress_rab_by_id($id)->result();
+		$this->load->view('pengguna/detail_progress_rab', $data);
 	}
 
 	public function update_klasifikasi($kode_jenis_barang, $kode_barang){ //edit data diri
@@ -186,7 +200,7 @@ class BarangC extends CI_Controller {
 		);
 		$this->BarangM->update_klasifikasi_barang($kode_barang,$data);
 		$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
-		redirect('BarangC/klasifikasi_barang');
+		redirect_back(); //kembali ke halaman sebelumnya -> helper
 	}
 
 	public function setuju($kode){ //mengubah status pengajuan menjadi diajukan karena barang disetujui untuk diajukan
@@ -569,6 +583,38 @@ class BarangC extends CI_Controller {
 
 	}
 
+	public function post_ubah_barang(){ //fungsi untuk mengubah barang
+		$this->form_validation->set_rules('nama_barang', 'Nama Barang','required');
+		$this->form_validation->set_rules('kode_barang', 'Kode Barang','required');
+		$this->form_validation->set_rules('kode_jenis_barang', 'Kode Jenis Barang','required');
+		
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->session->set_flashdata('error','Data Barang Baru tidak berhasil ditambahkan 00');
+			redirect_back(); //kembali ke halaman sebelumnya -> helper
+		}else{
+			$kode_barang 		= $_POST['kode_barang'];
+			$nama_barang 		= $_POST['nama_barang'];
+			$kode_jenis_barang 	= $_POST['kode_jenis_barang'];
+
+			$data_barang				= array(
+				'kode_barang'	 	=> $kode_barang,
+				'nama_barang'	 	=> $nama_barang,
+				'kode_jenis_barang'	=> $kode_jenis_barang,
+			);
+			
+			if($this->BarangM->ubah_data_barang($kode_barang, $data_barang)){
+				$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+				redirect_back(); //kembali ke halaman sebelumnya -> helper
+			}else{
+				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 1');
+				redirect_back(); //kembali ke halaman sebelumnya -> helper
+			}
+
+		}
+
+	}
+
 	public function post_tambah_barang_baru(){ //fungsi untuk tambah barang baru
 		$this->form_validation->set_rules('nama_barang', 'Nama Barang','required');
 		if($this->form_validation->run() == FALSE)
@@ -719,6 +765,57 @@ class BarangC extends CI_Controller {
 
 		}
 
+	}
+
+	public function post_tambah_progress(){ //fungsi untuk tambah progress item pengajuan barang
+		$this->form_validation->set_rules('id_pengguna', 'Id Pengguna','required');
+		$this->form_validation->set_rules('kode_fk', 'Kode FK','required');
+		$this->form_validation->set_rules('kode_nama_progress', 'Kode Nama Progress','required');
+		$this->form_validation->set_rules('komentar', 'Komentar','required');
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->session->set_flashdata('error','Data Persetujuan anda tidak berhasil ditambahkan1 ');
+			redirect('BarangC/status_pengajuan_barang') ;
+			//redirect ke halaman pengajuan barang
+		}else{
+			
+			$id_pengguna 		= $_POST['id_pengguna'];
+			$kode_fk 		    = $_POST['kode_fk'];
+			$kode_nama_progress = $_POST['kode_nama_progress'];
+			$komentar           = $_POST['komentar'];
+			$jenis_progress 	= "barang";
+
+			$format_waktu 		= "%H:%i";
+			$waktu_progress 	= mdate($format_waktu);
+
+			$format_tgl 		= "%Y-%m-%d";
+			$tgl_progress 		= mdate($format_tgl);
+
+			$kode_jabatan_unit 	= $_POST['kode_jabatan_unit'];
+
+			$data_progress		= array(
+				'id_pengguna'			=> $id_pengguna,
+				'kode_fk'				=> $kode_fk,
+				'kode_nama_progress'	=> $kode_nama_progress,
+				'komentar'				=> $komentar,
+				'jenis_progress'		=> $jenis_progress,
+				'tgl_progress'			=> $tgl_progress,
+				'waktu_progress'		=> $waktu_progress,
+				'kode_jabatan_unit	' 	=> $kode_jabatan_unit
+
+			);
+			
+			if($this->BarangM->insert_progress($data_progress)){
+				$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+				redirect('BarangC/status_pengajuan_barang');
+			}else{
+				$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
+				redirect('BarangC/status_pengajuan_barang');
+			}
+
+		}
+
 	}	
+	
 
 }

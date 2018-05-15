@@ -155,6 +155,12 @@ class BarangM extends CI_Model
 		}
 	}
 
+	public function ubah_data_barang($kode_barang, $data){
+ 		$this->db->where('barang.kode_barang', $kode_barang);
+ 		$this->db->update('barang', $data);
+ 		return TRUE;
+ 	}
+
 	public function update_klasifikasi_barang($kode_barang, $data){ //update barang dengan klasifikasi
 		$this->db->where('kode_barang', $kode_barang);
 		$this->db->update('barang', $data);
@@ -320,6 +326,23 @@ class BarangM extends CI_Model
 		return $query;
 	}
 
+	public function get_detail_progress_rab_by_id($id){ //menampilkan progress rab
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('pengguna', 'progress.id_pengguna = pengguna.id_pengguna');
+		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->join('nama_progress', 'progress.kode_nama_progress = nama_progress.kode_nama_progress');
+		$this->db->where('progress.kode_fk', $id);
+		$this->db->where('progress.jenis_progress = "rab"'); //barang
+		$this->db->order_by('progress.kode_nama_progress', 'DESC'); //barang
+
+		$query = $this->db->get();
+		return $query;
+	}
+
 	public function get_pilihan_barang(){ // untuk menampilkan dropdown pilihan barang di halaman tambah pengajuan barang
 		$this->db->select('*');
 		$this->db->from('barang');
@@ -455,6 +478,13 @@ class BarangM extends CI_Model
 		}else{
 			return null;
 		}
+	}
+
+	public function get_pilihan_progress(){ //untuk menampilkan dropdown pilihan progress
+		$this->db->select('*');
+		$this->db->from('nama_progress');
+		$query = $this->db->get();
+		return $query;
 	}
 
 }

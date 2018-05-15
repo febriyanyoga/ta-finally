@@ -168,7 +168,7 @@
                    </div>
                  </div>
                  <div class="modal-footer">
-                  <button class="btn btn-info" type="submit"> Simpan </button>
+                  <button class="btn btn-info" type="submit" onClick="return confirm('Anda yakin akan menyetujui pengajuan ini?')"> Simpan </button>
                   <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
                 </form>
               </div>
@@ -204,7 +204,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button class="btn btn-info" type="submit"> Simpan </button>
+                  <button class="btn btn-info" type="submit" onClick="return confirm('Anda yakin akan menolak pengajuan ini?')"> Simpan </button>
                   <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
                 </div>
               </form>

@@ -64,68 +64,68 @@
 
                         if($progress_oleh_staf > 0){ //jika item_pengajuan sudah mendapat progress dari staf sarpras
                             $nama_progress = $BarangM->get_nama_progress_by_id($id_staf_sarpras, $kode_fk)->result()[0]->nama_progress; //untuk menampilkan nama_progress yangdiberikan oleh staf_sarpras 
-                        ?>
-                             <a href="#modal_progress_barang" id="custId" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" data-toggle="tooltip" title="Aksi"><?php echo $nama_progress; ?></a>
-                        <?php
-                        }else{
-                              if($barang->status_pengajuan == "baru"){
+                            ?>
+                            <a href="#modal_progress_barang" id="custId" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" data-toggle="tooltip" title="Aksi"><?php echo $nama_progress; ?></a>
+                            <?php
+                          }else{
+                            if($barang->status_pengajuan == "baru"){
                               ?>
-                                   <a class="label label-primary" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress"> Baru</a>
+                              <a class="label label-primary" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress"> Baru</a>
                               <?php
-                              }else if($barang->status_pengajuan == "proses"){
+                            }else if($barang->status_pengajuan == "proses"){
                               ?>
-                                    <a class="label label-info" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Proses</a>
+                              <a class="label label-info" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Proses</a>
                               <?php
-                              }else if($barang->status_pengajuan == "pengajuan"){
+                            }else if($barang->status_pengajuan == "pengajuan"){
                               ?>
-                                    <a class="label label-success" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Pengajuan</a>
+                              <a class="label label-success" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Pengajuan</a>
                               <?php
-                              }else if($barang->status_pengajuan == "selesai"){
+                            }else if($barang->status_pengajuan == "selesai"){
                               ?>
-                                    <a class="label label-success" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Selesai</a>
+                              <a class="label label-success" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Selesai</a>
                               <?php
-                              }else if($barang->status_pengajuan == "tunda"){
+                            }else if($barang->status_pengajuan == "tunda"){
                               ?>
-                                    <a class="label label-warning" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Tunda</a>
+                              <a class="label label-warning" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Tunda</a>
                               <?php
-                              }else if($barang->status_pengajuan == "disetujui"){
+                            }else if($barang->status_pengajuan == "disetujui"){
                               ?>
-                                    <a class="label label-success" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Disetujui</a>
+                              <a class="label label-success" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Disetujui</a>
                               <?php
-                              }else if($barang->status_pengajuan == "tolak"){
+                            }else if($barang->status_pengajuan == "tolak"){
                               ?>
-                                    <a class="label label-danger" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Tolak</a>
+                              <a class="label label-danger" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">Tolak</a>
                               <?php
-                              }
-                        }
-                        ?>
-                      
-                     </td>
+                            }
+                          }
+                          ?>
 
-                     <td>
-                      <?php
-                      $progress_saya = $BarangM->get_progress_barang_by_id($barang->kode_item_pengajuan, $data_diri->kode_jabatan_unit);
-                      $progress_barang = $BarangM->get_progress_barang($barang->kode_item_pengajuan);
-                      $pimpinan_saya = $data_pimpinan->kode_jabatan_unit;
-                      $jabatan_saya = $data_diri->kode_jabatan_unit;
+                        </td>
 
-                      if($pimpinan_saya == $jabatan_saya){
-                        if($progress_saya == 1){?>
-                          <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <td>
                           <?php
-                        }else{?>
+                          $progress_saya = $BarangM->get_progress_barang_by_id($barang->kode_item_pengajuan, $data_diri->kode_jabatan_unit);
+                          $progress_barang = $BarangM->get_progress_barang($barang->kode_item_pengajuan);
+                          $pimpinan_saya = $data_pimpinan->kode_jabatan_unit;
+                          $jabatan_saya = $data_diri->kode_jabatan_unit;
+
+                          if($pimpinan_saya == $jabatan_saya){
+                            if($progress_saya == 1){?>
+                            <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <?php
+                          }else{?>
                           <a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-pencil"></span></a>
                           <?php
                         }
                       }else{
                         if($progress_barang == 0){?>
-                          <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
                         <?php
-                        }else{?>
-                          <a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-pencil"></span></a>
-                        <?php
-                        }
-                      }
+                      }else{?>
+                      <a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-pencil"></span></a>
+                      <?php
+                    }
+                  }
                   
                   ?>
                 </td>
@@ -141,36 +141,44 @@
                     </div>
                     <form class="form-horizontal" action="<?php echo base_url('BarangC/post_ubah_ajukan_barang');?>" method="post" enctype="multipart/form-data" role="form">
                       <div class="modal-body">
-                        <div class="form-group">
-                          <div class="modal-body">
-                            <label class="col-lg-4 col-sm-2 control-label" for="jenis_barang"> Barang :</label>
-                            <div class="col-lg-8">
-                               <input type="hidden" class="form-control" placeholder id="kode_item_pengajuan" name="kode_item_pengajuan" required value="<?php echo $barang->kode_item_pengajuan;?>">
-                               <!-- untuk mengirimkan kode_item_pengajuan -->
-                               <select class="form-control" name="kode_barang" id="kode_barang">
-                                <option value="">---- Pilih Barang ---- </option>
-                                <?php 
-                                foreach ($pilihan_barang as $pilihan_bar) {
-                                  ?>
-                                  <option <?php if ($pilihan_bar->kode_barang == $barang->kode_barang) {echo "selected=selected";} ?> value="<?php echo $pilihan_bar->kode_barang ?>"><?php echo $pilihan_bar->nama_barang ?></option>
-                                  <?php
-                                }
+                       <div class="form-group">
+                         <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
+                         <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> 
+                         <!-- kirim  kode_item_pengajuan dari barang yang terpilih -->
+                         <input class="form-control" type="hidden" id="kode_item_pengajuan" name="kode_item_pengajuan" value="<?php echo $barang->kode_item_pengajuan;?>" required>
+                        <div class="modal-body">                          
+                           <label class="col-lg-4 col-sm-2 control-label" for="barang"> Barang :</label>
+                           <div class="col-lg-8">
+                             <select class="form-control" name="kode_barang" id="kode_barang">
+                              <option value="">---- Pilih Barang ---- </option>
+                              <?php 
+                              foreach ($pilihan_barang_tambah as $jenis_barang) {
                                 ?>
-                              </select>
+                                <option <?php if($jenis_barang->kode_barang == $barang->kode_barang) {echo "selected=selected";}?> value="<?php echo $jenis_barang->kode_barang ;?>"> <?php echo $jenis_barang->nama_barang ;?> </option>
+                                <?php
+                              }
+                              ?>
+                            </select>
                             <span class="text-danger" style="color: red;"><?php echo form_error('kode_barang'); ?></span>  
                           </div>
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="modal-body">
-                          <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
-                          <label class="col-lg-4 col-sm-2 control-label">Nama Item Pengajuan Barang :</label>
+                          <label class="col-lg-4 col-sm-2 control-label">Tanggal Item Pengajuan Barang :</label>
                           <div class="col-lg-8">
-                            <input type="text" name="nama_item_pengajuan" class="form-control" value="<?php echo $barang->nama_item_pengajuan ?>">
+                            <input type="text" class="form-control" id="tgl_item_pengajuan" name="tgl_item_pengajuan" value="<?php echo $barang->tgl_item_pengajuan ?>">
                           </div>
                         </div>
                       </div>
-                      <input type="hidden" class="form-control" placeholder id="tgl_item_pengajuan" name="tgl_item_pengajuan" required value="<?php echo date('Y-m-d');?>">
+                      <div class="form-group">
+                        <div class="modal-body">
+                          <label class="col-lg-4 col-sm-2 control-label">Nama Item Pengajuan Barang :</label>
+                          <div class="col-lg-8">
+                            <input type="text" class="form-control" id="nama_item_pengajuan" name="nama_item_pengajuan" value="<?php echo $barang->nama_item_pengajuan ?>">
+                          </div>
+                        </div>
+                      </div>
                       <div class="form-group">
                         <div class="modal-body">
                           <label class="col-lg-4 col-sm-2 control-label">url :</label>
@@ -205,31 +213,31 @@
                       </div>
                       <div class="form-group">
                         <div class="modal-body">
-                          <label class="col-lg-4 col-sm-2 control-label">Unggah Foto :</label>
+                          <label class="col-lg-4 col-sm-2 control-label"> Foto :</label>
                           <div class="col-lg-8">
-                           <img style="height: 50px; margin-bottom: 20px" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>"> 
-                           <input type="file" id="file_gambar" name="file_gambar">
-                         </div>
-                       </div>
-                     </div>           
-                   </div>
-                   <div class="modal-footer" style="margin-top: 70px">
-                    <button class="btn btn-info" type="submit"> Simpan </button>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
+                            <img style="height: 50px; margin-bottom: 20px" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>"> 
+                            <input type="file" id="file_gambar" name="file_gambar" >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer" style="margin-top: 70px">
+                      <button class="btn btn-info" type="submit" onClick="return confirm('Anda yakin akan mengubah pengajuan ini?')"> Simpan </button>
+                      <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
+                    </div>
                   </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- END Modal Edit Item Pengajuan-->
+        <!-- END Modal Edit Item Pengajuan-->
 
-      <?php
-    }
-    ?>
-  </tbody>
-</table>
+        <?php
+      }
+      ?>
+    </tbody>
+  </table>
 </div>
 </div>
 </div>
@@ -273,9 +281,9 @@
         </div>
         <div class="form-group">
           <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
-           <input class="form-control" type="hidden" id="pimpinan" name="pimpinan" value="<?php echo $data_pimpinan->kode_jabatan_unit;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
-            <input class="form-control" type="hidden" id="kode_jabatan_unit" name="kode_jabatan_unit" value="<?php echo $data_diri->kode_jabatan_unit;?>" required> 
-            <!-- ambil kode_jabatan_unit yang login -->
+          <input class="form-control" type="hidden" id="pimpinan" name="pimpinan" value="<?php echo $data_pimpinan->kode_jabatan_unit;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
+          <input class="form-control" type="hidden" id="kode_jabatan_unit" name="kode_jabatan_unit" value="<?php echo $data_diri->kode_jabatan_unit;?>" required> 
+          <!-- ambil kode_jabatan_unit yang login -->
           <label class="col-lg-4 col-sm-2 control-label">Nama Item Pengajuan Barang :</label>
           <div class="col-lg-8">
             <input type="text" class="form-control" id="nama_item_pengajuan" name="nama_item_pengajuan" placeholder="Nama Item Pengajuan Barang">
@@ -315,7 +323,7 @@
 
       </div>
       <div class="modal-footer">
-        <button class="btn btn-info" type="submit"> Simpan </button>
+        <button class="btn btn-info" type="submit" onClick="return confirm('Anda yakin akan mengajukan pengajuan barang ini?')"> Simpan </button>
         <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
       </div>
     </form>
@@ -344,6 +352,7 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-info" type="submit"> Simpan </button>
+          <a class="btn btn-info" data-toggle="modal" data-target="#myModal">Simpan dan Ajukan</a>
           <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
         </div>
       </form>
