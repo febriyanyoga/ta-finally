@@ -465,8 +465,8 @@ class BarangC extends CI_Controller {
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 2');
 					redirect_back(); //kembali ke halaman sebelumnya -> helper
-			}
-			
+				}
+
 			}else{ // Jika proses upload gagal
 				$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 3');
@@ -505,33 +505,49 @@ class BarangC extends CI_Controller {
 
 			$baru = "baru"; //buat status pengajuan berstatus baru ketika baru dibuat
 			$upload = $this->BarangM->upload($kode_item_pengajuan); // lakukan upload file dengan memanggil function upload yang ada di BarangM.php
+				$data_update		= array(
+					'id_pengguna'			=> $id_pengguna,
+					'kode_barang'			=> $kode_barang,
+					'status_pengajuan'		=> $baru,
+					'tgl_item_pengajuan'	=> $tgl_item_pengajuan,
+					'nama_item_pengajuan'	=> $nama_item_pengajuan,
+					'url'					=> $url,
+					'harga_satuan'			=> $harga_satuan,
+					'merk'					=> $merk,
+					'jumlah'				=> $jumlah,
+					'file_gambar' 			=> $upload['file']['file_name']
 
-			$data_update		= array(
-				'id_pengguna'			=> $id_pengguna,
-				'kode_barang'			=> $kode_barang,
-				'status_pengajuan'		=> $baru,
-				'tgl_item_pengajuan'	=> $tgl_item_pengajuan,
-				'nama_item_pengajuan'	=> $nama_item_pengajuan,
-				'url'					=> $url,
-				'harga_satuan'			=> $harga_satuan,
-				'merk'					=> $merk,
-				'jumlah'				=> $jumlah,
-				'file_gambar' 			=> $upload['file']['file_name']
+				);
 
-			);
+				$data_update2		= array(
+					'id_pengguna'			=> $id_pengguna,
+					'kode_barang'			=> $kode_barang,
+					'status_pengajuan'		=> $baru,
+					'tgl_item_pengajuan'	=> $tgl_item_pengajuan,
+					'nama_item_pengajuan'	=> $nama_item_pengajuan,
+					'url'					=> $url,
+					'harga_satuan'			=> $harga_satuan,
+					'merk'					=> $merk,
+					'jumlah'				=> $jumlah
 
-			if($this->BarangM->update_item_pengajuan($kode_item_pengajuan, $data_update)){ // Jika proses insert data item_pengajuan sukses
-				if($upload['result'] == "success"){ // Jika proses insert ke item barang sukses
+				);
+
+			if($upload['result'] == "success"){ // Jika proses insert data item_pengajuan sukses
+				if($this->BarangM->update_item_pengajuan($kode_item_pengajuan, $data_update)){ // Jika proses insert ke item barang sukses
 					$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
 					redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
 				}else{ 
-					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 					$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan 2');
 					redirect('BarangC/ajukan_barang');
 				}
 			}else{ // Jika proses upload gagal
-				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 3');
-				redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
+				if($this->BarangM->update_item_pengajuan($kode_item_pengajuan, $data_update2)){ // Jika proses insert ke item barang sukses
+					$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+					redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
+				}else{ 
+					$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan 2');
+					redirect('BarangC/ajukan_barang');
+				}
 			}
 
 		}
@@ -817,5 +833,19 @@ class BarangC extends CI_Controller {
 
 	}	
 	
+	public function dropdown(){
+		$json = [];
+		
+		if(!empty($this->input->get("q"))){
+			$this->db->like('nama_barang', $this->input->get("q"));
+			$query = $this->db->select('kode_barang,nama_barang as text')
+						->limit(10)
+						->get("barang");
+			$json = $query->result();
+		}
+
+		
+		echo json_encode($json);
+	}
 
 }
