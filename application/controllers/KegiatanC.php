@@ -236,20 +236,25 @@ public function pengajuan_kegiatan_mahasiswa(){
 
 			);
 
+			$rank_min_pegawai =  $this->KegiatanM->cek_min_pegawai()->ranking;
+			$id_rank_min_pegawai = $this->KegiatanM->cek_id_by_rank_pegawai($rank_min_pegawai)->kode_jabatan_unit;
 			if($this->KegiatanM->insert_progress($data)){ //insert progress
-				if($kode_nama_progress == 4){ //selesai
-					$this->sendemail($email, $kode_fk);
+				if($id_rank_min_pegawai == $kode_jabatan_unit && $kode_nama_progress == 1){ //disetujui oleh rank min
+					$this->sendemail($email, $kode_fk, $kode_nama_progress);
 				}
 				$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
 				redirect_back(); // redirect kembali ke halaman sebelumnya
 			}else{
+				if($kode_nama_progress == 2){
+					$this->sendemail($email, $kode_fk, $kode_nama_progress);
+				}
 				$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
 				redirect_back(); //kembali ke halaman sebelumnya -> helper
 			}
 		}
 	}
 
-	public function sendemail($email,$kode_kegiatan){   //kirim email konfirmasi
+	public function sendemail($email,$kode_kegiatan, $kode_nama_progress){   //kirim email konfirmasi
 		$from_mail  = 'dtedi.svugm@gmail.com';
 		$to         = $email;
 
@@ -262,7 +267,8 @@ public function pengajuan_kegiatan_mahasiswa(){
 			'nama_pengaju'=> $kegiatan->nama,
 			'tgl_kegiatan_mulai'=> $kegiatan->tgl_kegiatan,
 			'tgl_kegiatan_selesai'=> $kegiatan->tgl_selesai_kegiatan,
-			'dana_diajukan'=> $kegiatan->dana_diajukan
+			'dana_diajukan'=> $kegiatan->dana_diajukan,
+			'kode_nama_progress' => $kode_nama_progress
 		);
 
 		$message    = $this->load->view('notifikasi_email.php',$data,TRUE);

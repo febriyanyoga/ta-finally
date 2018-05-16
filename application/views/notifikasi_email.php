@@ -120,8 +120,19 @@ max-width: 560px;" class="container">
 	padding-top: 25px; 
 	color: #000000;
 	font-family: sans-serif;" class="paragraph">
-	<b>Selamat!</b> 
-	<br>Pengajuan Kegiatan dengan detail seperti dibawah ini :
+	<?php
+	if($kode_nama_progress == 1){
+		?>	
+		<b>Selamat!</b> 
+		<br>Pengajuan Kegiatan dengan detail seperti dibawah ini :
+		<?php
+	}elseif($kode_nama_progress == 2){
+		?>	
+		<b>Mohon maaf . . .</b> 
+		<br>Pengajuan Kegiatan dengan detail seperti dibawah ini :
+		<?php
+	}
+	?>
 
 </td>
 </tr>
@@ -130,8 +141,8 @@ max-width: 560px;" class="container">
 	<td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%;" class="list-item"><table align="center" border="0" cellspacing="0" cellpadding="0" style="width: inherit; margin: 0; padding: 0; border-collapse: collapse; border-spacing: 0;">
 
 		<!-- LIST ITEM -->
-	<tr>
-		<td align="left" valign="top" style="font-size: 17px; font-weight: 400; line-height: 160%; border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;
+		<tr>
+			<td align="left" valign="top" style="font-size: 17px; font-weight: 400; line-height: 160%; border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;
 			padding-top: 25px;
 			color: #000000;
 			font-family: sans-serif;" class="paragraph">
@@ -152,32 +163,32 @@ max-width: 560px;" class="container">
 		<b style="color: #333333;">Pengaju Kegiatan :</b><br/>
 		<?php echo $nama_pengaju;?>
 		
-		</td>
-	</tr>
+	</td>
+</tr>
 
-	<tr>
-		<!-- LIST ITEM TEXT -->
-		<!-- Set text color and font family ("sans-serif" or "Georgia, serif"). Duplicate all text styles in links, including line-height -->
-		<td align="left" valign="top" style="font-size: 17px; font-weight: 400; line-height: 160%; border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;
-		padding-top: 0px;
-		color: #000000;
-		font-family: sans-serif;" class="paragraph">
-		<b style="color: #333333;">Tanggal Kegiatan :</b><br/>
-		<?php echo $tgl_kegiatan_mulai." sampai ".$tgl_kegiatan_selesai;?>
-		</td>
-	</tr>
+<tr>
+	<!-- LIST ITEM TEXT -->
+	<!-- Set text color and font family ("sans-serif" or "Georgia, serif"). Duplicate all text styles in links, including line-height -->
+	<td align="left" valign="top" style="font-size: 17px; font-weight: 400; line-height: 160%; border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;
+	padding-top: 0px;
+	color: #000000;
+	font-family: sans-serif;" class="paragraph">
+	<b style="color: #333333;">Tanggal Kegiatan :</b><br/>
+	<?php echo $tgl_kegiatan_mulai." sampai ".$tgl_kegiatan_selesai;?>
+</td>
+</tr>
 
-	<tr>
-		<!-- LIST ITEM TEXT -->
-		<!-- Set text color and font family ("sans-serif" or "Georgia, serif"). Duplicate all text styles in links, including line-height -->
-		<td align="left" valign="top" style="font-size: 17px; font-weight: 400; line-height: 160%; border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;
-		padding-top: 0px;
-		color: #000000;
-		font-family: sans-serif;" class="paragraph">
-		<b style="color: #333333;">Dana Kegiatan yang diajukan :</b><br/>
-		<?php echo "Rp".$dana_diajukan.",-";?>
-		</td>
-	</tr>
+<tr>
+	<!-- LIST ITEM TEXT -->
+	<!-- Set text color and font family ("sans-serif" or "Georgia, serif"). Duplicate all text styles in links, including line-height -->
+	<td align="left" valign="top" style="font-size: 17px; font-weight: 400; line-height: 160%; border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;
+	padding-top: 0px;
+	color: #000000;
+	font-family: sans-serif;" class="paragraph">
+	<b style="color: #333333;">Dana Kegiatan yang diajukan :</b><br/>
+	<?php echo "Rp".$dana_diajukan.",-";?>
+</td>
+</tr>
 
 </table></td>
 </tr>
@@ -197,13 +208,29 @@ max-width: 560px;" class="container">
 		<a href="#" target="_blank">
 			<table border="0" cellpadding="0" cellspacing="0" align="center" style="max-width: 240px; min-width: 120px; border-collapse: collapse; border-spacing: 0; padding: 0; ">
 				<tr>
-					<td align="center" valign="middle" style="padding: 12px 24px; margin: 0; border-collapse: collapse; border-spacing: 0; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px;  background-color: #5cb85c;"
-					bgcolor="#337ab7">
-					<a style="color: #FFFFFF; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 120%;"
-					href="#">
-					DISETUJUI
-				</a>
-			</td>
+					<?php
+					if($kode_nama_progress == 1){
+						?>
+						<td align="center" valign="middle" style="padding: 12px 24px; margin: 0; border-collapse: collapse; border-spacing: 0; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px;  background-color: #5cb85c;"
+						bgcolor="#337ab7">
+						<a style="color: #FFFFFF; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 120%;"
+						href="#">
+						DISETUJUI
+						</a>
+						</td>
+						<?php
+					}else{
+						?>
+						<td align="center" valign="middle" style="padding: 12px 24px; margin: 0; border-collapse: collapse; border-spacing: 0; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px;  background-color: #5cb85c;"
+						bgcolor="#f8d7da">
+						<a style="color: #FFFFFF; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 120%;"
+						href="#">
+						DITOLAK
+						</a>
+						</td>
+						<?php
+					}
+					?>
 		</tr>
 	</table>
 </a>

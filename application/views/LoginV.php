@@ -159,10 +159,10 @@
                     <input type="text" name="captcha" class="form-control" placeholder="Masukkan Captcha" required oninvalid="this.setCustomValivdity('Captcha tidak boleh kosong')" oninput="setCustomValidity('')">
                   </div>
 
-                  <button type="submit" class="btn">Masuk</button>
+                  <input name="submit" type="submit" class="btn btn-lg btn-primary" value="Masuk">
                   <div class="form-group" style="color: white;">
-                    <p>Belum punya akun? -  <a href="<?php echo site_url('UserC/daftar')?>">Daftar</a></p>
-                    <p>Lupa Password? -  <a href="<?php echo site_url('LoginC/atur_ulang')?>">Atur Ulang</a></p>
+                    <p>Belum punya akun?   <a href="<?php echo site_url('UserC/daftar')?>" class="btn btn-sm btn-primary">Daftar</a></p>
+                    <p>Lupa Password?   <a href="<?php echo site_url('LoginC/atur_ulang')?>" class="btn btn-sm btn-primary">Atur Ulang</a></p>
                   </div>
                 </form>
               </div>

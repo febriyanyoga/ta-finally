@@ -22,7 +22,7 @@ class LoginC extends CI_Controller {
 	}
 	public function signin(){ //post login
 		if($this->input->post('submit')){
-			if($this->CaptchaM->check_captcha() == TRUE)
+			if($this->LoginM->check_captcha() == TRUE)
 				echo "<span style=\"color:blue\">Captcha cocok</span>";
 			else echo "<span style=\"color:red\">Captcha salah</span>";
 		}

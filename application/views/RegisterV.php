@@ -64,7 +64,7 @@
 							<li class="dropdown-header" style="margin-top: -10px;"><small>diperbarui tanggal <?php echo $new_tgl_brg." ".$new_time_brg;?></small></li>
 						</ul>
 					</li>
-					<li><a class="btn btn-info masuk" style="padding: 10px 20px 10px 20px; margin-top: 4px; margin-left: 10px;" href="<?php echo base_url('LoginC/')?>">Masuk</a></li>
+					<li><a class="btn btn-primary masuk" style="padding: 10px 20px 10px 20px; margin-top: 4px; margin-left: 10px;" href="<?php echo base_url('LoginC/')?>">Masuk</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -143,7 +143,7 @@
 										<!-- <label>Alamat</label> -->
 										<textarea name="alamat" value="" class="form-control" placeholder="Alamat" rows="2" required></textarea>
 									</div>
-									<button type="button" class="btn btn-next">Next</button>
+									<button type="button" class="btn btn-next btn-primary">Next</button>
 								</div>
 							</fieldset>
 
