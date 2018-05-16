@@ -42,72 +42,127 @@
                         <td><?php echo $barang->nama_barang; ?></td>
                         <td><?php echo $barang->nama_jenis_barang; ?></td>
                         <td>
-                          <a onclick="edit(<?php echo $barang->kode_barang; ?>)" id="custId" data-toggle="modal" data-id="<?php echo $barang->kode_barang;?>" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>
+                          <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_barang; ?>" ><span class="glyphicon glyphicon-pencil"></span></a>
                         </td>
                       </tr>
 
-                      <?php
-                        # code...
-                    }
-                    ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                      <!-- Modal Edit Barang -->
+                      <div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="modal-<?php echo $barang->kode_barang; ?>" class="modal fade">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                              <h4 class="modal-title" id="titlemodal">Edit Barang</h4>
+                            </div>
+                            <form id="formadd" class="form-horizontal" action="<?php echo base_url('BarangC/post_ubah_barang');?>" method="post" enctype="multipart/form-data" role="form">
+                              <input type="text" name="id" id="idbarang" hidden="true">
+                              <div class="modal-body">
+                                <div class="form-group">
+                                  <div class="modal-body">
+                                    <!-- mengirim kode_barang-->
+                                    <input class="form-control" type="hidden" id="kode_barang" name="kode_barang" value="<?php echo $barang->kode_barang;?>" required> 
+                                    <label class="col-lg-4 col-sm-2 control-label">Nama Barang :</label>
+                                    <div class="col-lg-8">
+                                      <input type="text" class="form-control" id="nama_barang" name="nama_barang" value="<?php echo $barang->nama_barang;?>">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <div class="modal-body">
+                                    <label class="col-lg-4 col-sm-2 control-label" for="jenis_barang"> Jenis Barang :</label>
+                                    <div class="col-lg-8">
+                                     <select class="form-control" name="kode_jenis_barang" id="kode_jenis_barang">
+                                      <option value="">---- Pilih Jenis Barang ---- </option>
+                                      <?php 
+                                      foreach ($jenis_barang as $pilihan_jenis_barang) {
+                                        if($pilihan_jenis_barang->kode_jenis_barang != 3){
+                                          ?>
+                                          <option <?php if($pilihan_jenis_barang->kode_jenis_barang == $barang->kode_jenis_barang) {echo "selected=selected";}?> value="<?php echo $pilihan_jenis_barang->kode_jenis_barang ;?>"> <?php echo $pilihan_jenis_barang->nama_jenis_barang ;?> </option>
+                                          <?php
+                                        }
+                                      }
+                                      ?>
+                                    </select>
+                                    <span class="text-danger" style="color: red;"><?php echo form_error('kode_jenis_barang'); ?></span>  
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button class="btn btn-info" type="submit"> Simpan </button>
+                              <button  onclick="batal()"  id="buttonbatal" type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- END Modal Edit Barang -->
+
+
+                  <?php
+                }
+                ?>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-      <!-- project team & activity end -->
-
-    </section>
-    <div class="text-center">
-      <div class="credits">
-        <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
     </div>
-  </section>
+  </div>
+  <!-- project team & activity end -->
 
-  <!-- Modal Tambah Barang -->
-  <div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="myModal" class="modal fade">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-          <h4 class="modal-title" id="titlemodal">Tambah Barang</h4>
-        </div>
-        <form id="formadd" class="form-horizontal" action="<?php echo base_url('BarangC/post_tambah_barang');?>" method="post" enctype="multipart/form-data" role="form">
-          <input type="text" name="id" id="idbarang" hidden="true">
-          <div class="modal-body">
-            <div class="form-group">
-              <label class="col-lg-4 col-sm-2 control-label">Nama Barang :</label>
-              <div class="col-lg-8">
-                <input type="text" class="form-control" id="nama_barang" name="nama_barang" placeholder="Nama Barang">
-              </div>
+</section>
+<div class="text-center">
+  <div class="credits">
+    <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+  </div>
+</div>
+</section>
+
+<!-- Modal Tambah Barang -->
+<div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+        <h4 class="modal-title" id="titlemodal">Tambah Barang</h4>
+      </div>
+      <form id="formadd" class="form-horizontal" action="<?php echo base_url('BarangC/post_tambah_barang');?>" method="post" enctype="multipart/form-data" role="form">
+        <input type="text" name="id" id="idbarang" hidden="true">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="col-lg-4 col-sm-2 control-label">Nama Barang :</label>
+            <div class="col-lg-8">
+              <input type="text" class="form-control" id="nama_barang" name="nama_barang" placeholder="Nama Barang">
             </div>
-            <div class="form-group">
-              <label class="col-lg-4 col-sm-2 control-label" for="jenis_barang"> Jenis Barang :</label>
-              <div class="col-lg-8">
-               <select class="form-control" name="kode_jenis_barang" id="kode_jenis_barang">
-                <option value="">---- Pilih Jenis Barang ---- </option>
-                <?php 
-                foreach ($jenis_barang as $pilihan_jenis_barang) {
+          </div>
+          <div class="form-group">
+            <label class="col-lg-4 col-sm-2 control-label" for="jenis_barang"> Jenis Barang :</label>
+            <div class="col-lg-8">
+             <select class="form-control" name="kode_jenis_barang" id="kode_jenis_barang">
+              <option value="">---- Pilih Jenis Barang ---- </option>
+              <?php 
+              foreach ($jenis_barang as $pilihan_jenis_barang) {
+                if($pilihan_jenis_barang->kode_jenis_barang != 3){
                   ?>
                   <option value="<?php echo $pilihan_jenis_barang->kode_jenis_barang ;?>"> <?php echo $pilihan_jenis_barang->nama_jenis_barang ;?> </option>
                   <?php
                 }
-                ?>
-              </select>
-              <span class="text-danger" style="color: red;"><?php echo form_error('kode_jenis_barang'); ?></span>  
-            </div>
+              }
+              ?>
+            </select>
+            <span class="text-danger" style="color: red;"><?php echo form_error('kode_jenis_barang'); ?></span>  
           </div>
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-info" type="submit"> Simpan </button>
-          <button  onclick="batal()"  id="buttonbatal" type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
-        </div>
-      </form>
-    </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-info" type="submit"> Simpan </button>
+        <button  onclick="batal()"  id="buttonbatal" type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
+      </div>
+    </form>
   </div>
+</div>
 </div>
 </div>
 <!-- END Modal Tambah Barang -->
@@ -120,53 +175,53 @@
       });
     });
 
-  function edit(id) {
-    $('#titlemodal').text("Edit Barang");
-    $('#idbarang').val(id);
-    $('#formadd').attr('action', '<?php echo base_url('BarangC/ubah_data_barang');?>');
-    $.ajax({
-      type : 'get',
-      url : '<?php echo base_url().'BarangC/ubah_barang/'?>'+id,
-      dataType :'JSON',
-      success : function(data){
-        $('#kode_jenis_barang').empty();
-        $.each(data.pilihan_jenis_barang,function(key, value)
-        {
-          $("#kode_jenis_barang").append('<option value=' + value.kode_jenis_barang + '>' + value.nama_jenis_barang + '</option>');
-        });
-        $('#nama_barang').val(data.ubah_barang.nama_barang);
-        $('#kode_jenis_barang option[value='+data.ubah_barang.kode_jenis_barang+']').attr('selected','selected');
-      }
-    });
-    $('#buttonbatal').removeAttr('data-dismiss');
-    $("#myModal").modal('show');
+  // function edit(id) {
+  //   $('#titlemodal').text("Edit Barang");
+  //   $('#idbarang').val(id);
+  //   $('#formadd').attr('action', '<?php //echo base_url('BarangC/ubah_data_barang');?>');
+  //   $.ajax({
+  //     type : 'get',
+  //     url : '<?php //echo base_url().'BarangC/ubah_barang/'?>'+id,
+  //     dataType :'JSON',
+  //     success : function(data){
+  //       $('#kode_jenis_barang').empty();
+  //       $.each(data.pilihan_jenis_barang,function(key, value)
+  //       {
+  //         $("#kode_jenis_barang").append('<option value=' + value.kode_jenis_barang + '>' + value.nama_jenis_barang + '</option>');
+  //       });
+  //       $('#nama_barang').val(data.ubah_barang.nama_barang);
+  //       $('#kode_jenis_barang option[value='+data.ubah_barang.kode_jenis_barang+']').attr('selected','selected');
+  //     }
+  //   });
+  //   $('#buttonbatal').removeAttr('data-dismiss');
+  //   $("#myModal").modal('show');
 
 
-  }
+  // }
 
-  function batal() {
+  // function batal() {
 
-    $('#titlemodal').text("Tambah Barang");
-    $('#formadd').attr('action', '<?php echo base_url('BarangC/post_tambah_barang');?>');
-    $('#idbarang').val("");
-    $('#nama_barang').val("");
-    $('#buttonbatal').attr('data-dismiss');
-    $.ajax({
-      type : 'get',
-      url : '<?php echo base_url().'BarangC/getListAjax/'?>',
-      dataType :'JSON',
-      success : function(data){
-        $('#kode_jenis_barang').empty();
-        $("#kode_jenis_barang").append('<option value="">---- Pilih Jenis Barang ----</option>');
-        $.each(data,function(key, value)
-        {
-          $("#kode_jenis_barang").append('<option value=' + value.kode_jenis_barang + '>' + value.nama_jenis_barang + '</option>');
-        });
-      }
-    });
-    $("#myModal").modal('hide');
+  //   $('#titlemodal').text("Tambah Barang");
+  //   $('#formadd').attr('action', '<?php //echo base_url('BarangC/post_tambah_barang');?>');
+  //   $('#idbarang').val("");
+  //   $('#nama_barang').val("");
+  //   $('#buttonbatal').attr('data-dismiss');
+  //   $.ajax({
+  //     type : 'get',
+  //     url : '<?php //echo base_url().'BarangC/getListAjax/'?>',
+  //     dataType :'JSON',
+  //     success : function(data){
+  //       $('#kode_jenis_barang').empty();
+  //       $("#kode_jenis_barang").append('<option value="">---- Pilih Jenis Barang ----</option>');
+  //       $.each(data,function(key, value)
+  //       {
+  //         $("#kode_jenis_barang").append('<option value=' + value.kode_jenis_barang + '>' + value.nama_jenis_barang + '</option>');
+  //       });
+  //     }
+  //   });
+  //   $("#myModal").modal('hide');
 
-  }
+  // }
 
 </script>
 <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>

@@ -106,8 +106,8 @@
                       ?>
                       <td>
                         <center>
-                          <a class="btn btn-success" href="<?php echo base_url('BarangC/setuju')."/".$barang_setuju->kode_item_pengajuan;?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="ajukan"><i class="glyphicon glyphicon-ok"> </i></a></span>
-                          <a class="btn btn-warning" href="<?php echo base_url('BarangC/tunda')."/".$barang_setuju->kode_item_pengajuan;?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tunda"><i class="glyphicon glyphicon-time"></i></a></span>
+                          <a class="btn btn-success" href="<?php echo base_url('BarangC/setuju')."/".$barang_setuju->kode_item_pengajuan;?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="ajukan"><i class="glyphicon glyphicon-ok" onClick="return confirm('Anda yakin akan mengajukan barang ini?')"> </i></a></span>
+                          <a class="btn btn-warning" href="<?php echo base_url('BarangC/tunda')."/".$barang_setuju->kode_item_pengajuan;?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tunda"><i class="glyphicon glyphicon-time" onClick="return confirm('Anda yakin akan menunda pengajuan barang ini?')"></i></a></span>
                         </center>
                       </td>
                       <?php
@@ -115,7 +115,7 @@
                       ?>
                       <td>
                         <center>
-                          <a class="btn btn-success" href="<?php echo base_url('BarangC/setuju')."/".$barang_setuju->kode_item_pengajuan;?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="ajukan"><i class="glyphicon glyphicon-ok"> </i></a></span>
+                          <a class="btn btn-success" href="<?php echo base_url('BarangC/setuju')."/".$barang_setuju->kode_item_pengajuan;?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="ajukan"><i class="glyphicon glyphicon-ok" onClick="return confirm('Anda yakin akan mengajukan barang ini?')"> </i></a></span>
                           <a class="btn btn-warning" href="<?php echo base_url('BarangC/tunda')."/".$barang_setuju->kode_item_pengajuan;?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tunda" disabled><i class="glyphicon glyphicon-time"></i></a></span>
                         </center>
                       </td>
@@ -125,7 +125,7 @@
                       <td>
                         <center>
                           <a class="btn btn-success" href="<?php echo base_url('BarangC/setuju')."/".$barang_setuju->kode_item_pengajuan;?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="ajukan" disabled><i class="glyphicon glyphicon-ok"> </i></a></span>
-                          <a class="btn btn-warning" href="<?php echo base_url('BarangC/tunda')."/".$barang_setuju->kode_item_pengajuan;?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tunda"><i class="glyphicon glyphicon-time"></i></a></span>
+                          <a class="btn btn-warning" href="<?php echo base_url('BarangC/tunda')."/".$barang_setuju->kode_item_pengajuan;?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tunda"><i class="glyphicon glyphicon-time" onClick="return confirm('Anda yakin akan menunda pengajuan barang ini?')"></i></a></span>
                         </center>
                       </td>
                       <?php
@@ -139,7 +139,7 @@
               </tbody>
             </table>
             <center>
-              <a class="btn btn-info" href="<?php echo base_url('ExcelC/');?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia"> Buat Data Pengajuan </a></span>
+              <a class="btn btn-info" href="<?php echo base_url('ExcelC/');?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" onClick="return confirm('Anda yakin akan mengajukan pengajuan barang yang sudah terpilih ?')"> Buat Data Pengajuan </a></span>
             </center>
           </div>
         </div>
@@ -189,15 +189,15 @@
                   <?php
                     if($barang->status_pengajuan_rab == "baru"){
                       ?>
-                      <a class="label label-primary" id="custID" data-toggle="modal" data-id="">Baru</a>
+                      <a class="label label-primary" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> Baru</a>
                       <?php
                     }elseif ($barang->status_pengajuan_rab == "diterima") {
                       ?>
-                      <a class="label label-success" id="custID" data-toggle="modal" data-id="">Diterima</a>
+                      <a class="label label-success" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> Diterima</a>
                       <?php
                     }elseif ($barang->status_pengajuan_rab == "ditolak") {
                       ?>
-                      <a class="label label-danger" id="custID" data-toggle="modal" data-id="">Ditolak</a>
+                      <a class="label label-danger" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> ditolah</a>
                       <?php
                     }
                   ?>
@@ -217,7 +217,7 @@
                   ?>
                </td>
 
-               <!-- Modal Tambah Pengajuan Barang -->
+               <!-- Modal Ubah Pengajuan RAB -->
                <div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="modalEdit<?php echo $barang->kode_pengajuan;?>" class="modal fade">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -245,14 +245,14 @@
                         </div>           
                       </div>
                       <div class="modal-footer">
-                        <button class="btn btn-info" type="submit" style="margin-top: 10px"> Simpan </button>
+                        <button class="btn btn-info" type="submit" style="margin-top: 10px" onClick="return confirm('Anda yakin akan mengubah pengajuan RAB ini?')"> Simpan </button>
                         <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
-
+              <!-- End Modal Ubah Pengajuan RAB -->
             </tr>
             <?php
             $no++;
@@ -290,7 +290,7 @@
           </div>           
         </div>
         <div class="modal-footer">
-          <button class="btn btn-info" type="submit"> Simpan </button>
+          <button class="btn btn-info" type="submit" onClick="return confirm('Anda yakin akan mengajukan pengajuan RAB ini?')"> Simpan </button>
           <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
         </div>
       </form>
@@ -301,7 +301,22 @@
 </div>
 <!-- END Modal Tambah Pengajuan Barang -->
 
-
+<!-- modal progress rab -->
+<div class="modal fade" id="modal_progress_rab" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Progress RAB</h4>
+      </div>
+      <div class="modal-body">
+        <div class="fetched-data"></div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ===================================== -->
 </div>
@@ -338,4 +353,20 @@
     }
 
   });
+
+  // js progress barang
+    $(document).ready(function(){
+      $('#modal_progress_rab').on('show.bs.modal', function (e) {
+        var rowid = $(e.relatedTarget).data('id');
+            //menggunakan fungsi ajax untuk pengambilan data
+            $.ajax({
+              type : 'get',
+              url : '<?php echo base_url().'BarangC/detail_progress_rab/'?>'+rowid,
+                //data :  'rowid='+ rowid, // $_POST['rowid'] = rowid
+                success : function(data){
+                $('.fetched-data').html(data);//menampilkan data ke dalam modal
+              }
+            });
+          });
+    });
 </script>

@@ -92,7 +92,7 @@
                   <div class="btn-group">
                     <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
                     <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                    <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info"><span class="glyphicon glyphicon-briefcase"></span></a>
+                    <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a>
                   </div>
                   <?php
                 }else{
@@ -170,7 +170,7 @@
                  </div>
                </div>
                <div class="modal-footer">
-                <button class="btn btn-info" type="submit"> Simpan </button>
+                <button class="btn btn-info" type="submit" onClick="return confirm('Anda yakin akan menyetujui pengajuan ini?')"> Simpan </button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
               </form>
             </div>
@@ -206,7 +206,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button class="btn btn-info" type="submit"> Simpan </button>
+                <button class="btn btn-info" type="submit" onClick="return confirm('Anda yakin akan menolak pengajuan ini?')"> Simpan </button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
               </div>
             </form>
@@ -218,6 +218,89 @@
     <!-- END Modal Tolak Item Pengajuan-->
 
     <!-- ================== -->
+    <?php
+  }else{
+    ?>
+      <tr class="text-center" style="background-color: lightblue">
+                    <td> 
+                     <a href="#" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><?php echo $barang->nama_item_pengajuan ?></a>
+                   </td>
+                   <td><?php 
+                     // mendapatkan nama pengaju dari kode item pengajuan berdasarkan id
+                   $pengaju = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->nama;
+                   echo $pengaju;
+                   ?>
+                 </td>
+                 <td>
+                  <?php 
+                    // mendapatkan nama jabatan dari kode item pengajuan berdasarkan id
+                  $jabatan      = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->nama_jabatan;
+                    // mendapatkan kode jabatan dari kode item pengajuan berdasarkan id
+                  $kode_jabatan = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->kode_jabatan;
+                    // mendapatkan nama unit dari kode item pengajuan berdasarkan id
+                  $unit = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->nama_unit;
+                    // mendapatkan kode unit dari kode item pengajuan berdasarkan id
+                  $kode_unit = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->kode_unit;
+                    //menampilkan nama jabatan dan unit dari pengaju item pengajuan
+                  echo $jabatan." ".$unit;
+                  ?>
+                </td>
+                <td><center><img style="height: 60px;" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>"></center></td>
+                <td><?php echo $barang->tgl_item_pengajuan;?></td>
+                <td><?php echo $barang->jumlah;?></td>
+                <?php 
+                $jumlah = $barang->jumlah;
+                $harga = $barang->harga_satuan;
+                  //menghitung hasil total biaya item pengajuan dari perkalian harga satuan dengan jumlah barang
+                $total = $jumlah*$harga;
+                ?>
+                <td><?php echo $total;?></td>
+                <td><?php echo $barang->status_pengajuan;?></td>
+                <td><center>
+                    <div class="btn-group">
+                    <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
+                    <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
+                  </div>
+                </center></td>
+          </tr>
+
+          <!-- Modal Detail Item Pengajuan -->
+          <div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="modal-<?php echo $barang->kode_item_pengajuan; ?>" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                  <h4 class="modal-title" id="titlemodal">Item Pengajuan Barang</h4>
+                </div>
+                <form class="form-horizontal" role="form">
+                  <div class="modal-body">                        
+                    <label class="control-label col-sm-5" style="text-align: left;">Nama Barang</label>
+                    <p class="form-control-static"> <?php echo ": ".$barang->nama_barang; ?> </p>
+                    <label class="control-label col-sm-5" style="text-align: left;">Nama Item Pengajuan</label>
+                    <p class="form-control-static"> <?php echo ": ".$barang->nama_item_pengajuan; ?> </p>
+                    <!-- // -->
+                    <label class="control-label col-sm-5" style="text-align: left;">Nama Pengaju</label>
+                    <p class="form-control-static"> <?php echo ": ".$barang->nama; ?> </p>
+                    <label class="control-label col-sm-5" style="text-align: left;">Jabatan</label>
+                    <p class="form-control-static"> <?php echo ": ".$barang->nama_jabatan." ".$barang->nama_unit; ?> </p>
+                    <!-- // -->
+                    <label class="control-label col-sm-5" style="text-align: left;">Status Persediaan</label>
+                    <p class="form-control-static"> <?php echo ": ".$barang->status_persediaan; ?> </p>
+                    <label class="control-label col-sm-5" style="text-align: left;">URL</label>
+                    <p class="form-control-static"> <?php echo ": ".$barang->url; ?> </p>
+                    <label class="control-label col-sm-5" style="text-align: left;">Harga Satuan</label>
+                    <p class="form-control-static"> <?php echo ": ".$barang->harga_satuan; ?> </p>
+                    <label class="control-label col-sm-5" style="text-align: left;">Merk</label>
+                    <p class="form-control-static"> <?php echo ": ".$barang->merk; ?> </p>
+                  </div>
+                  <div class="modal-footer">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END Modal Item Pengajuan-->
     <?php
   }
 }
