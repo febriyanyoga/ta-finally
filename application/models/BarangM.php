@@ -461,6 +461,14 @@ class BarangM extends CI_Model
 		return $query;
 	}
 
+	public function get_rab_diterima(){ //untuk menampilkan rab yang sedang diajukan untuk di setujui
+		$this->db->select('*');
+		$this->db->from('pengajuan');
+		$this->db->where('status_pengajuan_rab = "diterima"');
+		$query = $this->db->get();
+		return $query;
+	}
+
 	public function get_barang_disetujui(){ //untuk menampilkan item_pengajuan yang memiliki status disetujui yaitu yang telah disetujui di rab, untuk diberikan progress lanjutan
 		$this->db->select('*');
 		$this->db->from('item_pengajuan');
