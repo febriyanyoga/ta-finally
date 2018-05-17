@@ -245,6 +245,7 @@ class BarangM extends CI_Model
 		$this->db->join('barang', 'barang.kode_barang = item_pengajuan.kode_barang');
 		$this->db->join('jenis_barang', 'jenis_barang.kode_jenis_barang = barang.kode_jenis_barang');
 		$this->db->where('pengguna.id_pengguna', $id_pengguna);
+		$this->db->order_by('item_pengajuan.updated_at', 'DESC');
 
 		$query = $this->db->get();
 		if($query){

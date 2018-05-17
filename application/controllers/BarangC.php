@@ -834,18 +834,14 @@ class BarangC extends CI_Controller {
 	}	
 	
 	public function dropdown(){
-		$json = [];
 		
-		if(!empty($this->input->get("q"))){
-			$this->db->like('nama_barang', $this->input->get("q"));
-			$query = $this->db->select('kode_barang,nama_barang as text')
-						->limit(10)
-						->get("barang");
-			$json = $query->result();
-		}
-
-		
+		$json = $this->db->get("barang")->result_array();		
 		echo json_encode($json);
+	}
+
+	public function test()
+	{
+		$this->load->view('pengguna/coba');
 	}
 
 }
