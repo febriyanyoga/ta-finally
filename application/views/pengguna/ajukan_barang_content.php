@@ -3,7 +3,7 @@
     <!--overview start-->
     <div class="row">
       <div class="col-lg-12">
-        <h3 class="page-header" style="margin-top: 0;"><i class="fa fa-pencil"></i>Daftar Pengajuan Barang</h3>
+        <h3 class="page-header" style="margin-top: 0;"><center>Daftar Pengajuan Barang</center></h3>
       </div>
     </div>
     
@@ -23,9 +23,52 @@
        <!-- sampai sini -->
        <div style="color: red;"><?php echo (isset($message))? $message : ""; ?></div>
 
+       
+
        <div class="card mb-3">
         <div class="card-header">
           <div class="card-body">
+            <div class="alert alert-info center" style="width: 70%;">
+              <strong>Perhatian!</strong>
+              <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan barang<strong>:</strong></p>
+              <table border="3" style="border-color: transparent;" >
+                <tr style="height: 30px">
+                  <td style="width: 10%"><a class="label label-primary">BARU</a></td>
+                  <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
+                  <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan barang baru saja di ajukan dan belum memiliki progres</th>
+                </tr>
+                <tr style="height: 30px">
+                  <td><a class="label label-info">PROSES</a></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></td>
+                  <td> Status ini menjelaskan bahwa pengajuan barang sedang dalam proses persetujuan</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td><a class="label label-success">PENGAJUAN</a></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></td>
+                  <td> Status ini menjelaskan bahwa pengajuan barang sudah disetujui dan sedang dalam proses pengajuan RAB</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td><a class="label label-success">SELESAI</a></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></td>
+                  <td> Status ini menjelaskan bahwa pengajuan barang telah selesai</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td><a class="label label-warning">TUNDA</a></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></td>
+                  <td> Status ini menjelaskan bahwa pengajuan barang sedang di tunda untuk diajukan dalam RAB dan akan diajukan pada pengajuan RAB berikutnya</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td><a class="label label-success">DISETUJUI</a></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></td>
+                  <td> Status ini menjelaskan bahwa pegajuan barang telah disetujui pada RAB yang diajukan</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td><a class="label label-danger">TOLAK</a></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></td>
+                  <td> Status ini menjelaskan bahwa pengajuan barang ditolak</td>
+                </tr>
+              </table>
+            </div>
             <a class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i>Ajukan Barang</a>
             <a class="btn btn-info" data-toggle="modal" data-target="#myModal1"><i class="icon_plus_alt2"> </i>Ajukan Barang Baru</a>
             <div class="table-responsive">
