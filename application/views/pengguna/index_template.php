@@ -54,7 +54,7 @@
 <body>
   <!-- container section start -->
   <section id="container" class="">
-    <header class="header dark-bg">
+    <header class="header white-bg">
       <div class="toggle-nav">
        <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
      </div>
@@ -304,8 +304,8 @@
 <!--main content end-->
 </section>
 
-<div class="text-center navbar navbar-inverse navbar-fixed-bottom" style="background-color: #073c64; border-color: white; color: white;">
-  <div style="margin-top: 12px; background-color: #073c64">
+<div class="text-center navbar navbar-inverse navbar-fixed-bottom" style="background-color: #052339; border-color: 052339; color: white;">
+  <div style="margin-top: 12px; background-color: #052339">
     <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/" style="color: #f6ca87;">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/" style="color: #f6ca87">BootstrapMade</a>
   </div>
 </div>
