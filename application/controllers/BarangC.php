@@ -500,6 +500,8 @@ class BarangC extends CI_Controller {
 			$nama_item_pengajuan= $_POST['nama_item_pengajuan'];
 			$url 				= $_POST['url'];
 			$harga_satuan 		= $_POST['harga_satuan'];
+			$harga_satuan		= str_replace('.', '', $harga_satuan);
+			$harga_satuan		= str_replace('Rp', '', $harga_satuan);
 			$merk 				= $_POST['merk'];
 			$jumlah 			= $_POST['jumlah'];
 

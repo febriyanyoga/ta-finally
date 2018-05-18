@@ -28,47 +28,74 @@
        <div class="card mb-3">
         <div class="card-header">
           <div class="card-body">
-            <div class="alert alert-info center" style="width: 70%;">
-              <strong>Perhatian!</strong>
-              <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan barang<strong>:</strong></p>
-              <table border="3" style="border-color: transparent;" >
-                <tr style="height: 30px">
-                  <td style="width: 10%"><a class="label label-primary">BARU</a></td>
-                  <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
-                  <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan barang baru saja di ajukan dan belum memiliki progres</th>
-                </tr>
-                <tr style="height: 30px">
-                  <td><a class="label label-info">PROSES</a></td>
-                  <td><i class="glyphicon glyphicon-arrow-right"></td>
-                  <td> Status ini menjelaskan bahwa pengajuan barang sedang dalam proses persetujuan</td>
-                </tr>
-                <tr style="height: 30px">
-                  <td><a class="label label-success">PENGAJUAN</a></td>
-                  <td><i class="glyphicon glyphicon-arrow-right"></td>
-                  <td> Status ini menjelaskan bahwa pengajuan barang sudah disetujui dan sedang dalam proses pengajuan RAB</td>
-                </tr>
-                <tr style="height: 30px">
-                  <td><a class="label label-success">SELESAI</a></td>
-                  <td><i class="glyphicon glyphicon-arrow-right"></td>
-                  <td> Status ini menjelaskan bahwa pengajuan barang telah selesai</td>
-                </tr>
-                <tr style="height: 30px">
-                  <td><a class="label label-warning">TUNDA</a></td>
-                  <td><i class="glyphicon glyphicon-arrow-right"></td>
-                  <td> Status ini menjelaskan bahwa pengajuan barang sedang di tunda untuk diajukan dalam RAB dan akan diajukan pada pengajuan RAB berikutnya</td>
-                </tr>
-                <tr style="height: 30px">
-                  <td><a class="label label-success">DISETUJUI</a></td>
-                  <td><i class="glyphicon glyphicon-arrow-right"></td>
-                  <td> Status ini menjelaskan bahwa pegajuan barang telah disetujui pada RAB yang diajukan</td>
-                </tr>
-                <tr style="height: 30px">
-                  <td><a class="label label-danger">TOLAK</a></td>
-                  <td><i class="glyphicon glyphicon-arrow-right"></td>
-                  <td> Status ini menjelaskan bahwa pengajuan barang ditolak</td>
-                </tr>
-              </table>
+            <div class="row">
+              <div class="col-lg-6">
+                <!-- Info Status -->
+                <div class="alert alert-info">
+                  <strong>Informasi!</strong>
+                  <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan barang<strong>:</strong></p>
+                  <table border="3" style="border-color: transparent;" >
+                    <tr style="height: 30px">
+                      <td style="width: 10%"><a class="label label-primary">BARU</a></td>
+                      <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
+                      <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan barang baru saja di ajukan dan belum memiliki progres</th>
+                    </tr>
+                    <tr style="height: 30px">
+                      <td><a class="label label-info">PROSES</a></td>
+                      <td><i class="glyphicon glyphicon-arrow-right"></td>
+                      <td> Status ini menjelaskan bahwa pengajuan barang sedang dalam proses persetujuan</td>
+                    </tr>
+                    <tr style="height: 30px">
+                      <td><a class="label label-success">PENGAJUAN</a></td>
+                      <td><i class="glyphicon glyphicon-arrow-right"></td>
+                      <td> Status ini menjelaskan bahwa pengajuan barang sudah disetujui dan sedang dalam proses pengajuan RAB</td>
+                    </tr>
+                    <tr style="height: 30px">
+                      <td><a class="label label-success">SELESAI</a></td>
+                      <td><i class="glyphicon glyphicon-arrow-right"></td>
+                      <td> Status ini menjelaskan bahwa pengajuan barang telah selesai</td>
+                    </tr>
+                    <tr style="height: 30px">
+                      <td><a class="label label-warning">TUNDA</a></td>
+                      <td><i class="glyphicon glyphicon-arrow-right"></td>
+                      <td> Status ini menjelaskan bahwa pengajuan barang sedang di tunda untuk diajukan dalam RAB dan akan diajukan pada pengajuan RAB berikutnya</td>
+                    </tr>
+                    <tr style="height: 30px">
+                      <td><a class="label label-success">DISETUJUI</a></td>
+                      <td><i class="glyphicon glyphicon-arrow-right"></td>
+                      <td> Status ini menjelaskan bahwa pegajuan barang telah disetujui pada RAB yang diajukan</td>
+                    </tr>
+                    <tr style="height: 30px">
+                      <td><a class="label label-danger">TOLAK</a></td>
+                      <td><i class="glyphicon glyphicon-arrow-right"></td>
+                      <td> Status ini menjelaskan bahwa pengajuan barang ditolak</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+                <!-- End Info Status -->
+                <div class="col-lg-6">
+                <!-- Keterangan Edit -->
+                <div class="alert alert-warning">
+                  <strong>Perhatian!</strong>
+                  <p>Berikut adalah penjelasan dari <strong>tombol ubah</strong> pada tabel pengajuan barang<strong>:</strong></p>
+                  <table border="3" style="border-color: transparent;" >
+                    <tr style="height: 30px">
+                      <td style="width: 10%"><a href="#" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                      <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
+                      <td style="width: 62%"> Jika tombol tampil seperti ini, maka tombol dapat digunakan untuk mengubah data pengajuan barang</th>
+                    </tr>
+                    <tr style="height: 30px">
+                      <td><a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-pencil"></span></a></td>
+                      <td><i class="glyphicon glyphicon-arrow-right"></td>
+                      <td> Jika tombol tampil seperti ini, maka sudah tidak dapat digunakan lagi untuk mengubah data pengajuan barang dikarenakan pengajuan tersebut sudah sudah memiliki progres</td>
+                    </tr>
+                  </table>
+                </div>
+                <!-- End Ket Edit -->
+              </div>
             </div>
+
             <a class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i>Ajukan Barang</a>
             <a class="btn btn-info" data-toggle="modal" data-target="#myModal1"><i class="icon_plus_alt2"> </i>Ajukan Barang Baru</a>
             <div class="table-responsive">
@@ -95,8 +122,7 @@
                       <td><center><img style="height: 50px;" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>"></center></td>
                       <td><?php echo $barang->nama_barang; ?></td>
                       <td><?php echo $barang->nama_jenis_barang; ?></td>
-                      <!-- <td><?php echo $barang->harga_satuan; ?></td> -->
-                      <td>Rp<?php echo number_format($barang->harga_satuan, 0,',','.') ?>,-</td>
+                      <td>Rp<?php echo number_format($barang->harga_satuan, 0,',','.') ?>,00</td>
                       <td><?php echo $barang->jumlah; ?></td>
                       <td><?php echo $barang->tgl_item_pengajuan; ?></td>
                       <td> 
@@ -225,7 +251,7 @@
                         <div class="modal-body">
                           <label class="col-lg-4 col-sm-2 control-label">Harga Satuan :</label>
                           <div class="col-lg-8">
-                            <input type="text" class="form-control" id="harga_satuan" name="harga_satuan" value="<?php echo $barang->harga_satuan ?>" onkeypress="return hanyaAngka(event)">
+                            <input type="text" class="form-control" id="harga_satuan-<?php echo $barang->kode_item_pengajuan;?>" name="harga_satuan" value="Rp<?php echo number_format($barang->harga_satuan, 0,',','.') ?>,00" onkeypress="return hanyaAngka(event)">
                           </div>
                         </div>
                       </div>
@@ -270,6 +296,31 @@
       <?php
     }
     ?>
+    <script type="text/javascript">
+    /* Dengan Rupiah */
+    var dp = document.getElementById('harga_satuan-<?php echo $barang->kode_item_pengajuan?>');
+    dp.addEventListener('keyup', function(e){
+      dp.value = formatRupiah(this.value, 'Rp');
+    });
+    
+    /* Fungsi */
+    function formatRupiah(angka, prefix){
+      var number_string = angka.replace(/[^,\d]/g, '').toString(),
+      split    = number_string.split(','),
+      sisa     = split[0].length % 3,
+      rupiah     = split[0].substr(0, sisa),
+      ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
+
+      if (ribuan){
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+      }
+
+      rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+      return prefix == undefined ? rupiah : (rupiah ? 'Rp' + rupiah : '');
+    }
+ 
+    </script>
   </tbody>
 </table>
 </div>
@@ -333,7 +384,7 @@
           <div class="form-group">
             <label class="col-lg-4 col-sm-2 control-label">Harga Satuan :</label>
             <div class="col-lg-8">
-              <input type="text" class="form-control" id="harga_satuan_barang" name="harga_satuan" placeholder="Harga Satuan" onkeypress="return hanyaAngka(event)" required>
+              <input type="text" class="form-control" id="harga_satuan_barang" name="harga_satuan_barang" placeholder="Harga Satuan" onkeypress="return hanyaAngka(event)" required>
             </div>
           </div>
           <div class="form-group">
@@ -386,7 +437,7 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-info" type="submit"> Simpan </button>
-          <a class="btn btn-info" data-toggle="modal" data-target="#myModal">Simpan dan Ajukan</a>
+          <a class="btn btn-info" data-toggle="modal" data-target="#myModal" data-dismiss="modal" type="submit">Simpan dan Ajukan</a>
           <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
         </div>
       </form>
@@ -421,48 +472,8 @@
     });
   });
 </script>
-<link href="<?php echo base_url();?>assets/css/easy-autocomplete.css" rel="stylesheet"/>
-<script src="<?php echo base_url();?>assets/js/jquery.easy-autocomplete.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script> 
 <script type="text/javascript">
-    // js progress barang
-    $(document).ready(function(){
-      $('#myModal2').on('show.bs.modal', function (e) {
-        var rowid = $(e.relatedTarget).data('id');
-            //menggunakan fungsi ajax untuk pengambilan data
-            $.ajax({
-              type : 'get',
-              url : '<?php echo base_url().'BarangC/detail_progress_barang/'?>'+rowid,
-                //data :  'rowid='+ rowid, // $_POST['rowid'] = rowid
-                success : function(data){
-                $('.fetched-data').html(data);//menampilkan data ke dalam modal
-              }
-            });
-          });
-    };
-       var options = {
-
-        url: "<?php echo base_url().'BarangC/dropdown'?>",
-
-        getValue: function(element) {
-          return element.kode_barang;
-        },
-
-        list: {
-          onSelectItemEvent: function() {
-            var selectedItemValue = $("#brg").getSelectedItemData().kode_barang;
-
-            $("#idbrg").val(selectedItemValue).trigger("change");
-          },
-            //   onHideListEvent: function() {
-            //     $("#inputTwo").val("").trigger("change");
-            // }wait okey
-          }
-        };
-
-        $("#brg").easyAutocomplete(options);
-    });
-
     /* Dengan Rupiah */
     var dp = document.getElementById('harga_satuan_barang');
     dp.addEventListener('keyup', function(e){
@@ -485,24 +496,6 @@
       rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
       return prefix == undefined ? rupiah : (rupiah ? 'Rp' + rupiah : '');
     }
-
-    // $('.itemName').select2({
-    //   placeholder: '--- Select Item ---',
-    //   ajax: {
-    //     url: '<?php// echo base_url().'BarangC/dropdown'?>',
-    //     dataType: 'json',
-    //     delay: 250,
-    //     processResults: function (data) {
-    //       return {
-    //         results: data
-    //       };
-    //     },
-    //     cache: true
-    //   }
-    // });
-
-      // body...
-    
-
  
-    </script>
+
+</script>
