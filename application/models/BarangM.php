@@ -245,6 +245,7 @@ class BarangM extends CI_Model
 		$this->db->join('barang', 'barang.kode_barang = item_pengajuan.kode_barang');
 		$this->db->join('jenis_barang', 'jenis_barang.kode_jenis_barang = barang.kode_jenis_barang');
 		$this->db->where('pengguna.id_pengguna', $id_pengguna);
+		$this->db->order_by('item_pengajuan.updated_at', 'DESC');
 
 		$query = $this->db->get();
 		if($query){
@@ -457,6 +458,14 @@ class BarangM extends CI_Model
 		$this->db->select('*');
 		$this->db->from('pengajuan');
 		$this->db->order_by('pengajuan.updated_at','DESC');
+		$query = $this->db->get();
+		return $query;
+	}
+
+	public function get_rab_diterima(){ //untuk menampilkan rab yang sedang diajukan untuk di setujui
+		$this->db->select('*');
+		$this->db->from('pengajuan');
+		$this->db->where('status_pengajuan_rab = "diterima"');
 		$query = $this->db->get();
 		return $query;
 	}

@@ -10,15 +10,15 @@
       <div class="col-lg-12">
 
        <!-- Alert -->
-       <?php 
+       <?php
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
-       <div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
+       <div class="alert alert-success" id="success-alert"><strong>Sukses! </strong> <?=$data;?></div>
        <?php } ?>
        <?php 
        $data2=$this->session->flashdata('error');
        if($data2!=""){ ?>
-       <div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
+       <div class="alert alert-danger" id="success-alert"><strong> Error! </strong> <?=$data2;?></div>
        <?php } ?>
        <!-- sampai sini -->
        <!-- tab menu atas -->
@@ -175,94 +175,94 @@
                 <td><?php echo $no;?></td>
                 <td><?php echo $barang->nama_pengajuan;?></td>
                 <td>
-                    <center>
-                      <?php
-                      $tgl =  $barang->updated_at;
-                      $new_tgl = date('d-m-Y', strtotime($tgl));
-                      echo $new_tgl;
-                      ?>
-                    </center>
+                  <center>
+                    <?php
+                    $tgl =  $barang->updated_at;
+                    $new_tgl = date('d-m-Y', strtotime($tgl));
+                    echo $new_tgl;
+                    ?>
+                  </center>
                 </td>
                 <?php $link = base_url()."assets/file_rab/".$barang->file_rab;?>
                 <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/excel.svg" style="height: 30px;"></span></a></td>
                 <td class="text-center">
                   <?php
-                    if($barang->status_pengajuan_rab == "baru"){
-                      ?>
-                      <a class="label label-primary" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> Baru</a>
-                      <?php
-                    }elseif ($barang->status_pengajuan_rab == "diterima") {
-                      ?>
-                      <a class="label label-success" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> Diterima</a>
-                      <?php
-                    }elseif ($barang->status_pengajuan_rab == "ditolak") {
-                      ?>
-                      <a class="label label-danger" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> ditolah</a>
-                      <?php
-                    }
+                  if($barang->status_pengajuan_rab == "baru"){
+                    ?>
+                    <a class="label label-primary" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> Baru</a>
+                    <?php
+                  }elseif ($barang->status_pengajuan_rab == "diterima") {
+                    ?>
+                    <a class="label label-success" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> Diterima</a>
+                    <?php
+                  }elseif ($barang->status_pengajuan_rab == "ditolak") {
+                    ?>
+                    <a class="label label-danger" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> ditolah</a>
+                    <?php
+                  }
                   ?>
                 </td>
                 <td class="text-center">
                   <?php
-                    if($barang->status_pengajuan_rab == "diterima"){
-                      echo "selesai";
-                      ?>
-                        <center><span class="glyphicon glyphicon-ok"></span></center>
-                      <?php
-                    }else{
-                      ?>
-                         <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalEdit<?php echo $barang->kode_pengajuan;?>"><span class="glyphicon glyphicon-pencil"></span></a>
-                      <?php
-                    }
+                  if($barang->status_pengajuan_rab == "diterima"){
+                    echo "selesai";
+                    ?>
+                    <center><span class="glyphicon glyphicon-ok"></span></center>
+                    <?php
+                  }else{
+                    ?>
+                    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalEdit<?php echo $barang->kode_pengajuan;?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <?php
+                  }
                   ?>
-               </td>
+                </td>
 
-               <!-- Modal Ubah Pengajuan RAB -->
-               <div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="modalEdit<?php echo $barang->kode_pengajuan;?>" class="modal fade">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                      <h4 class="modal-title">Ubah Ajukan RAB</h4>
-                    </div>
-                    <form class="form-horizontal" action="<?php echo base_url('BarangC/post_ubah_ajukan_rab');?>" method="post" enctype="multipart/form-data" role="form">
-                      <div class="modal-body">
-                        <div class="form-group">
-                          <input type="text" class="form-control" placeholder id="kode_pengajuan" name="kode_pengajuan" required value="<?php echo $barang->kode_pengajuan;?>">
-                          <!-- untuk mengirimkan kode_pengajuan -->
-                          <label class="col-lg-4 col-sm-2 control-label">Nama File RAb :</label>
-                          <div class="col-lg-8">
-                            <input type="text" class="form-control" id="nama_pengajuan" name="nama_pengajuan" value="<?php echo $barang->nama_pengajuan?>">
+                <!-- Modal Ubah Pengajuan RAB -->
+                <div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="modalEdit<?php echo $barang->kode_pengajuan;?>" class="modal fade">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                        <h4 class="modal-title">Ubah Ajukan RAB</h4>
+                      </div>
+                      <form class="form-horizontal" action="<?php echo base_url('BarangC/post_ubah_ajukan_rab');?>" method="post" enctype="multipart/form-data" role="form">
+                        <div class="modal-body">
+                          <div class="form-group">
+                            <input type="text" class="form-control" placeholder id="kode_pengajuan" name="kode_pengajuan" required value="<?php echo $barang->kode_pengajuan;?>">
+                            <!-- untuk mengirimkan kode_pengajuan -->
+                            <label class="col-lg-4 col-sm-2 control-label">Nama File RAb :</label>
+                            <div class="col-lg-8">
+                              <input type="text" class="form-control" id="nama_pengajuan" name="nama_pengajuan" value="<?php echo $barang->nama_pengajuan?>">
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="modal-body">
-                        <div class="form-group">
-                          <label class="col-lg-4 col-sm-2 control-label">Unggah File :</label>
-                          <div class="col-lg-8">
-                            <input type="file" id="file_rab" name="file_rab">
-                          </div>
-                        </div>           
-                      </div>
-                      <div class="modal-footer">
-                        <button class="btn btn-info" type="submit" style="margin-top: 10px" onClick="return confirm('Anda yakin akan mengubah pengajuan RAB ini?')"> Simpan </button>
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
-                      </div>
-                    </form>
+                        <div class="modal-body">
+                          <div class="form-group">
+                            <label class="col-lg-4 col-sm-2 control-label">Unggah File :</label>
+                            <div class="col-lg-8">
+                              <input type="file" id="file_rab" name="file_rab">
+                            </div>
+                          </div>           
+                        </div>
+                        <div class="modal-footer">
+                          <button class="btn btn-info" type="submit" style="margin-top: 10px" onClick="return confirm('Anda yakin akan mengubah pengajuan RAB ini?')"> Simpan </button>
+                          <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
+                        </div>
+                      </form>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <!-- End Modal Ubah Pengajuan RAB -->
-            </tr>
-            <?php
-            $no++;
-          }
-          ?>
-        </tbody>
-      </table>
+                <!-- End Modal Ubah Pengajuan RAB -->
+              </tr>
+              <?php
+              $no++;
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
 </div>
 </div>
 
@@ -344,7 +344,7 @@
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
           // save the latest tab; use cookies if you like 'em better:
           localStorage.setItem('lastTab', $(this).attr('href'));
-      });
+        });
 
     // go to the latest tab, if it exists:
     var lastTab = localStorage.getItem('lastTab');
@@ -355,9 +355,9 @@
   });
 
   // js progress barang
-    $(document).ready(function(){
-      $('#modal_progress_rab').on('show.bs.modal', function (e) {
-        var rowid = $(e.relatedTarget).data('id');
+  $(document).ready(function(){
+    $('#modal_progress_rab').on('show.bs.modal', function (e) {
+      var rowid = $(e.relatedTarget).data('id');
             //menggunakan fungsi ajax untuk pengambilan data
             $.ajax({
               type : 'get',
@@ -368,5 +368,5 @@
               }
             });
           });
-    });
+  });
 </script>

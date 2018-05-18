@@ -220,7 +220,7 @@
                                     Pengajuan RAB
                                   </header>
                                   <div class="panel-body text-center">
-                                    <canvas id="grafik2" height="200" width="300"></canvas>
+                                    <canvas id="grafik3" height="200" width="300"></canvas>
                                   </div>
                                 </section>
                               </div>
@@ -379,12 +379,12 @@
                         <?php
                       }
                       if(in_array('8', $menu)){ //pengajuan RAB
-                        $semua = $BarangM->get_rab_diajukan()->num_rows();
-                        $setuju = 12;
+                        $semua = $BarangM->get_rab_diajukan()->num_rows();  //pengajuan rab semua
+                        $setuju = $BarangM->get_rab_diterima()->num_rows(); //pengajuan rab disetujui
                         $belum = $semua-$setuju;
                         ?>   
                         <script>
-                          var ctx = document.getElementById("grafik2");
+                          var ctx = document.getElementById("grafik3");
                           var myChart = new Chart(ctx, {
                             type: 'pie',
                             data: {
