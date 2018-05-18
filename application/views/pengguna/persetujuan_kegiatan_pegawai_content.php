@@ -14,19 +14,19 @@
       <div class="col-lg-12">
         <!-- Alert -->
         <?php 
-       $data=$this->session->flashdata('sukses');
-       if($data!=""){ ?>
-        <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      </div>
-      <?php } ?>
-      <?php 
-      $data2=$this->session->flashdata('error');
-      if($data2!=""){ ?>
-        <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      </div>
-      <?php } ?>
+        $data=$this->session->flashdata('sukses');
+        if($data!=""){ ?>
+          <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        </div>
+        <?php } ?>
+        <?php 
+        $data2=$this->session->flashdata('error');
+        if($data2!=""){ ?>
+          <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        </div>
+        <?php } ?>
         
         <div class="card mb-3">
           <div class="card-header">
@@ -113,7 +113,7 @@
                         }else{
                           if($progress_tolak == 0 && $progress == 0){ //belum punya progress
                             ?>
-                            <a class="label label-info">Baru</a>
+                            <a class="label label-info">Mengajukan</a>
                             <?php
                           }else{
                             if($progress_tolak > 0){ //punya progress yang ditolak
@@ -139,6 +139,7 @@
                        if($own > 0){ //SUDAH INPUT 
                         ?>
                         <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
+                        <p class="kecil">Selesai</p>
                           <?php
                         }else{
                           $atasan = $KegiatanM->cek_atasan_by_kode_jabatan_unit($kegiatan->kode_jabatan_unit)->result()[0]->atasan; //apakah jabatanya seorang pimpinan
@@ -194,7 +195,8 @@
                       $progress_id_next = $KegiatanM->get_own_progress($kegiatan->kode_kegiatan, $id_next); //progress id yang ranknya ranksendiri + 1
                       if($progress_id_next == "1"){
                        if($own > 0){?>
-                         <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
+                        <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
+                        <p class="kecil">Selesai</p>
                           <?php
                         }else{
                          $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);

@@ -15,19 +15,19 @@
 
         <!-- Alert -->
         <?php 
-       $data=$this->session->flashdata('sukses');
-       if($data!=""){ ?>
-        <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      </div>
-      <?php } ?>
-      <?php 
-      $data2=$this->session->flashdata('error');
-      if($data2!=""){ ?>
-        <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      </div>
-      <?php } ?>
+        $data=$this->session->flashdata('sukses');
+        if($data!=""){ ?>
+          <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        </div>
+        <?php } ?>
+        <?php 
+        $data2=$this->session->flashdata('error');
+        if($data2!=""){ ?>
+          <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        </div>
+        <?php } ?>
 
         <div class="card mb-3">
           <div class="card-header">
@@ -105,7 +105,7 @@
                         }else{
                           if($progress_tolak == 0 && $progress == 0){ //belum punya progress
                             ?>
-                            <a class="label label-info">Baru</a>
+                            <a class="label label-info">Mengajukan</a>
                             <?php
                           }else{
                             if($progress_tolak > 0){ //punya progress yang ditolak
@@ -126,7 +126,7 @@
                         ?>
                       </td>
                       <td class="text-center">
-                        <?php 
+                      <?php 
                       $own_id     = $data_diri->kode_jabatan_unit; //id jabatan unit sendri
                       $max        = $cek_max->ranking; //id pengguna rank tertinggi
                       $id_max     = $KegiatanM->cek_id_by_rank_mhs($max)->kode_jabatan_unit; //id yang rank nya max
@@ -138,6 +138,7 @@
                        if($own > 0){ //SUDAH INPUT 
                         ?>
                         <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
+                          <p class="kecil">Selesai</p>
                           <?php
                         }else{
                          $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
@@ -160,6 +161,7 @@
                       if($progress_id_next == "1"){
                        if($own > 0){?>
                          <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
+                          <p class="kecil">Selesai</p>
                           <?php
                         }else{
                          $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);

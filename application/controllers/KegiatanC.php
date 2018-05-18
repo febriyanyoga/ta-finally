@@ -452,7 +452,7 @@ public function pengajuan_kegiatan_mahasiswa(){
 						redirect_back();
 					}else{
 						$data['message'] = $upload['error'];
-						$this->session->set_flashdata('error','Berkas Pengajuan Kegiatan anda tidak berhasil diubah');
+						$this->session->set_flashdata('sukses','Data Pengajuan Kegiatan anda berhasil diubah'); //meskipun ga upload tapi data ttp update dan file tidak berubah
 						redirect_back();
 					}
 				}else{

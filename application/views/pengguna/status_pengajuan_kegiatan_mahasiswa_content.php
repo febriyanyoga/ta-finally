@@ -107,7 +107,7 @@
                         }else{
                           if($progress_tolak == 0 && $progress == 0){ //belum punya progress
                             ?>
-                            <a class="label label-info">Baru</a>
+                            <a class="label label-info">Mengajukan</a>
                             <?php
                           }else{
                             if($progress_tolak > 0){ //punya progress yang ditolak

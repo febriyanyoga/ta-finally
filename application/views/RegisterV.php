@@ -99,7 +99,7 @@
 											<div class="form-group">
 												<div class="form-group">
 													<label class="sr-only" for="form-first-name">No Identitas</label>
-													<input type="text" onkeypress="return hanyaAngka(event)" class="form-control" id="no_identitas" name="no_identitas" placeholder="Nomor Identitas" required>
+													<input type="text" onkeypress="return hanyaAngka(event)" class="form-control" id="no_identitas" name="no_identitas" placeholder="Masukkan NIP/NIM/NIU" required>
 													<span class="text-danger" style="color: red;"><?php echo form_error('no_identitas'); ?></span>  
 												</div>
 												<div class="form-group">

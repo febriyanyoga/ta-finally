@@ -80,7 +80,10 @@ class LoginC extends CI_Controller {
 
 	// Lupa kata sandi
 	public function atur_ulang(){
-		$this->load->view('ResetPasswordV');
+		$data['prosedur_pegawai'] = $this->PenggunaM->get_prosedur_pegawai()->result();
+		$data['prosedur_mahasiswa'] = $this->PenggunaM->get_prosedur_mahasiswa()->result();
+		$data['prosedur_barang'] = $this->PenggunaM->get_prosedur_barang()->result();
+		$this->load->view('ResetPasswordV', $data);
 	}
 
 	public function kirim_email(){
@@ -167,6 +170,9 @@ class LoginC extends CI_Controller {
 
       // tampilkan form reset
 				$datatoken['token'] = $token;
+				$datatoken['prosedur_pegawai'] = $this->PenggunaM->get_prosedur_pegawai()->result();
+				$datatoken['prosedur_mahasiswa'] = $this->PenggunaM->get_prosedur_mahasiswa()->result();
+				$datatoken['prosedur_barang'] = $this->PenggunaM->get_prosedur_barang()->result();
 				$this->load->view('PostResetPasswordV',$datatoken);
 
 			}else{

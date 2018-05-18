@@ -132,7 +132,10 @@ public function index(){
 }
 
 public function resend_email(){
-  $this->load->view('Kirim_ulang_email');
+ $data['prosedur_pegawai'] = $this->PenggunaM->get_prosedur_pegawai()->result();
+ $data['prosedur_mahasiswa'] = $this->PenggunaM->get_prosedur_mahasiswa()->result();
+ $data['prosedur_barang'] = $this->PenggunaM->get_prosedur_barang()->result();
+ $this->load->view('Kirim_ulang_email', $data);
 }
 
 public function post_resend_email(){

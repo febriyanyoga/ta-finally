@@ -89,7 +89,7 @@ tgl_selesai_kegiatan<section id="main-content">
                         }else{
                           if($progress_tolak == 0 && $progress == 0){ //belum punya progress
                             ?>
-                            <a class="label label-info">Baru</a>
+                            <a class="label label-info">Mengajukan</a>
                             <?php
                           }else{
                             if($progress_tolak > 0){ //punya progress yang ditolak
@@ -140,7 +140,7 @@ tgl_selesai_kegiatan<section id="main-content">
                           <div class="row">
                             <div class="col-lg-12">
                               <div class="panel-body">
-                               <div class="alert alert-danger">
+                               <div class="alert alert-warning">
                                 <ol type="1"> <strong>Perhatian !</strong>
                                   <li>Isi <b>Nama Kegiatan</b> sesuai dengan kegiatan yang ingin dilaksanakan.</li>
                                   <li>Berkas yang diunggah hanya <b>satu(1)</b> berupa berkas <b>.pdf</b>. Apabila membutuhkan lebih dari satu berkas, maka harus dijadikan satu berkas <b>.pdf</b>.</li>
@@ -193,7 +193,7 @@ tgl_selesai_kegiatan<section id="main-content">
                               </div>
                               <div class="form-group">
                                 <label>Dana yang diajukan</label>
-                                <input class="form-control" placeholder="Dana yang diajukan" type="text" onkeypress="return hanyaAngka(event)" id="dana_diajukan-<?php echo $kegiatan->kode_kegiatan;?>" name="dana_diajukan" value="<?php echo $kegiatan->dana_diajukan ?>" required>
+                                <input class="form-control" placeholder="Dana yang diajukan" type="text" onkeypress="return hanyaAngka(event)" id="dana_diajukan-<?php echo $kegiatan->kode_kegiatan;?>" name="dana_diajukan" value="Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>" required>
                                 <span class="text-danger" style="color: red;"><?php echo form_error('dana_diajukan'); ?></span>  
                               </div>
                               <div style="color: red;"><?php echo (isset($message))? $message : ""; ?></div>
@@ -278,7 +278,7 @@ tgl_selesai_kegiatan<section id="main-content">
       <div class="row">
         <div class="col-lg-12">
           <div class="panel-body">
-           <div class="alert alert-danger">
+           <div class="alert alert-warning">
             <ol type="1"> <strong>Perhatian !</strong>
               <li>Isi <b>Nama Kegiatan</b> sesuai dengan kegiatan yang ingin dilaksanakan.</li>
               <li>Berkas yang diunggah hanya <b>satu(1)</b> berupa berkas <b>.pdf</b>. Apabila membutuhkan lebih dari satu berkas, maka harus dijadikan satu berkas <b>.pdf</b>.</li>

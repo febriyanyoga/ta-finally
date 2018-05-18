@@ -107,66 +107,71 @@
                 <h1 style="color: white;">Mohon periksa email anda... </h1>
               </div>
               <div>
-                <?php 
-                $data=$this->session->flashdata('sukses');
-                if($data!=""){ ?>
-                  <div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
-                  <?php } ?>
-                  <?php 
-                  $data2=$this->session->flashdata('error');
-                  if($data2!=""){ ?>
-                    <div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
-                    <?php } ?>
-                    <?php echo $this->session->flashdata('msg'); 
-                    ?>            
-                    <p> Email Salah? Silahkan masukkan kembali <a href="#" name="email" onclick="formResend()">email</a> anda...</p>
-                  </div>
-                  <div>
-                    <form id="formResend" action="<?php echo base_url(); ?>UserC/post_resend_email" method="post" style="display: none;" >
-                      <div class="row">
-                        <div class="form-group col-md-4 col-sm-4">
-                        </div>
-                        <div class="form-group col-md-4 col-sm-4">
-                          <div>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required> 
-                            <input type="hidden" name="id_pengguna" id="id_pengguna" value="<?php echo $_SESSION['id_pengguna']; ?>">  <!-- ambil data no identitas buat update email -->
-                            <span class="text-danger"><?php echo form_error('email'); ?></span><br>  
-                            <div class="form-group">
-                              <button type="submit" class="btn btn-outline" name="submit"> Kirim Ulang </button>
-                            </div>
-                          </div>
-                        </div> 
-                        <div class="form-group col-md-4 col-sm-4">
-                        </div> 
-                      </div>
-                      <div class="row">
-
-                      </div>
-                    </form>
-                  </div>
-                </center>
-
+               <!-- Alert -->
+               <?php 
+               $data=$this->session->flashdata('sukses');
+               if($data!=""){ ?>
+                <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
               </div>
-              <div class="col-md-2">
+              <?php } ?>
+              <?php 
+              $data2=$this->session->flashdata('error');
+              if($data2!=""){ ?>
+                <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
               </div>
+              <?php } ?>
+              <?php echo $this->session->flashdata('msg'); 
+              ?>            
+              <p> Email Salah? Silahkan masukkan kembali <a href="#" name="email" onclick="formResend()">email</a> anda...</p>
             </div>
-          </div>
+            <div>
+              <form id="formResend" action="<?php echo base_url(); ?>UserC/post_resend_email" method="post" style="display: none;" >
+                <div class="row">
+                  <div class="form-group col-md-4 col-sm-4">
+                  </div>
+                  <div class="form-group col-md-4 col-sm-4">
+                    <div>
+                      <input type="email" class="form-control" id="email" name="email" placeholder="Email" required> 
+                      <input type="hidden" name="id_pengguna" id="id_pengguna" value="<?php echo $_SESSION['id_pengguna']; ?>">  <!-- ambil data no identitas buat update email -->
+                      <span class="text-danger"><?php echo form_error('email'); ?></span><br>  
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-outline" name="submit"> Kirim Ulang </button>
+                      </div>
+                    </div>
+                  </div> 
+                  <div class="form-group col-md-4 col-sm-4">
+                  </div> 
+                </div>
+                <div class="row">
+
+                </div>
+              </form>
+            </div>
+          </center>
+
         </div>
+        <div class="col-md-2">
+        </div>
+      </div>
+    </div>
+  </div>
 
 
-      </div>       
-    </div>             
-  </body>
-  </html>
-  <script type="text/javascript">
-    function formResend(){
-      $('#formResend').show();
-    }
-  </script>
-  <script src="<?php echo base_url()?>assets_2/js/jquery-1.11.1.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.4.min.js"></script>
-  <script src="<?php echo base_url()?>assets_2/bootstrap/js/bootstrap.min.js"></script>
-  <script src="<?php echo base_url()?>assets_2/js/jquery.backstretch.min.js"></script>
-  <script src="<?php echo base_url()?>assets_2/js/retina-1.1.0.min.js"></script>
-  <script src="<?php echo base_url()?>assets_2/js/scripts.js"></script>
+</div>       
+</div>             
+</body>
+</html>
+<script type="text/javascript">
+  function formResend(){
+    $('#formResend').show();
+  }
+</script>
+<script src="<?php echo base_url()?>assets_2/js/jquery-1.11.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.4.min.js"></script>
+<script src="<?php echo base_url()?>assets_2/bootstrap/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url()?>assets_2/js/jquery.backstretch.min.js"></script>
+<script src="<?php echo base_url()?>assets_2/js/retina-1.1.0.min.js"></script>
+<script src="<?php echo base_url()?>assets_2/js/scripts.js"></script>
