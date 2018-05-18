@@ -33,7 +33,7 @@
         if($kadep->num_rows() > 0 && $sekdep->num_rows() > 0 && $manajer_sarpras->num_rows() > 0 && $staf_sarpras->num_rows() > 0 && $manajer_keuangan->num_rows() > 0 && $staf_keuangan->num_rows() > 0){
           ?>   
           <div class="alert alert-success">
-            <i class="glyphicon glyphicon-ok"></i><strong> Sempurna!</strong> Semua Jabatan Penting telah terpenuhi, Sistem dapat berjalan dengan baik.
+            <i class="glyphicon glyphicon-ok"></i><strong> Lengkap!</strong> Semua jabatan penting telah terpenuhi, sistem dapat berjalan dengan baik.
           </div> 
           <?php
         }else{
@@ -237,11 +237,6 @@
                 <!-- project team & activity end -->
 
               </section>
-              <div class="text-center">
-                <div class="credits">
-                  <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                </div>
-              </div>
             </section>
             <?php
             if(in_array('7', $menu)){ //pengajuan kegiatan pegawai

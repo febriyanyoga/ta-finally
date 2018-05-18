@@ -17,16 +17,20 @@
           <?php 
           $data=$this->session->flashdata('sukses');
           if($data!=""){ ?>
-          <div class="alert alert-success" id="success-alert"><strong>Sukses! </strong> <?=$data;?></div>
+            <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          </div>
           <?php } ?>
           <?php 
           $data2=$this->session->flashdata('error');
           if($data2!=""){ ?>
-          <div class="alert alert-danger" id="success-alert"><strong> Error! </strong> <?=$data2;?></div>
+            <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          </div>
           <?php } ?>
-
           <div style="color: red;"><?php echo (isset($message))? $message : ""; ?></div>
           <!-- sampai sini -->
+          
         </div>
         <div class="hover thumbnail col-lg-2 col-md-3 col-sm-4 col-xs-12">
           <?php
@@ -101,11 +105,7 @@
 </div>
 </div>
 </section>
-<div class="text-center">
- <div class="credits">
-   <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
- </div>
-</div>
+
 </section>
 
 <script>

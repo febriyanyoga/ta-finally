@@ -77,6 +77,9 @@
             </ul>
           </li>
         </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="btn btn-primary masuk" style="padding: 10px 20px 10px 20px; margin-top: 4px; margin-right: auto;" href="<?php echo base_url('LoginC/')?>">Masuk</a></li>
+        </ul>
       </div><!--/.nav-collapse -->
     </div>
   </nav>
@@ -95,89 +98,75 @@
     <div class="inner-bg">
       <div class="container">
         <div class="row">
-          <div class="col-sm-7 text sticky-top sticky-pills">
-            <div class="">
-              <img src="<?php echo base_url();?>assets/img/logo2.png" style="height: 20%; width: 20%;">
-              <h4> Sistem Pengajuan Kegiatan dan Pengadaan Barang</h4>
-              <h4>Departemen Teknik Elektro dan Informatika</h4>
-              <h4>Sekolah Vokasi</h4>
-              <h4>Universitas Gadjah Mada</h4>
-            </div>
+          <div class="col-md-2">
           </div>
-          <div class="col-sm-5 form-box wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
-            <div class="form-top">
-              <div class="form-top-left">
-                <h3>Silahkan Masuk </h3>
-                <p>Masukkan email dan sandi anda disini : </p>
+          <div class="col-md-8" style="color: white;">
+            <center>
+              <img style="width: 25%; padding-top: 5%;" src="<?php echo base_url();?>assets/image/logo/email-sent.png">
+              <div>
+                <h1 style="color: white;">Mohon periksa email anda... </h1>
               </div>
               <div>
-              <!--   <div>  
-                  <p><?php echo $this->session->flashdata('msg'); ?></p>  
-                </div> -->
-              </div>
-            </div>
-            <div class="form-bottom">
-             <form action="<?php echo site_url('LoginC/signin'); ?>" method="post">
-
-              <?php 
-              $data=$this->session->flashdata('sukses');
-              if($data!=""){ ?>
-                <div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
-                <?php } ?>
                 <?php 
-                $data2=$this->session->flashdata('error');
-                if($data2!=""){ ?>
-                  <div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
+                $data=$this->session->flashdata('sukses');
+                if($data!=""){ ?>
+                  <div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
                   <?php } ?>
-
-                  <!-- Alert -->
-
-                  <?php if ($this->session->flashdata('message')): ?>
-                    <div class="alert alert-<?php echo $this->session->flashdata('style'); ?> fade in">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      <strong><?php echo $this->session->flashdata('alert'); ?></strong>&nbsp; <?php echo $this->session->flashdata('message'); ?>
-                    </div>
-                  <?php endif; ?>
-                  <!-- End Alert -->
-
-                  <div class="form-group">
-                    <label class="sr-only" for="form-email">Email</label>
-                    <input type="email" name="email" class="form-control email" placeholder="Masukkan email" autofocus required oninvalid="this.setCustomValidity('email tidak boleh kosong')" oninput="setCustomValidity('')">
+                  <?php 
+                  $data2=$this->session->flashdata('error');
+                  if($data2!=""){ ?>
+                    <div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
+                    <?php } ?>
+                    <?php echo $this->session->flashdata('msg'); 
+                    ?>            
+                    <p> Email Salah? Silahkan masukkan kembali <a href="#" name="email" onclick="formResend()">email</a> anda...</p>
                   </div>
+                  <div>
+                    <form id="formResend" action="<?php echo base_url(); ?>UserC/post_resend_email" method="post" style="display: none;" >
+                      <div class="row">
+                        <div class="form-group col-md-4 col-sm-4">
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4">
+                          <div>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required> 
+                            <input type="hidden" name="id_pengguna" id="id_pengguna" value="<?php echo $_SESSION['id_pengguna']; ?>">  <!-- ambil data no identitas buat update email -->
+                            <span class="text-danger"><?php echo form_error('email'); ?></span><br>  
+                            <div class="form-group">
+                              <button type="submit" class="btn btn-outline" name="submit"> Kirim Ulang </button>
+                            </div>
+                          </div>
+                        </div> 
+                        <div class="form-group col-md-4 col-sm-4">
+                        </div> 
+                      </div>
+                      <div class="row">
 
-                  <div class="form-group">
-                    <label class="sr-only" for="form-password">Sandi</label>
-                    <input type="password" name="password" class="form-control" placeholder="Masukkan kata sandi" autofocus required oninvalid="this.setCustomValidity('Kata Sandi tidak boleh kosong')" oninput="setCustomValidity('')">
+                      </div>
+                    </form>
                   </div>
+                </center>
 
-                  <div class="form-group">
-                    <center><?=$cap_img?></center>
-                  </div>
-
-                  <div class="form-group">
-                    <input type="text" name="captcha" class="form-control" placeholder="Masukkan Captcha" required oninvalid="this.setCustomValivdity('Captcha tidak boleh kosong')" oninput="setCustomValidity('')">
-                  </div>
-                  <input name="submit" type="submit" class="btn btn-lg btn-primary" value="Masuk">
-                  <div class="form-links" style="font-size: 12pt;" pull-left>
-                    <p style="color: white;">Belum punya akun?   <a href="<?php echo site_url('UserC/daftar')?>" style="color: white; font-weight: bold;">Daftar</a></p>
-                    <p style="color: white; margin-top: -20px;">Lupa kata sandi?   <a href="<?php echo site_url('LoginC/atur_ulang')?>" style="color: white; font-weight: bold;">Atur Ulang</a></p>
-                  </div>
-                </form>
+              </div>
+              <div class="col-md-2">
               </div>
             </div>
           </div>
         </div>
-      </div>
 
 
-    </div>       
-  </div>             
-</body>
-</html>
-<script src="<?php echo base_url()?>assets_2/js/jquery-1.11.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.4.min.js"></script>
-<script src="<?php echo base_url()?>assets_2/bootstrap/js/bootstrap.min.js"></script>
-<script src="<?php echo base_url()?>assets_2/js/jquery.backstretch.min.js"></script>
-<script src="<?php echo base_url()?>assets_2/js/retina-1.1.0.min.js"></script>
-<script src="<?php echo base_url()?>assets_2/js/scripts.js"></script>
+      </div>       
+    </div>             
+  </body>
+  </html>
+  <script type="text/javascript">
+    function formResend(){
+      $('#formResend').show();
+    }
+  </script>
+  <script src="<?php echo base_url()?>assets_2/js/jquery-1.11.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.4.min.js"></script>
+  <script src="<?php echo base_url()?>assets_2/bootstrap/js/bootstrap.min.js"></script>
+  <script src="<?php echo base_url()?>assets_2/js/jquery.backstretch.min.js"></script>
+  <script src="<?php echo base_url()?>assets_2/js/retina-1.1.0.min.js"></script>
+  <script src="<?php echo base_url()?>assets_2/js/scripts.js"></script>

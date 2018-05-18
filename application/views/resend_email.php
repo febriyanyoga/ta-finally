@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<center>
 			<img style="width: 15%;" src="<?php echo base_url();?>assets/image/logo/email-sent.jpg">
 			<div>
-				<h1>Mohon Periksa Email anda . . </h1>
+				<h1>Mohon periksa email anda... </h1>
 			</div>
 			<div>
 				<?php 
@@ -39,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<?php } ?>
 				<?php echo $this->session->flashdata('msg'); 
 				?>						
-				<p> Email Salah ? Silahkan masukkan kembali <a href="#" name="email" onclick="formResend()">email</a> anda . . .</p>
+				<p> Email Salah? Silahkan masukkan kembali <a href="#" name="email" onclick="formResend()">email</a> anda...</p>
 			</div>
 			<div>
 				<form id="formResend" action="<?php echo base_url(); ?>UserC/post_resend_email" method="post" style="display: none;" >

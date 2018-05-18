@@ -132,7 +132,7 @@ public function index(){
 }
 
 public function resend_email(){
-  $this->load->view('resend_email');
+  $this->load->view('Kirim_ulang_email');
 }
 
 public function post_resend_email(){

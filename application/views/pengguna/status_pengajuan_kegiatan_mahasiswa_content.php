@@ -13,87 +13,91 @@
     <div class="row">
       <div class="col-lg-12">
        <!-- Alert -->
-       <?php 
+      <?php 
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
-         <div class="alert alert-success" id="success-alert"><strong>Sukses! </strong> <?=$data;?></div>
-         <?php } ?>
-         <?php 
-         $data2=$this->session->flashdata('error');
-         if($data2!=""){ ?>
-           <div class="alert alert-danger" id="success-alert"><strong> Error! </strong> <?=$data2;?></div>
-           <?php } ?>
+        <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      </div>
+      <?php } ?>
+      <?php 
+      $data2=$this->session->flashdata('error');
+      if($data2!=""){ ?>
+        <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      </div>
+      <?php } ?>
 
-           <div class="card mb-3">
-            <div class="card-header">
-              <div class="card-body">
-                <div class="table-responsive">
-                  <?php
+      <div class="card mb-3">
+        <div class="card-header">
+          <div class="card-body">
+            <div class="table-responsive">
+              <?php
                   // var_dump($detail_kegiatan);
+              ?>
+              <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
+                <thead>
+                 <tr class="text-center">
+                  <th class="text-center">Nama Kegiatan</th>
+                  <th class="text-center">Nama Pengaju</th>
+                  <th class="text-center">Jabatan Pengaju</th>
+                  <th class="text-center">Tgl Pengajuan</th>
+                  <th class="text-center">Tgl Kegiatan</th>
+                  <th class="text-center">Dana Diajukan</th>
+                  <th class="text-center">File</th>
+                  <th class="text-center">Status</th>
+                  <th class="text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                foreach ($data_pengajuan_kegiatan as $kegiatan) {
+                 $jabatan        = $KegiatanM->get_data_pengajuan_by_id($kegiatan->kode_kegiatan)->result()[0];
+                 $unit           = $KegiatanM->get_data_pengajuan_by_id($kegiatan->kode_kegiatan)->result()[0];
+                 ?>
+                 <tr>
+                  <td class="text-center relative">
+                    <div class="relative">
+                      <strong><?php echo $kegiatan->nama_kegiatan;?></strong>
+                      <a href="#myModal1" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail kegiatan"><small class="kecil">Lihat detail</small></a>
+                    </div>
+                  </td>
+                  <td class="text-center"><?php echo $jabatan->nama;?></td>
+                  <td class="text-center"><?php echo $jabatan->nama_jabatan." ".$unit->nama_unit;?></td>
+                  <?php 
+                  $tgl_pengajuan = $kegiatan->tgl_pengajuan;
+                  $new_tgl_pengajuan = date('d-m-Y',strtotime($tgl_pengajuan));
+                  $tgl_kegiatan = $kegiatan->tgl_kegiatan;
+                  $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
+                  $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
+                  $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai));
                   ?>
-                  <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
-                    <thead>
-                     <tr class="text-center">
-                      <th class="text-center">Nama Kegiatan</th>
-                      <th class="text-center">Nama Pengaju</th>
-                      <th class="text-center">Jabatan Pengaju</th>
-                      <th class="text-center">Tgl Pengajuan</th>
-                      <th class="text-center">Tgl Kegiatan</th>
-                      <th class="text-center">Dana Diajukan</th>
-                      <th class="text-center">File</th>
-                      <th class="text-center">Status</th>
-                      <th class="text-center">Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                    foreach ($data_pengajuan_kegiatan as $kegiatan) {
-                     $jabatan        = $KegiatanM->get_data_pengajuan_by_id($kegiatan->kode_kegiatan)->result()[0];
-                     $unit           = $KegiatanM->get_data_pengajuan_by_id($kegiatan->kode_kegiatan)->result()[0];
-                     ?>
-                     <tr>
-                      <td class="text-center relative">
-                        <div class="relative">
-                          <strong><?php echo $kegiatan->nama_kegiatan;?></strong>
-                          <a href="#myModal1" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail kegiatan"><small class="kecil">Lihat detail</small></a>
-                        </div>
-                      </td>
-                      <td class="text-center"><?php echo $jabatan->nama;?></td>
-                      <td class="text-center"><?php echo $jabatan->nama_jabatan." ".$unit->nama_unit;?></td>
-                      <?php 
-                      $tgl_pengajuan = $kegiatan->tgl_pengajuan;
-                      $new_tgl_pengajuan = date('d-m-Y',strtotime($tgl_pengajuan));
-                      $tgl_kegiatan = $kegiatan->tgl_kegiatan;
-                      $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
-                      $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
-                      $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai));
-                      ?>
-                      <td class="text-center "><?php echo $new_tgl_pengajuan; ?></td>
-                      <td class="text-center">
-                        <div class="relative">
-                         <small class="kecil"><strong><?php echo $new_tgl_kegiatan?></strong></small>
-                         <small class="kecil">sampai</small>
-                         <small class="kecil"><strong><?php echo $new_tgl_selesai; ?></strong></small>
-                       </div>
-                     </td>
-                     <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,-</td>
-                     <?php $link = base_url()."assets/file_upload/".$kegiatan->nama_file;?>
-                     <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
-                     <!-- <td><?php echo $kegiatan->nama;?></td> -->
-                     <!-- <td><?php echo $kegiatan->nama_jabatan." ".$kegiatan->nama_unit;?></td> -->
-                     <td class="text-center">
+                  <td class="text-center "><?php echo $new_tgl_pengajuan; ?></td>
+                  <td class="text-center">
+                    <div class="relative">
+                     <small class="kecil"><strong><?php echo $new_tgl_kegiatan?></strong></small>
+                     <small class="kecil">sampai</small>
+                     <small class="kecil"><strong><?php echo $new_tgl_selesai; ?></strong></small>
+                   </div>
+                 </td>
+                 <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,00</td>
+                 <?php $link = base_url()."assets/file_upload/".$kegiatan->nama_file;?>
+                 <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
+                 <!-- <td><?php echo $kegiatan->nama;?></td> -->
+                 <!-- <td><?php echo $kegiatan->nama_jabatan." ".$kegiatan->nama_unit;?></td> -->
+                 <td class="text-center">
 
-                      <?php 
-                      $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
-                      $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
+                  <?php 
+                  $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
+                  $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
 
-                      $kode = $kegiatan->kode_kegiatan; 
-                      $id_staf_keu = $cek_id_staf_keu[0]->kode_jabatan_unit; 
-                      $progress_staf_keu = $KegiatanM->get_own_progress($kode, $id_staf_keu);
+                  $kode = $kegiatan->kode_kegiatan; 
+                  $id_staf_keu = $cek_id_staf_keu[0]->kode_jabatan_unit; 
+                  $progress_staf_keu = $KegiatanM->get_own_progress($kode, $id_staf_keu);
                               //disetujui
-                      $rank_min_mhs =  $KegiatanM->cek_min_mhs()->ranking;
-                      $id_rank_min_mhs = $KegiatanM->cek_id_by_rank_mhs($rank_min_mhs)->kode_jabatan_unit;
-                      $progress_min_mhs = $KegiatanM->get_own_progress($kode, $id_rank_min_mhs);
+                  $rank_min_mhs =  $KegiatanM->cek_min_mhs()->ranking;
+                  $id_rank_min_mhs = $KegiatanM->cek_id_by_rank_mhs($rank_min_mhs)->kode_jabatan_unit;
+                  $progress_min_mhs = $KegiatanM->get_own_progress($kode, $id_rank_min_mhs);
 
                         if($progress_staf_keu > 0){ //sudah ada input staf keu
                           $progress_nama = $KegiatanM->get_progress_by_id($id_staf_keu, $kode)->result()[0]->nama_progress;
@@ -159,11 +163,7 @@
  </div>
 </div>
 </section>
-<div class="text-center">
-  <div class="credits">
-    <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-  </div>
-</div>
+
 </section>
 
 

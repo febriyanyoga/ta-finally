@@ -88,7 +88,7 @@
           <a href="<?php echo site_url('PenggunaC/data_diri')?>"><i class="icon_profile"></i> Data Diri</a>
         </li>
         <li>
-          <a href="<?php echo site_url('PenggunaC/pengaturan_akun')?>"><i class="icon_cogs"></i> Pengaturan Akun</a>
+          <a href="<?php echo site_url('PenggunaC/pengaturan_akun')?>"><i class="icon_cogs"></i> Ubah kata sandi</a>
         </li>
         <li>
           <a href="<?php echo site_url('LoginC/logout')?>"><i class="icon_key_alt"></i> Log Out</a>
@@ -302,6 +302,12 @@
 <!--main content end-->
 </section>
 
+<div class="text-center navbar navbar-inverse navbar-fixed-bottom" style="background-color: #073c64; border-color: white; color: white;">
+  <div style="margin-top: 12px; background-color: #073c64">
+    <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/" style="color: #f6ca87;">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/" style="color: #f6ca87">BootstrapMade</a>
+  </div>
+</div>
+
 <!-- modal detail Progress -->
 <div class="modal fade" id="modal_progress" role="dialog">
   <div class="modal-dialog" role="document">
@@ -360,10 +366,10 @@
 <script src="<?php echo base_url();?>assets/datatables/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/datatables/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
-  
- $("#success-alert").fadeTo(800, 800).slideUp(800, function(){
-  $("#success-alert").slideUp(800);
-});
+
+//  $("#success-alert").fadeTo(800, 800).slideUp(800, function(){
+//   $("#success-alert").slideUp(800);
+// });
       // CSS data DataTable
 
       $(document).ready(function() {

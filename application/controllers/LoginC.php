@@ -50,11 +50,11 @@ class LoginC extends CI_Controller {
 					if($this->session->userdata('status') == "aktif"){
 						redirect('PenggunaC');	
 					}else{
-						$this->session->set_flashdata('error','Mohon maaf untuk saat ini akun anda belum aktif. Silahkan hubungi <b>Administrator </b> untuk melakukan konfirmasi aktifasi akun.');
+						$this->session->set_flashdata('error','Mohon maaf untuk saat ini akun anda belum aktif. Silahkan hubungi <b>Administrator </b> untuk melakukan aktifasi akun.');
 						redirect('LoginC');	
 					}
 				}else{
-					$this->session->set_flashdata('error','Sepertinya anda belum melakukan konfirmasi email. Silahkan cek email anda dan klik tautan yang dibagikan.');
+					$this->session->set_flashdata('error','Email belum dikonfirmasi, silahkan cek email anda dan klik tautan yang dibagikan.');
 					redirect('LoginC');
 				}
 
@@ -64,10 +64,10 @@ class LoginC extends CI_Controller {
 			}
 		}else{
 			if($this->LoginM->check_captcha() == TRUE){
-				$this->session->set_flashdata('error','email atau password salah');
+				$this->session->set_flashdata('error','Email atau kata sandi salah');
 				redirect('LoginC');
 			}else{
-				$this->session->set_flashdata('error','email atau password dan captcha salah');
+				$this->session->set_flashdata('error','Email atau password dan captcha salah');
 				redirect('LoginC');
 			}
 		}
@@ -191,7 +191,7 @@ class LoginC extends CI_Controller {
 		$this->form_validation->set_rules('confirmpswd', 'Password Confirmation', 'trim|required|min_length[6]|max_length[50]'); 
 		if($this->form_validation->run() == FALSE){
 			$this->session->set_flashdata('style', 'danger');
-			$this->session->set_flashdata('alert', 'Password tidak Berhasil Dirubah!');
+			$this->session->set_flashdata('alert', 'Kata sandi tidak Berhasil Dirubah!');
 			$this->session->set_flashdata('message', 'Cek kembali yang anda masukkan');
 			redirect_back();
 		}else{
@@ -207,11 +207,11 @@ class LoginC extends CI_Controller {
 
 			if ($simpan > 0){
 				$this->session->set_flashdata('style', 'success');
-				$this->session->set_flashdata('alert', 'Password Berhasil Dirubah!');
+				$this->session->set_flashdata('alert', 'Kata sandi Berhasil Dirubah!');
 				$this->session->set_flashdata('message', 'Silahkan login kembali');
 			}else{
 				$this->session->set_flashdata('style', 'danger');
-				$this->session->set_flashdata('alert', 'Password Gagal Dirubah');
+				$this->session->set_flashdata('alert', 'Kata sandi Gagal Dirubah');
 				$this->session->set_flashdata('message', 'Cek kembali yang anda masukkan');
 			}
 			redirect('LoginC/');

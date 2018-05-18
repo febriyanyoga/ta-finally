@@ -13,25 +13,27 @@
     
     <div class="row">
       <div class="col-lg-12">
-
-       <?php
-       // var_dump($data_kegiatan); 
+       <?php 
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
-         <div class="alert alert-success" id="success-alert"><strong>Sukses! </strong> <?=$data;?></div>
-         <?php } ?>
-         <?php 
-         $data2=$this->session->flashdata('error');
-         if($data2!=""){ ?>
-           <div class="alert alert-danger" id="success-alert"><strong> Error! </strong> <?=$data2;?></div>
-           <?php } ?>
+        <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      </div>
+      <?php } ?>
+      <?php 
+      $data2=$this->session->flashdata('error');
+      if($data2!=""){ ?>
+        <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      </div>
+      <?php } ?>
+      
+      <div class="card mb-3">
+        <div class="card-header">
+          <div class="card-body">
+            <a class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i> Ajukan Kegiatan </a>
 
-           <div class="card mb-3">
-            <div class="card-header">
-              <div class="card-body">
-                <a class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i> Ajukan Kegiatan </a>
-
-                <div class="table-responsive">
+            <div class="table-responsive">
                <!-- <?php
                   var_dump($data_kegiatan);
                   ?> -->
@@ -64,7 +66,7 @@
                           ?>
                           <td class="text-center"><?php echo $new_tgl_pengajuan; ?></td>
                           <td class="text-center"><?php echo $new_tgl_kegiatan." - ".$new_tgl_selesai; ?></td>
-                          <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,-</td>
+                          <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,00</td>
 
                           <?php $link = base_url()."assets/file_upload/".$kegiatan->nama_file;?>
                           <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
@@ -218,7 +220,7 @@
                           </div> 
                           <!-- <button type="reset" class="btn btn-default">Reset Button</button> -->
                           <div class="modal-footer">
-                            <input type="submit" class="btn btn-info col-lg-2"  value="Submit">
+                            <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
                           </div> 
                         </form>
                         <?php echo form_close()?>
@@ -275,11 +277,7 @@
 <!-- project team & activity end -->
 
 </section>
-<div class="text-center">
-  <div class="credits">
-    <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-  </div>
-</div>
+
 </section>
 
 <div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="myModal" class="modal fade">

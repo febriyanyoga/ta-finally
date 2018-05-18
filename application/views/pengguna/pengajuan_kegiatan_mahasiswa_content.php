@@ -15,67 +15,71 @@ tgl_selesai_kegiatan<section id="main-content">
       <div class="col-lg-12">
         <!-- Alert -->
         <?php 
-        $data=$this->session->flashdata('sukses');
-        if($data!=""){ ?>
-          <div class="alert alert-success" id="success-alert"><strong>Sukses! </strong> <?=$data;?></div>
-          <?php } ?>
-          <?php 
-          $data2=$this->session->flashdata('error');
-          if($data2!=""){ ?>
-            <div class="alert alert-danger" id="success-alert"><strong> Error! </strong> <?=$data2;?></div>
-            <?php } ?>
+       $data=$this->session->flashdata('sukses');
+       if($data!=""){ ?>
+        <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      </div>
+      <?php } ?>
+      <?php 
+      $data2=$this->session->flashdata('error');
+      if($data2!=""){ ?>
+        <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      </div>
+      <?php } ?>
 
-            <div class="card mb-3">
-              <div class="card-header">
-                <div class="card-body">
-                  <a class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i> Ajukan Kegiatan </a>
-                  <div class="table-responsive">
-                    <table id="example1" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                      <thead>
-                        <tr>
-                          <!-- <th>No. Identitas</th> -->
-                          <th class="text-center">Nama Kegiatan</th>
-                          <th class="text-center">Tgl Pengajuan</th>
-                          <th class="text-center">Tgl Kegiatan</th>
-                          <th class="text-center">Dana Diajukan</th>
-                          <th class="text-center">File</th>
-                          <th class="text-center">Status</th>
-                          <th class="text-center">Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        foreach ($data_kegiatan as $kegiatan) {
-                          ?>
-                          <tr>
-                            <td class="text-center"><?php echo $kegiatan->nama_kegiatan; ?></td>
-                            <?php 
-                            $tgl_pengajuan = $kegiatan->tgl_pengajuan;
-                            $new_tgl_pengajuan = date('d-m-Y',strtotime($tgl_pengajuan));
-                            $tgl_kegiatan = $kegiatan->tgl_kegiatan;
-                            $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
-                            $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
-                            $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai));
-                            ?>
-                            <td class="text-center"><?php echo $new_tgl_pengajuan; ?></td>
-                            <td class="text-center"><?php echo $new_tgl_kegiatan." - ".$new_tgl_selesai; ?></td>
-                            <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,-</td>
-                            <?php $link = base_url()."assets/file_upload/".$kegiatan->nama_file;?>
-                            <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="card-body">
+              <a class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i> Ajukan Kegiatan </a>
+              <div class="table-responsive">
+                <table id="example1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <!-- <th>No. Identitas</th> -->
+                      <th class="text-center">Nama Kegiatan</th>
+                      <th class="text-center">Tgl Pengajuan</th>
+                      <th class="text-center">Tgl Kegiatan</th>
+                      <th class="text-center">Dana Diajukan</th>
+                      <th class="text-center">File</th>
+                      <th class="text-center">Status</th>
+                      <th class="text-center">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    foreach ($data_kegiatan as $kegiatan) {
+                      ?>
+                      <tr>
+                        <td class="text-center"><?php echo $kegiatan->nama_kegiatan; ?></td>
+                        <?php 
+                        $tgl_pengajuan = $kegiatan->tgl_pengajuan;
+                        $new_tgl_pengajuan = date('d-m-Y',strtotime($tgl_pengajuan));
+                        $tgl_kegiatan = $kegiatan->tgl_kegiatan;
+                        $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
+                        $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
+                        $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai));
+                        ?>
+                        <td class="text-center"><?php echo $new_tgl_pengajuan; ?></td>
+                        <td class="text-center"><?php echo $new_tgl_kegiatan." - ".$new_tgl_selesai; ?></td>
+                        <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,00</td>
+                        <?php $link = base_url()."assets/file_upload/".$kegiatan->nama_file;?>
+                        <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
 
-                            <td class="text-center">
+                        <td class="text-center">
 
-                              <?php 
-                              $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
-                              $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
+                          <?php 
+                          $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
+                          $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
 
-                              $kode = $kegiatan->kode_kegiatan; 
-                              $id_staf_keu = $cek_id_staf_keu[0]->kode_jabatan_unit; 
-                              $progress_staf_keu = $KegiatanM->get_own_progress($kode, $id_staf_keu);
+                          $kode = $kegiatan->kode_kegiatan; 
+                          $id_staf_keu = $cek_id_staf_keu[0]->kode_jabatan_unit; 
+                          $progress_staf_keu = $KegiatanM->get_own_progress($kode, $id_staf_keu);
                               //disetujui
-                              $rank_min_mhs =  $KegiatanM->cek_min_mhs()->ranking;
-                              $id_rank_min_mhs = $KegiatanM->cek_id_by_rank_mhs($rank_min_mhs)->kode_jabatan_unit;
-                              $progress_min_mhs = $KegiatanM->get_own_progress($kode, $id_rank_min_mhs);
+                          $rank_min_mhs =  $KegiatanM->cek_min_mhs()->ranking;
+                          $id_rank_min_mhs = $KegiatanM->cek_id_by_rank_mhs($rank_min_mhs)->kode_jabatan_unit;
+                          $progress_min_mhs = $KegiatanM->get_own_progress($kode, $id_rank_min_mhs);
 
                         if($progress_staf_keu > 0){ //sudah ada input staf keu
                           $progress_nama = $KegiatanM->get_progress_by_id($id_staf_keu, $kode)->result()[0]->nama_progress;
@@ -261,11 +265,7 @@ tgl_selesai_kegiatan<section id="main-content">
 <!-- project team & activity end -->
 
 </section>
-<div class="text-center">
-  <div class="credits">
-    <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-  </div>
-</div>
+
 </section>
 
 <div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="myModal" class="modal fade">

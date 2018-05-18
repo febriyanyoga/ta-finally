@@ -14,77 +14,81 @@
       <div class="col-lg-12">
         <!-- Alert -->
         <?php 
-        $data=$this->session->flashdata('sukses');
-        if($data!=""){ ?>
-          <div class="alert alert-success" id="success-alert"><strong>Sukses! </strong> <?=$data;?></div>
-          <?php } ?>
-          <?php 
-          $data2=$this->session->flashdata('error');
-          if($data2!=""){ ?>
-            <div class="alert alert-danger" id="success-alert"><strong> Error! </strong> <?=$data2;?></div>
-            <?php } ?>
-            
-            <div class="card mb-3">
-              <div class="card-header">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <?php
+       $data=$this->session->flashdata('sukses');
+       if($data!=""){ ?>
+        <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      </div>
+      <?php } ?>
+      <?php 
+      $data2=$this->session->flashdata('error');
+      if($data2!=""){ ?>
+        <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      </div>
+      <?php } ?>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="card-body">
+              <div class="table-responsive">
+                <?php
                   // var_dump($detail_kegiatan);
-                    ?>
-                    <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
-                      <thead>
-                        <tr class="text-center">
-                          <th class="text-center">Nama Kegiatan</th>
-                          <th class="text-center">Nama Pengaju</th>
-                          <th class="text-center">Jabatan Pengaju</th>
-                          <th class="text-center">Tgl Pengajuan</th>
-                          <th class="text-center">Tgl Kegiatan</th>
-                          <th class="text-center">Dana Diajukan</th>
-                          <th class="text-center">File</th>
-                          <th class="text-center">Status</th>
-                          <th class="text-center">Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        foreach ($data_pengajuan_kegiatan_pegawai as $kegiatan) {
-                          ?>
-                          <tr>
-                            <td class="text-center relative">
-                              <div class="relative">
-                                <strong><?php echo $kegiatan->nama_kegiatan;?></strong>
-                                <a href="#myModal1" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail kegiatan"><small class="kecil">Lihat detail</small></a>
-                              </div>
-                            </td>
-                            <?php 
-                            $jabatan        = $KegiatanM->get_data_pengajuan_by_id($kegiatan->kode_kegiatan)->result()[0];
-                            $unit           = $KegiatanM->get_data_pengajuan_by_id($kegiatan->kode_kegiatan)->result()[0];
-                            $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
-                            $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
-                            ?>
-                            <td class="text-center"><?php echo $jabatan->nama;?></td>
-                            <td class="text-center"><?php echo $jabatan->nama_jabatan." ".$unit->nama_unit;?></td>
-                            <?php 
-                            $tgl_pengajuan = $kegiatan->tgl_pengajuan;
-                            $new_tgl_pengajuan = date('d-m-Y',strtotime($tgl_pengajuan));
-                            $tgl_kegiatan = $kegiatan->tgl_kegiatan;
-                            $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
-                            $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
-                            $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai));
-                            ?>
-                            <td class="text-center"><?php echo $new_tgl_pengajuan; ?></td>
-                            <td class="text-center">
-                              <div class="relative">
-                               <small class="kecil"><strong><?php echo $new_tgl_kegiatan?></strong></small>
-                               <small class="kecil">sampai</small>
-                               <small class="kecil"><strong><?php echo $new_tgl_selesai; ?></strong></small>
-                             </div>
-                           </td>
-                           <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,-</td>
-                           <?php $link = base_url()."assets/file_upload/".$kegiatan->nama_file;?>
-                           <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
-                           <td class="text-center">
-                            <?php 
+                ?>
+                <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
+                  <thead>
+                    <tr class="text-center">
+                      <th class="text-center">Nama Kegiatan</th>
+                      <th class="text-center">Nama Pengaju</th>
+                      <th class="text-center">Jabatan Pengaju</th>
+                      <th class="text-center">Tgl Pengajuan</th>
+                      <th class="text-center">Tgl Kegiatan</th>
+                      <th class="text-center">Dana Diajukan</th>
+                      <th class="text-center">File</th>
+                      <th class="text-center">Status</th>
+                      <th class="text-center">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    foreach ($data_pengajuan_kegiatan_pegawai as $kegiatan) {
+                      ?>
+                      <tr>
+                        <td class="text-center relative">
+                          <div class="relative">
+                            <strong><?php echo $kegiatan->nama_kegiatan;?></strong>
+                            <a href="#myModal1" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail kegiatan"><small class="kecil">Lihat detail</small></a>
+                          </div>
+                        </td>
+                        <?php 
+                        $jabatan        = $KegiatanM->get_data_pengajuan_by_id($kegiatan->kode_kegiatan)->result()[0];
+                        $unit           = $KegiatanM->get_data_pengajuan_by_id($kegiatan->kode_kegiatan)->result()[0];
+                        $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
+                        $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
+                        ?>
+                        <td class="text-center"><?php echo $jabatan->nama;?></td>
+                        <td class="text-center"><?php echo $jabatan->nama_jabatan." ".$unit->nama_unit;?></td>
+                        <?php 
+                        $tgl_pengajuan = $kegiatan->tgl_pengajuan;
+                        $new_tgl_pengajuan = date('d-m-Y',strtotime($tgl_pengajuan));
+                        $tgl_kegiatan = $kegiatan->tgl_kegiatan;
+                        $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
+                        $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
+                        $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai));
+                        ?>
+                        <td class="text-center"><?php echo $new_tgl_pengajuan; ?></td>
+                        <td class="text-center">
+                          <div class="relative">
+                           <small class="kecil"><strong><?php echo $new_tgl_kegiatan?></strong></small>
+                           <small class="kecil">sampai</small>
+                           <small class="kecil"><strong><?php echo $new_tgl_selesai; ?></strong></small>
+                         </div>
+                       </td>
+                       <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,00</td>
+                       <?php $link = base_url()."assets/file_upload/".$kegiatan->nama_file;?>
+                       <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
+                       <td class="text-center">
+                        <?php 
                         $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
                         $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
                         $kegiatan->kode_kegiatan;
@@ -131,26 +135,33 @@
                       </td>
                       <td class="text-center">
                         <?php
-                        if($own_id == $id_max){
+                        if($own_id == $id_max){ //apakah rankingnya max(terendah)
                        if($own > 0){ //SUDAH INPUT 
                         ?>
                         <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
                           <?php
                         }else{
-                          $atasan = $KegiatanM->cek_atasan_by_kode_jabatan_unit($kegiatan->kode_jabatan_unit)->result()[0]->atasan;
+                          $atasan = $KegiatanM->cek_atasan_by_kode_jabatan_unit($kegiatan->kode_jabatan_unit)->result()[0]->atasan; //apakah jabatanya seorang pimpinan
                           if($atasan == "tidak"){
-                            $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
+                            $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan); //ada progress tolak?
                             if($progress_tolak > 0){
                              ?>
                              <a  id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Selesai" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                              <?php
                            }else{
                             if($KegiatanM->cek_rank_by_id_pegawai($kegiatan->pimpinan) == NULL || $KegiatanM->cek_rank_by_id_pegawai($kegiatan->pimpinan) == "data tidak ada"){ //jika atasan tidak punya ranking
-                             ?>
-                             <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Belum disetujui atasan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-                             <?php
+                              $acc_atasan = $KegiatanM->get_own_progress($kode, $kegiatan->pimpinan);
+                              if ($acc_atasan > 0){
+                               ?>
+                               <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan Persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                               <?php
+                               }else{ //tidak butuh atasan kalo dia atasan
+                                 ?>
+                                 <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Belum disetujui atasan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                 <?php
+                               }  
                             }else{ //punya ranking
-                            $rank_atasan = $KegiatanM->cek_rank_by_id_pegawai($kegiatan->pimpinan)->ranking;
+                              $rank_atasan = $KegiatanM->cek_rank_by_id_pegawai($kegiatan->pimpinan)->ranking;
                             if($id_max == $rank_atasan){  //jika atasannya input pertaama
                              ?>
                              <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan Persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
@@ -217,11 +228,7 @@
 </div>
 </div>
 </section>
-<div class="text-center">
-  <div class="credits">
-    <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-  </div>
-</div>
+
 </section>
 <!-- modal detail pengajuan -->
 <div class="modal fade" id="myModal" role="dialog">

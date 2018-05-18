@@ -82,159 +82,160 @@
 							<fieldset>
 								<div class="form-top">
 									<div class="form-top-left">
-										<h4>Isi Data Diri :</h4>
+										<h4 style="color: white;">Isi Data Diri :</h4>
 									</div>
 								</div>
-								<div class="form-bottom">
+								<div class="form-bottom" style="padding-bottom: 70px;">
 									<?php echo $this->session->flashdata('msg');  
 									$data=$this->session->flashdata('sukses');
 									if($data!=""){ ?>
-									<div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
-									<?php } ?>
-									<?php 
-									$data2=$this->session->flashdata('error');
-									if($data2!=""){ ?>
-									<div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
-									<?php } ?>
+										<div class="alert alert-success"><strong>Sukses! </strong> <?=$data;?></div>
+										<?php } ?>
+										<?php 
+										$data2=$this->session->flashdata('error');
+										if($data2!=""){ ?>
+											<div class="alert alert-danger"><strong> Error! </strong> <?=$data2;?></div>
+											<?php } ?>
+											<div class="form-group">
+												<div class="form-group">
+													<label class="sr-only" for="form-first-name">No Identitas</label>
+													<input type="text" onkeypress="return hanyaAngka(event)" class="form-control" id="no_identitas" name="no_identitas" placeholder="Nomor Identitas" required>
+													<span class="text-danger" style="color: red;"><?php echo form_error('no_identitas'); ?></span>  
+												</div>
+												<div class="form-group">
+													<label class="sr-only" for="form-last-name">Nama Lengkap</label>
+													<input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Lengkap" required>  
+													<span class="text-danger" style="color: red;"><?php echo form_error('nama'); ?></span> 
+												</div>
+												<div class="form-group" style="color: white;">
+													<label style="font-weight: normal;">Jenis Kelamin  </label><span> <label> : </label></span>
+													<div class="radio-inline">
+														<input type="radio" name="jen_kel" id="Laki - laki" value="Laki - laki" checked>Laki - laki
+													</div>
+													<div class="radio-inline">
+														<input type="radio" name="jen_kel" id="Perempuan" value="Perempuan">Perempuan
+													</div>
+												</div> 
+												<div class="form-group">
+													<!-- <label>Nomor Handphone</label> -->
+													<input type="text" onkeypress="return hanyaAngka(event)" class="form-control" name="no_hp" placeholder="Nomor Handphone" required>
+												</div>
+												<div class="row">  
+													<div class="col-sm-7">
+														<div class="form-group">  
+															<!-- <label class="control-label" for="tmp_lahir">Tempat Lahir</label>   -->
+															<div>  
+																<input type="text" class="form-control" id="tmp_lahir" name="tmp_lahir" placeholder="Tempat Lahir" required>  
+																<span class="text-danger" style="color: red;"><?php echo form_error('tmp_lahir'); ?></span>  
+															</div>  
+														</div>  
+													</div>
+													<div class="col-sm-4">
+														<div class="form-group">  
+															<!-- <label class="control-label" for="tmp_lahir">Tanggal Lahir</label>   -->
+															<div class="input-group date">
+																<input type="text" class="form-control" id="tgl_lahir" style="width: 190px;" name="tgl_lahir" value="<?php echo set_value('tgl_lahir');?>" placeholder="dd-mm-yyyy" required>
+															</div>           
+														</div>  
+													</div>
+												</div>
+												<div class="form-group">
+													<!-- <label>Alamat</label> -->
+													<textarea name="alamat" value="" class="form-control" placeholder="Alamat" rows="2" required></textarea>
+												</div>
+												<button type="button" class="btn btn-next pull-right">Next</button>
+											</div>
+										</div>
+									</fieldset>
 
-									<div class="form-group">
-										<label class="sr-only" for="form-first-name">No Identitas</label>
-										<input type="text" onkeypress="return hanyaAngka(event)" class="form-control" id="no_identitas" name="no_identitas" placeholder="Nomor Identitas" required>
-										<span class="text-danger" style="color: red;"><?php echo form_error('no_identitas'); ?></span>  
-									</div>
-									<div class="form-group">
-										<label class="sr-only" for="form-last-name">Nama Lengkap</label>
-										<input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Lengkap" required>  
-										<span class="text-danger" style="color: red;"><?php echo form_error('nama'); ?></span> 
-									</div>
-									<div class="form-group">
-										<label>Jenis Kelamin  </label><span> <label> : </label></span>
-										<label class="radio-inline">
-											<input type="radio" name="jen_kel" id="Laki - laki" value="Laki - laki" checked>Laki - laki
-										</label>
-										<label class="radio-inline">
-											<input type="radio" name="jen_kel" id="Perempuan" value="Perempuan">Perempuan
-										</label>
-									</div> 
-									<div class="form-group">
-										<!-- <label>Nomor Handphone</label> -->
-										<input type="text" onkeypress="return hanyaAngka(event)" class="form-control" name="no_hp" placeholder="Nomor Handphone" required>
-									</div>
-									<div class="row">  
-										<div class="col-sm-7">
-											<div class="form-group">  
-												<!-- <label class="control-label" for="tmp_lahir">Tempat Lahir</label>   -->
-												<div>  
-													<input type="text" class="form-control" id="tmp_lahir" name="tmp_lahir" placeholder="Tempat Lahir" required>  
-													<span class="text-danger" style="color: red;"><?php echo form_error('tmp_lahir'); ?></span>  
-												</div>  
-											</div>  
+									<fieldset>
+										<div class="form-top">
+											<div class="form-top-left">
+												<h4>Isi Data Akun :</h4>
+											</div>
 										</div>
-										<div class="col-sm-4">
-											<div class="form-group">  
-												<!-- <label class="control-label" for="tmp_lahir">Tanggal Lahir</label>   -->
-												<div class="input-group date">
-													<input type="text" class="form-control" id="tgl_lahir" style="width: 190px;" name="tgl_lahir" value="<?php echo set_value('tgl_lahir');?>" placeholder="dd-mm-yyyy" required>
-												</div>           
-											</div>  
-										</div>
-									</div>
-									<div class="form-group">
-										<!-- <label>Alamat</label> -->
-										<textarea name="alamat" value="" class="form-control" placeholder="Alamat" rows="2" required></textarea>
-									</div>
-									<button type="button" class="btn btn-next btn-primary">Next</button>
-								</div>
-							</fieldset>
+										<div class="form-bottom">
+											<div class="form-group">
+												<label for="bidang"> Bidang yang akan di lamar :</label> 
+												<select class="form-control" name="kode_unit" id="kode_unit" required>
 
-							<fieldset>
-								<div class="form-top">
-									<div class="form-top-left">
-										<h4>Isi Data Akun :</h4>
-									</div>
-								</div>
-								<div class="form-bottom">
-									<div class="form-group">
-										<label for="bidang"> Bidang yang akan di lamar :</label> 
-										<select class="form-control" name="kode_unit" id="kode_unit" required>
+													<option value="">---- Pilih Unit ---- </option>
+													<?php 
+													foreach ($pilihan_unit as $unit) {
+														?>
+														<option value="<?php echo $unit['kode_unit'] ;?>"> <?php echo $unit['nama_unit'] ;?> </option>
+														<?php
+													}
+													?>
+												</select> 
 
-											<option value="">---- Pilih Unit ---- </option>
-											<?php 
-											foreach ($pilihan_unit as $unit) {
-												?>
-												<option value="<?php echo $unit['kode_unit'] ;?>"> <?php echo $unit['nama_unit'] ;?> </option>
-												<?php
-											}
-											?>
-										</select> 
-
-										<span class="text-danger" style="color: red;"><?php echo form_error('kode_jabatan'); ?></span>  
-									</div>
-									<div class="form-group">
-										<!-- <label for="bidang"> Bidang yang akan di lamar :</label> -->
-										<select class="form-control" name="kode_jabatan" id="kode_jabatan" required>
-											<option>---- Pilih Jabatan ---- </option>
-										</select>
-										<span class="text-danger" style="color: red;"><?php echo form_error('kode_jabatan'); ?></span>  
-									</div>
-									<div class="form-group">
-										<div class="form-group">
-											<label class="sr-only" for="form-email">Email</label>
-											<input type="email" class="form-control" id="email" name="email" placeholder="Email..." required>  
-											<span class="text-danger" style="color: red;"><?php echo form_error('email'); ?></span> 
+												<span class="text-danger" style="color: red;"><?php echo form_error('kode_jabatan'); ?></span>  
+											</div>
+											<div class="form-group">
+												<!-- <label for="bidang"> Bidang yang akan di lamar :</label> -->
+												<select class="form-control" name="kode_jabatan" id="kode_jabatan" required>
+													<option>---- Pilih Jabatan ---- </option>
+												</select>
+												<span class="text-danger" style="color: red;"><?php echo form_error('kode_jabatan'); ?></span>  
+											</div>
+											<div class="form-group">
+												<div class="form-group">
+													<label class="sr-only" for="form-email ">Email</label>
+													<input type="email" class="form-control email" id="email" name="email" placeholder="Email" required>  
+													<span class="text-danger" style="color: red;"><?php echo form_error('email'); ?></span> 
+												</div>
+												<div class="form-group">
+													<label class="sr-only" for="form-password">Kata sandi</label>
+													<input type="password" class="form-control" id="password" name="password" placeholder="Kata sandi" required>  
+													<span class="text-danger"><?php echo form_error('password'); ?></span>
+												</div>
+												<div class="form-group">
+													<label class="sr-only" for="form-repeat-password">Ulangi kata sandi</label>
+													<input type="password" class="form-control" id="confirmpswd" name="confirmpswd" placeholder="Konfirmasi kata sandi" required>  
+													<span class="text-danger"><?php echo form_error('confirmpswd'); ?></span>
+												</div>
+												<button type="button" class="btn btn-previous">Previous</button>
+												<button type="submit" id="btnSubmit" class="btn pull-right">Daftar</button>
+											</div>
 										</div>
-										<div class="form-group">
-											<label class="sr-only" for="form-password">Password</label>
-											<input type="password" class="form-control" id="password" name="password" placeholder="Kata Sandi..." required>  
-											<span class="text-danger"><?php echo form_error('password'); ?></span>
-										</div>
-										<div class="form-group">
-											<label class="sr-only" for="form-repeat-password">Repeat password</label>
-											<input type="password" class="form-control" id="confirmpswd" name="confirmpswd" placeholder="konfirmasi Kata Sandi..." required>  
-											<span class="text-danger"><?php echo form_error('confirmpswd'); ?></span>
-										</div>
-										<button type="button" class="btn btn-previous">Previous</button>
-										<button type="submit" id="btnSubmit" class="btn pull-right">Daftar</button>
-									</div>
-								</div>
-							</fieldset>
-						</form>
+									</fieldset>
+								</form>
+							</div>
+						</div>
 					</div>
 				</div>
+
 			</div>
-		</div>
-
-	</div>
 
 
-	<!-- Javascript -->
-	<script src="<?php echo base_url()?>assets_2/js/jquery-1.11.1.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.4.min.js"></script>
-	<script src="<?php echo base_url()?>assets_2/bootstrap/js/bootstrap.min.js"></script>
-	<script src="<?php echo base_url()?>assets_2/js/jquery.backstretch.min.js"></script>
-	<script src="<?php echo base_url()?>assets_2/js/retina-1.1.0.min.js"></script>
-	<script src="<?php echo base_url()?>assets_2/js/scripts.js"></script>
-	
-	<script type="text/javascript">
-		function hanyaAngka(evt) {
-			var charCode = (evt.which) ? evt.which : event.keyCode
-			if (charCode > 31 && (charCode < 48 || charCode > 57))
+			<!-- Javascript -->
+			<script src="<?php echo base_url()?>assets_2/js/jquery-1.11.1.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+			<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.4.min.js"></script>
+			<script src="<?php echo base_url()?>assets_2/bootstrap/js/bootstrap.min.js"></script>
+			<script src="<?php echo base_url()?>assets_2/js/jquery.backstretch.min.js"></script>
+			<script src="<?php echo base_url()?>assets_2/js/retina-1.1.0.min.js"></script>
+			<script src="<?php echo base_url()?>assets_2/js/scripts.js"></script>
 
-				return false;
-			return true;
-		}
-		$(function() {
-			$("#tgl_lahir").datepicker({
-				maxDate : "-20yy",
-				dateFormat: 'dd-mm-yy'
-			});
-		});
+			<script type="text/javascript">
+				function hanyaAngka(evt) {
+					var charCode = (evt.which) ? evt.which : event.keyCode
+					if (charCode > 31 && (charCode < 48 || charCode > 57))
 
-		var baseURL= "<?php echo base_url();?>";
-		
-		$(document).ready(function(){
-			
+						return false;
+					return true;
+				}
+				$(function() {
+					$("#tgl_lahir").datepicker({
+						maxDate : "-20yy",
+						dateFormat: 'dd-mm-yy'
+					});
+				});
+
+				var baseURL= "<?php echo base_url();?>";
+
+				$(document).ready(function(){
+
                 // City change
                 $('#kode_unit').change(function(){
                 	var unit = $(this).val(); //ambil value dr kode_unit
@@ -260,13 +261,13 @@
             });
         </script>
         <script type="text/javascript">
-		$(function () {
-			$("#btnSubmit").click(function () {
-				var password = $("#password").val();
-				var confirmPassword = $("#confirmpswd").val();
-				var pass_length = password.length;
-				if (password != confirmPassword) {
-					alert("Kata sandi tidak sama.");
+        	$(function () {
+        		$("#btnSubmit").click(function () {
+        			var password = $("#password").val();
+        			var confirmPassword = $("#confirmpswd").val();
+        			var pass_length = password.length;
+        			if (password != confirmPassword) {
+        				alert("Kata sandi tidak sama.");
                     // document.getElementById("demo").innerHTML = "Kata sandi tidak sama.";
                     return false;
                 }else{
@@ -283,8 +284,8 @@
                 	}
                 }
             });
-		});
-	</script>
-</body>
+        	});
+        </script>
+    </body>
 
-</html>
+    </html>

@@ -1,41 +1,41 @@
 <?php  
- defined('BASEPATH') OR exit('No direct script access allowed');  
- class KegiatanM extends CI_Model  
- {  
- 	function __construct(){
- 		parent:: __construct();
- 		$this->load->database();
- 	}
+defined('BASEPATH') OR exit('No direct script access allowed');  
+class KegiatanM extends CI_Model  
+{  
+	function __construct(){
+		parent:: __construct();
+		$this->load->database();
+	}
 
- 	public function get_data_pengajuan($kode_jenis_kegiatan){
- 		$this->db->select('*');
- 		$this->db->from('kegiatan');
- 		$this->db->join('jenis_kegiatan', 'jenis_kegiatan.kode_jenis_kegiatan = kegiatan.kode_jenis_kegiatan');
- 		$this->db->join('file_upload', 'file_upload.kode_kegiatan = kegiatan.kode_kegiatan');
- 		$this->db->join('pengguna', 'pengguna.id_pengguna = kegiatan.id_pengguna');
- 		$this->db->join('data_diri', 'data_diri.no_identitas = pengguna.no_identitas');
- 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
- 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
- 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
- 		$this->db->where('kegiatan.kode_jenis_kegiatan', $kode_jenis_kegiatan);
- 		$this->db->order_by('kegiatan.created_at', 'DESC');
- 		$this->db->group_by('kegiatan.kode_kegiatan');
+	public function get_data_pengajuan($kode_jenis_kegiatan){
+		$this->db->select('*');
+		$this->db->from('kegiatan');
+		$this->db->join('jenis_kegiatan', 'jenis_kegiatan.kode_jenis_kegiatan = kegiatan.kode_jenis_kegiatan');
+		$this->db->join('file_upload', 'file_upload.kode_kegiatan = kegiatan.kode_kegiatan');
+		$this->db->join('pengguna', 'pengguna.id_pengguna = kegiatan.id_pengguna');
+		$this->db->join('data_diri', 'data_diri.no_identitas = pengguna.no_identitas');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->where('kegiatan.kode_jenis_kegiatan', $kode_jenis_kegiatan);
+		$this->db->order_by('kegiatan.created_at', 'DESC');
+		$this->db->group_by('kegiatan.kode_kegiatan');
  		// $this->db->where('progress.kode_nama_progress = "1"');
- 		$query = $this->db->get();
- 		if($query){
- 			return $query;
- 		}else{
- 			return null;
- 		}
+		$query = $this->db->get();
+		if($query){
+			return $query;
+		}else{
+			return null;
+		}
 
- 	}
+	}
 
- 	public function cek_id_staf_keu(){
- 		$this->db->select('pengguna.kode_jabatan_unit');
- 		$this->db->from('pengguna');
- 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
- 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
- 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+	public function cek_id_staf_keu(){
+		$this->db->select('pengguna.kode_jabatan_unit');
+		$this->db->from('pengguna');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
 		$this->db->where('unit.kode_unit = "3"'); //keuangan
 		$this->db->where('jabatan.kode_jabatan = "4"'); //staf
 		$this->db->where('status = "aktif"');
@@ -212,6 +212,16 @@
 		);
 		
 		$this->db->insert('file_upload', $data);
+	}
+
+	public function update_pengajuan($upload,$kode_kegiatan){ // Fungsi untuk update data ke database
+		$data = array(
+			'kode_kegiatan' => $kode_kegiatan, //last insert id
+			'nama_file' 	=> $upload['file']['file_name'],
+			'ukuran_file' 	=> $upload['file']['file_size']
+		);
+		$this->db->where('kode_kegiatan', $kode_kegiatan);
+		$this->db->update('file_upload', $data);
 	}
 
 	public function delete($id){ //hapus data pengajuan kegiatan ketika gagal upload file

@@ -444,9 +444,21 @@ public function pengajuan_kegiatan_mahasiswa(){
 
 			$insert_id = $this->KegiatanM->insert_ubah_pengajuan_kegiatan($kode_kegiatan, $data_ubah_pengajuan_kegiatan);
 			if($insert_id){ //get last insert id
-				$upload = $this->KegiatanM->upload($kode_kegiatan); // lakukan upload file dengan memanggil function upload yang ada di KegiatanM.php
-				$this->session->set_flashdata('sukses','Data Pengajuan Kegiatan anda berhasil diubah');
-				redirect_back();
+
+				if($upload = $this->KegiatanM->upload($kode_kegiatan)){ // lakukan upload file dengan memanggil function upload yang ada di KegiatanM.php
+					if($upload['result'] == "success"){
+						$this->KegiatanM->update_pengajuan($upload,$kode_kegiatan); // Panggil function save yang ada di KegiatanM.php untuk menyimpan data ke database
+						$this->session->set_flashdata('sukses','Data Pengajuan Kegiatan anda berhasil diubah');
+						redirect_back();
+					}else{
+						$data['message'] = $upload['error'];
+						$this->session->set_flashdata('error','Berkas Pengajuan Kegiatan anda tidak berhasil diubah');
+						redirect_back();
+					}
+				}else{
+					$this->session->set_flashdata('error','Berkas Pengajuan Kegiatan anda tidak berhasil diubah');
+					redirect_back();
+				}
 			}else{
 				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil diubah');
 				redirect_back();

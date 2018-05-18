@@ -8,19 +8,23 @@
     </div>
     <div class="row">
       <div class="container">
-       <?php
-       // var_dump($data_kegiatan); 
+
+       <?php 
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
-       <div class="alert alert-success" id="success-alert"><strong>Sukses! </strong> <?=$data;?></div>
-       <?php } ?>
-       <?php 
-       $data2=$this->session->flashdata('error');
-       if($data2!=""){ ?>
-       <div class="alert alert-danger" id="success-alert"><strong> Error! </strong> <?=$data2;?></div>
-       <?php } ?>
+        <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      </div>
+      <?php } ?>
+      <?php 
+      $data2=$this->session->flashdata('error');
+      if($data2!=""){ ?>
+        <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      </div>
+      <?php } ?>
 
-       <div class="panel panel-primary">
+      <div class="panel panel-primary">
         <div class="panel-heading">
         </div>
         <div class="panel-body">
@@ -63,9 +67,5 @@
 </div>
 
 </section>
-<div class="text-center">
-  <div class="credits">
-    <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-  </div>
-</div>
+
 </section>
