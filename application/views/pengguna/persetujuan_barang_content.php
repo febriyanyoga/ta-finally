@@ -16,7 +16,7 @@
        <div class="alert alert-danger" id="success-alert"><strong> Error! </strong> <?=$data2;?></div>
        <?php } ?>
        <!-- sampai sini -->
-       <h3 class="page-header" style="margin-top: 0;"><i class="fa fa-pencil"></i>Barang Diajukan</h3>
+       <h3 class="page-header" style="margin-top: 0;"><center>Barang Diajukan</center></h3>
      </div>
    </div>
    <div class="row">

@@ -512,7 +512,7 @@ table tr th { color: #688a7e;}
 
     position: fixed;
 
-    background: #073C64;
+    background: #2c5d81;
 
 }
 
@@ -1018,8 +1018,9 @@ ul.sidebar-menu li.active a i {
 
 .dark-bg {    
 
-    background: rgba(54,66,74,1);
-
+    /*background: rgba(54,66,74,1);*/
+    background: rgba(255,255,255,0.9);
+    
     border-bottom: 1px solid #f1f2f7;
 
 }
