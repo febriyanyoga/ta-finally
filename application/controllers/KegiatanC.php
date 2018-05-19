@@ -291,7 +291,7 @@ public function pengajuan_kegiatan_mahasiswa(){
 		$this->form_validation->set_rules('dana_diajukan', 'Dana Diajukan','required');
 		$this->form_validation->set_rules('tgl_pengajuan', 'Tanggal Pengajuan','required');
 		if($this->form_validation->run() == FALSE){
-			$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan1');
+			$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan');
 			redirect('KegiatanC/pengajuan_kegiatan_mahasiswa');
 		}else{
 			$id_pengguna 			= $_POST['id_pengguna'];
@@ -321,13 +321,13 @@ public function pengajuan_kegiatan_mahasiswa(){
 				}else{ // Jika proses upload gagal
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 					$this->KegiatanM->delete($insert_id);//hapus data pengajuan kegiatan ketka gagal upload file
-					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan2');
+					$this->session->set_flashdata('error','Data pengajuan kegiatan anda tidak berhasil ditambahkan');
 					redirect('KegiatanC/pengajuan_kegiatan_mahasiswa');
 				}
-				$this->session->set_flashdata('sukses','Data Pengajuan Kegiatan anda berhasil ditambahkan');
+				$this->session->set_flashdata('sukses','Data pengajuan kegiatan anda berhasil ditambahkan');
 				redirect('KegiatanC/pengajuan_kegiatan_mahasiswa');
 			}else{
-				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan3');
+				$this->session->set_flashdata('error','Data pengajuan kegiatan anda tidak berhasil ditambahkan');
 				redirect('KegiatanC/pengajuan_kegiatan_mahasiswa');
 			}
 		}
@@ -405,13 +405,13 @@ public function pengajuan_kegiatan_mahasiswa(){
 				}else{ // Jika proses upload gagal
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 					$this->KegiatanM->delete($insert_id);//hapus data pengajuan kegiatan ketka gagal upload file
-					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan');
+					$this->session->set_flashdata('error','Data pengajuan kegiatan anda tidak berhasil ditambahkan');
 					redirect('KegiatanC/pengajuan_kegiatan_pegawai');
 				}
-				$this->session->set_flashdata('sukses','Data Pengajuan Kegiatan anda berhasil ditambahkan');
+				$this->session->set_flashdata('sukses','Data pengajuan kegiatan anda berhasil ditambahkan');
 				redirect('KegiatanC/pengajuan_kegiatan_pegawai');
 			}else{
-				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan');
+				$this->session->set_flashdata('error','Data pengajuan kegiatan anda tidak berhasil ditambahkan');
 				redirect('KegiatanC/pengajuan_kegiatan_pegawai');
 			}
 		}
@@ -448,19 +448,19 @@ public function pengajuan_kegiatan_mahasiswa(){
 				if($upload = $this->KegiatanM->upload($kode_kegiatan)){ // lakukan upload file dengan memanggil function upload yang ada di KegiatanM.php
 					if($upload['result'] == "success"){
 						$this->KegiatanM->update_pengajuan($upload,$kode_kegiatan); // Panggil function save yang ada di KegiatanM.php untuk menyimpan data ke database
-						$this->session->set_flashdata('sukses','Data Pengajuan Kegiatan anda berhasil diubah');
+						$this->session->set_flashdata('sukses','Data pengajuan kegiatan anda berhasil diubah');
 						redirect_back();
 					}else{
 						$data['message'] = $upload['error'];
-						$this->session->set_flashdata('sukses','Data Pengajuan Kegiatan anda berhasil diubah'); //meskipun ga upload tapi data ttp update dan file tidak berubah
+						$this->session->set_flashdata('sukses','Data pengajuan kegiatan anda berhasil diubah'); //meskipun ga upload tapi data ttp update dan file tidak berubah
 						redirect_back();
 					}
 				}else{
-					$this->session->set_flashdata('error','Berkas Pengajuan Kegiatan anda tidak berhasil diubah');
+					$this->session->set_flashdata('error','Berkas pengajuan kegiatan anda tidak berhasil diubah');
 					redirect_back();
 				}
 			}else{
-				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil diubah');
+				$this->session->set_flashdata('error','Data pengajuan kegiatan anda tidak berhasil diubah');
 				redirect_back();
 			}
 		}

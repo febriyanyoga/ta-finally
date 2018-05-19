@@ -67,7 +67,7 @@ class LoginC extends CI_Controller {
 				$this->session->set_flashdata('error','Email atau kata sandi salah');
 				redirect('LoginC');
 			}else{
-				$this->session->set_flashdata('error','Email atau password dan captcha salah');
+				$this->session->set_flashdata('error','Email atau kata sandi dan captcha salah');
 				redirect('LoginC');
 			}
 		}

@@ -232,10 +232,10 @@ public function ganti_jabatan(){
 					$data_update_ganti_atasan = array('kode_jabatan_unit' => $get_id_bukan_atasan);
 					$this->PenggunaM->aktif($id_pengguna);
 					$this->PenggunaM->update_jabatan_unit($id_pengguna, $data_update_ganti_atasan);
-					$this->session->set_flashdata('sukses','Akun berhasil diaktifkan. Ada Pengguna Aktif di Jabatan tersebut sehingga dirubah menjadi staf');	
+					$this->session->set_flashdata('sukses','Akun berhasil diaktifkan. Ada pengguna aktif di jabatan tersebut sehingga dirubah menjadi staf');	
 					redirect('PenggunaC/pengguna');
 				}else{
-					$this->session->set_flashdata('error','Akun tidak berhasil diaktifkan. Ada Pengguna Aktif di Jabatan tersebut');	
+					$this->session->set_flashdata('error','Akun tidak berhasil diaktifkan. Ada pengguna Aktif di jabatan tersebut');	
 					redirect('PenggunaC/pengguna');
 				}
 			}
@@ -934,7 +934,7 @@ public function ganti_jabatan(){
     	$this->form_validation->set_rules('konfirmasi_sandi_baru', 'Konfirmasi Sandi Baru', 'trim|required|min_length[6]|max_length[50]|matches[sandi_baru]'); 
     	if ($this->form_validation->run() == FALSE)  
     	{  
-    		$this->session->set_flashdata('Error','Input yang anda masukkan salah, silahkan dicoba lagi . . .');
+    		$this->session->set_flashdata('Error','Input yang anda masukkan salah, silahkan dicoba lagi...');
     		redirect('PenggunaC/pengaturan_akun');
     	}else{ 
     		$sandi_lama   = $_POST['sandi_lama'];  
@@ -966,7 +966,7 @@ public function ganti_jabatan(){
     public function post_prosedur(){ //fungsi post pengajuan kegiatan pegawai
     	$this->form_validation->set_rules('tipe_doc', 'Tipe Dokumen','required');
     	if($this->form_validation->run() == FALSE){
-    		$this->session->set_flashdata('error','Data Prosedur anda tidak berhasil ditambahkan');
+    		$this->session->set_flashdata('error','Data prosedur anda tidak berhasil ditambahkan');
     		redirect('PenggunaC/prosedur');
     	}else{
 
@@ -983,10 +983,10 @@ public function ganti_jabatan(){
 				$this->PenggunaM->save_prosedur($upload, $data_prosedur); // Panggil function save_prosedur yang ada di UserM.php untuk menyimpan data ke database
 			}else{ // Jika proses upload gagal
 				$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
-				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan');
+				$this->session->set_flashdata('error','Data pengajuan kegiatan anda tidak berhasil ditambahkan');
 				redirect('PenggunaC/prosedur');
 			}
-			$this->session->set_flashdata('sukses','Data Pengajuan Kegiatan anda berhasil ditambahkan');
+			$this->session->set_flashdata('sukses','Data pengajuan kegiatan anda berhasil ditambahkan');
 			redirect('PenggunaC/prosedur');
 		}
 	}

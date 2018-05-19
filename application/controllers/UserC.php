@@ -178,14 +178,14 @@ public function post_resend_email(){
    if($now_date > $exp_date && $status_email =='0'){ //jika konfirmasi diatas exp date maka akan hapus data diri dan pengguna si empunya email
     $this->PenggunaM->delete_pengguna_by_email($key);
     $this->PenggunaM->delete_data_diri_by_no_identitas($no_identitas);
-    $this->session->set_flashdata('error','Tautan konfirmasi email anda sudah kadaluwarsa, Silahkan mencoba daftar kembali ...');
+    $this->session->set_flashdata('error','Tautan konfirmasi email anda sudah kadaluwarsa, Silahkan mencoba daftar kembali...');
     redirect('LoginC');
   }else{
     if($this->PenggunaM->verifyemail($key)){  
-      $this->session->set_flashdata('sukses','Email anda berhasil dikonfirmasi. Silahkan masuk ...');
+      $this->session->set_flashdata('sukses','Email anda berhasil dikonfirmasi. Silahkan masuk...');
       redirect('LoginC');
     }else{  
-      $this->session->set_flashdata('error','Email anda belum berhasil dikonfirmasi. Silahkan mencoba kembali ...');
+      $this->session->set_flashdata('error','Email anda belum berhasil dikonfirmasi. Silahkan mencoba kembali...');
       redirect('LoginC');
     }  
   }

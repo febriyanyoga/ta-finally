@@ -58,7 +58,7 @@
               <?php
             }else{
               ?>
-              <div class="alert alert-danger">
+              <div class="alert alert-warning">
                 <i class="glyphicon glyphicon-exclamation-sign"></i><strong> Perhatian!</strong> Masih ada Jabatan penting yang kosong. Silahkan dilengkapi terlebih dahulu, agar sistem dapat berjalan dengan baik.<br>
                 <p>Jabatan yang kosong adalah : </p>
                 <?php 
