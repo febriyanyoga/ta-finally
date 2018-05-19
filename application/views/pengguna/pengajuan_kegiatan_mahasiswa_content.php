@@ -15,19 +15,19 @@ tgl_selesai_kegiatan<section id="main-content">
       <div class="col-lg-12">
         <!-- Alert -->
         <?php 
-       $data=$this->session->flashdata('sukses');
-       if($data!=""){ ?>
-        <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      </div>
-      <?php } ?>
-      <?php 
-      $data2=$this->session->flashdata('error');
-      if($data2!=""){ ?>
-        <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      </div>
-      <?php } ?>
+        $data=$this->session->flashdata('sukses');
+        if($data!=""){ ?>
+          <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        </div>
+        <?php } ?>
+        <?php 
+        $data2=$this->session->flashdata('error');
+        if($data2!=""){ ?>
+          <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        </div>
+        <?php } ?>
 
         <div class="card mb-3">
           <div class="card-header">
@@ -64,8 +64,18 @@ tgl_selesai_kegiatan<section id="main-content">
                         <td class="text-center"><?php echo $new_tgl_pengajuan; ?></td>
                         <td class="text-center"><?php echo $new_tgl_kegiatan." - ".$new_tgl_selesai; ?></td>
                         <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,00</td>
-                        <?php $link = base_url()."assets/file_upload/".$kegiatan->nama_file;?>
-                        <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
+                        <?php 
+                        $link = base_url()."assets/file_upload/".$kegiatan->nama_file;
+                        if(substr($kegiatan->nama_file,32,4) == ".zip"){
+                          ?>
+                          <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/zip.svg" style="height: 30px;"></span></a></td>
+                          <?php
+                        }else{
+                          ?>
+                          <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
+                          <?php
+                        }
+                        ?>
 
                         <td class="text-center">
 
@@ -141,9 +151,10 @@ tgl_selesai_kegiatan<section id="main-content">
                             <div class="col-lg-12">
                               <div class="panel-body">
                                <div class="alert alert-warning">
-                                <ol type="1"> <strong>Perhatian !</strong>
+                                 <ol type="1"> <strong>Perhatian !</strong>
                                   <li>Isi <b>Nama Kegiatan</b> sesuai dengan kegiatan yang ingin dilaksanakan.</li>
-                                  <li>Berkas yang diunggah hanya <b>satu(1)</b> berupa berkas <b>.pdf</b>. Apabila membutuhkan lebih dari satu berkas, maka harus dijadikan satu berkas <b>.pdf</b>.</li>
+                                  <li>Berkas yang diunggah dapat berupa berkas <b>.pdf</b> atau apabila membutuhkan lebih dari satu berkas, maka berkas dapat berupa <b>.zip</b>.</li>
+                                  <li>Data dengan format <b>.pdf</b> akan lebih cepat dalam proses persetujuan.</li>
                                   <li>Data yang sudah mendapat persetujuan <b>tidak dapat diubah</b>.</li>
                                 </ol>
                               </div>
@@ -281,7 +292,8 @@ tgl_selesai_kegiatan<section id="main-content">
            <div class="alert alert-warning">
             <ol type="1"> <strong>Perhatian !</strong>
               <li>Isi <b>Nama Kegiatan</b> sesuai dengan kegiatan yang ingin dilaksanakan.</li>
-              <li>Berkas yang diunggah hanya <b>satu(1)</b> berupa berkas <b>.pdf</b>. Apabila membutuhkan lebih dari satu berkas, maka harus dijadikan satu berkas <b>.pdf</b>.</li>
+              <li>Berkas yang diunggah dapat berupa berkas <b>.pdf</b> atau apabila membutuhkan lebih dari satu berkas, maka berkas dapat berupa <b>.zip</b>.</li>
+              <li>Data dengan format <b>.pdf</b> akan lebih cepat dalam proses persetujuan.</li>
               <li>Data yang sudah mendapat persetujuan <b>tidak dapat diubah</b>.</li>
             </ol>
           </div>

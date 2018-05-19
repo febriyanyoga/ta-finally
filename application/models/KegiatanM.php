@@ -232,8 +232,8 @@ class KegiatanM extends CI_Model
 
 	public function upload($kode_kegiatan){ // Fungsi untuk upload file ke folder
 		$config['upload_path'] = './assets/file_upload';
-		$config['allowed_types'] = 'pdf';
-		$config['max_size']	= '';
+		$config['allowed_types'] = 'pdf|zip|rar';
+		$config['max_size']	= '5048';
 		$config['remove_space'] = TRUE;
 		$config['encrypt_name'] = FALSE;
 		$config['overwrite'] = TRUE;
@@ -296,6 +296,28 @@ class KegiatanM extends CI_Model
 		$this->db->select('ranking');
 		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
 		$this->db->where('kode_jenis_kegiatan = "1"'); //pegawai
+		if($query = $this->db->get('acc_kegiatan')->row()){
+			return $query;
+		}else{
+			return ;
+		}	
+	}
+
+	public function created_at($kode_jabatan_unit){
+		$this->db->select('*');
+		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
+		$this->db->where('kode_jenis_kegiatan = "1"'); //pegawai
+		if($query = $this->db->get('acc_kegiatan')->row()){
+			return $query;
+		}else{
+			return ;
+		}	
+	}
+
+	public function created_at_mhs($kode_jabatan_unit){
+		$this->db->select('*');
+		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
+		$this->db->where('kode_jenis_kegiatan = "2"'); //mhs
 		if($query = $this->db->get('acc_kegiatan')->row()){
 			return $query;
 		}else{

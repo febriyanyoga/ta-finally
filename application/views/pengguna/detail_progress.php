@@ -12,56 +12,56 @@ foreach ($detail_progress as $progress=>$key) {
                                 if($key->file_profil){
                                     ?>
                                     <img style="height: 50px;" src="<?php echo base_url()."assets/image/profil/".$key->file_profil;?>">
-                                <?php
-                            }else{
+                                    <?php
+                                }else{
+                                    ?>
+                                    <img style="height: 50px;" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                                    <?php
+                                }
                                 ?>
-                                <img style="height: 50px;" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                                <?php
-                            }
-                            ?>
                             </div>
                             <div class="avatar pull-right">
                                 <?php 
                                 // echo $key->kode_nama_progress;
                                 if($key->kode_nama_progress == 1){?>
-                                <div class="text-center">
-                                <span class="glyphicon glyphicon-ok"></span>
-                                </div>
-                                <span><?php echo $key->nama_progress;?></span>
-                                <?php
+                                    <div class="text-center">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    </div>
+                                    <span><?php echo $key->nama_progress;?></span>
+                                    <?php
                                 }else{
                                     if($key->kode_nama_progress == 2){
-                                    ?>
-                                <div class="text-center">
-                                      <span class="glyphicon glyphicon-remove"></span>
-                                </div>
-                                <span><?php echo $key->nama_progress;?></span>
-                                <?php   
-                                    }else{
-                                         ?>
+                                        ?>
                                         <div class="text-center">
-                                              <!-- <span class="glyphicon glyphicon-remove"></span> -->
-                                        </div>
-                                        <span><?php echo $key->nama_progress;?></span>
-                                        <?php   
-                                    }
-                                }
+                                          <span class="glyphicon glyphicon-remove"></span>
+                                      </div>
+                                      <span><?php echo $key->nama_progress;?></span>
+                                      <?php   
+                                  }else{
+                                   ?>
+                                   <div class="text-center">
+                                      <!-- <span class="glyphicon glyphicon-remove"></span> -->
+                                  </div>
+                                  <span><?php echo $key->nama_progress;?></span>
+                                  <?php   
+                              }
+                          }
 
-                                ?>
+                          ?>
 
+                      </div>
+                      <div class="user-detail">
+                        <h5 class="handle"><?php echo $key->nama;?></h5>
+                        <div class="post-meta">
+                            <div class="asker-meta">
+                                <span class="qa-message-what"></span>
+                                <span class="qa-message-who">
+                                    <span class="qa-message-who-pad">Sebagai </span>
+                                    <span class="qa-message-who-data"><?php echo $key->nama_jabatan." ".$key->nama_unit;?></span>
+                                </span>
                             </div>
-                        <div class="user-detail">
-                            <h5 class="handle"><?php echo $key->nama;?></h5>
-                            <div class="post-meta">
-                                <div class="asker-meta">
-                                    <span class="qa-message-what"></span>
-                                    <span class="qa-message-who">
-                                        <span class="qa-message-who-pad">Sebagai </span>
-                                        <span class="qa-message-who-data"><?php echo $key->nama_jabatan." ".$key->nama_unit;?></span>
-                                    </span>
-                                </div>
-                                <span class="qa-message-when">
-                                    <span class="qa-message-when-data">
+                            <span class="qa-message-when">
+                                <span class="qa-message-when-data">
                                     <p class="label label-danger">
                                         <?php
                                         $tgl =  $key->tgl_progress;
@@ -69,21 +69,28 @@ foreach ($detail_progress as $progress=>$key) {
                                         echo $new_tgl;
                                         ?>
                                     </p>
-                                    </span>
-                                    <span class="qa-message-when">
-                                        <small class="label label-info"><?php echo $key->waktu_progress;?></small>
-                                    </span>
                                 </span>
-                            </div>
+                                <span class="qa-message-when">
+                                    <small class="label label-info"><?php echo $key->waktu_progress;?></small>
+                                </span>
+                            </span>
                         </div>
                     </div>
-                    <div class="qa-message-content">
-                      <?php echo $key->komentar;?>
-                  </div>
+                </div>
+                <div class="qa-message-content">
+                  <?php echo $key->komentar;?>
               </div>
           </div>
       </div>
-  </div>
+</div>
+<!-- <div class="qa-message-list" id="wallmessages">
+    <div class="message-item" id="m16">
+        <div class="message-inner">
+            <center>Pengajuan kegiatan telah disetujui</center>
+        </div>
+    </div>
+</div> -->
+</div>
 </div>
 <?php
 }
@@ -198,7 +205,7 @@ foreach ($detail_progress as $progress=>$key) {
     line-height: 22px;
 }
 img {
- min-height: 40px;
- max-height: 40px;
+   min-height: 40px;
+   max-height: 40px;
 }
 </style>

@@ -13,7 +13,7 @@
     <div class="row">
       <div class="col-lg-12">
        <!-- Alert -->
-      <?php 
+       <?php 
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
         <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
@@ -81,11 +81,20 @@
                    </div>
                  </td>
                  <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,00</td>
-                 <?php $link = base_url()."assets/file_upload/".$kegiatan->nama_file;?>
-                 <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
-                 <!-- <td><?php echo $kegiatan->nama;?></td> -->
-                 <!-- <td><?php echo $kegiatan->nama_jabatan." ".$kegiatan->nama_unit;?></td> -->
-                 <td class="text-center">
+                 <?php 
+                 $link = base_url()."assets/file_upload/".$kegiatan->nama_file;
+                 if(substr($kegiatan->nama_file,32,4) == ".zip"){
+                  ?>
+                  <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/zip.svg" style="height: 30px;"></span></a></td>
+                  <?php
+                }else{
+                  ?>
+                  <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
+                  <?php
+                }
+                ?>
+                
+                <td class="text-center">
 
                   <?php 
                   $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);

@@ -49,9 +49,6 @@
         <li class="nav-item">
           <a class="nav-link program-title" data-toggle="tab" href="#7" role="tab"><span class="glyphicon glyphicon-list"></span><br class="hidden-md-up"> Akses Menu </a>
         </li>
-       <!--  <li class="nav-item">
-          <a class="nav-link program-title" data-toggle="tab" href="#8" role="tab"><span class="glyphicon glyphicon-th-large"></span><br class="hidden-md-up"> Unit dan Jabatan </a>
-        </li> -->
       </ul>
     </div>
   </div>
@@ -60,7 +57,6 @@
   <div class="row">
    <div class="col-md-2 col-lg-2 col-sm-12">
    </div>
-
    <div class="col-md-8 col-lg-8 col-sm-12">
     <div class="tab-content" >
       <!-- Data tabel jabatan-->
@@ -223,7 +219,7 @@
                     <div class="btn-group">
                       <a href="#modal_unit" id="custId" data-toggle="modal" data-id="<?php echo $unit->kode_unit;?>" data-toggle="tooltip" title="Edit Unit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                       <a data-toggle="modal" title="Tambah Jabatan Unit" class="btn btn-primary btn-sm" data-target="#modal_tambah_jabatan-<?php echo $unit->kode_unit?>"><span class="glyphicon glyphicon-plus-sign"></span></a>
-                      <a href="<?php echo base_url('PenggunaC/hapus_unit/').$unit->kode_unit?>" title="Hapus Unit" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                      <a href="<?php echo base_url('PenggunaC/hapus_unit/').$unit->kode_unit?>" title="Hapus Unit" class="btn btn-danger btn-sm" onClick="return confirm('Anda yakin akan menghapus unit <?php echo $unit->nama_unit?>?')"><span class="glyphicon glyphicon-trash"></span></a>
                     </div>
                   </td>
                 </tr>
@@ -575,7 +571,7 @@
   <div class="row pt-5">
     <div class="col-lg-12">
       <div style="margin-top: 20px;">
-        <a class="btn btn-primary" data-toggle="modal" data-target="#tambah_persetujuan_kegiatan_pegawai"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Persetujuan Pegawai </a>
+        <!-- <a class="btn btn-primary" data-toggle="modal" data-target="#tambah_persetujuan_kegiatan_pegawai"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Persetujuan Pegawai </a> -->
         <div class="table-responsive">
          <table id="persetujuan_kegiatan_peg" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
@@ -665,10 +661,25 @@
                     <?php
                     if($jabatan_unit_pengguna = $PenggunaM->get_jabatan_unit_by_menu($menu->kode_menu)){
                       foreach ($jabatan_unit_pengguna->result() as $pengguna) {
-                        echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit;
-                        ?>
-                        <a  href="<?php echo base_url('PenggunaC/hapus_akses_menu/').$pengguna->kode_akses_menu ?>"  onClick="return confirm('Anda yakin akan menghapus Jabatan <?php echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit?>?')" style="color: red;"><i class="glyphicon glyphicon-trash text-danger"></i></a><br>
-                        <?php
+                        if($pengguna->kode_menu != 1){
+                          if($pengguna->kode_menu != 2){
+                            echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit;
+                            if($menu->kode_menu == 10 || $menu->kode_menu == 11){
+                              ?>
+                              <!-- <a style="color: grey;" disabled><i class="glyphicon glyphicon-trash text-default"></i></a><br> -->
+                              <?php
+                            }else{
+                              ?>
+                              <a  href="<?php echo base_url('PenggunaC/hapus_akses_menu/').$pengguna->kode_akses_menu ?>"  onClick="return confirm('Anda yakin akan menghapus Jabatan <?php echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit?>?')" style="color: red;"><i class="glyphicon glyphicon-trash text-danger"></i></a><br>
+                              <?php
+                            }
+                            
+                          }else{
+                            echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit."<br>";
+                          }
+                        }else{
+                          echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit."<br>";
+                        }
                       } 
                     }
                     ?>
@@ -676,53 +687,63 @@
                   </div>
                 </td>
                 <td>
-                  <a data-toggle="modal" title="Tambah Jabatan Unit" class="btn btn-primary btn-sm" data-target="#modal_tambah_akses_menu-<?php echo $pengguna->kode_akses_menu?>"><span class="glyphicon glyphicon-plus-sign"></span></a>
-                </td>
-              </tr>
+                  <?php
+                  if($menu->kode_menu == 10 || $menu->kode_menu == 11){
+                    ?>
+                    <a data-toggle="modal" title="Akses menu khusus staf keuangan" class="btn btn-primary btn-sm" disabled><span class="glyphicon glyphicon-plus-sign"></span></a>
+                    <?php
+                  }else{
+                   ?>   
+                   <a data-toggle="modal" title="Tambah Jabatan Unit" class="btn btn-primary btn-sm" data-target="#modal_tambah_akses_menu-<?php echo $pengguna->kode_akses_menu?>"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                   <?php
+                 }
+                 ?>
+               </td>
+             </tr>
 
-              <!-- modal tambah jabatan -->
-              <div aria-hidden="true" aria-labelledby="modal_tambah_akses_menu-<?php echo $pengguna->kode_akses_menu?>" role="dialog" tabindex="-1" id="modal_tambah_akses_menu-<?php echo $pengguna->kode_akses_menu?>" class="modal fade">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                      <h4 class="modal-title">Tambah Akses Menu</h4>
-                    </div>
-                    <div class="modal-body">
-                      <?php echo form_open_multipart('PenggunaC/tambah_akses_menu');?>
-                      <form role="form" action="<?php echo base_url(); ?>PenggunaC/tambah_akses_menu" method="post">
-                        <div class="form-group">
-                          <label>Nama Jabatan</label>
-                          <input class="form-control" type="text" id="kode_menu" name="kode_menu" value="<?php echo $menu->kode_menu?>" required>
-                          <select class="form-control" name="kode_jabatan_unit" id="kode_jabatan_unit">
-                            <option value="">---- Pilih Jabatan Unit ---- </option>
-                            <?php 
-                            foreach ($jabatan_unit_menu as $pilihan_unit_menu) {
-                              ?>
-                              <option value="<?php echo $pilihan_unit_menu->kode_jabatan_unit;?>"><?php echo $pilihan_unit_menu->nama_jabatan.' '.$pilihan_unit_menu->nama_unit?></option>
-                              <?php
-                            }
+             <!-- modal tambah jabatan -->
+             <div aria-hidden="true" aria-labelledby="modal_tambah_akses_menu-<?php echo $pengguna->kode_akses_menu?>" role="dialog" tabindex="-1" id="modal_tambah_akses_menu-<?php echo $pengguna->kode_akses_menu?>" class="modal fade">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">Tambah Akses Menu</h4>
+                  </div>
+                  <div class="modal-body">
+                    <?php echo form_open_multipart('PenggunaC/tambah_akses_menu');?>
+                    <form role="form" action="<?php echo base_url(); ?>PenggunaC/tambah_akses_menu" method="post">
+                      <div class="form-group">
+                        <label>Nama Jabatan</label>
+                        <input class="form-control" type="hidden" id="kode_menu" name="kode_menu" value="<?php echo $menu->kode_menu?>" required>
+                        <select class="form-control" name="kode_jabatan_unit" id="kode_jabatan_unit">
+                          <option value="">---- Pilih Jabatan Unit ---- </option>
+                          <?php 
+                          foreach ($jabatan_unit_menu as $pilihan_unit_menu) {
                             ?>
-                          </select>
-                        </div>
-                        <div class="modal-footer">
-                          <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
-                        </div> 
-                        <?php echo form_close()?>
-                      </form>
-                    </div>
+                            <option value="<?php echo $pilihan_unit_menu->kode_jabatan_unit;?>"><?php echo $pilihan_unit_menu->nama_jabatan.' '.$pilihan_unit_menu->nama_unit?></option>
+                            <?php
+                          }
+                          ?>
+                        </select>
+                      </div>
+                      <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
+                      </div> 
+                      <?php echo form_close()?>
+                    </form>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <?php
-            }
-            ?>
-          </tbody>
-        </table>
-      </div>
+            <?php
+          }
+          ?>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
 </div>
 </div>
 
@@ -757,7 +778,7 @@
   <div class="row pt-5">
     <div class="col-lg-12">
       <div style="margin-top: 20px;">
-        <a class="btn btn-primary" data-toggle="modal" data-target="#tambah_persetujuan_kegiatan_mahasiswa"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Persetujuan Kegiatan Mahasiswa </a>
+        <!-- <a class="btn btn-primary" data-toggle="modal" data-target="#tambah_persetujuan_kegiatan_mahasiswa"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Persetujuan Kegiatan Mahasiswa </a> -->
         <div class="table-responsive">
           <table id="persetujuan_kegiatan_mhs" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>

@@ -67,9 +67,18 @@
                           <td class="text-center"><?php echo $new_tgl_pengajuan; ?></td>
                           <td class="text-center"><?php echo $new_tgl_kegiatan." - ".$new_tgl_selesai; ?></td>
                           <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,00</td>
-
-                          <?php $link = base_url()."assets/file_upload/".$kegiatan->nama_file;?>
-                          <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
+                          <?php 
+                          $link = base_url()."assets/file_upload/".$kegiatan->nama_file;
+                          if(substr($kegiatan->nama_file,32,4) == ".zip"){
+                            ?>
+                            <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/zip.svg" style="height: 30px;"></span></a></td>
+                            <?php
+                          }else{
+                            ?>
+                            <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
+                            <?php
+                          }
+                          ?>
                           
                           <td class="text-center">
 
@@ -137,7 +146,7 @@
                         <div class="btn-group">
                           <a href="#" id="custId" data-toggle="modal" data-target="#modal_edit-<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Ubah Pengajuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
 
-                          <a href="<?php echo base_url('KegiatanC/hapus_pengajuan')."/".$kegiatan->kode_kegiatan;?>" onClick="return confirm('Anda yakin akan menghapus data pengajuan ini?')" data-toggle='tooltip' title='hapus' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>                            
+                          <a href="<?php echo base_url('KegiatanC/hapus_pengajuan')."/".$kegiatan->kode_kegiatan;?>" onClick="return confirm('Anda yakin akan menghapus data pengajuan ini?')" data-toggle='tooltip' title='hapus' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"> lele</span></a>                            
                         </div>
                         <?php 
                       }
@@ -159,7 +168,8 @@
                              <div class="alert alert-warning">
                               <ol type="1"> <strong>Perhatian !</strong>
                                 <li>Isi <b>Nama Kegiatan</b> sesuai dengan kegiatan yang ingin dilaksanakan.</li>
-                                <li>Berkas yang diunggah hanya <b>satu(1)</b> berupa berkas <b>.pdf</b>. Apabila membutuhkan lebih dari satu berkas, maka harus dijadikan satu berkas <b>.pdf</b>.</li>
+                                <li>Berkas yang diunggah dapat berupa berkas <b>.pdf</b> atau apabila membutuhkan lebih dari satu berkas, maka berkas dapat berupa <b>.zip</b>.</li>
+                                <li>Data dengan format <b>.pdf</b> akan lebih cepat dalam proses persetujuan.</li>
                                 <li>Data yang sudah mendapat persetujuan <b>tidak dapat diubah</b>.</li>
                               </ol>
                             </div>
@@ -293,7 +303,8 @@
            <div class="alert alert-warning">
             <ol type="1"> <strong>Perhatian !</strong>
               <li>Isi <b>Nama Kegiatan</b> sesuai dengan kegiatan yang ingin dilaksanakan.</li>
-              <li>Berkas yang diunggah hanya <b>satu(1)</b> berupa berkas <b>.pdf</b>. Apabila membutuhkan lebih dari satu berkas, maka harus dijadikan satu berkas <b>.pdf</b>.</li>
+              <li>Berkas yang diunggah dapat berupa berkas <b>.pdf</b> atau apabila membutuhkan lebih dari satu berkas, maka berkas dapat berupa <b>.zip</b>.</li>
+              <li>Data dengan format <b>.pdf</b> akan lebih cepat dalam proses persetujuan.</li>
               <li>Data yang sudah mendapat persetujuan <b>tidak dapat diubah</b>.</li>
             </ol>
           </div>

@@ -145,10 +145,13 @@ public function pengajuan_kegiatan_mahasiswa(){
 }
 
 	public function hapus_pengajuan($kode_kegiatan){//hapus pengajuan kegiatan
-		if($this->KegiatanM->hapus_pengajuan($kode_kegiatan)){
-			unlink("../assets/file_upload/".md5($kode_kegiatan));
-			$this->session->set_flashdata('sukses','Data anda berhasil dihapus');
-			redirect_back();
+		$file = md5($kode_kegiatan);
+		$path_to_file = '/ta-finally/file_upload/'.$file;
+		if(unlink($path_to_file)){
+			// if($this->KegiatanM->hapus_pengajuan($kode_kegiatan)){
+				$this->session->set_flashdata('sukses','Data anda berhasil dihapus');
+				redirect_back();
+			// }
 		}else{
 			$this->session->set_flashdata('error','Data anda tidak berhasil dihapus');
 			redirect_back();
@@ -300,8 +303,8 @@ public function pengajuan_kegiatan_mahasiswa(){
 			$tgl_kegiatan 			= date('Y-m-d',strtotime($_POST['tgl_kegiatan']));
 			$tgl_selesai_kegiatan 	= date('Y-m-d',strtotime($_POST['tgl_selesai_kegiatan']));
 			$dana_diajukan 			= $_POST['dana_diajukan'];
-			$dana_diajukan = str_replace('.', '', $dana_diajukan);
-			$dana_diajukan = str_replace('Rp', '', $dana_diajukan);
+			$dana_diajukan 			= str_replace('.', '', $dana_diajukan);
+			$dana_diajukan 			= str_replace('Rp', '', $dana_diajukan);
 			$tgl_pengajuan 			= $_POST['tgl_pengajuan'];
 
 			$data_pengajuan_kegiatan = array(

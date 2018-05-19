@@ -82,11 +82,19 @@
                      </div>
                    </td>
                    <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,00</td>
-                   <?php $link = base_url()."assets/file_upload/".$kegiatan->nama_file;?>
-                   <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
-                   <!-- <td><?php echo $kegiatan->nama;?></td> -->
-                   <!-- <td><?php echo $kegiatan->nama_jabatan." ".$kegiatan->nama_unit;?></td> -->
-                   <td class="text-center">
+                   <?php 
+                   $link = base_url()."assets/file_upload/".$kegiatan->nama_file;
+                   if(substr($kegiatan->nama_file,32,4) == ".zip"){
+                    ?>
+                    <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/zip.svg" style="height: 30px;"></span></a></td>
+                    <?php
+                  }else{
+                    ?>
+                    <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
+                    <?php
+                  }
+                  ?>
+                  <td class="text-center">
                     <!-- //disetujui -->
                     <?php
                     $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
@@ -143,65 +151,65 @@
                         if($own > 0){
                           ?>
                           <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
-                          <p class="kecil">Selesai</p>
-                           <?php
-                         }elseif ($own == 0) {
+                            <p class="kecil">Selesai</p>
+                            <?php
+                          }elseif ($own == 0) {
+                            ?>
+                            <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan Persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                            <?php
+                          }
                           ?>
-                          <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan Persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-                          <?php
-                        }
-                        ?>
 
-                      </td>
-                    </tr>
-                    <?php
-                  }
-                  ?>
-                </tbody>
-              </table>
+                        </td>
+                      </tr>
+                      <?php
+                    }
+                    ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
+
   </section>
 
-</section>
 
-
-<!-- modal persetujuan kegiatan -->
-<div class="modal fade" id="myModal" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Persetujuan Kegiatan</h4>
-      </div>
-      <div class="modal-body">
-        <div class="fetched-data"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- modal detail kegiatan -->
-<div class="modal fade" id="myModal1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Detail Kegiatan</h4>
-      </div>
-      <div class="modal-body">
-        <div class="fetched-data"></div>
+  <!-- modal persetujuan kegiatan -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Persetujuan Kegiatan</h4>
+        </div>
+        <div class="modal-body">
+          <div class="fetched-data"></div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+  <!-- modal detail kegiatan -->
+  <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Detail Kegiatan</h4>
+        </div>
+        <div class="modal-body">
+          <div class="fetched-data"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
-<script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
-<script type="text/javascript">
+  <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
+  <script type="text/javascript">
     // js persetujuan kegiatan
     $(document).ready(function(){
       $('#myModal').on('show.bs.modal', function (e) {

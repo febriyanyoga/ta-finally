@@ -419,6 +419,28 @@ public function ganti_jabatan(){
 
 	}
 
+	public function hapus($kode_acc_kegiatan){//hapus persetujuan kegiatan
+		$hapus_jabatan_unit 	= $this->PenggunaM->get_acc_by_kode($kode_acc_kegiatan)->result()[0]->kode_jabatan_unit;
+		$hapus_jenis_kegiatan 	= $this->PenggunaM->get_acc_by_kode($kode_acc_kegiatan)->result()[0]->kode_jenis_kegiatan;
+		if($hapus_jenis_kegiatan == '1'){ //kode jenis kegiatan pegawai
+			$kode_menu = '2'; //kode menu pers pegawai
+		}elseif($hapus_jenis_kegiatan == '2'){ //kode jenis keg mhs
+			$kode_menu = '1'; //kode menu pers mhs
+		}
+
+		$hapus_acc_kode = $this->PenggunaM->get_akses_menu_by_kode_jabatan_kode_menu($hapus_jabatan_unit, $kode_menu)->result()[0]->kode_akses_menu;
+
+		if($this->PenggunaM->hapus($kode_acc_kegiatan)){
+			if($this->PenggunaM->hapus_akses_menu($hapus_acc_kode)){
+				$this->session->set_flashdata('sukses','Data anda berhasil dihapus');
+				redirect_back();
+			}else{
+				$this->session->set_flashdata('error','Data anda tidak berhasil dihapus');
+				redirect_back();
+			}
+		}
+	}
+
 	public function tambah_akses_menu(){
 		$this->form_validation->set_rules('kode_menu', 'Kode Menu','required');
 		$this->form_validation->set_rules('kode_jabatan_unit', 'Kode Jabatan Unit','required');
@@ -435,8 +457,60 @@ public function ganti_jabatan(){
 			);
 
 			if($this->PenggunaM->insert_akses_menu($data_insert_akses_menu)){
+				if($kode_menu == 2){
+					$ranking = $this->PenggunaM->get_max_rank_peg()->result()[0]->ranking; //pegawai
+					$ranking_new = (int)$ranking + 1;
+					$kode = "1"; //jenis kegiatan pegawai
+
+				}elseif($kode_menu == 1){
+					$ranking = $this->PenggunaM->get_max_rank_mhs()->result()[0]->ranking; //mahasiswa
+					$ranking_new = (int)$ranking + 1;
+					$kode = "2"; //jenis kegiatan mhs
+				}
+				$data = array(
+					'kode_jabatan_unit'      	=> $kode_jabatan_unit,
+					'ranking'      				=> $ranking_new,
+					'kode_jenis_kegiatan'      	=> $kode);
+				$db = "acc_kegiatan";
+				if($this->PenggunaM->insert($db, $data)){
+					$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
+					redirect_back();
+				}else{
+					$this->session->set_flashdata('error','Data anda tidak berhasil disimpan 1');
+					redirect_back(); //kembali ke halaman sebelumnya -> helper
+				}
+			}
+		}
+	}
+
+	public function tambah_persetujuan_kegiatan($kode){
+		$this->form_validation->set_rules('kode_jabatan_unit', 'Kode Jabatan Unit','required');
+		if($this->form_validation->run() == FALSE){
+			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan 1');
+			redirect_back(); //kembali ke halaman sebelumnya -> helper
+		}else{
+			$kode_jabatan_unit 		= $_POST['kode_jabatan_unit'];
+
+			if($kode == 1){
+				$ranking = $this->PenggunaM->get_max_rank_peg()->result()[0]->ranking; //pegawai
+				$ranking_new = (int)$ranking + 1;
+			}elseif ($kode == 2){
+				$ranking = $this->PenggunaM->get_max_rank_mhs()->result()[0]->ranking;
+				$ranking_new = (int)$ranking + 1;
+			}
+
+			$data = array(
+				'kode_jabatan_unit'      	=> $kode_jabatan_unit,
+				'ranking'      				=> $ranking_new,
+				'kode_jenis_kegiatan'      	=> $kode);
+			$db = "acc_kegiatan";
+
+			if($this->PenggunaM->insert($db, $data)){
 				$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
-				redirect_back();
+				redirect_back(); // redirect kembali ke halaman sebelumnya
+			}else{
+				$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
+				redirect_back(); //kembali ke halaman sebelumnya -> helper
 			}
 		}
 	}
@@ -632,46 +706,6 @@ public function ganti_jabatan(){
 	}
 
 	// ACC KEgiatan
-
-	public function hapus($id){//hapus persetujuan kegiatan
-		if($this->PenggunaM->hapus($id)){
-			$this->session->set_flashdata('sukses','Data anda berhasil dihapus');
-			redirect_back();
-		}
-	}
-
-	public function tambah_persetujuan_kegiatan($kode){
-		$this->form_validation->set_rules('kode_jabatan_unit', 'Kode Jabatan Unit','required');
-		if($this->form_validation->run() == FALSE){
-			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan 1');
-			redirect_back(); //kembali ke halaman sebelumnya -> helper
-		}else{
-			$kode_jabatan_unit 		= $_POST['kode_jabatan_unit'];
-
-			if($kode == 1){
-				$ranking = $this->PenggunaM->get_max_rank_peg()->result()[0]->ranking;
-				$ranking_new = (int)$ranking + 1;
-			}elseif ($kode == 2){
-				$ranking = $this->PenggunaM->get_max_rank_mhs()->result()[0]->ranking;
-				$ranking_new = (int)$ranking + 1;
-			}
-
-			$data = array(
-				'kode_jabatan_unit'      	=> $kode_jabatan_unit,
-				'ranking'      				=> $ranking_new,
-				'kode_jenis_kegiatan'      	=> $kode);
-			$db = "acc_kegiatan";
-
-			if($this->PenggunaM->insert($db, $data)){
-				$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
-				redirect_back(); // redirect kembali ke halaman sebelumnya
-			}else{
-				$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
-				redirect_back(); //kembali ke halaman sebelumnya -> helper
-			}
-		}
-	}
-
 	public function naik($kode_acc_kegiatan, $ranking, $kode_jenis_kegiatan){
 		$rank_max_peg = $this->PenggunaM->get_max_rank_peg()->result()[0]->ranking;
 		$rank_max_mhs = $this->PenggunaM->get_max_rank_mhs()->result()[0]->ranking;

@@ -349,6 +349,21 @@
 		return "berhasil";
 	}
 
+	public function get_acc_by_kode($kode_acc_kegiatan){
+		$this->db->select('*');
+		$this->db->from('acc_kegiatan');
+		$this->db->where('kode_acc_kegiatan', $kode_acc_kegiatan);
+		return $this->db->get();
+	}
+
+	public function get_akses_menu_by_kode_jabatan_kode_menu($kode_jabatan_unit, $kode_menu){ //get 
+		$this->db->select('*');
+		$this->db->from('akses_menu');
+		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
+		$this->db->where('kode_menu', $kode_menu);
+		return $this->db->get();
+	}
+
 	public function get_pilihan_jabatan_by_id($id){ //mengambil jabatan dari db jabatan berdasarkan id
 		$this->db->where('kode_jabatan', $id);
 		$query = $this->db->get('jabatan');	

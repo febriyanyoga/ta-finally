@@ -107,78 +107,79 @@
                 <?php
                 $i=0;
                 foreach ($data_pengguna as $pengguna) {
-                  $i++;
-                  ?>
-                  <tr>
-                    <td class="text-center"><?php echo $i;?></td>
-                    <td class="relative">
-                      <div class="relative">
-                        <strong><?php echo $pengguna->nama;?></strong>
-                        <a href="#detail_pengguna" id="custID" data-toggle="modal" data-id="<?php echo $pengguna->id_pengguna;?>" title="klik untuk melihat detail kegiatan"><small class="kecil">Lihat detail</small></a>
-                      </div>
-                    </td>
-                    <td class="text-center"><?php echo $pengguna->no_identitas; ?></td>
-                    <td class="text-center"><?php echo $pengguna->nama_unit; ?></td>                          
-                    <td class="text-center"><?php echo $pengguna->nama_jabatan." ". $pengguna->nama_unit; ?></td>
-                    <td class="text-center"><?php if($pengguna->status_email == 0){
-                      ?>
-                      <a title="Belum Aktif"><span class="glyphicon glyphicon-remove"></a>  
-                        <?php
-                      }else{
-                       ?>
-                       <a title="Aktif"><span class="glyphicon glyphicon-ok"></a>
-                         <?php
-                       } 
-                       ?>
-                     </td>
-                     <?php
-                     if($pengguna->status == "tidak aktif"){
-                      ?>
-                      <td class="text-center">
-                        <a title="Belum Aktif"><span class="glyphicon glyphicon-remove"></a>
-                        </td>
-                        <?php 
-                        if($pengguna->status_email == 0){
-                          ?>
-                          <td class="text-center">
+                  if($pengguna->id_pengguna != $data_diri->id_pengguna){
+                    $i++;
+                    ?>
+                    <tr>
+                      <td class="text-center"><?php echo $i;?></td>
+                      <td class="relative">
+                        <div class="relative">
+                          <strong><?php echo $pengguna->nama;?></strong>
+                          <a href="#detail_pengguna" id="custID" data-toggle="modal" data-id="<?php echo $pengguna->id_pengguna;?>" title="klik untuk melihat detail kegiatan"><small class="kecil">Lihat detail</small></a>
+                        </div>
+                      </td>
+                      <td class="text-center"><?php echo $pengguna->no_identitas; ?></td>
+                      <td class="text-center"><?php echo $pengguna->nama_unit; ?></td>                          
+                      <td class="text-center"><?php echo $pengguna->nama_jabatan." ". $pengguna->nama_unit; ?></td>
+                      <td class="text-center"><?php if($pengguna->status_email == 0){
+                        ?>
+                        <a title="Belum Aktif"><span class="glyphicon glyphicon-remove"></a>  
+                          <?php
+                        }else{
+                         ?>
+                         <a title="Aktif"><span class="glyphicon glyphicon-ok"></a>
+                           <?php
+                         } 
+                         ?>
+                       </td>
+                       <?php
+                       if($pengguna->status == "tidak aktif"){
+                        ?>
+                        <td class="text-center">
+                          <a title="Belum Aktif"><span class="glyphicon glyphicon-remove"></a>
+                          </td>
+                          <?php 
+                          if($pengguna->status_email == 0){
+                            ?>
+                            <td class="text-center">
+                              <div class="btn-group">
+                                <a data-toggle='tooltip' title='Aktifkan email terlebih dahulu' class="btn btn-info btn-sm" disabled><span class="glyphicon glyphicon-ok"></span></a>
+                                <a data-toggle='tooltip' title='Non-aktif' class="btn btn-danger btn-sm" disabled><span class="glyphicon glyphicon-remove"></span></a>  
+                                <a data-toggle='tooltip' title='Ganti Jabatan' class="btn btn-warning btn-sm" disabled><span class="glyphicon glyphicon-refresh"></span></a>  
+                              </div>
+                            </td>
+                            <?php
+                          }else{?>
+                           <td class="text-center">
                             <div class="btn-group">
-                              <a data-toggle='tooltip' title='Aktifkan email terlebih dahulu' class="btn btn-info btn-sm" disabled><span class="glyphicon glyphicon-ok"></span></a>
-                              <a data-toggle='tooltip' title='Non-aktif' class="btn btn-danger btn-sm" disabled><span class="glyphicon glyphicon-remove"></span></a>  
+                              <a data-toggle='tooltip' title='Aktif' class="btn btn-info btn-sm" href="<?php echo base_url('PenggunaC/aktif')."/".$pengguna->id_pengguna."/".$pengguna->kode_jabatan_unit."/".$pengguna->kode_unit."/".$pengguna->kode_jabatan;?>"><span class="glyphicon glyphicon-ok"></span></a>
+                              <a data-toggle='tooltip' title='Non-aktif' class="btn btn-danger btn-sm" disabled><span class="glyphicon glyphicon-remove"></span></a>   
                               <a data-toggle='tooltip' title='Ganti Jabatan' class="btn btn-warning btn-sm" disabled><span class="glyphicon glyphicon-refresh"></span></a>  
                             </div>
                           </td>
-                          <?php
-                        }else{?>
-                         <td class="text-center">
-                          <div class="btn-group">
-                            <a data-toggle='tooltip' title='Aktif' class="btn btn-info btn-sm" href="<?php echo base_url('PenggunaC/aktif')."/".$pengguna->id_pengguna."/".$pengguna->kode_jabatan_unit."/".$pengguna->kode_unit."/".$pengguna->kode_jabatan;?>"><span class="glyphicon glyphicon-ok"></span></a>
-                            <a data-toggle='tooltip' title='Non-aktif' class="btn btn-danger btn-sm" disabled><span class="glyphicon glyphicon-remove"></span></a>   
-                            <a data-toggle='tooltip' title='Ganti Jabatan' class="btn btn-warning btn-sm" disabled><span class="glyphicon glyphicon-refresh"></span></a>  
-                          </div>
-                        </td>
-                        <?php 
-                      }
-                    }else{
-                      ?>
-                      <td class="text-center">
-                        <a title="Aktif"><span class="glyphicon glyphicon-ok"></a>
-                        </td>
+                          <?php 
+                        }
+                      }else{
+                        ?>
                         <td class="text-center">
-                          <div class="btn-group">
-                            <a  data-toggle='tooltip' title='Aktif' class="btn btn-info btn-sm" disabled><span class="glyphicon glyphicon-ok"></span></a>
-                            <a data-toggle='tooltip' title='Non-aktif' class="btn btn-danger btn-sm" href="<?php echo base_url('PenggunaC/non_aktif')."/".$pengguna->id_pengguna;?>" ><span class="glyphicon glyphicon-remove"></span></a>
+                          <a title="Aktif"><span class="glyphicon glyphicon-ok"></a>
+                          </td>
+                          <td class="text-center">
+                            <div class="btn-group">
+                              <a  data-toggle='tooltip' title='Aktif' class="btn btn-info btn-sm" disabled><span class="glyphicon glyphicon-ok"></span></a>
+                              <a data-toggle='tooltip' title='Non-aktif' class="btn btn-danger btn-sm" href="<?php echo base_url('PenggunaC/non_aktif')."/".$pengguna->id_pengguna;?>" ><span class="glyphicon glyphicon-remove"></span></a>
 
-                            <a data-toggle="modal" title="Ganti Jabatan" class="btn btn-warning btn-sm" data-target="#modal_ubah_jabatan-<?php echo $pengguna->kode_jabatan_unit?>"><span class="glyphicon glyphicon-refresh"></span></a>
-
-                            <!--  <a href="#ganti_jabatan" id="custId" data-toggle="modal" data-id="<?php echo $pengguna->kode_jabatan_unit;?>" data-toggle="tooltip" title="Ganti Jabatan" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-refresh"></span></a> -->
-                          </div>
-                          <?php
+                              <a data-toggle="modal" title="Ganti Jabatan" class="btn btn-warning btn-sm" data-target="#modal_ubah_jabatan-<?php echo $pengguna->id_pengguna?>"><span class="glyphicon glyphicon-refresh"></span></a>
+                            </div>
+                            <?php
+                          }
                         }
                         ?>
+                        
                       </td>
                     </tr>
 
-                    <div aria-hidden="true" aria-labelledby="modal_ubah_jabatan-<?php echo $pengguna->kode_jabatan_unit?>" role="dialog" tabindex="-1" id="modal_ubah_jabatan-<?php echo $pengguna->kode_jabatan_unit?>" class="modal fade">
+                    <div aria-hidden="true" aria-labelledby="modal_ubah_jabatan-<?php echo $pengguna->id_pengguna?>" role="dialog" tabindex="-1" id="modal_ubah_jabatan-<?php echo $pengguna->id_pengguna?>" class="modal fade">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -200,7 +201,7 @@
                                 </div>
                                 <br>
                                 <label for="bidang"> Pindah Ke Jabatan Unit :</label> 
-                                <select class="form-control" name="kode_unit" id="kode_unit-<?php echo $pengguna->kode_jabatan_unit?>" required>
+                                <select class="form-control" name="kode_unit" id="kode_unit-<?php echo $pengguna->id_pengguna?>" required>
 
                                   <option value="">---- Pilih Unit ---- </option>
                                   <?php 
@@ -215,7 +216,7 @@
                                 <span class="text-danger" style="color: red;"><?php echo form_error('kode_jabatan'); ?></span>  
                               </div>
                               <div class="form-group">
-                                <select class="form-control" name="kode_jabatan" id="kode_jabatan-<?php echo $pengguna->kode_jabatan_unit?>" required>
+                                <select class="form-control" name="kode_jabatan" id="kode_jabatan-<?php echo $pengguna->id_pengguna?>" required>
                                   <option>---- Pilih Jabatan ---- </option>
                                 </select>
                                 <span class="text-danger" style="color: red;"><?php echo form_error('kode_jabatan'); ?></span>  
@@ -236,7 +237,7 @@
                               }
                               ?>
                               <div class="modal-footer">
-                                <input type="submit" class="btn btn-primary"  value="Ganti Jabatan">
+                                <input type="submit" class="btn btn-primary"  value="Kirim">
                               </div> 
                               <?php echo form_close()?>
                             </form>
@@ -247,7 +248,7 @@
 
                     <script type="text/javascript">
                              // kode_unit change
-                             $('#kode_unit-<?php echo $pengguna->kode_jabatan_unit?>').change(function(){
+                             $('#kode_unit-<?php echo $pengguna->id_pengguna?>').change(function(){
                                 var unit = $(this).val(); //ambil value dr kode_unit
                                   // AJAX request
                                   $.ajax({
@@ -258,11 +259,11 @@
                                     dataType: 'json',
                                     success: function(response){
                                           // Remove options
-                                          $('#kode_jabatan-<?php echo $pengguna->kode_jabatan_unit?>').find('option').not(':first').remove();
+                                          $('#kode_jabatan-<?php echo $pengguna->id_pengguna?>').find('option').not(':first').remove();
 
                                           // Add options
                                           $.each(response,function(daftar,data){
-                                            $('#kode_jabatan-<?php echo $pengguna->kode_jabatan_unit?>').append('<option value="'+data['kode_jabatan']+'">'+data['nama_jabatan']+' '+data['nama_unit']+'</option>');
+                                            $('#kode_jabatan-<?php echo $pengguna->id_pengguna?>').append('<option value="'+data['kode_jabatan']+'">'+data['nama_jabatan']+' '+data['nama_unit']+'</option>');
                                           });
                                         }
                                       });
