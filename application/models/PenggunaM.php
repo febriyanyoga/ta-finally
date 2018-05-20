@@ -343,9 +343,37 @@
 		return $query = $this->db->get();
 	}
 
+	public function get_persetujuan_barang(){ // persetujuan barang
+		$this->db->select('*');
+		$this->db->from('acc_barang');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = acc_barang.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->where('acc_barang.kode_jenis_pengajuan = "1"');
+		$this->db->order_by('acc_barang.ranking');
+		return $query = $this->db->get();
+	}
+
+	public function get_persetujuan_RAB(){ // persetujuan RAB
+		$this->db->select('*');
+		$this->db->from('acc_barang');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = acc_barang.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->where('acc_barang.kode_jenis_pengajuan = "2"');
+		$this->db->order_by('acc_barang.ranking');
+		return $query = $this->db->get();
+	}
+
 	public function hapus($id){//hapus persetujuan kegiatan
 		$this->db->where('kode_acc_kegiatan', $id);
 		$this->db->delete('acc_kegiatan');
+		return "berhasil";
+	}
+
+	public function hapus_acc_barang_rab($id){//hapus persetujuan barang
+		$this->db->where('kode_acc_barang', $id);
+		$this->db->delete('acc_barang');
 		return "berhasil";
 	}
 
@@ -353,6 +381,13 @@
 		$this->db->select('*');
 		$this->db->from('acc_kegiatan');
 		$this->db->where('kode_acc_kegiatan', $kode_acc_kegiatan);
+		return $this->db->get();
+	}
+
+	public function get_acc_barang_rab_by_kode($kode_acc_barang){
+		$this->db->select('*');
+		$this->db->from('acc_barang');
+		$this->db->where('kode_acc_barang', $kode_acc_barang);
 		return $this->db->get();
 	}
 
@@ -434,10 +469,32 @@
 		}
 	}
 
+	public function cek_barang_by_rank($ranking){ 
+		$this->db->where('ranking', $ranking);
+		$this->db->where('kode_jenis_pengajuan = "1"'); 
+		$query = $this->db->get('acc_barang'); 
+		if ($query) {
+			return $query;
+		}else{
+			return NULL;
+		}
+	}
+
 	public function cek_mhs_by_rank($ranking){
 		$this->db->where('ranking', $ranking);
 		$this->db->where('kode_jenis_kegiatan = "2"'); //mhs
 		$query = $this->db->get('acc_kegiatan'); 
+		if ($query) {
+			return $query;
+		}else{
+			return NULL;
+		}
+	}
+
+	public function cek_rab_by_rank($ranking){ 
+		$this->db->where('ranking', $ranking);
+		$this->db->where('kode_jenis_pengajuan = "2"'); 
+		$query = $this->db->get('acc_barang'); 
 		if ($query) {
 			return $query;
 		}else{
@@ -460,8 +517,8 @@
 	public function get_max_rank_mhs(){
 		$this->db->select('*');
 		$this->db->select_max('ranking');
-		$this->db->where('kode_jenis_kegiatan = "2"'); //mhs
-		$query = $this->db->get('acc_kegiatan'); 
+		$this->db->where('kode_jenis_pengajuan = "2"'); //mhs
+		$query = $this->db->get('acc_barang'); 
 		if ($query) {
 			return $query;
 		}else{
@@ -471,8 +528,54 @@
 
 	public function get_min_rank_mhs(){
 		$this->db->select_min('ranking');
-		$this->db->where('kode_jenis_kegiatan = "2"'); //mhs
-		$query = $this->db->get('acc_kegiatan'); 
+		$this->db->where('kode_jenis_pengajuan = "2"'); //mhs
+		$query = $this->db->get('acc_barang'); 
+		if ($query) {
+			return $query;
+		}else{
+			return NULL;
+		}
+	}
+
+	public function get_max_rank_barang(){ // untuk mengetahui ranking  maksimal persetujuan barang
+		$this->db->select('*');
+		$this->db->select_max('ranking');
+		$this->db->where('kode_jenis_pengajuan = "1"'); 
+		$query = $this->db->get('acc_barang'); 
+		if ($query) {
+			return $query;
+		}else{
+			return FALSE;
+		}
+	}
+
+	public function get_min_rank_barang(){ // untuk mengetahui ranking  maksimal persetujuan barang
+		$this->db->select_min('ranking');
+		$this->db->where('kode_jenis_pengajuan = "1"'); 
+		$query = $this->db->get('acc_barang'); 
+		if ($query) {
+			return $query;
+		}else{
+			return NULL;
+		}
+	}
+
+	public function get_max_rank_RAB(){ // untuk mengetahui ranking  maksimal persetujuan RAB
+		$this->db->select('*');
+		$this->db->select_max('ranking');
+		$this->db->where('kode_jenis_pengajuan = "2"'); 
+		$query = $this->db->get('acc_barang'); 
+		if ($query) {
+			return $query;
+		}else{
+			return FALSE;
+		}
+	}
+
+	public function get_min_rank_RAB(){ // untuk mengetahui ranking  maksimal persetujuan RAB
+		$this->db->select_min('ranking');
+		$this->db->where('kode_jenis_pengajuan = "2"'); 
+		$query = $this->db->get('acc_barang'); 
 		if ($query) {
 			return $query;
 		}else{
@@ -483,6 +586,12 @@
 	public function update_acc($kode_acc_kegiatan, $data){
 		$this->db->where('kode_acc_kegiatan', $kode_acc_kegiatan);
 		$this->db->update('acc_kegiatan', $data);
+		return TRUE;
+	}
+
+	public function update_acc_barang_rab($kode_acc_barang, $data){
+		$this->db->where('kode_acc_barang', $kode_acc_barang);
+		$this->db->update('acc_barang', $data);
 		return TRUE;
 	}
 

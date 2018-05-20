@@ -395,6 +395,8 @@
         $('#prosedur').DataTable();
         $('#akses_menu').DataTable();
         $('#jabatan_unit').DataTable();
+        $('#persetujuan_pengajuan_barang').DataTable();
+        $('#persetujuan_pengajuan_RAB').DataTable();
       } 
       );
 
