@@ -517,8 +517,8 @@
 	public function get_max_rank_mhs(){
 		$this->db->select('*');
 		$this->db->select_max('ranking');
-		$this->db->where('kode_jenis_pengajuan = "2"'); //mhs
-		$query = $this->db->get('acc_barang'); 
+		$this->db->where('kode_jenis_kegiatan = "2"'); //mhs
+		$query = $this->db->get('acc_kegiatan'); 
 		if ($query) {
 			return $query;
 		}else{

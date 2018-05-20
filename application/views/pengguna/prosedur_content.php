@@ -29,7 +29,7 @@
         <div class="card mb-3">
           <div class="card-header">
             <div class="card-body">
-              <a class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i>Tambah Prosedur</a>
+              <a class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i>Tambah Prosedur</a>
 
               <div class="table-responsive">
                 <table id="prosedur" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -122,7 +122,7 @@
                 </div> 
                 <!-- <button type="reset" class="btn btn-default">Reset Button</button> -->
                 <div class="modal-footer">
-                  <input type="submit" class="btn btn-info col-lg-2"  value="Submit">
+                  <input type="submit" class="btn btn-primary col-lg-2"  value="Kirim">
                 </div> 
                 <?php echo form_close()?>
               </form>

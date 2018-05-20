@@ -85,7 +85,7 @@
 <div class="form-group">
     <div class="col-sm-5"></div>
     <div class="col-sm-5">
-        <button class="btn btn-info">Simpan</button>
+        <button class="btn btn-primary">Simpan</button>
         <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button> -->
     </div>
 </div>

@@ -12,14 +12,14 @@
        <?php 
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
-       <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      </div>
-      <?php } ?>
-      <?php 
-      $data2=$this->session->flashdata('error');
-      if($data2!=""){ ?>
-      <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
+         <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
+         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+       </div>
+       <?php } ?>
+       <?php 
+       $data2=$this->session->flashdata('error');
+       if($data2!=""){ ?>
+        <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       </div>
       <?php } ?>
@@ -404,22 +404,17 @@
                     <?php
                     if($jabatan_unit_pengguna = $PenggunaM->get_jabatan_unit_by_menu($menu->kode_menu)){
                       foreach ($jabatan_unit_pengguna->result() as $pengguna) {
-                        if($pengguna->kode_menu != 1){
-                          if($pengguna->kode_menu != 2){
-                            echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit;
-                            if($menu->kode_menu == 10 || $menu->kode_menu == 11){
-                              ?>
-                              <!-- <a style="color: grey;" disabled><i class="glyphicon glyphicon-trash text-default"></i></a><br> -->
-                              <?php
-                            }else{
-                              ?>
-                              <a  href="<?php echo base_url('PenggunaC/hapus_akses_menu/').$pengguna->kode_akses_menu ?>"  onClick="return confirm('Anda yakin akan menghapus Jabatan <?php echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit?>?')" style="color: red;"><i class="glyphicon glyphicon-trash text-danger"></i></a><br>
-                              <?php
-                            }
-                            
+                        if($pengguna->kode_menu != 1 && $pengguna->kode_menu != 2 && $pengguna->kode_menu != 4 && $pengguna->kode_menu != 5){
+                          echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit;
+                          if($menu->kode_menu == 10 || $menu->kode_menu == 11 || $menu->kode_menu == 18){
+                            ?>
+                            <!-- <a style="color: grey;" disabled><i class="glyphicon glyphicon-trash text-default"></i></a><br> -->
+                            <?php
                           }else{
-                            echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit."<br>";
-                          }
+                            ?>
+                            <a  href="<?php echo base_url('PenggunaC/hapus_akses_menu/').$pengguna->kode_akses_menu ?>"  onClick="return confirm('Anda yakin akan menghapus Jabatan <?php echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit?>?')" style="color: red;"><i class="glyphicon glyphicon-trash text-danger"></i></a><br>
+                            <?php
+                          }                            
                         }else{
                           echo $pengguna->nama_jabatan.' '.$pengguna->nama_unit."<br>";
                         }
@@ -431,7 +426,7 @@
                 </td>
                 <td>
                   <?php
-                  if($menu->kode_menu == 10 || $menu->kode_menu == 11){
+                  if($menu->kode_menu == 10 || $menu->kode_menu == 11 || $menu->kode_menu == 18){
                     ?>
                     <a data-toggle="modal" title="Akses menu khusus staf keuangan" class="btn btn-primary btn-sm" disabled><span class="glyphicon glyphicon-plus-sign"></span></a>
                     <?php
@@ -658,47 +653,47 @@
                 <tr>
                   <td class="text-center">
                     <div class="relative">
-                        <a href="<?php echo base_url('PenggunaC/naik_keatas/'.$barang->kode_acc_barang.'/'.$barang->ranking.'/'.$barang->kode_jenis_pengajuan);?>" title="naik"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-up"></i></small></a>
-                        <strong><?php echo $barang->ranking;?></strong>
-                        <a href="<?php echo base_url('PenggunaC/turun_kebawah/'.$barang->kode_acc_barang.'/'.$barang->ranking.'/'.$barang->kode_jenis_pengajuan);?>" title="turun"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-down"></i></small></a>
-                      </div>
-                    </td>
-                    <td class="text-center"><?php echo $barang->nama_jabatan." ".$barang->nama_unit;?></td>
-                    <td class="text-center">Pengajuan Barang</td>
-                    <td class="text-center"> 
-                      <?php
-                      if($PenggunaM->get_max_rank_barang()->result()[0]->ranking == $barang->ranking){
-                        if($PenggunaM->get_min_rank_barang()->result()[0]->ranking == $barang->ranking){
-                          ?>
-                          <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
-                          <?php
-                        }else{
-                          ?>
-                          <a href="<?php echo base_url('PenggunaC/hapus_barang_rab/'.$barang->kode_acc_barang);?>"  onClick="return confirm('Anda yakin akan menghapus data ini?')" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Hapus Persetujuan Kegiatan" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
-
-                          <?php
-                        }
+                      <a href="<?php echo base_url('PenggunaC/naik_keatas/'.$barang->kode_acc_barang.'/'.$barang->ranking.'/'.$barang->kode_jenis_pengajuan);?>" title="naik"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-up"></i></small></a>
+                      <strong><?php echo $barang->ranking;?></strong>
+                      <a href="<?php echo base_url('PenggunaC/turun_kebawah/'.$barang->kode_acc_barang.'/'.$barang->ranking.'/'.$barang->kode_jenis_pengajuan);?>" title="turun"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-down"></i></small></a>
+                    </div>
+                  </td>
+                  <td class="text-center"><?php echo $barang->nama_jabatan." ".$barang->nama_unit;?></td>
+                  <td class="text-center">Pengajuan Barang</td>
+                  <td class="text-center"> 
+                    <?php
+                    if($PenggunaM->get_max_rank_barang()->result()[0]->ranking == $barang->ranking){
+                      if($PenggunaM->get_min_rank_barang()->result()[0]->ranking == $barang->ranking){
+                        ?>
+                        <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                        <?php
                       }else{
-                       ?>
-                       <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
-                       <?php
-                     }
+                        ?>
+                        <a href="<?php echo base_url('PenggunaC/hapus_barang_rab/'.$barang->kode_acc_barang);?>"  onClick="return confirm('Anda yakin akan menghapus data ini?')" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Hapus Persetujuan Kegiatan" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+
+                        <?php
+                      }
+                    }else{
                      ?>
-                   </td>
-                 </tr>
-                 <?php
-               }
-               ?>
-             </tbody>
-           </table>
-         </div>
+                     <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                     <?php
+                   }
+                   ?>
+                 </td>
+               </tr>
+               <?php
+             }
+             ?>
+           </tbody>
+         </table>
        </div>
      </div>
    </div>
  </div>
- <!-- End Persetujuan Barang -->
+</div>
+<!-- End Persetujuan Barang -->
 
- <!-- Data tabel persetujuan RAB-->
+<!-- Data tabel persetujuan RAB-->
 <div id="21" class="tab-pane" role="tabpanel">
   <div class="row pt-5">
     <div class="col-lg-12">
@@ -715,51 +710,50 @@
             </thead>
             <tbody>
               <?php
-              echo $rank_min_RAB = $PenggunaM->get_min_rank_RAB()->result()[0]->ranking;
               foreach ($persetujuan_pengajuan_RAB as $rab) {
                 ?>
                 <tr>
                   <td class="text-center">
                     <div class="relative">
-                        <a href="<?php echo base_url('PenggunaC/naik_keatas/'.$rab->kode_acc_barang.'/'.$rab->ranking.'/'.$rab->kode_jenis_pengajuan);?>" title="naik"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-up"></i></small></a>
-                        <strong><?php echo $rab->ranking;?></strong>
-                        <a href="<?php echo base_url('PenggunaC/turun_kebawah/'.$rab->kode_acc_barang.'/'.$rab->ranking.'/'.$rab->kode_jenis_pengajuan);?>" title="turun"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-down"></i></small></a>
-                      </div>
-                    </td>
-                    <td class="text-center"><?php echo $rab->nama_jabatan." ".$rab->nama_unit;?></td>
-                    <td class="text-center">Pengajuan RAB</td>
-                    <td class="text-center"> 
-                      <?php
-                      if($PenggunaM->get_max_rank_barang()->result()[0]->ranking == $rab->ranking){
-                        if($PenggunaM->get_min_rank_barang()->result()[0]->ranking == $rab->ranking){
-                          ?>
-                          <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
-                          <?php
-                        }else{
-                          ?>
-                          <a href="<?php echo base_url('PenggunaC/hapus_barang_rab/'.$barang->kode_acc_barang);?>"  onClick="return confirm('Anda yakin akan menghapus data ini?')" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Hapus Persetujuan Kegiatan" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
-
-                          <?php
-                        }
+                      <a href="<?php echo base_url('PenggunaC/naik_keatas/'.$rab->kode_acc_barang.'/'.$rab->ranking.'/'.$rab->kode_jenis_pengajuan);?>" title="naik"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-up"></i></small></a>
+                      <strong><?php echo $rab->ranking;?></strong>
+                      <a href="<?php echo base_url('PenggunaC/turun_kebawah/'.$rab->kode_acc_barang.'/'.$rab->ranking.'/'.$rab->kode_jenis_pengajuan);?>" title="turun"><small class="kecil-arrow"><i class="glyphicon glyphicon-chevron-down"></i></small></a>
+                    </div>
+                  </td>
+                  <td class="text-center"><?php echo $rab->nama_jabatan." ".$rab->nama_unit;?></td>
+                  <td class="text-center">Pengajuan RAB</td>
+                  <td class="text-center"> 
+                    <?php
+                    if($PenggunaM->get_max_rank_rab()->result()[0]->ranking == $rab->ranking){
+                      if($PenggunaM->get_min_rank_rab()->result()[0]->ranking == $rab->ranking){
+                        ?>
+                        <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                        <?php
                       }else{
-                       ?>
-                       <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
-                       <?php
-                     }
+                        ?>
+                        <a href="<?php echo base_url('PenggunaC/hapus_barang_rab/'.$rab->kode_acc_barang);?>"  onClick="return confirm('Anda yakin akan menghapus data ini?')" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Hapus Persetujuan Kegiatan" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+
+                        <?php
+                      }
+                    }else{
                      ?>
-                   </td>
-                 </tr>
-                 <?php
-               }
-               ?>
-             </tbody>
-           </table>
-         </div>
+                     <a title="tidak bisa dihapus" disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                     <?php
+                   }
+                   ?>
+                 </td>
+               </tr>
+               <?php
+             }
+             ?>
+           </tbody>
+         </table>
        </div>
      </div>
    </div>
  </div>
- <!-- End Persetujuan RAB -->
+</div>
+<!-- End Persetujuan RAB -->
 
 </div>
 </div>

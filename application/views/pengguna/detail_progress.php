@@ -38,8 +38,8 @@ foreach ($detail_progress as $progress=>$key) {
                                       <span><?php echo $key->nama_progress;?></span>
                                       <?php   
                                   }else{
-                                   ?>
-                                   <div class="text-center">
+                                     ?>
+                                     <div class="text-center">
                                       <!-- <span class="glyphicon glyphicon-remove"></span> -->
                                   </div>
                                   <span><?php echo $key->nama_progress;?></span>
@@ -82,14 +82,7 @@ foreach ($detail_progress as $progress=>$key) {
               </div>
           </div>
       </div>
-</div>
-<!-- <div class="qa-message-list" id="wallmessages">
-    <div class="message-item" id="m16">
-        <div class="message-inner">
-            <center>Pengajuan kegiatan telah disetujui</center>
-        </div>
-    </div>
-</div> -->
+  </div>
 </div>
 </div>
 <?php
@@ -205,7 +198,7 @@ foreach ($detail_progress as $progress=>$key) {
     line-height: 22px;
 }
 img {
-   min-height: 40px;
-   max-height: 40px;
+ min-height: 40px;
+ max-height: 40px;
 }
 </style>

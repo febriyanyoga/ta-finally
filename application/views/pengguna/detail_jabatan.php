@@ -8,7 +8,7 @@
   </div>
 </div> 
 <div class="modal-footer">
-  <input type="Submit" class="btn btn-info col-lg-2" value="Simpan">
+  <input type="Submit" class="btn btn-primary col-lg-2" value="Simpan">
 </div> 
 <?php echo form_close()?>
 </form>
