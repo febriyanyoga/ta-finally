@@ -175,7 +175,7 @@ public function post_resend_email(){
    $no_identitas = $this->PenggunaM->get_pengguna_by_email($key)->result()[0]->no_identitas; //ambil no identitas by email
    $now_date     = date('Y-m-d');
 
-   if($now_date > $exp_date && $status_email =='0'){ //jika konfirmasi diatas exp date maka akan hapus data diri dan pengguna si empunya email
+   if($now_date < $exp_date && $status_email =='0'){ //jika konfirmasi diatas exp date maka akan hapus data diri dan pengguna si empunya email
     $this->PenggunaM->delete_pengguna_by_email($key);
     $this->PenggunaM->delete_data_diri_by_no_identitas($no_identitas);
     $this->session->set_flashdata('error','Tautan konfirmasi email anda sudah kadaluwarsa, Silahkan mencoba daftar kembali...');

@@ -31,7 +31,7 @@
       <div class="card mb-3">
         <div class="card-header">
           <div class="card-body">
-            <a class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i> Ajukan Kegiatan </a>
+            <a class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i> Ajukan Kegiatan </a>
 
             <div class="table-responsive">
                <!-- <?php
@@ -144,9 +144,9 @@
                       }else{
                         ?>
                         <div class="btn-group">
-                          <a href="#" id="custId" data-toggle="modal" data-target="#modal_edit-<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Ubah Pengajuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                          <a href="#" id="custId" data-toggle="modal" data-target="#modal_edit-<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Ubah pengajuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
 
-                          <a href="<?php echo base_url('KegiatanC/hapus_pengajuan')."/".$kegiatan->kode_kegiatan;?>" onClick="return confirm('Anda yakin akan menghapus data pengajuan ini?')" data-toggle='tooltip' title='hapus' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"> lele</span></a>                            
+                          <a href="<?php echo base_url('KegiatanC/hapus_pengajuan')."/".$kegiatan->kode_kegiatan;?>" onClick="return confirm('Anda yakin akan menghapus data pengajuan ini?')" data-toggle='tooltip' title='Hapus pengajuan' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>                            
                         </div>
                         <?php 
                       }
@@ -230,7 +230,7 @@
                           </div> 
                           <!-- <button type="reset" class="btn btn-default">Reset Button</button> -->
                           <div class="modal-footer">
-                            <input type="submit" class="btn btn-info col-lg-2"  value="Simpan">
+                            <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
                           </div> 
                         </form>
                         <?php echo form_close()?>
@@ -374,7 +374,7 @@
         </div> 
         <!-- <button type="reset" class="btn btn-default">Reset Button</button> -->
         <div class="modal-footer">
-          <input type="submit" class="btn btn-info col-lg-2"  value="Kirim">
+          <input type="submit" class="btn btn-primary col-lg-2"  value="Kirim">
         </div> 
       </form>
       <?php echo form_close()?>

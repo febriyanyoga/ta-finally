@@ -37,7 +37,7 @@
     <div class="form-group">
         <label class="control-label col-sm-5" for="dana_diajukan" style="text-align: left;">Dana Yang Diajukan</label>
         <div class="col-sm-5">
-            <p class="form-control-static"> <?php echo ": Rp".$detail_kegiatan->dana_diajukan.",-"; ?> </p>
+            <p class="form-control-static"> <?php echo ": Rp".number_format($detail_kegiatan->dana_diajukan, 0,',','.').",00"; ?> </p>
         </div>
     </div>
     <div class="form-group">

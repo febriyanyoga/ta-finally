@@ -149,8 +149,8 @@ public function pengajuan_kegiatan_mahasiswa(){
 		$path_to_file = '/ta-finally/file_upload/'.$file;
 		if(unlink($path_to_file)){
 			// if($this->KegiatanM->hapus_pengajuan($kode_kegiatan)){
-				$this->session->set_flashdata('sukses','Data anda berhasil dihapus');
-				redirect_back();
+			$this->session->set_flashdata('sukses','Data anda berhasil dihapus');
+			redirect_back();
 			// }
 		}else{
 			$this->session->set_flashdata('error','Data anda tidak berhasil dihapus');
@@ -243,6 +243,8 @@ public function pengajuan_kegiatan_mahasiswa(){
 			$id_rank_min_pegawai = $this->KegiatanM->cek_id_by_rank_pegawai($rank_min_pegawai)->kode_jabatan_unit;
 			if($this->KegiatanM->insert_progress($data)){ //insert progress
 				if($id_rank_min_pegawai == $kode_jabatan_unit && $kode_nama_progress == 1){ //disetujui oleh rank min
+					$data_update_kegiatan  = array('status_kegiatan' => 'Disetujui');
+					$this->KegiatanM->update_kegiatan($kode_fk, $data_update_kegiatan);
 					$this->sendemail($email, $kode_fk, $kode_nama_progress);
 				}
 				$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
@@ -400,11 +402,13 @@ public function pengajuan_kegiatan_mahasiswa(){
 						'waktu_progress'		=> $waktu_progress
 
 					);
-					$rank_pengaju = $this->KegiatanM->cek_rank_by_id_pegawai($kode_jabatan_unit)->ranking;
-					$rank_min_pegawai =  $this->KegiatanM->cek_min_pegawai()->ranking;
-					if($rank_pengaju == $rank_min_pegawai){
-					$this->KegiatanM->insert_progress($data); //insert progress langsung ketika mengajukan kegiatan rank tertinggi
-				}
+					// $rank_pengaju = $this->KegiatanM->cek_rank_by_id_pegawai($kode_jabatan_unit)->ranking;
+					// $rank_min_pegawai =  $this->KegiatanM->cek_min_pegawai()->ranking;
+					// $rank_max_pegawai =  $this->KegiatanM->cek_max_pegawai()->ranking;
+
+					// if($rank_pengaju == $rank_min_pegawai && $rank_pengaju == $rank_max_pegawai){
+					// $this->KegiatanM->insert_progress($data); //insert progress langsung ketika mengajukan kegiatan rank tertinggi
+					// }
 				}else{ // Jika proses upload gagal
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 					$this->KegiatanM->delete($insert_id);//hapus data pengajuan kegiatan ketka gagal upload file

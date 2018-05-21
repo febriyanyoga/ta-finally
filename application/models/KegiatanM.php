@@ -73,6 +73,29 @@ class KegiatanM extends CI_Model
 		return $query->num_rows();
 	}
 
+	public function get_progress_by_kode_kegiatan($kode_kegiatan){
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('nama_progress', 'nama_progress.kode_nama_progress = progress.kode_nama_progress');
+		$this->db->where('progress.kode_fk', $kode_kegiatan);
+		$this->db->where('progress.jenis_progress = "kegiatan"');
+		$this->db->order_by('progress.created_at','DESC'); //tereakhir dimasukkin
+		$this->db->limit(1); //tampilin 1 aja
+		return $query = $this->db->get();
+	}
+
+	public function get_progress_terima_by_kode_jabatan_unit($id, $kode_jabatan_unit, $kode){
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('nama_progress', 'nama_progress.kode_nama_progress = progress.kode_nama_progress');
+		$this->db->where('progress.kode_fk', $id);
+		$this->db->where('progress.jenis_progress = "kegiatan"');
+		$this->db->where('progress.kode_jabatan_unit', $kode_jabatan_unit);
+		$this->db->where('progress.kode_nama_progress', $kode);//diterima
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
 	public function get_progress_tolak($id){
 		$this->db->select('*');
 		$this->db->from('progress');
@@ -98,6 +121,17 @@ class KegiatanM extends CI_Model
 		$this->db->from('jabatan_unit');
 		$this->db->join('pengguna', 'pengguna.kode_jabatan_unit = jabatan_unit.kode_jabatan_unit');
 		// $this->db->where('jabatan_unit.atasan = "ya"');
+		$this->db->where('pengguna.status = "aktif"');
+		$this->db->where('jabatan_unit.kode_jabatan_unit',$kode_jabatan_unit);
+		return $query = $this->db->get();
+
+	}
+
+	public function cek_staf_sendiri($kode_jabatan_unit){
+		$this->db->select('*');
+		$this->db->from('jabatan_unit');
+		$this->db->join('pengguna', 'pengguna.kode_jabatan_unit = jabatan_unit.kode_jabatan_unit');
+		$this->db->where('jabatan_unit.atasan = "tidak"'); //staf
 		$this->db->where('pengguna.status = "aktif"');
 		$this->db->where('jabatan_unit.kode_jabatan_unit',$kode_jabatan_unit);
 		return $query = $this->db->get();
@@ -228,6 +262,12 @@ class KegiatanM extends CI_Model
 		$this->db->where('kode_kegiatan', $id);
 		$this->db->delete('kegiatan');
 		return "berhasil delete";
+	}
+
+	public function update_kegiatan($kode_kegiatan, $data){
+		$this->db->where('kode_kegiatan', $kode_kegiatan);
+		$this->db->update('Kegiatan', $data);
+		return TRUE;
 	}
 
 	public function upload($kode_kegiatan){ // Fungsi untuk upload file ke folder
