@@ -45,9 +45,6 @@
 
   <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/datatables/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/datatables/dataTables.bootstrap.min.css">
-  
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
 </head>
 
@@ -397,6 +394,9 @@
         $('#jabatan_unit').DataTable();
         $('#persetujuan_pengajuan_barang').DataTable();
         $('#persetujuan_pengajuan_RAB').DataTable();
+        $('#ajukan_rab').DataTable();
+        $('#buat_rab').DataTable();
+        $('#edit_rab').DataTable();
       } 
       );
 

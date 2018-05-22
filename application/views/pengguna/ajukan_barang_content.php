@@ -149,6 +149,10 @@
                               ?>
                               <a class="label label-success" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">PENGAJUAN</a>
                               <?php
+                            }else if($barang->status_pengajuan == "pengajuanRAB"){
+                              ?>
+                              <a class="label label-success" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">PENGAJUAN RAB</a>
+                              <?php
                             }else if($barang->status_pengajuan == "selesai"){
                               ?>
                               <a class="label label-success" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">SELESAI</a>
@@ -364,6 +368,14 @@
             <span class="text-danger" style="color: red;"><?php echo form_error('kode_barang'); ?></span>  
           </div>
         </div>
+
+        <!-- <div class="form-group">
+            <label class="col-lg-4 col-sm-2 control-label">Barang :</label>
+            <div class="col-lg-8">
+              <input type="text" class="form-control" id="autocomplete" name="Nama Barang" placeholder="Nama Barang" required >
+            </div>
+          </div> -->
+
           <div class="form-group">
             <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
             <input class="form-control" type="hidden" id="pimpinan" name="pimpinan" value="<?php echo $data_pimpinan->kode_jabatan_unit;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
@@ -384,7 +396,7 @@
           <div class="form-group">
             <label class="col-lg-4 col-sm-2 control-label">Harga Satuan :</label>
             <div class="col-lg-8">
-              <input type="text" class="form-control" id="harga_satuan_barang" name="harga_satuan_barang" placeholder="Harga Satuan" onkeypress="return hanyaAngka(event)" required>
+              <input type="text" class="form-control" id="harga_satuan_barang" name="harga_satuan" placeholder="Harga Satuan" onkeypress="return hanyaAngka(event)" required>
             </div>
           </div>
           <div class="form-group">
@@ -437,7 +449,7 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-info" type="submit"> Simpan </button>
-          <a class="btn btn-info" data-toggle="modal" data-target="#myModal" data-dismiss="modal" type="submit">Simpan dan Ajukan</a>
+          <button class="btn btn-info" data-toggle="modal" data-target="#myModal" data-dismiss="modal" >Simpan dan Ajukan</button>
           <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
         </div>
       </form>
@@ -464,16 +476,29 @@
   </div>
 </div>
 
-<script>
+<script src="<?php echo base_url(); ?>/assets/js/jquery-1.4.min.js"></script>
+<script src="<?php echo base_url(); ?>/assets/js/jquery-ui-1.8.min.js"></script>
+<script type="text/javascript">
   $(document).ready(function() {
     // Untuk sunting
     $('#myModal').on('show.bs.modal', function (event) {
 
     });
-  });
-</script>
-<script src="<?php echo base_url();?>assets/js/jquery.min.js"></script> 
-<script type="text/javascript">
+
+    $( "#autocomplete" ).autocomplete({
+                source: function(request, response) {
+                    $.ajax({ 
+                        url: "<?php echo site_url('BarangC/sugesti'); ?>",
+                        data: { nama_barang: $("#autocomplete").val()},
+                        dataType: "json",
+                        type: "POST",
+                        success: function(data){
+                            response(data);
+                        }    
+                    });
+                },
+            });
+
     /* Dengan Rupiah */
     var dp = document.getElementById('harga_satuan_barang');
     dp.addEventListener('keyup', function(e){
@@ -496,6 +521,7 @@
       rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
       return prefix == undefined ? rupiah : (rupiah ? 'Rp' + rupiah : '');
     }
- 
 
+  });
 </script>
+
