@@ -29,152 +29,139 @@
         <?php } ?>
       </div>
     </div>
-    
-    <div class="row">
-      <div class="col-lg-12">
-        <button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-md" title="klik untuk melihat informasi"><i class="glyphicon glyphicon-alert"> Informasi</i></button>
-        <br>
-        <br>
-        <div class="collapse" id="demo">
-         <div class="col-lg-6">
-          <!-- Info Status -->
-          <div class="alert alert-info">
-            <strong>Informasi!</strong>
-            <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan barang<strong>:</strong></p>
-            <table border="3" style="border-color: transparent;" >
-              <tr style="height: 30px">
-                <td style="width: 10%"><a class="label label-primary">BARU</a></td>
-                <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
-                <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan barang baru saja di ajukan dan belum memiliki progres</th>
+
+    <button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-md" title="klik untuk melihat informasi"><i class="glyphicon glyphicon-alert"> Informasi</i></button>
+    <br>
+    <br>
+    <div class="collapse" id="demo">
+      <div class="col-lg-6">
+        <!-- Info Status -->
+        <div class="alert alert-info">
+          <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel persetujuan kegiatan mahasiswa<strong>:</strong></p>
+          <table border="3" style="border-color: transparent; border-radius: 5px;" class="table table-sm table-hover borderless">
+            <tr style="height: 30px">
+              <td style="width: 10%"><a class="label label-info">Mengajukan</a></td>
+              <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
+                <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa baru saja di ajukan dan belum memiliki progres</td>
               </tr>
               <tr style="height: 30px">
-                <td><a class="label label-info">PROSES</a></td>
-                <td><i class="glyphicon glyphicon-arrow-right"></td>
-                <td> Status ini menjelaskan bahwa pengajuan barang sedang dalam proses persetujuan</td>
+                <td><a class="label label-default">Proses</a></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td> Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa sedang dalam proses persetujuan</td>
               </tr>
               <tr style="height: 30px">
-                <td><a class="label label-success">PENGAJUAN</a></td>
-                <td><i class="glyphicon glyphicon-arrow-right"></td>
-                <td> Status ini menjelaskan bahwa pengajuan barang sudah disetujui dan sedang dalam proses pengajuan RAB</td>
+                <td><a class="label label-success">Disetujui</a></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td> Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa sudah disetujui</td>
               </tr>
               <tr style="height: 30px">
-                <td><a class="label label-success">SELESAI</a></td>
-                <td><i class="glyphicon glyphicon-arrow-right"></td>
-                <td> Status ini menjelaskan bahwa pengajuan barang telah selesai</td>
-              </tr>
-              <tr style="height: 30px">
-                <td><a class="label label-warning">TUNDA</a></td>
-                <td><i class="glyphicon glyphicon-arrow-right"></td>
-                <td> Status ini menjelaskan bahwa pengajuan barang sedang di tunda untuk diajukan dalam RAB dan akan diajukan pada pengajuan RAB berikutnya</td>
-              </tr>
-              <tr style="height: 30px">
-                <td><a class="label label-success">DISETUJUI</a></td>
-                <td><i class="glyphicon glyphicon-arrow-right"></td>
-                <td> Status ini menjelaskan bahwa pegajuan barang telah disetujui pada RAB yang diajukan</td>
-              </tr>
-              <tr style="height: 30px">
-                <td><a class="label label-danger">TOLAK</a></td>
-                <td><i class="glyphicon glyphicon-arrow-right"></td>
-                <td> Status ini menjelaskan bahwa pengajuan barang ditolak</td>
+                <td><a class="label label-danger">Ditolak</a></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
               </tr>
             </table>
           </div>
         </div>
-          <div class="col-lg-6">
-            <!-- Keterangan Edit -->
-            <div class="alert alert-warning">
-              <strong>Perhatian!</strong>
-              <p>Berikut adalah penjelasan dari <strong>tombol ubah</strong> pada tabel pengajuan barang<strong>:</strong></p>
-              <table border="3" style="border-color: transparent;" >
-                <tr style="height: 30px">
-                  <td style="width: 10%"><a href="#" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                  <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
-                  <td style="width: 62%"> Jika tombol tampil seperti ini, maka tombol dapat digunakan untuk mengubah data pengajuan barang</th>
-                </tr>
-                <tr style="height: 30px">
-                  <td><a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-pencil"></span></a></td>
-                  <td><i class="glyphicon glyphicon-arrow-right"></td>
-                  <td> Jika tombol tampil seperti ini, maka sudah tidak dapat digunakan lagi untuk mengubah data pengajuan barang dikarenakan pengajuan tersebut sudah sudah memiliki progres</td>
-                </tr>
-              </table>
-            </div>
-            <!-- End Ket Edit -->
+        <div class="col-lg-6">
+          <!-- Keterangan Edit -->
+          <div class="alert alert-info">
+            <p>Berikut adalah penjelasan dari <strong>tombol</strong> di kolom aksi pada tabel persetujuan kegiatan mahasiswa<strong>:</strong></p>
+            <table border="3" style="border-color: transparent;" class="table table-sm table-hover borderless">
+              <tr style="height: 30px">
+                <td style="width: 10%"><a href="#" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a></td>
+                <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td style="width: 62%"> Jika tombol tampil seperti ini, maka tombol dapat digunakan untuk menyetujui atau menolak pengajuan kegiatan mahasiswa dan memberikan komentar.</td>
+              </tr>
+              <tr style="height: 30px">
+                <td><a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-edit"></span></a></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td> Jika tombol tampil seperti ini, maka tombol sudah tidak dapat digunakan untuk menyetujui atau menolak pengajuan kegiatan mahasiswa dan memberikan komentar.</td>
+              </tr>
+              <tr style="height: 30px">
+                <td><a disabled title="Sudah"><span class="glyphicon glyphicon-ok" style="margin-left: 11px;"></span></a><p class="kecil">Selesai</p></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td> Jika tombol dan keterangan tampil seperti ini, menandakan bahwa anda telah memberikan persetujuan terhadap pengajuan kegiatan mahasiswa tersebut.</td>
+              </tr>
+              <tr>
+                <td></td>
+              </tr>
+            </table>
           </div>
+          <!-- End Ket Edit -->
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="card mb-3">
-          <div class="card-header">
-            <div class="card-body">
-              <div class="table-responsive">
-                <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
-                  <thead>
-                    <tr class="text-center">
-                      <th class="text-center">Nama Kegiatan</th>
-                      <th class="text-center">Nama Pengaju</th>
-                      <th class="text-center">Jabatan Pengaju</th>
-                      <th class="text-center">Tgl Pengajuan</th>
-                      <th class="text-center">Tgl Kegiatan</th>
-                      <th class="text-center">Dana Diajukan</th>
-                      <th class="text-center">File</th>
-                      <th class="text-center">Jenis Kegiatan</th>
-                      <th class="text-center">Status</th>
-                      <th class="text-center">Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                    foreach ($data_pengajuan_kegiatan_mahasiswa as $kegiatan) {
-                      $jabatan        = $KegiatanM->get_data_pengajuan_by_id($kegiatan->kode_kegiatan)->result()[0];
-                      $unit           = $KegiatanM->get_data_pengajuan_by_id($kegiatan->kode_kegiatan)->result()[0];
-                      ?>
-                      <tr>
-                        <td class="text-center relative">
-                          <div class="relative">
-                            <strong><?php echo $kegiatan->nama_kegiatan;?></strong>
-                            <a href="#myModal1" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail kegiatan"><small class="kecil">Lihat detail</small></a>
-                          </div>
-                        </td>
-                        <td class="text-center"><?php echo $jabatan->nama;?></td>
-                        <td class="text-center"><?php echo $jabatan->nama_jabatan." ".$unit->nama_unit;?></td>
-                        <?php 
-                        $tgl_pengajuan = $kegiatan->tgl_pengajuan;
-                        $new_tgl_pengajuan = date('d-m-Y',strtotime($tgl_pengajuan));
-                        $tgl_kegiatan = $kegiatan->tgl_kegiatan;
-                        $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
-                        $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
-                        $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai));
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card mb-3">
+            <div class="card-header">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
+                    <thead>
+                      <tr class="text-center" style="background-color: white;">
+                        <th class="text-center">Nama Kegiatan</th>
+                        <th class="text-center">Nama Pengaju</th>
+                        <th class="text-center">Jabatan Pengaju</th>
+                        <th class="text-center">Tgl Pengajuan</th>
+                        <th class="text-center">Tgl Kegiatan</th>
+                        <th class="text-center">Dana Diajukan</th>
+                        <th class="text-center">File</th>
+                        <th class="text-center">Jenis Kegiatan</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      foreach ($data_pengajuan_kegiatan_mahasiswa as $kegiatan) {
+                        $jabatan        = $KegiatanM->get_data_pengajuan_by_id($kegiatan->kode_kegiatan)->result()[0];
+                        $unit           = $KegiatanM->get_data_pengajuan_by_id($kegiatan->kode_kegiatan)->result()[0];
                         ?>
-                        <td class="text-center"><?php echo $new_tgl_pengajuan; ?></td>
+                        <tr>
+                          <td class="text-center relative">
+                            <div class="relative">
+                              <strong><?php echo $kegiatan->nama_kegiatan;?></strong>
+                              <a href="#myModal1" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail kegiatan"><small class="kecil">Lihat detail</small></a>
+                            </div>
+                          </td>
+                          <td class="text-center"><?php echo $jabatan->nama;?></td>
+                          <td class="text-center"><?php echo $jabatan->nama_jabatan." ".$unit->nama_unit;?></td>
+                          <?php 
+                          $tgl_pengajuan = $kegiatan->tgl_pengajuan;
+                          $new_tgl_pengajuan = date('d-m-Y',strtotime($tgl_pengajuan));
+                          $tgl_kegiatan = $kegiatan->tgl_kegiatan;
+                          $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
+                          $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
+                          $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai));
+                          ?>
+                          <td class="text-center"><?php echo $new_tgl_pengajuan; ?></td>
+                          <td class="text-center">
+                            <div class="relative">
+                             <small class="kecil"><strong><?php echo $new_tgl_kegiatan?></strong></small>
+                             <small class="kecil">sampai</small>
+                             <small class="kecil"><strong><?php echo $new_tgl_selesai; ?></strong></small>
+                           </div>
+                         </td>
+                         <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,00</td>
+                         <?php 
+                         $link = base_url()."assets/file_upload/".$kegiatan->nama_file;
+                         if(substr($kegiatan->nama_file,32,4) == ".zip"){
+                          ?>
+                          <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/zip.svg" style="height: 30px;"></span></a></td>
+                          <?php
+                        }else{
+                          ?>
+                          <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
+                          <?php
+                        }
+                        ?>
+                        <td><?php echo $kegiatan->nama_jenis_kegiatan;?></td>
                         <td class="text-center">
-                          <div class="relative">
-                           <small class="kecil"><strong><?php echo $new_tgl_kegiatan?></strong></small>
-                           <small class="kecil">sampai</small>
-                           <small class="kecil"><strong><?php echo $new_tgl_selesai; ?></strong></small>
-                         </div>
-                       </td>
-                       <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,00</td>
-                       <?php 
-                       $link = base_url()."assets/file_upload/".$kegiatan->nama_file;
-                       if(substr($kegiatan->nama_file,32,4) == ".zip"){
-                        ?>
-                        <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/zip.svg" style="height: 30px;"></span></a></td>
-                        <?php
-                      }else{
-                        ?>
-                        <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
-                        <?php
-                      }
-                      ?>
-                      <td><?php echo $kegiatan->nama_jenis_kegiatan;?></td>
-                      <td class="text-center">
 
-                        <?php 
-                        $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
-                        $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
+                          <?php 
+                          $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
+                          $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
                         $own_id     = $data_diri->kode_jabatan_unit; //id jabatan unit sendri
                         $kode = $kegiatan->kode_kegiatan; 
                         $id_staf_keu = $cek_id_staf_keu[0]->kode_jabatan_unit; 

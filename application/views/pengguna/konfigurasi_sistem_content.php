@@ -24,37 +24,251 @@
       </div>
       <?php } ?>
 
-      <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active program-title" data-toggle="tab" href="#2" role="tab"><span class="glyphicon glyphicon-user"></span><br class="hidden-md-up"> Unit </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link program-title" data-toggle="tab" href="#5" role="tab"><span class="glyphicon glyphicon-time"></span><br class="hidden-md-up"> Nama Progress </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link program-title" data-toggle="tab" href="#6" role="tab"><span class="glyphicon glyphicon-ok"></span><br class="hidden-md-up"> Persetujuan Kegiatan Pegawai</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link program-title" data-toggle="tab" href="#9" role="tab"><span class="glyphicon glyphicon-ok"></span><br class="hidden-md-up"> Persetujuan Kegiatan Mahasiswa</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link program-title" data-toggle="tab" href="#20" role="tab"><span class="glyphicon glyphicon-ok"></span><br class="hidden-md-up"> Persetujuan Pengajuan Barang</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link program-title" data-toggle="tab" href="#21" role="tab"><span class="glyphicon glyphicon-ok"></span><br class="hidden-md-up"> Persetujuan Pengajuan RAB</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link program-title" data-toggle="tab" href="#7" role="tab"><span class="glyphicon glyphicon-list"></span><br class="hidden-md-up"> Akses Menu </a>
-        </li>
-      </ul>
+      <div class="collapse" id="demo">
+        <div class="col-lg-12">
+          <!-- Info Status -->
+          <div class="alert alert-info">
+            <a class="close" data-toggle="collapse" title="tutup" data-target="#demo">&times;</a>
+            <p>Berikut adalah penjelasan dari tab menu<strong> Unit</strong> pada konfigurasi sistem<strong>:</strong></p>
+            <table border="3" style="border-color: transparent; border-radius: 5px;" class="table table-sm table-hover borderless">
+              <tr style="height: 30px">
+                <td class="text-center" style="width: 10%"><a class="label label-warning">Kepala Departemen</a></td>
+                <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
+                  <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa baru saja di ajukan dan belum memiliki progres</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td class="text-center"><i class="glyphicon glyphicon-trash text-danger"></i></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td> Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa sedang dalam proses persetujuan</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td class="text-center"><i class="glyphicon glyphicon-certificate text-warning"></i></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td> Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa sudah disetujui</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td class="text-center"><span class="btn btn-sm btn-success glyphicon glyphicon-edit"></span></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td class="text-center"><span class="btn btn-sm btn-primary glyphicon glyphicon-plus-sign"></span></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td class="text-center"><span class="btn btn-sm btn-danger glyphicon glyphicon-trash"></span></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td class="text-center"><a class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign">Tambah Unit</span></a></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td class="text-center"><a class="btn btn-sm btn-primary "><span class="glyphicon glyphicon-plus-sign">Tambah Jabatan</span></a></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <!-- Keterangan Edit -->
+            <div class="alert alert-info">
+              <a class="close" data-toggle="collapse" title="tutup" data-target="#demo">&times;</a>
+              <p>Berikut adalah penjelasan dari tab menu <strong>Nama Progress</strong> pada konfigurasi sistem<strong>:</strong></p>
+              <table border="3" style="border-color: transparent;" class="table table-sm table-hover borderless">
+               <tr style="height: 30px">
+                <td class="text-center"><span class="btn btn-sm btn-success glyphicon glyphicon-edit"></span></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+              </tr>
+              <tr style="height: 30px">
+                <td class="text-center"><a class="btn btn-sm btn-primary "><span class="glyphicon glyphicon-plus-sign">Tambah Nama Progress</span></a></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+              </tr>
+            </table>
+          </div>
+          <!-- End Ket Edit -->
+        </div>
+        <div class="col-lg-12">
+          <!-- Keterangan Edit -->
+          <div class="alert alert-info">
+            <a class="close" data-toggle="collapse" title="tutup" data-target="#demo">&times;</a>
+            <p>Berikut adalah penjelasan dari tab menu <strong>Persetujuan Kegiatan Pegawai</strong> pada konfigurasi sistem<strong>:</strong></p>
+            <table border="3" style="border-color: transparent;" class="table table-sm table-hover borderless">
+              <tr style="height: 30px">
+                <td class="text-center"><span class="btn btn-sm btn-danger glyphicon glyphicon-trash"></span></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+              </tr>
+              <tr style="height: 30px">
+                <td class="text-center"><span class="btn btn-sm btn-danger glyphicon glyphicon-trash" disabled></span></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+              </tr>
+              <tr style="height: 30px">
+                <td class="text-center"> <i class="glyphicon glyphicon-chevron-up"></i></span></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+              </tr>
+              <tr style="height: 30px">
+                <td class="text-center">  <i class="glyphicon glyphicon-chevron-down"></i></i></span></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+              </tr>
+            </table>
+          </div>
+          <!-- End Ket Edit -->
+        </div>
+        <div class="col-lg-12">
+          <!-- Keterangan Edit -->
+          <div class="alert alert-info">
+            <a class="close" data-toggle="collapse" title="tutup" data-target="#demo">&times;</a>
+            <p>Berikut adalah penjelasan dari tab menu <strong>Persetujuan Kegiatan Mahasiswa</strong> pada konfigurasi sistem<strong>:</strong></p>
+            <table border="3" style="border-color: transparent;" class="table table-sm table-hover borderless">
+              <tr style="height: 30px">
+                <td class="text-center"><span class="btn btn-sm btn-danger glyphicon glyphicon-trash"></span></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+              </tr>
+              <tr style="height: 30px">
+                <td class="text-center"><span class="btn btn-sm btn-danger glyphicon glyphicon-trash" disabled></span></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+              </tr>
+              <tr style="height: 30px">
+                <td class="text-center"> <i class="glyphicon glyphicon-chevron-up"></i></span></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+              </tr>
+              <tr style="height: 30px">
+                <td class="text-center">  <i class="glyphicon glyphicon-chevron-down"></i></i></span></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+              </tr>
+            </table>
+          </div>
+          <!-- End Ket Edit -->
+        </div>
+        <div class="col-lg-12">
+          <!-- Keterangan Edit -->
+          <div class="alert alert-info">
+            <a class="close" data-toggle="collapse" title="tutup" data-target="#demo">&times;</a>
+            <p>Berikut adalah penjelasan dari tab menu <strong>Persetujuan Pengajuan Barang</strong> pada konfigurasi sistem<strong>:</strong></p>
+            <table border="3" style="border-color: transparent;" class="table table-sm table-hover borderless">
+             <tr style="height: 30px">
+              <td class="text-center"><span class="btn btn-sm btn-danger glyphicon glyphicon-trash"></span></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+            </tr>
+            <tr style="height: 30px">
+              <td class="text-center"><span class="btn btn-sm btn-danger glyphicon glyphicon-trash" disabled></span></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+            </tr>
+            <tr style="height: 30px">
+              <td class="text-center"> <i class="glyphicon glyphicon-chevron-up"></i></span></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+            </tr>
+            <tr style="height: 30px">
+              <td class="text-center">  <i class="glyphicon glyphicon-chevron-down"></i></i></span></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+            </tr>
+          </table>
+        </div>
+        <!-- End Ket Edit -->
+      </div>
+      <div class="col-lg-12">
+        <!-- Keterangan Edit -->
+        <div class="alert alert-info">
+          <a class="close" data-toggle="collapse" title="tutup" data-target="#demo">&times;</a>
+          <p>Berikut adalah penjelasan dari tab menu <strong>Persetujuan Pengajuan RAB</strong> pada konfigurasi sistem<strong>:</strong></p>
+          <table border="3" style="border-color: transparent;" class="table table-sm table-hover borderless">
+            <tr style="height: 30px">
+              <td class="text-center"><span class="btn btn-sm btn-danger glyphicon glyphicon-trash"></span></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+            </tr>
+            <tr style="height: 30px">
+              <td class="text-center"><span class="btn btn-sm btn-danger glyphicon glyphicon-trash" disabled></span></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+            </tr>
+            <tr style="height: 30px">
+              <td class="text-center"> <i class="glyphicon glyphicon-chevron-up"></i></span></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+            </tr>
+            <tr style="height: 30px">
+              <td class="text-center">  <i class="glyphicon glyphicon-chevron-down"></i></i></span></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+            </tr>
+          </table>
+        </div>
+        <!-- End Ket Edit -->
+      </div>
+      <div class="col-lg-12">
+        <!-- Keterangan Edit -->
+        <div class="alert alert-info">
+          <a class="close" data-toggle="collapse" title="tutup" data-target="#demo">&times;</a>
+          <p>Berikut adalah penjelasan dari tab menu <strong>Akses Menu</strong> pada konfigurasi sistem<strong>:</strong></p>
+          <table border="3" style="border-color: transparent;" class="table table-sm table-hover borderless">
+            <tr style="height: 30px">
+              <td class="text-center"><span class="btn btn-sm btn-primary glyphicon glyphicon-plus-sign"></span></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td>Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa ditolak</td>
+            </tr>
+            <tr style="height: 30px">
+              <td class="text-center"><i class="glyphicon glyphicon-trash text-danger"></i></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan kegiatan mahasiswa sedang dalam proses persetujuan</td>
+            </tr>
+          </table>
+        </div>
+        <!-- End Ket Edit -->
+      </div>
     </div>
-  </div>
-  <!-- project team & activity end -->
 
-  <div class="row">
-   <div class="col-md-2 col-lg-2 col-sm-12">
-   </div>
-   <div class="col-md-8 col-lg-8 col-sm-12">
+    <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active program-title" data-toggle="tab" href="#2" role="tab"><span class="glyphicon glyphicon-user"></span><br class="hidden-md-up"> Unit </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link program-title" data-toggle="tab" href="#5" role="tab"><span class="glyphicon glyphicon-time"></span><br class="hidden-md-up"> Nama Progress </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link program-title" data-toggle="tab" href="#6" role="tab"><span class="glyphicon glyphicon-ok"></span><br class="hidden-md-up"> Persetujuan Kegiatan Pegawai</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link program-title" data-toggle="tab" href="#9" role="tab"><span class="glyphicon glyphicon-ok"></span><br class="hidden-md-up"> Persetujuan Kegiatan Mahasiswa</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link program-title" data-toggle="tab" href="#20" role="tab"><span class="glyphicon glyphicon-ok"></span><br class="hidden-md-up"> Persetujuan Pengajuan Barang</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link program-title" data-toggle="tab" href="#21" role="tab"><span class="glyphicon glyphicon-ok"></span><br class="hidden-md-up"> Persetujuan Pengajuan RAB</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link program-title" data-toggle="tab" href="#7" role="tab"><span class="glyphicon glyphicon-list"></span><br class="hidden-md-up"> Akses Menu </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- project team & activity end -->
+
+<div class="row">
+  <div class="col-md-2 col-lg-2 col-sm-12">
+    <br>
+    <button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-md" title="klik untuk melihat informasi"><i class="glyphicon glyphicon-alert"> Informasi</i></button>
+  </div>
+  <div class="col-md-8 col-lg-8 col-sm-12">
     <div class="tab-content" >
       <!-- Data tabel unit-->
       <div id="2" class="tab-pane active" role="tabpanel">
@@ -63,6 +277,8 @@
            <div style="margin-top: 20px;">
              <a class="btn btn-primary" data-toggle="modal" data-target="#modal_tambah_unit"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Unit </a>
              <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal_tambah_jabatan"><i class="glyphicon glyphicon-plus-sign"> </i> Tambah Jabatan </a>
+
+
              <div class="table-responsive">
                <table id="unit" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
@@ -178,6 +394,31 @@
                 </tbody>
               </table>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal tambah jabatan -->
+    <div aria-hidden="true" aria-labelledby="modal_tambah_jabatan" role="dialog" tabindex="-1" id="modal_tambah_jabatan" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title">Tambah Jabatan</h4>
+          </div>
+          <div class="modal-body">
+            <?php echo form_open_multipart('PenggunaC/tambah_jabatan_2');?>
+            <form role="form" action="<?php echo base_url(); ?>PenggunaC/tambah_jabatan_2" method="post">
+              <div class="form-group">
+                <label>Nama Jabatan</label>
+                <input class="form-control" placeholder="Nama Jabatan" type="text" id="nama_jabatan" name="nama_jabatan" required>
+              </div>
+              <div class="modal-footer">
+                <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
+              </div> 
+              <?php echo form_close()?>
+            </form>
           </div>
         </div>
       </div>
@@ -757,7 +998,9 @@
 
 </div>
 </div>
-<div class="col-md-2 col-lg-3 col-sm-12">
+<div class="col-md-2 col-lg-2 col-sm-12">
+  <br>
+  <button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-md pull-right" title="klik untuk melihat informasi"><i class="glyphicon glyphicon-alert"> Informasi</i></button>
 </div>
 </div>
 

@@ -28,6 +28,81 @@
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       </div>
       <?php } ?>
+    </div>
+  </div>
+
+  <button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-md" title="klik untuk melihat informasi"><i class="glyphicon glyphicon-alert"> Informasi</i></button>
+  <br>
+  <br>
+  <div class="collapse" id="demo">
+    <div class="col-lg-6">
+      <!-- Info Status -->
+      <div class="alert alert-info">
+        <p>Berikut adalah penjelasan dari <strong>tombol</strong> di kolom aksi pada tabel daftar pengguna<strong>:</strong></p>
+        <table border="3" style="border-color: transparent; border-radius: 5px;" class="table table-sm table-hover borderless">
+          <tr style="height: 30px">
+            <td style="width: 10%"><a href="#" style="margin-left: 12px;"><span class="glyphicon glyphicon-ok"></span></a></td>
+            <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td style="width: 62%">Tanda seperti ini, menandakan bahwa status aktif</td>
+          </tr>
+          <tr style="height: 30px">
+            <td style="width: 10%"><a href="#" style="margin-left: 12px;"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td style="width: 62%">Tanda seperti ini, menandakan bahwa status tidak aktif</td>
+          </tr>
+          <tr style="height: 30px">
+            <td style="width: 10%"><a class="btn btn-sm btn-info"><span class="glyphicon glyphicon-ok"></span></a></td>
+            <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td style="width: 62%">Tombol seperti ini digunakan untuk mengaktifkan akun pengguna.</td>
+          </tr>
+          <tr style="height: 30px">
+            <td style="width: 10%"><a disabled class="btn btn-sm btn-info"><span class="glyphicon glyphicon-ok"></span></a></td>
+            <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td style="width: 62%">Tombol seperti ini sudah tidak bisa digunakan untuk mengaktifkan akun pengguna.</td>
+          </tr>
+          <tr>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <!-- Keterangan Edit -->
+      <div class="alert alert-info">
+        <p>Berikut adalah penjelasan dari <strong>tombol</strong> di kolom aksi pada tabel daftar pengguna<strong>:</strong></p>
+        <table border="3" style="border-color: transparent;" class="table table-sm table-hover borderless">
+          <tr style="height: 30px">
+            <td style="width: 10%"><a class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td style="width: 62%">Tombol seperti ini digunakan untuk menon-aktifkan akun pengguna.</td>
+          </tr>
+          <tr style="height: 30px">
+            <td><a disabled class="btn btn-danger btn-sm" disabled><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td>Tombol seperti ini sudah tidak bisa digunakan untuk menon-aktifkan akun pengguna.</td>
+          </tr>
+          <tr style="height: 30px">
+            <td><a class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-refresh"></span></a></td>
+            <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td>Tombol seperti ini digunakan untuk mengganti jabatan pengguna.</td>
+          </tr>
+          <tr style="height: 30px">
+            <td><a disabled class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-refresh"></span></a></td>
+            <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td>Tombol seperti ini sudah tidak bisa digunakan untuk mengganti jabatan pengguna.</td>
+          </tr>
+        </table>
+      </div>
+      <!-- End Ket Edit -->
+    </div>
+  </div>
+  
+
+  <div class="row"> 
+    <div class="col-lg-12">
       <div class="card mb-3">
         <div class="card-header">
           <div class="card-body">
@@ -175,7 +250,7 @@
                           }
                         }
                         ?>
-                        
+
                       </td>
                     </tr>
 
