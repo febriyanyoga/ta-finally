@@ -85,6 +85,8 @@
                             <?php 
                             $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
                             $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
+                            $progress_staf       = $KegiatanM->get_progress_staf($kegiatan->kode_kegiatan);
+                            $progress_tolak_staf = $KegiatanM->get_progress_tolak_staf($kegiatan->kode_kegiatan);
 
                             $kode = $kegiatan->kode_kegiatan; 
                             $id_staf_keu = $cek_id_staf_keu[0]->kode_jabatan_unit; 
@@ -100,18 +102,18 @@
                           <a class="label label-warning" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><?php echo $progress_nama?></a>
                           <?php
                         }else{
-                          if($progress_tolak == 0 && $progress == 0){ //belum punya progress
+                          if($progress_tolak == 0 && $progress == 0 && $progress_staf == 0 && $progress_tolak_staf == 0){ //belum punya progress
                             ?>
                             <a class="label label-info">Mengajukan</a>
                             <?php
                           }else{
-                            if($progress_tolak > 0){ //punya progress yang ditolak
+                            if($progress_tolak > 0 || $progress_tolak_staf > 0){ //punya progress yang ditolak
                               ?>
                               <a class="label label-danger" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Ditolak</a>
                               <?php
-                            }elseif ($progress_min_pegawai > 0) { //jika ada inputan progress dari acc kegiatan yang min (ranking trtinggi)
+                            }elseif (!is_null($kegiatan->status_kegiatan)) { //jika ada inputan progress dari acc kegiatan yang min (ranking trtinggi)
                               ?>
-                              <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Disetujui</a>
+                              <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><?php echo $kegiatan->status_kegiatan?></a>
                               <?php
                             }else{
                               ?>
@@ -124,7 +126,7 @@
                       </td>
                       <td class="text-center">
                         <?php 
-                        if($progress > 0 || $progress_tolak > 0){
+                        if($progress > 0 || $progress_tolak > 0 || $progress_staf > 0 || $progress_tolak_staf > 0){
                           if($kegiatan->kode_jabatan_unit == $id_rank_min_pegawai){
                            ?>
                            <div class="btn-group">

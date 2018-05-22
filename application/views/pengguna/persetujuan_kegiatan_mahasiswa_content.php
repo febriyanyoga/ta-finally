@@ -29,14 +29,77 @@
         <?php } ?>
       </div>
     </div>
-
+    
     <div class="row">
-      <div class="col-lg-12 margin-auto">
-        <div class="col-lg-5 alert alert-info">
-          lele
+      <div class="col-lg-12">
+        <button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-md" title="klik untuk melihat informasi"><i class="glyphicon glyphicon-alert"> Informasi</i></button>
+        <br>
+        <br>
+        <div class="collapse" id="demo">
+         <div class="col-lg-6">
+          <!-- Info Status -->
+          <div class="alert alert-info">
+            <strong>Informasi!</strong>
+            <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan barang<strong>:</strong></p>
+            <table border="3" style="border-color: transparent;" >
+              <tr style="height: 30px">
+                <td style="width: 10%"><a class="label label-primary">BARU</a></td>
+                <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
+                <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan barang baru saja di ajukan dan belum memiliki progres</th>
+              </tr>
+              <tr style="height: 30px">
+                <td><a class="label label-info">PROSES</a></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></td>
+                <td> Status ini menjelaskan bahwa pengajuan barang sedang dalam proses persetujuan</td>
+              </tr>
+              <tr style="height: 30px">
+                <td><a class="label label-success">PENGAJUAN</a></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></td>
+                <td> Status ini menjelaskan bahwa pengajuan barang sudah disetujui dan sedang dalam proses pengajuan RAB</td>
+              </tr>
+              <tr style="height: 30px">
+                <td><a class="label label-success">SELESAI</a></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></td>
+                <td> Status ini menjelaskan bahwa pengajuan barang telah selesai</td>
+              </tr>
+              <tr style="height: 30px">
+                <td><a class="label label-warning">TUNDA</a></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></td>
+                <td> Status ini menjelaskan bahwa pengajuan barang sedang di tunda untuk diajukan dalam RAB dan akan diajukan pada pengajuan RAB berikutnya</td>
+              </tr>
+              <tr style="height: 30px">
+                <td><a class="label label-success">DISETUJUI</a></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></td>
+                <td> Status ini menjelaskan bahwa pegajuan barang telah disetujui pada RAB yang diajukan</td>
+              </tr>
+              <tr style="height: 30px">
+                <td><a class="label label-danger">TOLAK</a></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></td>
+                <td> Status ini menjelaskan bahwa pengajuan barang ditolak</td>
+              </tr>
+            </table>
+          </div>
         </div>
-        <div class="col-lg-5 alert alert-info">
-          lele
+          <div class="col-lg-6">
+            <!-- Keterangan Edit -->
+            <div class="alert alert-warning">
+              <strong>Perhatian!</strong>
+              <p>Berikut adalah penjelasan dari <strong>tombol ubah</strong> pada tabel pengajuan barang<strong>:</strong></p>
+              <table border="3" style="border-color: transparent;" >
+                <tr style="height: 30px">
+                  <td style="width: 10%"><a href="#" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                  <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
+                  <td style="width: 62%"> Jika tombol tampil seperti ini, maka tombol dapat digunakan untuk mengubah data pengajuan barang</th>
+                </tr>
+                <tr style="height: 30px">
+                  <td><a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-pencil"></span></a></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></td>
+                  <td> Jika tombol tampil seperti ini, maka sudah tidak dapat digunakan lagi untuk mengubah data pengajuan barang dikarenakan pengajuan tersebut sudah sudah memiliki progres</td>
+                </tr>
+              </table>
+            </div>
+            <!-- End Ket Edit -->
+          </div>
         </div>
       </div>
     </div>
@@ -112,14 +175,22 @@
                         <?php 
                         $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
                         $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
-
+                        $own_id     = $data_diri->kode_jabatan_unit; //id jabatan unit sendri
                         $kode = $kegiatan->kode_kegiatan; 
                         $id_staf_keu = $cek_id_staf_keu[0]->kode_jabatan_unit; 
                         $progress_staf_keu = $KegiatanM->get_own_progress($kode, $id_staf_keu);
                               //disetujui
-                        $rank_min_mhs =  $KegiatanM->cek_min_mhs()->ranking;
-                        $id_rank_min_mhs = $KegiatanM->cek_id_by_rank_mhs($rank_min_mhs)->kode_jabatan_unit;
-                        $progress_min_mhs = $KegiatanM->get_own_progress($kode, $id_rank_min_mhs);
+                        $min        = $KegiatanM->cek_min_mhs()->ranking;
+                        $max        = $cek_max->ranking; //id pengguna rank tertinggi
+                        $id_min     = $KegiatanM->cek_id_by_rank_mhs($min)->kode_jabatan_unit; //kode jabatan unit yang rank nya min (tertinggi)
+                        $id_max     = $KegiatanM->cek_id_by_rank_mhs($max)->kode_jabatan_unit; //kode jabatan unit yang rank nya max (terendah)
+                        $progress_min_mhs = $KegiatanM->get_own_progress($kode, $id_min);
+                        $own_id     = $data_diri->kode_jabatan_unit; //id jabatan unit sendri
+
+                        $kode = $kegiatan->kode_kegiatan; 
+                        $own  = $KegiatanM->get_own_progress($kode, $own_id);
+                        $kegiatan_created = $kegiatan->created_at; //waktu kegiatan dibuat
+                        $acc_created = $KegiatanM->created_at_mhs($data_diri->kode_jabatan_unit)->created_at;
 
                         if($progress_staf_keu > 0){ //sudah ada input staf keu
                           $progress_nama = $KegiatanM->get_progress_by_id($id_staf_keu, $kode)->result()[0]->nama_progress;
@@ -150,82 +221,142 @@
                         ?>
                       </td>
                       <td class="text-center">
-                        <?php 
-                      $own_id     = $data_diri->kode_jabatan_unit; //id jabatan unit sendri
-                      $max        = $cek_max->ranking; //id pengguna rank tertinggi
-                      $id_max     = $KegiatanM->cek_id_by_rank_mhs($max)->kode_jabatan_unit; //id yang rank nya max
-
-                      $kode = $kegiatan->kode_kegiatan; 
-                      $own  = $KegiatanM->get_own_progress($kode, $own_id);
-                      $kegiatan_created = $kegiatan->created_at; //waktu kegiatan dibuat
-                      $acc_created = $KegiatanM->created_at_mhs($data_diri->kode_jabatan_unit)->created_at;
-
-                      if($own_id == $id_max){
-                       if($own > 0){ //SUDAH INPUT 
+                        <?php
+                        $kegiatan_created = $kegiatan->created_at; //waktu kegiatan dibuat
+                        $acc_created = $KegiatanM->created_at_mhs($data_diri->kode_jabatan_unit)->created_at; //waktu acc kegiatan/akses persetujuan dibuat
+                        if($own > 0){
+                          ?>
+                          <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></span></a><p class="kecil">Selesai</p>
+                          <?php
+                        }else{
+                          if($own_id == $id_min && $own_id == $id_max){
+                            if($kegiatan_created > $acc_created){ //kegiatan dullu baru acc_kegiatan masuk
+                              if(!is_null($kegiatan->status_kegiatan)){//sudah disetujui->tidak bisa acc
+                                ?>
+                                <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Sudah disetujui" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                <?php
+                              }else{//belum disetujui
+                                ?>
+                                <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                <?php
+                              }
+                            }else{ //acc dulu baru kegiatan
+                              ?>
+                              <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                              <?php
+                            }
+                          }elseif($own_id == $id_min && $own_id != $id_max){
+                            $own_rank   = $KegiatanM->cek_rank_by_id_mhs($own_id)->ranking; //rank sendiri
+                            $rank_next  = ((int)$own_rank + 1); //rank sendri + 1 (rank bawahnya)
+                            $id_next    = $KegiatanM->cek_id_by_rank_mhs($rank_next)->kode_jabatan_unit; //id yang ranknya (ran ksendiri + 1)
+                            $progress_id_next = $KegiatanM->get_own_progress($kegiatan->kode_kegiatan, $id_next); //progress id yang ranknya (rank sendiri+1)
+                            if($progress_id_next > 0){ //sudah diberi progress rank bawahnya
+                              if($progress_tolak == 0){ // tidak ditolak
+                                if($kegiatan_created > $acc_created){ //kegiatan dullu baru acc_kegiatan masuk
+                                  if(!is_null($kegiatan->status_kegiatan)){//sudah disetujui->tidak bisa acc
+                                    ?>
+                                    <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Sudah disetujui" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                    <?php
+                                  }else{//belum disetujui
+                                    $rank_p = $KegiatanM->get_progress_by_kode_kegiatan($kegiatan->kode_kegiatan)->result()[0]->kode_jabatan_unit;//cari progress berdasarkan kode kegiatan
+                                    $rank_progress = $KegiatanM->cek_rank_by_id_mhs($rank_p)->ranking; // cari ranking by kode jabatan unit
+                                    if($own_rank > $rank_progress){ //progress sampe diatas 
+                                      ?>
+                                      <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Sudah disetujui" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                      <?php
+                                    }else{ //progress sampe bawah
+                                      ?>
+                                      <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                      <?php
+                                    }
+                                  }
+                                }else{ //acc masuk dulu baru kegiatan
+                                  ?>
+                                  <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                  <?php
+                                }
+                              }else{ //ditolak
+                                ?>
+                                <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Kegiatan ditolak" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                <?php
+                              }
+                            }else{ //belum di kasih progress rank bawahnya
+                              ?>
+                              <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Belum disetujui" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                              <?php
+                            }
+                          }elseif($own_id != $id_min && $own_id != $id_max){
+                            $own_rank   = $KegiatanM->cek_rank_by_id_mhs($own_id)->ranking; //rank sendiri
+                            $rank_next  = ((int)$own_rank + 1); //rank sendri + 1 (rank bawahnya)
+                            $id_next    = $KegiatanM->cek_id_by_rank_mhs($rank_next)->kode_jabatan_unit; //id yang ranknya (ran ksendiri + 1)
+                            $progress_id_next = $KegiatanM->get_own_progress($kegiatan->kode_kegiatan, $id_next); //progress id yang ranknya (rank sendiri+1)
+                            if($progress_id_next > 0){ //sudah diberi progress rank bawahnya
+                              if($progress_tolak == 0){ // tidak ditolak
+                                if($kegiatan_created > $acc_created){ //kegiatan dullu baru acc_kegiatan masuk
+                                  if(!is_null($kegiatan->status_kegiatan)){//sudah disetujui->tidak bisa acc
+                                    ?>
+                                    <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Sudah disetujui" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                    <?php
+                                  }else{//belum disetujui
+                                    $rank_p = $KegiatanM->get_progress_by_kode_kegiatan($kegiatan->kode_kegiatan)->result()[0]->kode_jabatan_unit;//cari progress berdasarkan kode kegiatan
+                                    $rank_progress = $KegiatanM->cek_rank_by_id_mhs($rank_p)->ranking; // cari ranking by kode jabatan unit
+                                    if($own_rank > $rank_progress){ //progress sampe diatas 
+                                      ?>
+                                      <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Sudah disetujui" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                      <?php
+                                    }else{ //progress sampe bawah
+                                      ?>
+                                      <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                      <?php
+                                    }
+                                  }
+                                }else{ //acc masuk dulu baru kegiatan
+                                  ?>
+                                  <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                  <?php
+                                }
+                              }else{ //ditolak
+                                ?>
+                                <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Kegiatan ditolak" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                <?php
+                              }
+                            }else{ //belum di kasih progress rank bawahnya
+                              ?>
+                              <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Belum disetujui" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                              <?php
+                            }
+                          }elseif($own_id != $id_min && $own_id == $id_max){
+                            if($kegiatan_created > $acc_created){ //kegiatan dullu baru acc_kegiatan masuk
+                              if(!is_null($kegiatan->status_kegiatan)){//sudah disetujui->tidak bisa acc
+                                ?>
+                                <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Sudah disetujui" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                <?php
+                              }else{//belum disetujui
+                                ?>
+                                <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                <?php
+                              }
+                            }else{ //acc dulu baru kegiatan
+                              ?>
+                              <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                              <?php
+                            }
+                          } 
+                        }
                         ?>
-                        <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
-                          <p class="kecil">Selesai</p>
-                          <?php
-                        }else{
-                         $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
-                         if($progress_tolak == 1){
-                           ?>
-                           <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Selesai" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-                           <?php
-                         }else{
-                          if($acc_created > $kegiatan_created && $progress_min_mhs > 0){ //jika acc dibikin setelah kkegiatan dibikin dan suda disetujui
-                           ?>
-                           <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="tidak diijinkan menyetujui" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-                           <?php
-                         }else{
-                           ?>
-                           <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan Persetujuan 2" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-                           <?php
-                         }
-                       }
-                     }
-                   }else{
-                      $own_rank   = $KegiatanM->cek_rank_by_id_mhs($own_id)->ranking; //rank sendiri
-                      $rank_next  = ((int)$own_rank + 1); //id yang punya rank sendri + 1
-                      $id_next    = $KegiatanM->cek_id_by_rank_mhs($rank_next)->kode_jabatan_unit; //id yang ranknya ranksendiri + 1
-                      $progress_id_next = $KegiatanM->get_own_progress($kegiatan->kode_kegiatan, $id_next); //progress id yang ranknya ranksendiri + 1
-                      if($progress_id_next == "1"){
-                       if($own > 0){?>
-                         <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
-                          <p class="kecil">Selesai</p>
-                          <?php
-                        }else{
-                         $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
-                         if ($progress_tolak == 1) {
-                           ?>
-                           <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Selesai" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-                           <?php
-                         }else{
-                           ?>
-                           <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan Persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-                           <?php 
-                         }
-                       }
-                     }else{
-                      ?>
-                      <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Belum dapat melakukan Persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-                      <?php
-                    }
+                      </td>
+                    </tr>
+                    <?php
                   }
                   ?>
-                </td>
-              </tr>
-              <?php
-            }
-            ?>
-          </tbody>
-        </table>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-</div>
-</section>
+  </section>
 
 </section>
 <!-- modal detail pengajuan -->

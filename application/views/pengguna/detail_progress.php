@@ -55,9 +55,19 @@ foreach ($detail_progress as $progress=>$key) {
                         <div class="post-meta">
                             <div class="asker-meta">
                                 <span class="qa-message-what"></span>
-                                <span class="qa-message-who">
+                                <span class="qa-message-who pull-left">
                                     <span class="qa-message-who-pad">Sebagai </span>
-                                    <span class="qa-message-who-data"><?php echo $key->nama_jabatan." ".$key->nama_unit;?></span>
+                                    <?php
+                                    if($key->jenis_progress == 'kegiatan_staf'){
+                                        ?>
+                                        <span class="qa-message-who-data">Atasan</span>
+                                        <?php
+                                    }else{
+                                        ?>
+                                        <span class="qa-message-who-data"><?php echo $key->nama_jabatan." ".$key->nama_unit;?></span>
+                                        <?php
+                                    }
+                                    ?>
                                 </span>
                             </div>
                             <span class="qa-message-when">

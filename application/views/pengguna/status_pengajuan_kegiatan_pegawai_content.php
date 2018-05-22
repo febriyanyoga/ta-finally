@@ -97,6 +97,8 @@
                       <?php 
                       $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
                       $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
+                      $progress_staf  = $KegiatanM->get_progress_staf($kegiatan->kode_kegiatan);
+                      $progress_tolak_staf = $KegiatanM->get_progress_tolak_staf($kegiatan->kode_kegiatan);
                       $own_id = $data_diri->kode_jabatan_unit;
                       $kode = $kegiatan->kode_kegiatan; 
                       $own  = $KegiatanM->get_own_progress($kode, $own_id);
@@ -118,18 +120,18 @@
                           <a class="label label-warning" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><?php echo $progress_nama?></a>
                           <?php
                         }else{
-                          if($progress_tolak == 0 && $progress == 0){ //belum punya progress
+                          if($progress_tolak == 0 && $progress == 0 && $progress_tolak_staf == 0 && $progress_staf == 0){ //belum punya progress
                             ?>
                             <a class="label label-info">Mengajukan</a>
                             <?php
                           }else{
-                            if($progress_tolak > 0){ //punya progress yang ditolak
+                            if($progress_tolak > 0 || $progress_tolak_staf > 0){ //punya progress yang ditolak
                               ?>
                               <a class="label label-danger" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Ditolak</a>
                               <?php
-                            }elseif ($progress_min_pegawai > 0) { //jika ada inputan progress dari acc kegiatan yang min (ranking trtinggi)
+                            }elseif (!is_null($kegiatan->status_kegiatan)) { //jika ada inputan progress dari acc kegiatan yang min (ranking trtinggi)
                               ?>
-                              <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Disetujui</a>
+                              <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><?php echo $kegiatan->status_kegiatan?></a>
                               <?php
                             }else{
                               ?>
@@ -143,15 +145,15 @@
 
                       <td>
                         <?php
-                    $min = $cek_min_pegawai->ranking; //cek rannking min
-                    $id_min     = $KegiatanM->cek_id_by_rank_pegawai($min)->kode_jabatan_unit; //id yang rank nya min
-                    $progress_min  = $KegiatanM->get_own_progress($kode, $id_min); //progress id min
-                    if($progress_tolak > 0){
+                    // $min = $cek_min_pegawai->ranking; //cek rannking min
+                    // $id_min     = $KegiatanM->cek_id_by_rank_pegawai($min)->kode_jabatan_unit; //id yang rank nya min
+                    // $progress_min  = $KegiatanM->get_own_progress($kode, $id_min); //progress id min
+                    if($progress_tolak > 0 || $progress_tolak_staf > 0){
                       ?>
                       <a disabled data-toggle="tooltip" title="Tidak bisa masukkan progress" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                       <?php
                     }else{
-                      if($progress_min > 0){
+                      if(!is_null($kegiatan->status_kegiatan)){
                         ?>
                         <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan Persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                         <?php

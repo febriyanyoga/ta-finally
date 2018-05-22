@@ -73,6 +73,17 @@ class KegiatanM extends CI_Model
 		return $query->num_rows();
 	}
 
+	public function get_progress_staf($id){
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('nama_progress', 'nama_progress.kode_nama_progress = progress.kode_nama_progress');
+		$this->db->where('progress.kode_fk', $id);
+		$this->db->where('progress.jenis_progress = "kegiatan_staf"');
+		$this->db->where('progress.kode_nama_progress = "1"');//diterima
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
 	public function get_progress_by_kode_kegiatan($kode_kegiatan){
 		$this->db->select('*');
 		$this->db->from('progress');
@@ -89,7 +100,7 @@ class KegiatanM extends CI_Model
 		$this->db->from('progress');
 		$this->db->join('nama_progress', 'nama_progress.kode_nama_progress = progress.kode_nama_progress');
 		$this->db->where('progress.kode_fk', $id);
-		$this->db->where('progress.jenis_progress = "kegiatan"');
+		$this->db->where('progress.jenis_progress = "kegiatan_staf"');
 		$this->db->where('progress.kode_jabatan_unit', $kode_jabatan_unit);
 		$this->db->where('progress.kode_nama_progress', $kode);//diterima
 		$query = $this->db->get();
@@ -106,11 +117,41 @@ class KegiatanM extends CI_Model
 		return $query->num_rows();
 	}
 
+	public function get_progress_tolak_staf($id){
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->where('progress.kode_fk', $id);
+		$this->db->where('progress.jenis_progress = "kegiatan_staf"');
+		$this->db->where('progress.kode_nama_progress = "2"');//ditolak
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
 	public function get_own_progress($kode, $kode_jabatan_unit){
 		$this->db->select('*');
 		$this->db->from('progress');
 		$this->db->where('progress.kode_fk', $kode);
 		$this->db->where('progress.jenis_progress = "kegiatan"');
+		$this->db->where('progress.kode_jabatan_unit', $kode_jabatan_unit);
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
+	public function get_own_progress_staf($kode, $kode_jabatan_unit){
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->where('progress.kode_fk', $kode);
+		$this->db->where('progress.jenis_progress = "kegiatan_staf"');
+		$this->db->where('progress.kode_jabatan_unit', $kode_jabatan_unit);
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
+	public function get_progress_atasan($kode, $kode_jabatan_unit){
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->where('progress.kode_fk', $kode);
+		$this->db->where('progress.jenis_progress = "kegiatan_staf"');
 		$this->db->where('progress.kode_jabatan_unit', $kode_jabatan_unit);
 		$query = $this->db->get();
 		return $query->num_rows();
@@ -164,6 +205,22 @@ class KegiatanM extends CI_Model
 		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
 		$this->db->where('progress.kode_fk', $id);
 		$this->db->where('progress.jenis_progress = "kegiatan"'); //kegiatan bukan barang
+		$query = $this->db->get();
+		return $query;
+	}
+
+	public function get_detail_progress_staf($id){
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = progress.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->join('nama_progress', 'progress.kode_nama_progress = nama_progress.kode_nama_progress');
+		$this->db->join('pengguna', 'progress.id_pengguna = pengguna.id_pengguna');
+		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
+		$this->db->where("(progress.jenis_progress = 'kegiatan' OR progress.jenis_progress = 'kegiatan_staf')"); //kegiatan dan kegiatan staf
+		$this->db->where('progress.kode_fk', $id);
+		$this->db->order_by('progress.kode_progress','DESC');
 		$query = $this->db->get();
 		return $query;
 	}
@@ -346,7 +403,7 @@ class KegiatanM extends CI_Model
 	public function created_at($kode_jabatan_unit){
 		$this->db->select('*');
 		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
-		$this->db->where('kode_jenis_kegiatan = "1"'); //pegawai
+		$this->db->where('kode_jenis_kegiatan = "1"'); //kegiatan pegawai
 		if($query = $this->db->get('acc_kegiatan')->row()){
 			return $query;
 		}else{

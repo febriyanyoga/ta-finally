@@ -40,9 +40,14 @@ class KegiatanC extends CI_Controller {
 }
 
 	public function detail_progress($id){ //menampilkan modal dengan isi dari detail_kegiatan.php
-		$data['detail_progress']	= $this->KegiatanM->get_detail_progress($id)->result();
+		$data['detail_progress']	= $this->KegiatanM->get_detail_progress_staf($id)->result();
 		$this->load->view('pengguna/detail_progress', $data);
 	}
+
+	// public function detail_progress_staf($id){ //menampilkan modal dengan isi dari detail_kegiatan.php
+	// 	$data['detail_progress']	= $this->KegiatanM->get_detail_progress_staf($id)->result();
+	// 	$this->load->view('pengguna/detail_progress', $data);
+	// }
 
 	public function detail_kegiatan($id){ //menampilkan modal dengan isi dari detail_kegiatan.php
 		$data['detail_kegiatan'] 	= $this->KegiatanM->get_data_pengajuan_by_id($id)->result()[0];
@@ -56,6 +61,14 @@ class KegiatanC extends CI_Controller {
 		$data['data_diri'] 			= $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['nama_progress'] 		= $this->KegiatanM->get_pilihan_nama_progress()->result();
 		$this->load->view('pengguna/detail_pengajuan', $data);
+	}
+
+	public function detail_pengajuan_staf($id){ //menampilkan modal dengan isi dari detail_pengajuan.php
+		$data['menu'] = $this->data_menu;
+		$data['detail_kegiatan'] 	= $this->KegiatanM->get_data_pengajuan_by_id($id)->result()[0];
+		$data['data_diri'] 			= $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+		$data['nama_progress'] 		= $this->KegiatanM->get_pilihan_nama_progress()->result();
+		$this->load->view('pengguna/detail_pengajuan_staf', $data);
 	}
 
 	public function edit_pengajuan($id){ //menampilkan modal dengan isi dari detail_pengajuan.php
@@ -239,10 +252,10 @@ public function pengajuan_kegiatan_mahasiswa(){
 
 			);
 
-			$rank_min_pegawai =  $this->KegiatanM->cek_min_pegawai()->ranking;
-			$id_rank_min_pegawai = $this->KegiatanM->cek_id_by_rank_pegawai($rank_min_pegawai)->kode_jabatan_unit;
+			$rank_min_pegawai 		=  $this->KegiatanM->cek_min_pegawai()->ranking;
+			$id_rank_min_pegawai 	= $this->KegiatanM->cek_id_by_rank_pegawai($rank_min_pegawai)->kode_jabatan_unit;
 			if($this->KegiatanM->insert_progress($data)){ //insert progress
-				if($id_rank_min_pegawai == $kode_jabatan_unit && $kode_nama_progress == 1){ //disetujui oleh rank min
+				if($id_rank_min_pegawai == $kode_jabatan_unit && $kode_nama_progress == 1 && $jenis_progress != 'kegiatan_staf'){ //disetujui oleh rank min
 					$data_update_kegiatan  = array('status_kegiatan' => 'Disetujui');
 					$this->KegiatanM->update_kegiatan($kode_fk, $data_update_kegiatan);
 					$this->sendemail($email, $kode_fk, $kode_nama_progress);

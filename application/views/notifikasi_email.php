@@ -174,7 +174,15 @@ max-width: 560px;" class="container">
 	color: #000000;
 	font-family: sans-serif;" class="paragraph">
 	<b style="color: #333333;">Tanggal Kegiatan :</b><br/>
-	<?php echo $tgl_kegiatan_mulai." sampai ".$tgl_kegiatan_selesai;?>
+	<?php
+	$tgl_kegiatan_mulai = $tgl_kegiatan_mulai;
+	$new_tgl_kegiatan_mulai = date('d-m-Y',strtotime($tgl_kegiatan_mulai));
+
+	$tgl_kegiatan_selesai = $tgl_kegiatan_selesai;
+	$new_tgl_kegiatan_selesai = date('d-m-Y',strtotime($tgl_kegiatan_selesai));
+	
+	echo $new_tgl_kegiatan_mulai." sampai ".$new_tgl_kegiatan_selesai
+	;?>
 </td>
 </tr>
 
@@ -186,7 +194,7 @@ max-width: 560px;" class="container">
 	color: #000000;
 	font-family: sans-serif;" class="paragraph">
 	<b style="color: #333333;">Dana Kegiatan yang diajukan :</b><br/>
-	<?php echo "Rp".$dana_diajukan.",-";?>
+	<?php echo "Rp".$dana_diajukan.",00";?>
 </td>
 </tr>
 
@@ -216,23 +224,23 @@ max-width: 560px;" class="container">
 						<a style="color: #FFFFFF; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 120%;"
 						href="#">
 						DISETUJUI
-						</a>
-						</td>
-						<?php
-					}else{
-						?>
-						<td align="center" valign="middle" style="padding: 12px 24px; margin: 0; border-collapse: collapse; border-spacing: 0; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px;  background-color: #5cb85c;"
-						bgcolor="#f8d7da">
-						<a style="color: #FFFFFF; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 120%;"
-						href="#">
-						DITOLAK
-						</a>
-						</td>
-						<?php
-					}
-					?>
-		</tr>
-	</table>
+					</a>
+				</td>
+				<?php
+			}else{
+				?>
+				<td align="center" valign="middle" style="padding: 12px 24px; margin: 0; border-collapse: collapse; border-spacing: 0; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px;  background-color: #a94442;"
+				bgcolor="#f8d7da">
+				<a style="color: #FFFFFF; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 120%;"
+				href="#">
+				DITOLAK
+			</a>
+		</td>
+		<?php
+	}
+	?>
+</tr>
+</table>
 </a>
 </td>
 </tr>

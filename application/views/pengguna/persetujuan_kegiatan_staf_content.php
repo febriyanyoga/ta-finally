@@ -99,9 +99,11 @@
                     <?php
                     $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
                     $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
+                    $progress_staf       = $KegiatanM->get_progress_staf($kegiatan->kode_kegiatan);
+                    $progress_tolak_staf = $KegiatanM->get_progress_tolak_staf($kegiatan->kode_kegiatan);
                     $own_id = $data_diri->kode_jabatan_unit;
                     $kode = $kegiatan->kode_kegiatan; 
-                    $own  = $KegiatanM->get_own_progress($kode, $own_id);
+                    $own  = $KegiatanM->get_own_progress_staf($kode, $own_id);
 
 
                       // if ada progress dari staf keuangan , nama progress ambil dari database
@@ -120,12 +122,12 @@
                           <a class="label label-warning" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><?php echo $progress_nama?></a>
                           <?php
                         }else{
-                          if($progress_tolak == 0 && $progress == 0){ //belum punya progress
+                          if($progress_tolak == 0 && $progress == 0 && $progress_staf == 0 && $progress_tolak_staf == 0){ //belum punya progress
                             ?>
                             <a class="label label-info">Mengajukan</a>
                             <?php
                           }else{
-                            if($progress_tolak > 0){ //punya progress yang ditolak
+                            if($progress_tolak > 0 || $progress_tolak_staf > 0){ //punya progress yang ditolak
                               ?>
                               <a class="label label-danger" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Ditolak</a>
                               <?php
@@ -146,7 +148,7 @@
                         <?php 
                         $kode = $kegiatan->kode_kegiatan;
                         $id   = $data_diri->kode_jabatan_unit;
-                        $own  = $KegiatanM->get_own_progress($kode, $id);
+                        $own  = $KegiatanM->get_own_progress_staf($kode, $id);
                         // print_r($own);
                         if($own > 0){
                           ?>
@@ -183,7 +185,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Persetujuan Kegiatan</h4>
+          <h4 class="modal-title">Persetujuan Kegiatan Staf</h4>
         </div>
         <div class="modal-body">
           <div class="fetched-data"></div>
@@ -198,7 +200,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Detail Kegiatan</h4>
+          <h4 class="modal-title">Detail Kegiatan Staf</h4>
         </div>
         <div class="modal-body">
           <div class="fetched-data"></div>
@@ -206,6 +208,22 @@
       </div>
     </div>
   </div>
+<!-- 
+  <div class="modal fade" id="modal_progress_staf" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Detail Progress</h4>
+      </div>
+      <div class="modal-body">
+        <div class="fetched-data"></div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div> -->
 
 
   <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
@@ -218,7 +236,7 @@
             //menggunakan fungsi ajax untuk pengambilan data
             $.ajax({
               type : 'get',
-              url : '<?php echo base_url().'KegiatanC/detail_pengajuan/'?>'+rowid,
+              url : '<?php echo base_url().'KegiatanC/detail_pengajuan_staf/'?>'+rowid,
                 //data :  'rowid='+ rowid, // $_POST['rowid'] = rowid
                 success : function(data){
                 $('.fetched-data').html(data);//menampilkan data ke dalam modal
@@ -242,5 +260,22 @@
             });
           });
     });
+
+    //  // js detail_progress staf
+    // $(document).ready(function(){
+    //   $('#modal_progress_staf').on('show.bs.modal', function (e) {
+    //     var rowid = $(e.relatedTarget).data('id');
+    // //menggunakan fungsi ajax untuk pengambilan data
+    // $.ajax({
+    //   type : 'get',
+    //   url : '<?php echo base_url().'KegiatanC/detail_progress_staf/'?>'+rowid,
+    // //data :  'rowid='+ rowid, // $_POST['rowid'] = rowid
+    // success : function(data){
+    // $('.fetched-data').html(data);//menampilkan data ke dalam modal
+    //         }
+    //       });
+    //     });
+    // });
+
 
   </script>
