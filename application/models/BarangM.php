@@ -185,6 +185,12 @@ class BarangM extends CI_Model
 		return TRUE;
 	}
 
+	public function update_item_pengajuan_rab_tolak($data, $kode_pengajuan){ //update status item pengajuan jadi disetujui 
+		$this->db->where('item_pengajuan.kode_pengajuan', $kode_pengajuan);
+		$this->db->update('item_pengajuan', $data);
+		return TRUE;
+	}
+
 	public function update_persetujuan_rab_tolak($data, $kode_pengajuan){ //update persetujuan pengajuan jadi disetujui
 		$this->db->where('pengajuan.kode_pengajuan', $kode_pengajuan);
 		$this->db->update('pengajuan', $data);
@@ -286,11 +292,29 @@ class BarangM extends CI_Model
 		$this->db->where('item_pengajuan.status_pengajuan ="proses" OR item_pengajuan.status_pengajuan = "tunda" OR item_pengajuan.status_pengajuan = "pengajuan"');
 		$this->db->where('progress.jenis_progress ="barang"');
 		$this->db->where('progress.kode_nama_progress ="1"');
+		$this->db->where('item_pengajuan.kode_pengajuan IS NULL');
 		$this->db->group_by('item_pengajuan.kode_item_pengajuan');
 		$query = $this->db->get();
 		return $query;
+	}
 
-
+	public function get_barang_rab(){ // menampilkan data item pengajuan barag yang memiliki status pengajuan proses atau pending
+		$this->db->select('*');
+		$this->db->from('item_pengajuan');
+		$this->db->join('pengguna', 'pengguna.id_pengguna = item_pengajuan.id_pengguna');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->join('barang', 'barang.kode_barang = item_pengajuan.kode_barang');
+		$this->db->join('jenis_barang', 'jenis_barang.kode_jenis_barang = barang.kode_jenis_barang');
+		$this->db->join('progress', 'progress.kode_fk = item_pengajuan.kode_item_pengajuan');
+		$this->db->join('pengajuan', 'pengajuan.kode_pengajuan = item_pengajuan.kode_pengajuan');
+		$this->db->where('item_pengajuan.status_pengajuan ="proses" OR item_pengajuan.status_pengajuan = "tunda" OR item_pengajuan.status_pengajuan = "pengajuan" OR item_pengajuan.status_pengajuan = "pengajuanRAB"');
+		$this->db->where('progress.jenis_progress ="barang"');
+		$this->db->where('progress.kode_nama_progress ="1"');
+		$this->db->group_by('item_pengajuan.kode_item_pengajuan');
+		$query = $this->db->get();
+		return $query;
 	}
 
 	public function get_progress_barang($kode_item_pengajuan){ //untuk mengecek apakah user sudah memberikan progres barang di item pengajuan . Berhubungan dengan tombol persetujuan akan hilang jika sudah dimasukan persetujuan
@@ -364,6 +388,18 @@ class BarangM extends CI_Model
 
 	public function tunda($kode){ //mengubah status item_pengajuan menjadi pengajuan karena item pengajuan masuk ke dalam RAb
 		$status = 'tunda';
+		$kode_pengajuan = NULL;
+		$data = array(
+			'status_pengajuan' => $status,
+			'kode_pengajuan'   => $kode_pengajuan
+		);
+		$this->db->where('kode_item_pengajuan', $kode);
+		$this->db->update('item_pengajuan',$data);
+		return TRUE;
+	}
+
+	public function ulang($kode){ //mengubah status item_pengajuan menjadi proses
+		$status = 'proses';
 		$kode_pengajuan = NULL;
 		$data = array(
 			'status_pengajuan' => $status,
@@ -494,6 +530,20 @@ class BarangM extends CI_Model
 		$this->db->from('nama_progress');
 		$query = $this->db->get();
 		return $query;
+	}
+
+	public function get_sugesti($nama_barang){
+		$this->db->select('nama_barang');
+		$this->db->like('nama_barang', $nama_barang);
+		$query = $this->db->get('barang');
+		return $query->result();
+	}
+
+	public function get_kode_barang($nama_barang){
+		$this->db->select('kode_barang');
+		$this->db->where('nama_barang', $nama_barang);
+		$query = $this->db->get('barang');
+		return $query->result();
 	}
 
 }

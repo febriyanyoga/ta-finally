@@ -176,6 +176,10 @@
                               ?>
                               <a class="label label-success" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">PENGAJUAN</a>
                               <?php
+                            }else if($barang->status_pengajuan == "pengajuanRAB"){
+                              ?>
+                              <a class="label label-success" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">PENGAJUAN RAB</a>
+                              <?php
                             }else if($barang->status_pengajuan == "selesai"){
                               ?>
                               <a class="label label-success" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">SELESAI</a>
