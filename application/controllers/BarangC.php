@@ -30,6 +30,7 @@ class BarangC extends CI_Controller {
 			$data['title'] = "Persetujuan Item Pengajuan | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
 			$this->data['data_persetujuan_barang'] = $this->BarangM->get_data_item_pengajuan()->result();
 			$this->data['BarangM'] = $this->BarangM ;
+			$this->data['cek_menu'] = $this->data_menu;
 			$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
 			$data['body'] = $this->load->view('pengguna/persetujuan_barang_content', $this->data, true) ;
 			$this->load->view('pengguna/index_template', $data);
@@ -104,7 +105,7 @@ class BarangC extends CI_Controller {
 			$this->data['pilihan_barang_tambah'] = $this->BarangM->get_pilihan_barang()->result();
 			$this->data['BarangM'] = $this->BarangM;
 			$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
-				
+
 			$data['nama_barang'] 		= '';
 			$data['nama_item_pengajuan']= '';
 			$data['url']				= '';
@@ -280,7 +281,7 @@ class BarangC extends CI_Controller {
 		if($this->form_validation->run() == FALSE)
 		{
 			$this->session->set_flashdata('error','Data Persetujuan anda tidak berhasil ditambahkan1 ');
-			redirect('BarangC/persetujuan_barang') ;
+			redirect_back() ;
 			//redirect ke halaman pengajuan barang
 		}else{
 			
@@ -288,7 +289,7 @@ class BarangC extends CI_Controller {
 			$kode_fk 		    = $_POST['kode_fk'];
 			$kode_nama_progress = $_POST['kode_nama_progress'];
 			$komentar           = $_POST['komentar'];
-			$jenis_progress 	= "barang";
+			$jenis_progress 	= $_POST['jenis_progress'];
 
 			$format_waktu 		= "%H:%i";
 			$waktu_progress 	= mdate($format_waktu);
@@ -322,10 +323,10 @@ class BarangC extends CI_Controller {
 			if($this->BarangM->insert_progress($data_progress)){
 				$this->BarangM->update_persetujuan($data,$kode_fk);
 				$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
-				redirect('BarangC/persetujuan_barang');
+				redirect_back();
 			}else{
 				$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
-				redirect('BarangC/persetujuan_barang');
+				redirect_back();
 			}
 
 		}
@@ -383,39 +384,14 @@ class BarangC extends CI_Controller {
 
 				if($upload['result'] == "success"){ // Jika proses insert ke item barang sukses
 
-					$format_tgl 		= "%Y-%m-%d";
-					$tgl_progress 		= mdate($format_tgl);
-					$format_waktu 		= "%H:%i:%s";
-					$waktu_progress		= mdate($format_waktu);
-					$kode_nama_progress	= "1";
-					$komentar			= "insert otomatis";
-					$jenis_progress		= "barang";
 					$file 				= array(
 						'file_gambar'	=> $upload['file']['file_name']
 					);
 
-					$data = array(
-						'kode_jabatan_unit	' 	=> $kode_jabatan_unit,
-						'id_pengguna' 			=> $id_pengguna,
-						'kode_fk'				=> $insert_id,
-						'kode_nama_progress' 	=> $kode_nama_progress,
-						'komentar'				=> $komentar,
-						'jenis_progress'		=> $jenis_progress,
-						'tgl_progress'			=> $tgl_progress,
-						'waktu_progress'		=> $waktu_progress
-
-					);
 					$update_file = $this->BarangM->update_nama_file($insert_id, $file);
 					if($update_file = TRUE){
-						if($kode_jabatan_unit == $pimpinan){
-							if($this->BarangM->insert_progress($data)){ //insert progress langsung ketika mengajukan kegiatan untuk manajer, kepala, dan pimpinan yang lain
-								$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
-								redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
-							}else{
-								$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan ');
-								redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
-							}
-						}
+						$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+						redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
 					}else{
 						$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan');
 						redirect('BarangC/ajukan_barang');
@@ -448,7 +424,7 @@ class BarangC extends CI_Controller {
 	// 	$this->form_validation->set_rules('harga_satuan', 'Harga Satuan','required');
 	// 	$this->form_validation->set_rules('merk', 'Merk','required');
 	// 	$this->form_validation->set_rules('jumlah', 'Jumlah Barang','required');
-		
+
 	// 	$nama_barang = $_POST['nama_barang'];
 	// 	$cek_nama	 = $this->db->query("select nama_barang from barang where nama_barang = '$nama_barang'")->num_rows();
 
@@ -490,7 +466,7 @@ class BarangC extends CI_Controller {
 	// 			);
 	// 			$insert_id = $this->BarangM->insert_pengajuan_barang($data_pengguna);  // untuk memasukkan data ke tabel item_pengajuan
 	// 			if($insert_id){ // Jika proses insert data item_pengajuan sukses
-					
+
 	// 				$upload = $this->BarangM->upload($insert_id); // lakukan upload file dengan memanggil function upload yang ada di BarangM.php
 
 	// 				if($upload['result'] == "success"){ // Jika proses insert ke item barang sukses
@@ -645,32 +621,32 @@ class BarangC extends CI_Controller {
 
 			$baru = "baru"; //buat status pengajuan berstatus baru ketika baru dibuat
 			$upload = $this->BarangM->upload($kode_item_pengajuan); // lakukan upload file dengan memanggil function upload yang ada di BarangM.php
-				$data_update		= array(
-					'id_pengguna'			=> $id_pengguna,
-					'kode_barang'			=> $kode_barang,
-					'status_pengajuan'		=> $baru,
-					'tgl_item_pengajuan'	=> $tgl_item_pengajuan,
-					'nama_item_pengajuan'	=> $nama_item_pengajuan,
-					'url'					=> $url,
-					'harga_satuan'			=> $harga_satuan,
-					'merk'					=> $merk,
-					'jumlah'				=> $jumlah,
-					'file_gambar' 			=> $upload['file']['file_name']
+			$data_update		= array(
+				'id_pengguna'			=> $id_pengguna,
+				'kode_barang'			=> $kode_barang,
+				'status_pengajuan'		=> $baru,
+				'tgl_item_pengajuan'	=> $tgl_item_pengajuan,
+				'nama_item_pengajuan'	=> $nama_item_pengajuan,
+				'url'					=> $url,
+				'harga_satuan'			=> $harga_satuan,
+				'merk'					=> $merk,
+				'jumlah'				=> $jumlah,
+				'file_gambar' 			=> $upload['file']['file_name']
 
-				);
+			);
 
-				$data_update2		= array(
-					'id_pengguna'			=> $id_pengguna,
-					'kode_barang'			=> $kode_barang,
-					'status_pengajuan'		=> $baru,
-					'tgl_item_pengajuan'	=> $tgl_item_pengajuan,
-					'nama_item_pengajuan'	=> $nama_item_pengajuan,
-					'url'					=> $url,
-					'harga_satuan'			=> $harga_satuan,
-					'merk'					=> $merk,
-					'jumlah'				=> $jumlah
+			$data_update2		= array(
+				'id_pengguna'			=> $id_pengguna,
+				'kode_barang'			=> $kode_barang,
+				'status_pengajuan'		=> $baru,
+				'tgl_item_pengajuan'	=> $tgl_item_pengajuan,
+				'nama_item_pengajuan'	=> $nama_item_pengajuan,
+				'url'					=> $url,
+				'harga_satuan'			=> $harga_satuan,
+				'merk'					=> $merk,
+				'jumlah'				=> $jumlah
 
-				);
+			);
 
 			if($upload['result'] == "success"){ // Jika proses insert data item_pengajuan sukses
 				if($this->BarangM->update_item_pengajuan($kode_item_pengajuan, $data_update)){ // Jika proses insert ke item barang sukses
@@ -986,7 +962,7 @@ class BarangC extends CI_Controller {
 		$json_array = array();
 
 		foreach ($data as $data_nama_barang) 
-		$json_array[] = $data_nama_barang->nama_barang;
+			$json_array[] = $data_nama_barang->nama_barang;
 		echo json_encode($json_array);	
 	}
 

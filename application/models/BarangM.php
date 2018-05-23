@@ -35,9 +35,6 @@ class BarangM extends CI_Model
 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
 		$this->db->join('barang', 'barang.kode_barang = item_pengajuan.kode_barang');
 		$this->db->join('jenis_barang', 'jenis_barang.kode_jenis_barang = barang.kode_jenis_barang');
-		$this->db->join('progress', 'progress.kode_fk = item_pengajuan.kode_item_pengajuan');
-		$this->db->where('progress.jenis_progress ="barang"');
-		$this->db->where('progress.kode_nama_progress ="1"');
  		$this->db->order_by('item_pengajuan.tgl_item_pengajuan', 'DESC');
 		$this->db->group_by('item_pengajuan.kode_item_pengajuan');
 		$query = $this->db->get();
@@ -324,12 +321,190 @@ class BarangM extends CI_Model
 		$this->db->where('kode_fk', $kode_item_pengajuan);
 		$query = $this->db->get();
 		return $query->num_rows();
+	}
+
+	public function get_progress_barang_terima_id($kode_item_pengajuan){ //untuk mengetahui progress yang diterima oleh suatu item pengajuan
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('nama_progress', 'nama_progress.kode_nama_progress = progress.kode_nama_progress');
+		$this->db->where('progress.jenis_progress = "barang"');
+		$this->db->where('progress.kode_fk', $kode_item_pengajuan);
+		$this->db->where('progress.kode_nama_progress = "1"'); //terima
+		$query = $this->db->get();
+		return $query->num_rows();
 	}	
+
+	public function get_progress_barang_tolak_id($kode_item_pengajuan){ //untuk mengetahui progress yang diterima oleh suatu item pengajuan
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('nama_progress', 'nama_progress.kode_nama_progress = progress.kode_nama_progress');
+		$this->db->where('progress.jenis_progress = "barang"');
+		$this->db->where('progress.kode_fk', $kode_item_pengajuan);
+		$this->db->where('progress.kode_nama_progress = "2"'); //tolak
+		$query = $this->db->get();
+		return $query->num_rows();
+	}	
+
+	public function get_progress_staf_terima($kode_fk){ //untuk mengetahui progress yang diterima dengan jenis barang staf oleh item pengajuan
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('nama_progress', 'nama_progress.kode_nama_progress = progress.kode_nama_progress');
+		$this->db->where('progress.kode_fk', $kode_fk);
+		$this->db->where('progress.jenis_progress = "barang_staf"');
+		$this->db->where('progress.kode_nama_progress = "1"'); //diterima
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
+	public function get_progress_staf_tolak($kode_fk){ //untuk mengetahui progress yang ditolak dengan jenis barang staf oleh item pengajuan
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('nama_progress', 'nama_progress.kode_nama_progress = progress.kode_nama_progress');
+		$this->db->where('progress.kode_fk', $kode_fk);
+		$this->db->where('progress.jenis_progress = "barang_staf"');
+		$this->db->where('progress.kode_nama_progress = "2"'); //diterima
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
+	public function cek_max_barang(){ //untuk mengetahui ranking terbesar dari jenis pengajuan barang
+		$this->db->select_max('ranking');
+		$this->db->where('kode_jenis_pengajuan = "1"'); //barang
+		$query = $this->db->get('acc_barang')->row(); 
+		return $query;
+	}
+
+	public function cek_id_by_rank_barang($rank){ //mengetahui id yang memiliki rank max pada jenis pengajuan barang
+		$this->db->select('*');
+		$this->db->where('ranking', $rank);
+		$this->db->where('kode_jenis_pengajuan = "1"'); //barang
+		if($query = $this->db->get('acc_barang')->row()){
+			return $query;
+		}else{
+			return FALSE;
+		}
+	}
+
+	public function progress_sendiri($kode_fk, $kode_jabatan_unit){ //untuk mengetahui progress dia di progress barang
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->where('progress.kode_fk', $kode_fk);
+		$this->db->where('progress.jenis_progress = "barang"');
+		$this->db->where('progress.kode_jabatan_unit', $kode_jabatan_unit);
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
+	public function cek_id_staf_sarpras(){ //untuk mengetahui ketika staf sarpras sudah memasukan progres 
+ 		$this->db->select('pengguna.kode_jabatan_unit');
+ 		$this->db->from('pengguna');
+ 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+ 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+ 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->where('unit.kode_unit = "2"'); //keuangan
+		$this->db->where('jabatan.kode_jabatan = "4"'); //staf
+		$this->db->where('status = "aktif"');
+		$query = $this->db->get();
+		return $query;
+	}
+
+	public function cek_min_barang(){ // untuk mengecek ranking terkecil di jenis_pengajuan barang
+		$this->db->select_min('ranking');
+		$this->db->where('kode_jenis_pengajuan = "1"'); //barang
+		$query = $this->db->get('acc_barang')->row(); 
+		return $query;
+	}
+
+	public function cek_atasan_by_kode_jabatan_unit($kode_jabatan_unit){ //cek jabatan pimpinan 
+		$this->db->select('*');
+		$this->db->from('jabatan_unit');
+		$this->db->join('pengguna', 'pengguna.kode_jabatan_unit = jabatan_unit.kode_jabatan_unit');
+		$this->db->where('pengguna.status = "aktif"');
+		$this->db->where('jabatan_unit.kode_jabatan_unit',$kode_jabatan_unit);
+		return $query = $this->db->get();
+
+	}
+
+	public function get_progress_atasan($kode, $kode_jabatan_unit){ // untuk mengecek jika pimpinan sudah memberikan progress
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->where('progress.kode_fk', $kode);
+		$this->db->where('progress.jenis_progress = "barang_staf"');
+		$this->db->where('progress.kode_jabatan_unit', $kode_jabatan_unit);
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
+	public function cek_rank_barang_by_id_pegawai($kode_jabatan_unit){ // untuk mengetahui ranking dr dia di acc barang
+		$this->db->select('ranking');
+		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
+		$this->db->where('kode_jenis_pengajuan = "1"'); //barang
+		if($query = $this->db->get('acc_barang')->row()){
+			return $query;
+		}else{
+			return ;
+		}	
+	}
+
+	public function staf_sendiri($kode_jabatan_unit){ //untuk mengecek staf yang unit nya sama seperti dia
+		$this->db->select('*');
+		$this->db->from('jabatan_unit');
+		$this->db->join('pengguna', 'pengguna.kode_jabatan_unit = jabatan_unit.kode_jabatan_unit');
+		$this->db->where('jabatan_unit.atasan = "tidak"'); //staf
+		$this->db->where('pengguna.status = "aktif"');
+		$this->db->where('jabatan_unit.kode_jabatan_unit',$kode_jabatan_unit);
+		return $query = $this->db->get();
+
+	}
+
+	public function get_progress_terima_by_kode_jabatan_unit($id, $kode_jabatan_unit, $kode){ //untuk mengetahui progress terima dari item pengajuan yang dimasukkan oleh dia
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('nama_progress', 'nama_progress.kode_nama_progress = progress.kode_nama_progress');
+		$this->db->where('progress.kode_fk', $id);
+		$this->db->where('progress.jenis_progress = "barang_staf"');
+		$this->db->where('progress.kode_jabatan_unit', $kode_jabatan_unit);
+		$this->db->where('progress.kode_nama_progress', $kode);//diterima
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
+	public function get_progress_by_kode_item_pengajuan($kode_item_pengajuan){ //untuk mengetahui progress dari item pengjuan
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('nama_progress', 'nama_progress.kode_nama_progress = progress.kode_nama_progress');
+		$this->db->where('progress.kode_fk', $kode_item_pengajuan);
+		$this->db->where('progress.jenis_progress = "barang"');
+		$this->db->order_by('progress.created_at','DESC'); //tereakhir dimasukkin
+		$this->db->limit(1); //tampilin 1 aja
+		return $query = $this->db->get();
+	}
+
+	public function created_at($kode_jabatan_unit){ //untuk mengetahui data acc barang berdasarkan jabatan unit
+		$this->db->select('*');
+		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
+		$this->db->where('kode_jenis_pengajuan = "1"'); //kegiatan pegawai
+		if($query = $this->db->get('acc_barang')->row()){
+			return $query;
+		}else{
+			return ;
+		}	
+	}
 
 	public function get_progress_barang_by_id($kode_item_pengajuan, $kode_jabatan_unit){ //untuk mengecek apakah user sudah memberikan progres barang di item pengajuan . Berhubungan dengan tombol persetujuan akan hilang jika sudah dimasukan persetujuan
 		$this->db->select('*');
 		$this->db->from('progress');
 		$this->db->where('jenis_progress = "barang"');
+		$this->db->where('kode_fk', $kode_item_pengajuan);
+		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
+	public function get_progress_barang_staf_by_id($kode_item_pengajuan, $kode_jabatan_unit){ //untuk mengecek apakah user sudah memberikan progres barang staf di item pengajuan . Berhubungan dengan tombol persetujuan akan hilang jika sudah dimasukan persetujuan
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->where('jenis_progress = "barang_staf"');
 		$this->db->where('kode_fk', $kode_item_pengajuan);
 		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
 		$query = $this->db->get();
@@ -452,18 +627,7 @@ class BarangM extends CI_Model
 		}
 	}
 
-	public function cek_id_staf_sarpras(){ //untuk mengetahui ketika staf sarpras sudah memasukan progres 
- 		$this->db->select('pengguna.kode_jabatan_unit');
- 		$this->db->from('pengguna');
- 		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
- 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
- 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
-		$this->db->where('unit.kode_unit = "2"'); //keuangan
-		$this->db->where('jabatan.kode_jabatan = "4"'); //staf
-		$this->db->where('status = "aktif"');
-		$query = $this->db->get();
-		return $query;
-	}
+	
 
 	public function get_progress_oleh_staf($kode_fk, $kode_jabatan_unit){ //untuk mengetahui barang sudah mendapat progres dari kode_jabatan_unit apa saja
 		$this->db->select('*');
@@ -545,5 +709,7 @@ class BarangM extends CI_Model
 		$query = $this->db->get('barang');
 		return $query->result();
 	}
+
+
 
 }
