@@ -35,9 +35,6 @@ class BarangM extends CI_Model
 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
 		$this->db->join('barang', 'barang.kode_barang = item_pengajuan.kode_barang');
 		$this->db->join('jenis_barang', 'jenis_barang.kode_jenis_barang = barang.kode_jenis_barang');
-		$this->db->join('progress', 'progress.kode_fk = item_pengajuan.kode_item_pengajuan');
-		$this->db->where('progress.jenis_progress ="barang"');
-		$this->db->where('progress.kode_nama_progress ="1"');
  		$this->db->order_by('item_pengajuan.tgl_item_pengajuan', 'DESC');
 		$this->db->group_by('item_pengajuan.kode_item_pengajuan');
 		$query = $this->db->get();
@@ -441,7 +438,7 @@ class BarangM extends CI_Model
 	public function cek_rank_barang_by_id_pegawai($kode_jabatan_unit){ // untuk mengetahui ranking dr dia di acc barang
 		$this->db->select('ranking');
 		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
-		$this->db->where('kode_jenis_kegiatan = "1"'); //barang
+		$this->db->where('kode_jenis_pengajuan = "1"'); //barang
 		if($query = $this->db->get('acc_barang')->row()){
 			return $query;
 		}else{
@@ -465,7 +462,7 @@ class BarangM extends CI_Model
 		$this->db->from('progress');
 		$this->db->join('nama_progress', 'nama_progress.kode_nama_progress = progress.kode_nama_progress');
 		$this->db->where('progress.kode_fk', $id);
-		$this->db->where('progress.jenis_progress = "barang_staf');
+		$this->db->where('progress.jenis_progress = "barang_staf"');
 		$this->db->where('progress.kode_jabatan_unit', $kode_jabatan_unit);
 		$this->db->where('progress.kode_nama_progress', $kode);//diterima
 		$query = $this->db->get();
@@ -498,6 +495,16 @@ class BarangM extends CI_Model
 		$this->db->select('*');
 		$this->db->from('progress');
 		$this->db->where('jenis_progress = "barang"');
+		$this->db->where('kode_fk', $kode_item_pengajuan);
+		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
+	public function get_progress_barang_staf_by_id($kode_item_pengajuan, $kode_jabatan_unit){ //untuk mengecek apakah user sudah memberikan progres barang staf di item pengajuan . Berhubungan dengan tombol persetujuan akan hilang jika sudah dimasukan persetujuan
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->where('jenis_progress = "barang_staf"');
 		$this->db->where('kode_fk', $kode_item_pengajuan);
 		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
 		$query = $this->db->get();
