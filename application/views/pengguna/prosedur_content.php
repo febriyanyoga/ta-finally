@@ -26,6 +26,55 @@
       </div>
       <?php } ?>
 
+      <button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-md" title="klik untuk melihat informasi"><i class="glyphicon glyphicon-alert"> Informasi</i></button>
+      <br>
+      <br>
+      <div class="collapse" id="demo">
+        <div class="col-lg-12">
+          <!-- Info Status -->
+          <div class="alert alert-info">
+            <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan kegiatan mahasiswa<strong>:</strong></p>
+            <table border="3" style="border-color: transparent; border-radius: 5px;" class="table table-sm table-hover borderless">
+              <tr style="height: 30px">
+                <td class="text-center" style="width: 10%"><label class="label label-danger">Tidak Aktif</label></td>
+                <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
+                  <td style="width: 62%"> Status ini menjelaskan bahwa prosedur tidak aktif, sehingga tidak dapat diunduh pada halaman awal sistem.</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td class="text-center"><label class="label label-info">Aktif</label></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td>Status ini menjelaskan bahwa prosedur aktif, sehingga dapat diunduh pada halaman awal sistem.</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td class="text-center"><span class="btn btn-info glyphicon glyphicon-ok"></span></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td>Tombol ini digunakan untuk mengaktifkan prosedur, sehingga dapat diunduh pada halaman awal sistem.</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td class="text-center"><span class="btn btn-info glyphicon glyphicon-ok" disabled></span></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td>Tombol ini sudah tidak dapat digunakan untuk mengaktifkan prosedur.</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td class="text-center"><span class="btn btn-danger glyphicon glyphicon-remove"></span></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td>Tombol ini digunakan untuk menon-aktifkan prosedur, sehingga tidak dapat diunduh pada halaman awal sistem.</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td class="text-center"><span class="btn btn-danger glyphicon glyphicon-remove" disabled></span></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td>Tombol ini sudah tidak dapat digunakan untuk menon-aktifkan prosedur.</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td class="text-center"><a class="btn btn-primary btn-sm"><i class="icon_plus_alt2"></i> Tambah Prosedur</a></span></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td>Tombol ini dapat digunakan untuk menambah/mengunggah prosedur.</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+
         <div class="card mb-3">
           <div class="card-header">
             <div class="card-body">
@@ -57,7 +106,17 @@
                         <?php $link = base_url()."assets/file_prosedur/".$prosedur->nama_file;?>
                         <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
                         <td class="text-center"><?php echo $prosedur->created_at; ?></td>
-                        <td class="text-center"><?php echo $prosedur->status; ?></td>
+                        <?php 
+                        if($prosedur->status == 'aktif'){
+                          ?>  
+                          <td class="text-center"><label class="label label-info">Aktif</label></td>
+                          <?php
+                        }elseif($prosedur->status == 'tidak'){
+                          ?>  
+                          <td class="text-center"><label class="label label-danger">Tidak Aktif</label></td>
+                          <?php
+                        }
+                        ?>
                         <td class="text-center">
                           <?php 
                           if($prosedur->status == "aktif"){ ?>
