@@ -50,7 +50,7 @@
 
 <body>
   <!-- container section start -->
-  <section id="container" class="">
+  <section id="container" style="margin-bottom: 2%;">
     <header class="header white-bg">
       <div class="toggle-nav">
        <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>

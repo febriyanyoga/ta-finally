@@ -60,12 +60,8 @@
             <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></i></td>
             <td style="width: 62%">Tombol seperti ini sudah tidak bisa digunakan untuk mengaktifkan akun pengguna.</td>
           </tr>
-          <tr>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-          </tr>
+          <br>
+          <br>
         </table>
       </div>
     </div>

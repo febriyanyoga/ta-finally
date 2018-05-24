@@ -158,19 +158,27 @@ public function pengajuan_kegiatan_mahasiswa(){
 }
 
 	public function hapus_pengajuan($kode_kegiatan){//hapus pengajuan kegiatan
-		$file = md5($kode_kegiatan);
-		$path_to_file = '/ta-finally/file_upload/'.$file;
-		if(unlink($path_to_file)){
-			// if($this->KegiatanM->hapus_pengajuan($kode_kegiatan)){
-			$this->session->set_flashdata('sukses','Data anda berhasil dihapus');
-			redirect_back();
-			// }
+		define('EXT', '.'.pathinfo(__FILE__, PATHINFO_EXTENSION));
+		// define('FCPATH', __FILE__);
+		// define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
+		define('PUBPATH',str_replace(SELF,'',FCPATH));
+
+		$this->db->where('kode_kegiatan',$kode_kegiatan);
+		$file = $this->db->get('file_upload')->row()->nama_file;
+
+		if(unlink(PUBPATH."assets/file_upload/".$file)){
+			if($this->KegiatanM->hapus_pengajuan($kode_kegiatan)){
+				$this->session->set_flashdata('sukses','Data anda berhasil dihapus');
+				redirect_back();
+			}else{
+				$this->session->set_flashdata('error','Data anda tidak berhasil dihapus');
+				redirect_back();
+			}
 		}else{
 			$this->session->set_flashdata('error','Data anda tidak berhasil dihapus');
 			redirect_back();
 		}
 	}
-
 
 	public function status_pengajuan_kegiatan_pegawai(){ //halaman index Sekretaris Departemen (dashboard)
 		if(in_array(11, $this->data_menu)){
