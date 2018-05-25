@@ -308,6 +308,14 @@
                           <div class="col-lg-12">
                            <div style="margin-top: 20px;">
                             <a class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i>Ajukan RAB</a>
+                            <?php 
+                            var_dump($lele = $BarangM->cek_progress_rab('2')->result());
+                            if(empty($lele)){
+                              echo "ga punya progress";
+                            }else{
+                              echo "punya cuk";
+                            }
+                            ?>
                             <div class="table-responsive" style="margin-top: 20px">
                              <table id="ajukan_rab" class="table table-striped table-bordered" cellspacing="0" width="100%">
                               <thead>
@@ -343,15 +351,19 @@
                                       <?php
                                       if($barang->status_pengajuan_rab == "baru"){
                                         ?>
-                                        <a class="label label-primary" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> Baru</a>
+                                        <a class="label label-primary" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> BARU</a>
                                         <?php
                                       }elseif ($barang->status_pengajuan_rab == "diterima") {
                                         ?>
-                                        <a class="label label-success" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> Diterima</a>
+                                        <a class="label label-success" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> DITERIMA</a>
+                                        <?php
+                                      }elseif ($barang->status_pengajuan_rab == "proses") {
+                                        ?>
+                                        <a class="label label-success" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> PROSES</a>
                                         <?php
                                       }elseif ($barang->status_pengajuan_rab == "ditolak") {
                                         ?>
-                                        <a class="label label-danger" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> ditolah</a>
+                                        <a class="label label-danger" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_pengajuan;?>" title="klik untuk melihat detail progress"> DITOLAK</a>
                                         <?php
                                       }
                                       ?>
@@ -362,6 +374,10 @@
                                         echo "selesai";
                                         ?>
                                         <center><span class="glyphicon glyphicon-ok"></span></center>
+                                        <?php
+                                      }elseif ($barang->status_pengajuan_rab == "proses") {
+                                        ?>
+                                        <a disabled class="btn btn-success btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>
                                         <?php
                                       }else{
                                         ?>
@@ -384,6 +400,10 @@
                                               <div class="form-group">
                                                 <input type="text" class="form-control" placeholder id="kode_pengajuan" name="kode_pengajuan" required value="<?php echo $barang->kode_pengajuan;?>">
                                                 <!-- untuk mengirimkan kode_pengajuan -->
+                                                <input type="text" class="form-control" placeholder id="status_pengajuan_rab" name="status_pengajuan_rab" required value="<?php echo $barang->status_pengajuan_rab;?>">
+                                                <!-- untuk mengirimkan status pengajuan rab -->
+                                                <input type="text" class="form-control" placeholder id="pengajuan_ke" name="pengajuan_ke" required value="<?php echo $barang->pengajuan_ke;?>">
+                                                <!-- untuk mengirimkan pengajuan rab ke-->
                                                 <label class="col-lg-4 col-sm-2 control-label">Nama File RAb :</label>
                                                 <div class="col-lg-8">
                                                   <input type="text" class="form-control" id="nama_pengajuan" name="nama_pengajuan" value="<?php echo $barang->nama_pengajuan?>">
