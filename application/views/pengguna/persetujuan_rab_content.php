@@ -52,14 +52,14 @@
                       <?php
 
                       $progress_rab_terima   = $BarangM->get_progress_rab_terima_id($val->kode_pengajuan); //untuk mengetahui progress pengajuan yang diterima
-                      $progress_rab_tolak   = $Barang->get_progress_rab_tolak_id($val->kode_pengajuan); //untuk mengetahui progress pengajuan yang ditolak
-                      $jabatan_unit_sendiri    = $data_diri->kode_jabatan_unit; //untuk mengetahui jabatan_unit_sendiri
-                      $progress_rab_sendiri = $BarangM->progress_rab_sendiri($kode_fk,$jabatan_unit_sendiri); //untuk cek dia sudah memiliki progress di progress barang
+                      $progress_rab_tolak   = $BarangM->get_progress_rab_tolak_id($val->kode_pengajuan); //untuk mengetahui progress pengajuan yang ditolak
                       $kode_pengajuan       = $val->kode_pengajuan; //engetahui kode pengajuan
+                      $jabatan_unit_sendiri    = $data_diri->kode_jabatan_unit; //untuk mengetahui jabatan_unit_sendiri
+                      $progress_rab_sendiri = $BarangM->progress_rab_sendiri($kode_pengajuan,$jabatan_unit_sendiri); //untuk cek dia sudah memiliki progress di progress barang
                       $rank_max       = $BarangM->cek_max_rab()->ranking;// mengetahui ranking terbesar dari jenis_pengajuan rab
                       $id_max         = $BarangM->cek_id_by_rank_rab($rank_max)->kode_jabatan_unit; // mengetahui id yang rank jenis pengajuan rabnya max
                       $rank_min_rab  = $BarangM->cek_min_rab()->ranking; //mengetahui ranking terkecil di jenis pengajuan barang
-                      $id_min      = $BarangM->cek_id_by_rank_rab($rank_min_barang)->kode_jabatan_unit; // mengetahui jabatan unit rank terkecil di jenis pengajuan rab
+                      $id_min      = $BarangM->cek_id_by_rank_rab($rank_min_rab)->kode_jabatan_unit; // mengetahui jabatan unit rank terkecil di jenis pengajuan rab
                       $rab_created = $val->created_at; //waktu item pengajuan dibuat
                       $acc_created = $BarangM->created_at_rab($data_diri->kode_jabatan_unit)->created_at; //waktu acc barang/akses persetujuan dibuat
 

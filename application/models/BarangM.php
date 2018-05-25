@@ -216,6 +216,15 @@ class BarangM extends CI_Model
 		}
 	}
 
+	public function update_fk_lanjutan($data_update, $kode_pengajuan){ //update status item jadi pengajuanRAB supaya bisa di proses
+		$this->db->where('item_pengajuan.kode_pengajuan', $kode_pengajuan);
+		if($this->db->update('item_pengajuan', $data_update)){
+		return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
 	public function update_nama_file($insert_id, $file_name){ //untuk memasukkan data item pengajuan yang telah diubah
 		$this->db->where('item_pengajuan.kode_item_pengajuan', $insert_id);
 		$this->db->update('item_pengajuan', $file_name);
@@ -339,7 +348,7 @@ class BarangM extends CI_Model
 		$this->db->from('progress');
 		$this->db->join('nama_progress', 'nama_progress.kode_nama_progress = progress.kode_nama_progress');
 		$this->db->where('progress.jenis_progress = "rab"');
-		$this->db->where('progress.kode_fk', $kode_item_pengajuan);
+		$this->db->where('progress.kode_fk', $kode_pengajuan);
 		$this->db->where('progress.kode_nama_progress = "1"'); //terima
 		$query = $this->db->get();
 		return $query->num_rows();
@@ -524,6 +533,20 @@ class BarangM extends CI_Model
 		$this->db->where('jabatan_unit.kode_jabatan_unit',$kode_jabatan_unit);
 		return $query = $this->db->get();
 
+	}
+
+	public function cek_progress_rab($kode_pengajuan){ // untuk mengecek rab udah punya progress
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->where('kode_fk', $kode_pengajuan);
+		$this->db->where('jenis_progress = "rab"');
+		$query = $this->db->get();
+		if($query){
+			return $query;			
+		}else{
+			return "lele";
+		}
+		
 	}
 
 	public function get_progress_terima_by_kode_jabatan_unit($id, $kode_jabatan_unit, $kode){ //untuk mengetahui progress terima dari item pengajuan yang dimasukkan oleh dia
