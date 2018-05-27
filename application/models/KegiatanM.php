@@ -73,6 +73,28 @@ class KegiatanM extends CI_Model
 		return $query->num_rows();
 	}
 
+	public function get_progress_by_rank($kode_kegiatan, $rank){
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('acc_kegiatan', 'progress.kode_jabatan_unit = acc_kegiatan.kode_jabatan_unit');
+		$this->db->where('progress.kode_fk', $kode_kegiatan);
+		$this->db->where('acc_kegiatan.ranking', $rank);
+		$this->db->where('acc_kegiatan.kode_jenis_kegiatan = "1"'); //kegiatan pegawai
+		$this->db->where('progress.jenis_progress = "kegiatan"'); //kegiatan
+		return $query = $this->db->get();
+	}
+
+	public function get_progress_by_rank_mhs($kode_kegiatan, $rank){
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('acc_kegiatan', 'progress.kode_jabatan_unit = acc_kegiatan.kode_jabatan_unit');
+		$this->db->where('progress.kode_fk', $kode_kegiatan);
+		$this->db->where('acc_kegiatan.ranking', $rank);
+		$this->db->where('acc_kegiatan.kode_jenis_kegiatan = "2"'); //kegiatan mhs
+		$this->db->where('progress.jenis_progress = "kegiatan"'); //kegiatan
+		return $query = $this->db->get();
+	}
+
 	public function get_progress_staf($id){
 		$this->db->select('*');
 		$this->db->from('progress');

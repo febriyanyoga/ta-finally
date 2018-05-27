@@ -399,6 +399,23 @@
 		return $this->db->get();
 	}
 
+	public function update_kegiatan_by_kode_keg($kode_kegiatan,$kode_jenis_kegiatan, $data){
+		$this->db->where('kode_jenis_kegiatan', $kode_jenis_kegiatan);
+		$this->db->where_in('kode_kegiatan',$kode_kegiatan);
+		$this->db->update('kegiatan', $data);
+		return TRUE;
+	}
+
+	public function get_kode_fk_by_kode_jabatan_unit($kode_jabatan_unit, $kode_jenis_kegiatan){
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('kegiatan', 'progress.kode_fk = kegiatan.kode_kegiatan');
+		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
+		$this->db->where('kode_nama_progress = "1"');
+		$this->db->where('progress.jenis_progress = "kegiatan"');
+		$this->db->where('kegiatan.kode_jenis_kegiatan', $kode_jenis_kegiatan);
+		return $query = $this->db->get();
+	}
 	public function get_pilihan_jabatan_by_id($id){ //mengambil jabatan dari db jabatan berdasarkan id
 		$this->db->where('kode_jabatan', $id);
 		$query = $this->db->get('jabatan');	

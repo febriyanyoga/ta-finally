@@ -801,11 +801,27 @@ public function ganti_jabatan(){
 					$data_update_naik = array('ranking' => $ranking_new_naik); 
 					$this->PenggunaM->update_acc($kode_acc_kegiatan, $data_update_naik); //update datanya dia
 
+
 					//turunin
 					$ranking_new_turun = (int)$kode_min_1->ranking + 1; //rankingnya tambah 1
 					$data_update_turun = array('ranking' => $ranking_new_turun);
 					$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun); //update data kode acc-1
 					$this->session->set_flashdata('sukses','Berhasil');
+
+					//update kegiatan jadi disetujui
+					if($ranking_new_naik == 1){
+						$kode_jab = $this->PenggunaM->get_acc_by_kode($kode_acc_kegiatan)->result()[0]->kode_jabatan_unit;
+						if($kode_keg = $this->PenggunaM->get_kode_fk_by_kode_jabatan_unit($kode_jab,'1')->result()){//ambil kode kegiatan yang diinputin kode_jab
+							$data_array_kode_keg = array();
+							foreach ($kode_keg as $keg) {
+								array_push($data_array_kode_keg, $keg->kode_fk);
+							}
+							$data_update_keg = array('status_kegiatan' => "Disetujui" );
+							if(!is_null($data_array_kode_keg)){
+								$this->PenggunaM->update_kegiatan_by_kode_keg($data_array_kode_keg, '1', $data_update_keg);
+							}
+						}
+					}
 					// redirect_back(); 
 					redirect('PenggunaC/konfigurasi_sistem');
 				}else{
@@ -821,11 +837,27 @@ public function ganti_jabatan(){
 				$ranking_new_naik = (int)$ranking - 1;
 				$data_update_naik = array('ranking' => $ranking_new_naik);
 				$this->PenggunaM->update_acc($kode_acc_kegiatan, $data_update_naik);
+
 					//turunin
 				$ranking_new_turun = (int)$kode_min_1->ranking + 1;
 				$data_update_turun = array('ranking' => $ranking_new_turun);
 				$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun);
 				$this->session->set_flashdata('sukses','Berhasil');
+				
+				//update kegiatan jadi disetujui
+				if($ranking_new_naik == 1){
+					$kode_jab = $this->PenggunaM->get_acc_by_kode($kode_acc_kegiatan)->result()[0]->kode_jabatan_unit;
+					if($kode_keg = $this->PenggunaM->get_kode_fk_by_kode_jabatan_unit($kode_jab,'1')->result()){//ambil kode kegiatan yang diinputin kode_jab
+						$data_array_kode_keg = array();
+						foreach ($kode_keg as $keg) {
+							array_push($data_array_kode_keg, $keg->kode_fk);
+						}
+						$data_update_keg = array('status_kegiatan' => "Disetujui" );
+						if(!is_null($data_array_kode_keg)){
+							$this->PenggunaM->update_kegiatan_by_kode_keg($data_array_kode_keg, '1', $data_update_keg);
+						}
+					}
+				}
 				// redirect_back(); 
 				redirect('PenggunaC/konfigurasi_sistem');
 			}
@@ -838,11 +870,26 @@ public function ganti_jabatan(){
 					$data_update_naik = array('ranking' => $ranking_new_naik); 
 					$this->PenggunaM->update_acc($kode_acc_kegiatan, $data_update_naik); //update datanya dia
 
+
 					//turunin
 					$ranking_new_turun = (int)$kode_min_1->ranking + 1; //rankingnya tambah 1
 					$data_update_turun = array('ranking' => $ranking_new_turun);
 					$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun); //update data kode acc-1
 					$this->session->set_flashdata('sukses','Berhasil');
+					//update kegiatan jadi disetujui
+					if($ranking_new_naik == 1){
+						$kode_jab = $this->PenggunaM->get_acc_by_kode($kode_acc_kegiatan)->result()[0]->kode_jabatan_unit;
+						if($kode_keg = $this->PenggunaM->get_kode_fk_by_kode_jabatan_unit($kode_jab,'2')->result()){//ambil kode kegiatan yang diinputin kode_jab
+							$data_array_kode_keg = array();
+							foreach ($kode_keg as $keg) {
+								array_push($data_array_kode_keg, $keg->kode_fk);
+							}
+							$data_update_keg = array('status_kegiatan' => "Disetujui" );
+							if(!is_null($data_array_kode_keg)){
+								$this->PenggunaM->update_kegiatan_by_kode_keg($data_array_kode_keg, '2', $data_update_keg);
+							}
+						}
+					}
 					redirect_back(); 
 				}else{
 					$this->session->set_flashdata('error','Ranking sudah tertinggi');
@@ -857,11 +904,27 @@ public function ganti_jabatan(){
 				$ranking_new_naik = (int)$ranking - 1;
 				$data_update_naik = array('ranking' => $ranking_new_naik);
 				$this->PenggunaM->update_acc($kode_acc_kegiatan, $data_update_naik);
+
 					//turunin
 				$ranking_new_turun = (int)$kode_min_1->ranking + 1;
 				$data_update_turun = array('ranking' => $ranking_new_turun);
 				$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun);
 				$this->session->set_flashdata('sukses','Berhasil');
+
+				//update kegiatan jadi disetujui
+				if($ranking_new_naik == 1){
+					$kode_jab = $this->PenggunaM->get_acc_by_kode($kode_acc_kegiatan)->result()[0]->kode_jabatan_unit;
+					if($kode_keg = $this->PenggunaM->get_kode_fk_by_kode_jabatan_unit($kode_jab,'2')->result()){//ambil kode kegiatan yang diinputin kode_jab
+						$data_array_kode_keg = array();
+						foreach ($kode_keg as $keg) {
+							array_push($data_array_kode_keg, $keg->kode_fk);
+						}
+						$data_update_keg = array('status_kegiatan' => "Disetujui" );
+						if(!is_null($data_array_kode_keg)){
+							$this->PenggunaM->update_kegiatan_by_kode_keg($data_array_kode_keg, '2', $data_update_keg);
+						}
+					}
+				}
 				redirect_back(); 
 			}
 		}
@@ -882,16 +945,31 @@ public function ganti_jabatan(){
 			}elseif ($ranking == $rank_min_peg){ //ranknya terkecil
 				if($kode_min_1_row = $this->PenggunaM->cek_peg_by_rank($ranking+1)->result() != NULL){
 					$kode_min_1 = $this->PenggunaM->cek_peg_by_rank($ranking+1)->result()[0]; //simpan id rank+1
-					//naikin
-					$ranking_new_naik = (int)$ranking +1; //ranking nya dikurangin 1
+					//turunin
+					$ranking_new_naik = (int)$ranking +1; //ranking nya ditambah 1
 					$data_update_naik = array('ranking' => $ranking_new_naik); 
 					$this->PenggunaM->update_acc($kode_acc_kegiatan, $data_update_naik); //update datanya dia
 
-					//turunin
+					//naikin
 					$ranking_new_turun = (int)$kode_min_1->ranking -1; //rankingnya dikurangi 1
 					$data_update_turun = array('ranking' => $ranking_new_turun);
-					$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun); //update data kode acc+1
+					$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun); //update data kode acc-1
 					$this->session->set_flashdata('sukses','Berhasil');
+
+					//update kegiatan jadi disetujui
+					if($ranking_new_turun == 1){
+						$kode_jab = $this->PenggunaM->get_acc_by_kode($kode_min_1->kode_acc_kegiatan)->result()[0]->kode_jabatan_unit;
+						if($kode_keg = $this->PenggunaM->get_kode_fk_by_kode_jabatan_unit($kode_jab,'1')->result()){//ambil kode kegiatan yang diinputin kode_jab
+							$data_array_kode_keg = array();
+							foreach ($kode_keg as $keg) {
+								array_push($data_array_kode_keg, $keg->kode_fk);
+							}
+							$data_update_keg = array('status_kegiatan' => "Disetujui" );
+							if(!is_null($data_array_kode_keg)){
+								$this->PenggunaM->update_kegiatan_by_kode_keg($data_array_kode_keg, '1', $data_update_keg);
+							}
+						}
+					}
 					redirect_back(); 
 				}else{
 					$this->session->set_flashdata('error','Ranking sudah terendah');
@@ -908,6 +986,21 @@ public function ganti_jabatan(){
 				$data_update_turun = array('ranking' => $ranking_new_turun);
 				$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun);
 				$this->session->set_flashdata('sukses','Berhasil');
+
+				if($ranking_new_turun == 1){
+					$kode_jab = $this->PenggunaM->get_acc_by_kode($kode_min_1->kode_acc_kegiatan)->result()[0]->kode_jabatan_unit;
+					if($kode_keg = $this->PenggunaM->get_kode_fk_by_kode_jabatan_unit($kode_jab,'1')->result()){//ambil kode kegiatan yang diinputin kode_jab
+						$data_array_kode_keg = array();
+						foreach ($kode_keg as $keg) {
+							array_push($data_array_kode_keg, $keg->kode_fk);
+						}
+						$data_update_keg = array('status_kegiatan' => "Disetujui" );
+						if(!is_null($data_array_kode_keg)){
+							$this->PenggunaM->update_kegiatan_by_kode_keg($data_array_kode_keg, '1', $data_update_keg);
+						}
+					}
+				}
+
 				redirect_back(); 
 			}
 		}elseif ($kode_jenis_kegiatan == 2) {//mahasiswa
@@ -927,6 +1020,21 @@ public function ganti_jabatan(){
 					$data_update_turun = array('ranking' => $ranking_new_turun);
 					$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun); //update data kode acc+1
 					$this->session->set_flashdata('sukses','Berhasil');
+
+					if($ranking_new_turun == 1){
+						$kode_jab = $this->PenggunaM->get_acc_by_kode($kode_min_1->kode_acc_kegiatan)->result()[0]->kode_jabatan_unit;
+						if($kode_keg = $this->PenggunaM->get_kode_fk_by_kode_jabatan_unit($kode_jab,'2')->result()){//ambil kode kegiatan yang diinputin kode_jab
+							$data_array_kode_keg = array();
+							foreach ($kode_keg as $keg) {
+								array_push($data_array_kode_keg, $keg->kode_fk);
+							}
+							$data_update_keg = array('status_kegiatan' => "Disetujui" );
+							if(!is_null($data_array_kode_keg)){
+								$this->PenggunaM->update_kegiatan_by_kode_keg($data_array_kode_keg, '2', $data_update_keg);
+							}
+						}
+					}
+
 					redirect_back(); 
 				}else{
 					$this->session->set_flashdata('error','Ranking sudah terendah');
@@ -943,6 +1051,20 @@ public function ganti_jabatan(){
 				$data_update_turun = array('ranking' => $ranking_new_turun);
 				$this->PenggunaM->update_acc($kode_min_1->kode_acc_kegiatan, $data_update_turun);
 				$this->session->set_flashdata('sukses','Berhasil');
+
+				if($ranking_new_turun == 1){
+					$kode_jab = $this->PenggunaM->get_acc_by_kode($kode_min_1->kode_acc_kegiatan)->result()[0]->kode_jabatan_unit;
+					if($kode_keg = $this->PenggunaM->get_kode_fk_by_kode_jabatan_unit($kode_jab,'2')->result()){//ambil kode kegiatan yang diinputin kode_jab
+						$data_array_kode_keg = array();
+						foreach ($kode_keg as $keg) {
+							array_push($data_array_kode_keg, $keg->kode_fk);
+						}
+						$data_update_keg = array('status_kegiatan' => "Disetujui" );
+						if(!is_null($data_array_kode_keg)){
+							$this->PenggunaM->update_kegiatan_by_kode_keg($data_array_kode_keg, '2', $data_update_keg);
+						}
+					}
+				}
 				redirect_back(); 
 			}
 		}
