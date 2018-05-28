@@ -1,13 +1,37 @@
 <?php echo form_open_multipart('PenggunaC/update_nama_progress');?>
 <form role="form" action="<?php echo base_url(); ?>PenggunaC/update_nama_progress" method="post">
-  <div class="form-group">
-    <label>Nama Progress</label>
-    <input class="form-control" type="hidden" id="kode_nama_progress" name="kode_nama_progress" value="<?php echo $detail_nama_progress->kode_nama_progress;?>" required>
-    <input class="form-control" type="text" id="nama_progress" name="nama_progress" value="<?php echo $detail_nama_progress->nama_progress;?>" required>
-  </div>
+	<div class="form-group">
+		<label>Nama Progress</label>
+		<input class="form-control" type="hidden" id="kode_nama_progress" name="kode_nama_progress" value="<?php echo $detail_nama_progress->kode_nama_progress;?>" required>
+		<input class="form-control" type="text" id="nama_progress" name="nama_progress" value="<?php echo $detail_nama_progress->nama_progress;?>" required>
+	</div>
+	<div class="form-group">
+		<label for="bidang"> Jenis Nama Progress : &nbsp;</label> 
+		<?php 
+		if($detail_nama_progress->jenis_nama_progress == "kegiatan"){
+			?>
+			<input type="radio" name="jenis_nama_progress" value="kegiatan" checked> Kegiatan
+			<input type="radio" name="jenis_nama_progress" value="barang"> Barang
+			<input type="radio" name="jenis_nama_progress" value="semua"> Semua
+			<?php
+		}elseif ($detail_nama_progress->jenis_nama_progress == "barang") {
+			?>
+			<input type="radio" name="jenis_nama_progress" value="kegiatan"> Kegiatan
+			<input type="radio" name="jenis_nama_progress" value="barang" checked> Barang
+			<input type="radio" name="jenis_nama_progress" value="semua"> Semua
+			<?php
+		}elseif ($detail_nama_progress->jenis_nama_progress == "semua") {
+			?>
+			<input type="radio" name="jenis_nama_progress" value="kegiatan"> Kegiatan
+			<input type="radio" name="jenis_nama_progress" value="barang"> Barang
+			<input type="radio" name="jenis_nama_progress" value="semua" checked> Semua
+			<?php
+		}
+		?>
+	</div>
 </div> 
 <div class="modal-footer">
-  <input type="Submit" class="btn btn-primary col-lg-2" value="Simpan">
+	<input type="Submit" class="btn btn-primary col-lg-2" value="Simpan">
 </div> 
 <?php echo form_close()?>
 </form>

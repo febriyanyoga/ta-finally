@@ -251,6 +251,7 @@ class KegiatanM extends CI_Model
 	}
 
 	public function get_pilihan_nama_progress(){ //fungsi untuk ambil pilihan nama progress
+		$this->db->where('jenis_nama_progress = "kegiatan" OR jenis_nama_progress = "semua"'); //progress buat kegiatan dan semua
 		$query = $this->db->get('nama_progress');
 		return $query;
 	}

@@ -232,7 +232,7 @@ public function pengajuan_kegiatan_mahasiswa(){
 		$this->form_validation->set_rules('komentar', 'Komentar','required');
 		$this->form_validation->set_rules('jenis_progress', 'Jenis Progress','required'); //kegiatan/barang
 		if($this->form_validation->run() == FALSE){
-			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan 1');
+			$this->session->set_flashdata('error','Data Anda tidak berhasil disimpan, periksa lagi data yang Anda masukkan');
 			redirect_back(); //kembali ke halaman sebelumnya -> helper
 		}else{
 			$kode_jabatan_unit	= $_POST['kode_jabatan_unit'];

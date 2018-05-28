@@ -481,9 +481,8 @@
                   <thead>
                     <tr>
                       <th style="width: 10px;">No</th>
-                      <!-- <th style="width: 10px;">ID</th> -->
                       <th>Nama Progress</th>
-                      <!-- <th>Status</th> -->
+                      <th>Jenis Nama Progress</th>
                       <th style="width: 50px;">Aksi</th>
                     </tr>
                   </thead>
@@ -497,7 +496,7 @@
                         <td><?php echo $i;?></td>
                         <!-- <td><?php echo $nama_progress->kode_nama_progress;?></td> -->
                         <td><?php echo $nama_progress->nama_progress;?></td>
-                        <!-- <td><?php echo "status";?></td> -->
+                        <td><?php echo $nama_progress->jenis_nama_progress;?></td>
                         <td class="text-center"> 
                           <a href="#modal_nama_progress" id="custId" data-toggle="modal" data-id="<?php echo $nama_progress->kode_nama_progress;?>" data-toggle="tooltip" title="Edit Nama Progress" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                         </td>
@@ -544,6 +543,12 @@
                 <div class="form-group">
                   <label>Nama Progress</label>
                   <input class="form-control" placeholder="Nama Progress" type="text" id="nama_progress" name="nama_progress" required>
+                </div>
+                <div class="form-group">
+                  <label for="bidang"> Jenis Nama Progress : &nbsp;</label> 
+                  <input type="radio" name="jenis_nama_progress" value="kegiatan" checked> Kegiatan
+                  <input type="radio" name="jenis_nama_progress" value="barang"> Barang
+                  <input type="radio" name="jenis_nama_progress" value="semua"> Semua
                 </div>
                 <div class="modal-footer">
                   <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">

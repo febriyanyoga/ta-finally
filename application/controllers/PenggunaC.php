@@ -735,15 +735,20 @@ public function ganti_jabatan(){
 	// Nama Progress
 	public function tambah_nama_progress(){
 		$this->form_validation->set_rules('nama_progress', ' Nama Progress','required');
+		$this->form_validation->set_rules('jenis_nama_progress', ' Jenis Nama Progress','required');
 		if($this->form_validation->run() == FALSE){
 			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
 			redirect_back(); //kembali ke halaman sebelumnya -> helper
 		}else{
-			$nama_progress = $_POST['nama_progress'];
+			$nama_progress 			= $_POST['nama_progress'];
+			$jenis_nama_progress 	= $_POST['jenis_nama_progress'];
 			$db 		= "nama_progress";
 
 			$data = array(
-				'nama_progress'      => $nama_progress);
+				'nama_progress'      		=> $nama_progress,
+				'jenis_nama_progress'      	=> $jenis_nama_progress
+			);
+
 
 			if($this->PenggunaM->insert($db, $data)){
 				$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
@@ -763,17 +768,21 @@ public function ganti_jabatan(){
 	public function update_nama_progress(){
 		$this->form_validation->set_rules('kode_nama_progress', 'Kode Nama Progress','required');
 		$this->form_validation->set_rules('nama_progress', 'Nama Progress','required');
+		$this->form_validation->set_rules('jenis_nama_progress', 'Nama Progress','required');
 		if($this->form_validation->run() == FALSE){
 			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
 			redirect_back(); //kembali ke halaman sebelumnya -> helper
 		}else{
-			$kode_nama_progress = $_POST['kode_nama_progress'];
-			$nama_progress = $_POST['nama_progress'];
+			$kode_nama_progress 	= $_POST['kode_nama_progress'];
+			$nama_progress 			= $_POST['nama_progress'];
+			$jenis_nama_progress 	= $_POST['jenis_nama_progress'];
 			$db = "nama_progress";
 			$kode = "kode_nama_progress";
 
 			$data = array(
-				'nama_progress'      => $nama_progress);
+				'nama_progress'      => $nama_progress,
+				'jenis_nama_progress'      => $jenis_nama_progress
+			);
 
 			if($this->PenggunaM->update($kode_nama_progress, $kode, $db, $data)){
 				$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
