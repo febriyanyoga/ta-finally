@@ -8,9 +8,7 @@
         <input type="hidden" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>"> <!-- buat input ke tabel progress -->
         <input type="hidden" name="kode_jabatan_unit" value="<?php echo $data_diri->kode_jabatan_unit;?>"> <!-- buat input ke tabel progress -->
         <input type="hidden" name="email" id="email" value="<?php echo $detail_kegiatan->email;?>"> <!-- buat input ke tabel progress -->
-        <input type="hidden" name="jenis_progress" id="jenis_progress" value="kegiatan"> <!-- buat input ke tabel progress -->
-
-        
+        <input type="hidden" name="jenis_progress" id="jenis_progress" value="kegiatan"> <!-- buat input ke tabel progress -->      
     </div>
     <div class="form-group">
         <label class="control-label col-sm-5" for="tgl_pengajuan" style="text-align: left;">Tanggal Pengajuan Kegiatan</label>

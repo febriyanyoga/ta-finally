@@ -78,7 +78,7 @@ class KegiatanM extends CI_Model
 		$this->db->from('progress');
 		$this->db->join('acc_kegiatan', 'progress.kode_jabatan_unit = acc_kegiatan.kode_jabatan_unit');
 		$this->db->where('progress.kode_fk', $kode_kegiatan);
-		$this->db->where('acc_kegiatan.ranking', $rank);
+		$this->db->where('acc_kegiatan.ranking <', $rank);
 		$this->db->where('acc_kegiatan.kode_jenis_kegiatan = "1"'); //kegiatan pegawai
 		$this->db->where('progress.jenis_progress = "kegiatan"'); //kegiatan
 		return $query = $this->db->get();
@@ -89,7 +89,7 @@ class KegiatanM extends CI_Model
 		$this->db->from('progress');
 		$this->db->join('acc_kegiatan', 'progress.kode_jabatan_unit = acc_kegiatan.kode_jabatan_unit');
 		$this->db->where('progress.kode_fk', $kode_kegiatan);
-		$this->db->where('acc_kegiatan.ranking', $rank);
+		$this->db->where('acc_kegiatan.ranking <', $rank);
 		$this->db->where('acc_kegiatan.kode_jenis_kegiatan = "2"'); //kegiatan mhs
 		$this->db->where('progress.jenis_progress = "kegiatan"'); //kegiatan
 		return $query = $this->db->get();
@@ -114,7 +114,9 @@ class KegiatanM extends CI_Model
 		$this->db->where('progress.jenis_progress = "kegiatan"');
 		$this->db->order_by('progress.created_at','DESC'); //tereakhir dimasukkin
 		$this->db->limit(1); //tampilin 1 aja
-		return $query = $this->db->get();
+		if($query = $this->db->get()){
+			return $query;
+		}
 	}
 
 	public function get_progress_terima_by_kode_jabatan_unit($id, $kode_jabatan_unit, $kode){
@@ -135,8 +137,9 @@ class KegiatanM extends CI_Model
 		$this->db->where('progress.kode_fk', $id);
 		$this->db->where('progress.jenis_progress = "kegiatan"');
 		$this->db->where('progress.kode_nama_progress = "2"');//ditolak
-		$query = $this->db->get();
-		return $query->num_rows();
+		if($query = $this->db->get()){
+			return $query->num_rows();
+		}
 	}
 
 	public function get_progress_tolak_staf($id){
@@ -460,6 +463,13 @@ class KegiatanM extends CI_Model
 			return null;
 		}
 	} 
+
+	public function get_kegiatan_by_kode_fk($kode_fk){
+		$this->db->select('*');
+		$this->db->from('kegiatan');
+		$this->db->where('kode_kegiatan', $kode_fk);
+		return $this->db->get();
+	}
 
 	public function hapus_pengajuan($kode_kegiatan){//hapus persetujuan kegiatan
 		$this->db->where('kode_kegiatan', $kode_kegiatan);

@@ -260,10 +260,16 @@ public function pengajuan_kegiatan_mahasiswa(){
 
 			);
 
-			$rank_min_pegawai 		=  $this->KegiatanM->cek_min_pegawai()->ranking;
-			$id_rank_min_pegawai 	= $this->KegiatanM->cek_id_by_rank_pegawai($rank_min_pegawai)->kode_jabatan_unit;
+			$progress_siapa = $this->KegiatanM->get_kegiatan_by_kode_fk($kode_fk)->result()[0]->kode_jenis_kegiatan;
+			if($progress_siapa == "2"){ //mhs
+				$rank_min 		=  $this->KegiatanM->cek_min_mhs()->ranking;
+				$id_rank_min 	= $this->KegiatanM->cek_id_by_rank_mhs($rank_min)->kode_jabatan_unit;
+			}elseif($progress_siapa == "1"){ //peg
+				$rank_min 		=  $this->KegiatanM->cek_min_pegawai()->ranking;
+				$id_rank_min 	= $this->KegiatanM->cek_id_by_rank_pegawai($rank_min)->kode_jabatan_unit;
+			}
 			if($this->KegiatanM->insert_progress($data)){ //insert progress
-				if($id_rank_min_pegawai == $kode_jabatan_unit && $kode_nama_progress == 1 && $jenis_progress != 'kegiatan_staf'){ //disetujui oleh rank min
+				if($id_rank_min == $kode_jabatan_unit && $kode_nama_progress == 1 && $jenis_progress != 'kegiatan_staf'){ //disetujui oleh rank min
 					$data_update_kegiatan  = array('status_kegiatan' => 'Disetujui');
 					$this->KegiatanM->update_kegiatan($kode_fk, $data_update_kegiatan);
 					$this->sendemail($email, $kode_fk, $kode_nama_progress);
