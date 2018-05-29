@@ -304,7 +304,7 @@
 		}else{
 			return null;
 		}
-	} 
+	}
 
 	public function get_kegiatan_pegawai_setuju($kode_jabatan_unit){ //menampilkan kegiatan yang diajukan user sebagai pegwai
 		$id_pengguna = $this->session->userdata('id_pengguna');
@@ -314,7 +314,27 @@
 		$this->db->join('jabatan_unit','jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
 		$this->db->join('file_upload', 'kegiatan.kode_kegiatan = file_upload.kode_kegiatan');
 		$this->db->join('progress','progress.kode_fk = kegiatan.kode_kegiatan');
+		$this->db->where('progress.kode_nama_progress = "1"');
 		$this->db->where('progress.kode_jabatan_unit', $kode_jabatan_unit);
+		$this->db->where('pengguna.id_pengguna', $id_pengguna);
+
+		$query = $this->db->get();
+		if($query){
+			return $query;
+		}else{
+			return null;
+		}
+	} 
+
+	public function get_kegiatan_tolak($kode_jabatan_unit){ //menampilkan kegiatan yang diajukan user sebagai pegwai
+		$id_pengguna = $this->session->userdata('id_pengguna');
+		$this->db->select('*');
+		$this->db->from('kegiatan');
+		$this->db->join('pengguna', 'pengguna.id_pengguna = kegiatan.id_pengguna');
+		$this->db->join('jabatan_unit','jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('file_upload', 'kegiatan.kode_kegiatan = file_upload.kode_kegiatan');
+		$this->db->join('progress','progress.kode_fk = kegiatan.kode_kegiatan');
+		$this->db->where('progress.kode_nama_progress = "2"'); //ditolak
 		$this->db->where('pengguna.id_pengguna', $id_pengguna);
 
 		$query = $this->db->get();

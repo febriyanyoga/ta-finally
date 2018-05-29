@@ -133,6 +133,28 @@
           </div><!--/.info-box-->     
         </div><!--/.col-->
         <?php
+        $total = 0;
+        foreach ($data_kegiatan_mhs as $data_mhs) {
+          $total += $data_mhs->dana_diajukan;
+        }
+
+        $rank_min_pegawai =  $KegiatanM->cek_min_pegawai()->ranking;
+        $id_rank_min_pegawai = $KegiatanM->cek_id_by_rank_pegawai($rank_min_pegawai)->kode_jabatan_unit;
+        $dana_disetujui = $PenggunaM->get_kegiatan_pegawai_setuju($id_rank_min_pegawai)->result();
+        $total_setuju = 0;
+        // print_r($dana_disetujui);
+        foreach ($dana_disetujui as $setuju) {
+          $total_setuju += $setuju->dana_diajukan;
+        }
+        ?>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="info-box green-bg">
+            <i class="fa fa-money"></i>
+            <div class="count"><?php echo number_format($total, 0,',','.').',00 / '.$total_setuju;?></div>
+            <div class="title">Jumlah Pengajuan Dana</div>            
+          </div><!--/.info-box-->     
+        </div><!--/.col-->
+        <?php
       }else{
         ?>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -193,6 +215,17 @@
                                       </header>
                                       <div class="panel-body text-center">
                                         <canvas id="grafik2" height="200" width="300"></canvas>
+                                      </div>
+                                    </section>
+                                  </div>
+
+                                  <div class="col-lg-6">
+                                    <section class="panel">
+                                      <header class="panel-heading">
+                                        Dana Pengajuan Kegiatan Mahasiswa
+                                      </header>
+                                      <div class="panel-body text-center">
+                                        <canvas id="grafik21" height="200" width="300"></canvas>
                                       </div>
                                     </section>
                                   </div>
@@ -290,6 +323,7 @@
                        $rank_min_pegawai =  $KegiatanM->cek_min_pegawai()->ranking;
                        $id_rank_min_pegawai = $KegiatanM->cek_id_by_rank_pegawai($rank_min_pegawai)->kode_jabatan_unit;
                        $setuju = $PenggunaM->get_kegiatan_pegawai_setuju($id_rank_min_pegawai)->num_rows();
+
                        $belum = $data_kegiatan-$setuju;
                        ?>   
                        <script>
@@ -302,6 +336,58 @@
                               label: 'Bidang',
                               data: [<?php echo $setuju?> , <?php echo $belum?>],
                               backgroundColor: [
+                                'rgba(255, 206, 86, 1)', //kuning
+                                // 'rgba(54, 162, 235, 1)', //biru
+                                // 'rgba(255, 99, 132, 1)', //pink
+                                'rgba(75, 192, 192, 1)', //hijau
+                                // 'rgba(153, 102, 255, 1)',//ungu
+                                // 'rgba(255, 159, 64, 1)'//orange
+                                ],
+                                borderColor: [
+                                'rgba(255, 206, 86, 0.2)',
+                                // 'rgba(54, 162, 235, 0.2)',
+                                // 'rgba(255,99,132,1)',
+                                'rgba(75, 192, 192, 1)',
+                                // 'rgba(153, 102, 255, 1)',
+                                // 'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                              }]
+                            },
+                            options: {
+                              scales: {
+                                yAxes: [{
+                                  ticks: {
+                                    beginAtZero: true
+                                  }
+                                }]
+                              }
+                            }
+                          });
+                        </script>
+                        <?php
+                        $total = 0;
+                        foreach ($data_kegiatan_mhs as $data_mhs) {
+                          $total += $data_mhs->dana_diajukan;
+                        }
+                        $rank_min_pegawai =  $KegiatanM->cek_min_pegawai()->ranking;
+                        $id_rank_min_pegawai = $KegiatanM->cek_id_by_rank_pegawai($rank_min_pegawai)->kode_jabatan_unit;
+                        $dana_disetujui = $PenggunaM->get_kegiatan_pegawai_setuju($id_rank_min_pegawai)->result();
+                        $total_setuju = 0;
+                        foreach ($dana_disetujui as $setuju) {
+                          $total_setuju += $setuju->dana_diajukan;
+                        }
+                        ?>   
+                        <script>
+                          var ctx = document.getElementById("grafik21");
+                          var myChart = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                              labels: ["Dana Disetujui", "Total Pengajuan"],
+                              datasets: [{
+                                label: 'Bidang',
+                                data: [<?php echo $total_setuju?> , <?php echo $total?>],
+                                backgroundColor: [
                                 'rgba(255, 206, 86, 1)', //kuning
                                 // 'rgba(54, 162, 235, 1)', //biru
                                 // 'rgba(255, 99, 132, 1)', //pink

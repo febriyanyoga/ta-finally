@@ -23,6 +23,7 @@ class PenggunaC extends CI_Controller {
 		// print_r($this->data_menu);
 		$data['menu'] = $this->data_menu;
 		$data['data_kegiatan'] = $this->PenggunaM->get_kegiatan_pegawai()->num_rows();	//menampilkan kegiatan yang diajukan user sebagai pegwai
+		$data['data_kegiatan_mhs'] = $this->PenggunaM->get_kegiatan_pegawai()->result();
 		$data['data_ajukan_barang'] = $this->BarangM->get_ajukan_barang()->num_rows();
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['data_diri'] = $data_diri;
