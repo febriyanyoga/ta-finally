@@ -350,12 +350,12 @@
                             <div class="modal-body">
                               <div class="form-group">
                                 <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
-                                <input class="form-control" type="text" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> 
+                                <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> 
                                 <!-- kirim kode_fk berdasarkan kode_pengajuan dari barang yang terpilih -->
-                                <input class="form-control" type="text" id="kode_fk" name="kode_fk" value="<?php echo $val->kode_pengajuan;?>" required>
+                                <input class="form-control" type="hidden" id="kode_fk" name="kode_fk" value="<?php echo $val->kode_pengajuan;?>" required>
                                 <!-- kirim kode_nama_progress = 1 untuk terima -->
-                                <input type="text" class="form-control" placeholder id="kode_nama_progress" name="kode_nama_progress" required value="1">
-                                <input class="form-control" type="text" id="kode_jabatan_unit" name="kode_jabatan_unit" value="<?php echo $data_diri->kode_jabatan_unit;?>" required> 
+                                <input type="hidden" class="form-control" placeholder id="kode_nama_progress" name="kode_nama_progress" required value="1">
+                                <input class="form-control" type="hidden" id="kode_jabatan_unit" name="kode_jabatan_unit" value="<?php echo $data_diri->kode_jabatan_unit;?>" required> 
                                 <!-- ambil kode_jabatan_unit yang login -->
                                 <label class="col-lg-4 col-sm-2 control-label">Komentar Persetujuan:</label>
                                 <div class="modal-body">
@@ -385,12 +385,12 @@
                          <div class="modal-body">
                           <div class="form-group">
                             <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
-                            <input class="form-control" type="text" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> 
+                            <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> 
                             <!-- kirim kode_fk berdasarkan kode_pengajuan dari barang yang terpilih -->
-                            <input class="form-control" type="text" id="kode_fk" name="kode_fk" value="<?php echo $val->kode_pengajuan;?>" required>
+                            <input class="form-control" type="hidden" id="kode_fk" name="kode_fk" value="<?php echo $val->kode_pengajuan;?>" required>
                             <!-- kirim kode_nama_progress = 1 untuk terima -->
-                            <input type="text" class="form-control" placeholder id="kode_nama_progress" name="kode_nama_progress" required value="2">
-                            <input class="form-control" type="text" id="kode_jabatan_unit" name="kode_jabatan_unit" value="<?php echo $data_diri->kode_jabatan_unit;?>" required> 
+                            <input type="hidden" class="form-control" placeholder id="kode_nama_progress" name="kode_nama_progress" required value="2">
+                            <input class="form-control" type="hidden" id="kode_jabatan_unit" name="kode_jabatan_unit" value="<?php echo $data_diri->kode_jabatan_unit;?>" required> 
                             <!-- ambil kode_jabatan_unit yang login -->
                             <label class="col-lg-4 col-sm-2 control-label">Komentar Penolakan:</label>
                             <div class="modal-body">

@@ -815,20 +815,18 @@ class BarangM extends CI_Model
 		return $query;
 	}
 
-	public function get_sugesti($nama_barang){
-		$this->db->select('nama_barang');
-		$this->db->like('nama_barang', $nama_barang);
-		$query = $this->db->get('barang');
-		return $query->result();
+	public function hapus_pengajuan_barang($kode_item_pengajuan){//hapus pengajuan barang
+		$this->db->where('kode_item_pengajuan', $kode_item_pengajuan);
+		$this->db->delete('item_pengajuan');
+		return TRUE;
 	}
 
-	public function get_kode_barang($nama_barang){
-		$this->db->select('kode_barang');
-		$this->db->where('nama_barang', $nama_barang);
-		$query = $this->db->get('barang');
-		return $query->result();
+	function get_data_item_pengajuan_by_rab($kode_pengajuan){ 
+		$this->db->select('*');
+		$this->db->from('item_pengajuan');
+		$this->db->join('pengguna', 'pengguna.id_pengguna = item_pengajuan.id_pengguna');
+		$this->db->where('kode_pengajuan', $kode_pengajuan);
+		return $this->db->get();
 	}
-
-
 
 }

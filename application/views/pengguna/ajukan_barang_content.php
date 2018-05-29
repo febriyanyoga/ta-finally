@@ -186,7 +186,10 @@
                           $progress_barang = $BarangM->get_progress_barang($barang->kode_item_pengajuan);
                           if($progress_barang == 0){
                             ?>
-                            <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <div class="btn-group">
+                              <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                              <a href="<?php echo base_url('BarangC/hapus_pengajuan_barang')."/".$barang->kode_item_pengajuan;?>" onClick="return confirm('Anda yakin akan menghapus data pengajuan ini?')" data-toggle='tooltip' title='Hapus pengajuan' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>  
+                            </div>                
                             <?php
                           }else{
                             ?>
@@ -511,31 +514,31 @@
 
   function ajukan() {
     $.ajax({ 
-          url: "<?php echo site_url('BarangC/insertBarangAjax'); ?>",
-          data: $("#form_barang").serialize(),
-          dataType: "json",
-          type: "POST",
-          async: false,
-          success: function(data){
-            $("#form_barang")[0].reset();
-            refreshlist();
+      url: "<?php echo site_url('BarangC/insertBarangAjax'); ?>",
+      data: $("#form_barang").serialize(),
+      dataType: "json",
+      type: "POST",
+      async: false,
+      success: function(data){
+        $("#form_barang")[0].reset();
+        refreshlist();
 
-          }    
-        });
+      }    
+    });
   }
   function refreshlist() {
     $.ajax({ 
-          url: "<?php echo site_url('BarangC/getBarangAjax'); ?>",
-          dataType: "json",
-          type: "GET",
-          success: function(data){
-            $("#kode_barang_a").empty();
-            $("#form_barang")[0].reset();
-            $.each(data,function(key, value){
-              $("#kode_barang_a").append('<option value=' + value.kode_barang + '>' + value.nama_barang + '</option>');
-            });
-          }    
+      url: "<?php echo site_url('BarangC/getBarangAjax'); ?>",
+      dataType: "json",
+      type: "GET",
+      success: function(data){
+        $("#kode_barang_a").empty();
+        $("#form_barang")[0].reset();
+        $.each(data,function(key, value){
+          $("#kode_barang_a").append('<option value=' + value.kode_barang + '>' + value.nama_barang + '</option>');
         });
+      }    
+    });
   }
 </script>
 

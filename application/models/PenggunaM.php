@@ -475,7 +475,6 @@
 	public function get_kode_fk_rab_by_kode_jabatan_unit($kode_jabatan_unit){ //untuk mengetahui progress diterima yang diberikan oleh jabatan unit untuk jenis pengajuan rab 
 		$this->db->select('*');
 		$this->db->from('progress');
-		$this->db->join('item_pengajuan', 'progress.kode_fk = item_pengajuan.kode_item_pengajuan');
 		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
 		$this->db->where('kode_nama_progress = "1"');
 		$this->db->where('progress.jenis_progress = "rab"');
