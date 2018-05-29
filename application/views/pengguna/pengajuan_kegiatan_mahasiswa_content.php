@@ -62,6 +62,7 @@ tgl_selesai_kegiatan<section id="main-content">
                 </table>
               </div>
             </div>
+            <!-- end info status -->
             <div class="col-lg-6">
               <!-- Keterangan Edit -->
               <div class="alert alert-info">

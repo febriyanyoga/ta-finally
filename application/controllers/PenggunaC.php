@@ -1101,6 +1101,7 @@ public function ganti_jabatan(){
 					$data_update_turun = array('ranking' => $ranking_new_turun);
 					$this->PenggunaM->update_acc_barang_rab($kode_min_1->kode_acc_barang, $data_update_turun); //update data kode acc-1
 					$this->session->set_flashdata('sukses','Berhasil');
+
 					// redirect_back(); 
 					redirect('PenggunaC/konfigurasi_sistem');
 				}else{
@@ -1121,6 +1122,7 @@ public function ganti_jabatan(){
 				$data_update_turun = array('ranking' => $ranking_new_turun);
 				$this->PenggunaM->update_acc_barang_rab($kode_min_1->kode_acc_barang, $data_update_turun);
 				$this->session->set_flashdata('sukses','Berhasil');
+
 				// redirect_back(); 
 				redirect('PenggunaC/konfigurasi_sistem');
 			}
@@ -1137,12 +1139,35 @@ public function ganti_jabatan(){
 					$ranking_new_turun = (int)$kode_min_1->ranking + 1; //rankingnya tambah 1
 					$data_update_turun = array('ranking' => $ranking_new_turun);
 					$this->PenggunaM->update_acc_barang_rab($kode_min_1->kode_acc_barang, $data_update_turun); //update data kode acc-1
-					$this->session->set_flashdata('sukses','Berhasil 1');
-					redirect_back(); 
-				}else{
-					$this->session->set_flashdata('error','Ranking sudah tertinggi');
-					redirect_back(); 
-				}
+					$this->session->set_flashdata('sukses','Berhasil ');
+
+					//update barang jadi disetujui
+					if($ranking_new_naik == 1){
+						$kode_jab = $this->PenggunaM->get_acc_barang_rab_by_kode($kode_acc_barang)->result()[0]->kode_jabatan_unit;
+
+							$kode_rab = $this->PenggunaM->get_kode_fk_rab_by_kode_jabatan_unit($kode_jab)->result(); //untuk mengetahui progress diterima yang diberikan oleh jabatan unit untuk jenis pengajuan barang 
+							$data_array_kode_rab = array();
+							foreach ($kode_rab as $rab) {
+								array_push($data_array_kode_rab, $rab->kode_fk);
+							}
+							$data_update_rab = array('status_pengajuan' => "Diterima" );
+							if(!is_null($data_array_kode_rab)){
+								$data_array_rab = $this->PenggunaM->update_rab_by_kode($data_array_kode_rab, $data_update_rab);
+								
+								$data_update_barang = array('status_pengajuan' => "Disetujui" );
+								foreach ($kode_rab as $kode ) {
+									$data_array_barang = $this->PenggunaM->update_barang_by_kode($data_array_kode_rab, $data_update_barang);
+								}
+							}
+
+
+						}
+
+						redirect_back(); 
+					}else{
+						$this->session->set_flashdata('error','Ranking sudah tertinggi');
+						redirect_back(); 
+					}
 			}elseif($ranking == $rank_min_rab){ //ranknya terkecil
 				$this->session->set_flashdata('error','Ranking sudah tertinggi');
 				redirect_back(); 
@@ -1157,18 +1182,41 @@ public function ganti_jabatan(){
 				$data_update_turun = array('ranking' => $ranking_new_turun);
 				$this->PenggunaM->update_acc_barang_rab($kode_min_1->kode_acc_barang, $data_update_turun);
 				$this->session->set_flashdata('sukses','Berhasil 2');
-				redirect_back(); 
-			}
-		}
 
-	}	
+				//update barang jadi disetujui
+				if($ranking_new_naik == 1){
+					$kode_jab = $this->PenggunaM->get_acc_barang_rab_by_kode($kode_acc_barang)->result()[0]->kode_jabatan_unit;
+
+							$kode_rab = $this->PenggunaM->get_kode_fk_rab_by_kode_jabatan_unit($kode_jab)->result(); //untuk mengetahui progress diterima yang diberikan oleh jabatan unit untuk jenis pengajuan barang 
+							$data_array_kode_rab = array();
+							foreach ($kode_rab as $rab) {
+								array_push($data_array_kode_rab, $rab->kode_fk);
+							}
+							$data_update_rab = array('status_pengajuan' => "Diterima" );
+							if(!is_null($data_array_kode_rab)){
+								$data_array_rab = $this->PenggunaM->update_rab_by_kode($data_array_kode_rab, $data_update_rab);
+								
+								$data_update_barang = array('status_pengajuan' => "Disetujui" );
+								foreach ($kode_rab as $kode ) {
+									$data_array_barang = $this->PenggunaM->update_barang_by_kode($data_array_kode_rab, $data_update_barang);
+								}
+							}
+
+
+						}
+
+						redirect_back(); 
+					}
+				}
+
+			}	
 
 	//turun barang & rab
-	public function turun_kebawah($kode_acc_barang, $ranking, $kode_jenis_pengajuan){
-		$rank_max_barang = $this->PenggunaM->get_max_rank_barang()->result()[0]->ranking;
-		$rank_max_rab = $this->PenggunaM->get_max_rank_RAB()->result()[0]->ranking;
-		$rank_min_barang = $this->PenggunaM->get_min_rank_barang()->result()[0]->ranking;
-		$rank_min_rab = $this->PenggunaM->get_min_rank_RAB()->result()[0]->ranking;
+			public function turun_kebawah($kode_acc_barang, $ranking, $kode_jenis_pengajuan){
+				$rank_max_barang = $this->PenggunaM->get_max_rank_barang()->result()[0]->ranking;
+				$rank_max_rab = $this->PenggunaM->get_max_rank_RAB()->result()[0]->ranking;
+				$rank_min_barang = $this->PenggunaM->get_min_rank_barang()->result()[0]->ranking;
+				$rank_min_rab = $this->PenggunaM->get_min_rank_RAB()->result()[0]->ranking;
 
 		if($kode_jenis_pengajuan == 1){ //rab
 			if($ranking == $rank_max_barang){ //rank nya max(terbesar)
@@ -1222,27 +1270,74 @@ public function ganti_jabatan(){
 					$data_update_turun = array('ranking' => $ranking_new_turun);
 					$this->PenggunaM->update_acc_barang_rab($kode_min_1->kode_acc_barang, $data_update_turun); //update data kode acc+1
 					$this->session->set_flashdata('sukses','Berhasil');
-					redirect_back(); 
-				}else{
-					$this->session->set_flashdata('error','Ranking sudah terendah');
-					redirect_back(); 
-				}
-			}else{
-				$kode_min_1 = $this->PenggunaM->cek_rab_by_rank($ranking+1)->result()[0];
-					//naikin
-				$ranking_new_naik = (int)$ranking +1;
-				$data_update_naik = array('ranking' => $ranking_new_naik);
-				$this->PenggunaM->update_acc_barang_rab($kode_acc_barang, $data_update_naik);
-					//turunin
-				$ranking_new_turun = (int)$kode_min_1->ranking -1;
-				$data_update_turun = array('ranking' => $ranking_new_turun);
-				$this->PenggunaM->update_acc_barang_rab($kode_min_1->kode_acc_barang, $data_update_turun);
-				$this->session->set_flashdata('sukses','Berhasil');
-				redirect_back(); 
-			}
-		}
 
-	}
+					//update barang jadi disetujui
+					if($ranking_new_naik == 1){
+						$kode_jab = $this->PenggunaM->get_acc_barang_rab_by_kode($kode_acc_barang)->result()[0]->kode_jabatan_unit;
+
+							$kode_rab = $this->PenggunaM->get_kode_fk_rab_by_kode_jabatan_unit($kode_jab)->result(); //untuk mengetahui progress diterima yang diberikan oleh jabatan unit untuk jenis pengajuan barang 
+							$data_array_kode_rab = array();
+							foreach ($kode_rab as $rab) {
+								array_push($data_array_kode_rab, $rab->kode_fk);
+							}
+							$data_update_rab = array('status_pengajuan' => "Diterima" );
+							if(!is_null($data_array_kode_rab)){
+								$data_array_rab = $this->PenggunaM->update_rab_by_kode($data_array_kode_rab, $data_update_rab);
+								
+								$data_update_barang = array('status_pengajuan' => "Disetujui" );
+								foreach ($kode_rab as $kode ) {
+									$data_array_barang = $this->PenggunaM->update_barang_by_kode($data_array_kode_rab, $data_update_barang);
+								}
+							}
+
+
+						}
+
+
+						redirect_back(); 
+					}else{
+						$this->session->set_flashdata('error','Ranking sudah terendah');
+						redirect_back(); 
+					}
+				}else{
+					$kode_min_1 = $this->PenggunaM->cek_rab_by_rank($ranking+1)->result()[0];
+					//naikin
+					$ranking_new_naik = (int)$ranking +1;
+					$data_update_naik = array('ranking' => $ranking_new_naik);
+					$this->PenggunaM->update_acc_barang_rab($kode_acc_barang, $data_update_naik);
+					//turunin
+					$ranking_new_turun = (int)$kode_min_1->ranking -1;
+					$data_update_turun = array('ranking' => $ranking_new_turun);
+					$this->PenggunaM->update_acc_barang_rab($kode_min_1->kode_acc_barang, $data_update_turun);
+					$this->session->set_flashdata('sukses','Berhasil');
+//update barang jadi disetujui
+					if($ranking_new_naik == 1){
+						$kode_jab = $this->PenggunaM->get_acc_barang_rab_by_kode($kode_acc_barang)->result()[0]->kode_jabatan_unit;
+
+							$kode_rab = $this->PenggunaM->get_kode_fk_rab_by_kode_jabatan_unit($kode_jab)->result(); //untuk mengetahui progress diterima yang diberikan oleh jabatan unit untuk jenis pengajuan barang 
+							$data_array_kode_rab = array();
+							foreach ($kode_rab as $rab) {
+								array_push($data_array_kode_rab, $rab->kode_fk);
+							}
+							$data_update_rab = array('status_pengajuan' => "Diterima" );
+							if(!is_null($data_array_kode_rab)){
+								$data_array_rab = $this->PenggunaM->update_rab_by_kode($data_array_kode_rab, $data_update_rab);
+								
+								$data_update_barang = array('status_pengajuan' => "Disetujui" );
+								foreach ($kode_rab as $kode ) {
+									$data_array_barang = $this->PenggunaM->update_barang_by_kode($data_array_kode_rab, $data_update_barang);
+								}
+							}
+
+
+						}
+
+
+						redirect_back(); 
+					}
+				}
+
+			}
 
 	// Prosedur
 	public function aktif_pro($kode_doc){ //aktifasi akun pengguna

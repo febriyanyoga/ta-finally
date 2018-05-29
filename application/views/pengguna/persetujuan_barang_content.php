@@ -19,174 +19,176 @@
        <h3 class="page-header" style="margin-top: 0;"><center>Barang Diajukan</center></h3>
      </div>
    </div>
-   <div class="row">
+
+   <button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-md" title="klik untuk melihat informasi"><i class="glyphicon glyphicon-alert"> Informasi</i></button><br><br>
+
+   <div class="collapse" id="demo">
+    <div class="col-lg-6">
+      <!-- Info Status -->
+      <div class="alert alert-info">
+        <strong>Informasi!</strong>
+        <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan barang<strong>:</strong></p>
+        <table border="3" style="border-color: transparent;" >
+          <tr style="height: 30px">
+            <td style="width: 10%"><a class="label label-primary">BARU</a></td>
+            <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan barang baru saja di ajukan dan belum memiliki progres</th>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-info">PROSES</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan barang sedang dalam proses persetujuan</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-success">PENGAJUAN</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan barang sudah disetujui dan sedang dalam proses pengajuan RAB</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-success">SELESAI</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan barang telah selesai</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-warning">TUNDA</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan barang sedang di tunda untuk diajukan dalam RAB dan akan diajukan pada pengajuan RAB berikutnya</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-success">DISETUJUI</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pegajuan barang telah disetujui pada RAB yang diajukan</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-danger">TOLAK</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan barang ditolak</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <!-- End Info Status -->
+      <div class="col-lg-6">
+        <!-- Keterangan Tolak dan Setuju -->
+        <div class="alert alert-warning">
+          <strong>Perhatian!</strong>
+          <p>Berikut adalah penjelasan <strong>tombol persetujuan</strong> dari persetujuan pada tabel pengajuan barang<strong>:</strong></p>
+          <table border="3" style="border-color: transparent;" >
+            <tr style="height: 30px">
+              <td style="width: 10%"><a class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
+              </td>
+              <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
+                <td style="width: 62%"> Tombol ini digunakan untuk menyetujui pengajuan barang yang diajukan oleh staf</td>
+              </tr>
+              <tr style="height: 30px">
+                <td><a class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a></td>
+                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td> Tombol ini digunakan untuk menolak pengajuan barang yang diajukan</td>
+              </tr>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="btn btn-info btn-info"><span class="glyphicon glyphicon-briefcase"></span></a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Tombol ini digunakan untuk menyetujui pengajuan barang yang diajukan dikarenakan barang yang diajukan sudah tersedia</td>
+            </tr>
+          </table>
+        </table>
+        <p> </p>
+        <p>Tombol-tombol untuk melakukan persetujuan hanya bisa dilakukan sebanyak satu kali, ketika persetujuan sudah dilakukan maka persetujuan tidak bisa diubah lagi dan akan digantikan dengan kata "selesai" disertai tanda centang (<span class="glyphicon glyphicon-ok"></span>).</p>
+        <p> </p>
+        <table border="3" style="border-color: transparent;" >
+          <tr style="height: 30px" style="width: 15%">
+            <td>
+              <div class="btn-group">
+                <a class="btn btn-success btn-sm">Aset</span></a>
+                <a class="btn btn-danger btn-sm">Habis Pakai</span></a>
+              </div>
+            </td>
+            <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
+              <td style="width: 69%"> Untuk pengajuan barang yang berwarna <strong>biru</strong>, harus terlebih dahulu diberikan klasifikasi jenis barang, karena barang yang diajukan tersebut belum terklasifikasikan. Setelah dilakukan klasifikasi maka pengajuan akan berwarna sama seperti pengajuan yang sudah bisa diberikan persetujuan.</td>
+            </tr>
+          </table>
+        </table>
+      </div>
+      <!-- End Ket Tolak dan Setuju -->
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-lg-12">
       <div class="card mb-3">
         <div class="card-header">
           <div class="card-body">
-
-            <div class="row">
-              <div class="col-lg-6">
-                <!-- Info Status -->
-                <div class="alert alert-info">
-                  <strong>Informasi!</strong>
-                  <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan barang<strong>:</strong></p>
-                  <table border="3" style="border-color: transparent;" >
-                    <tr style="height: 30px">
-                      <td style="width: 10%"><a class="label label-primary">BARU</a></td>
-                      <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
-                        <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan barang baru saja di ajukan dan belum memiliki progres</th>
-                        </tr>
-                        <tr style="height: 30px">
-                          <td><a class="label label-info">PROSES</a></td>
-                          <td><i class="glyphicon glyphicon-arrow-right"></td>
-                            <td> Status ini menjelaskan bahwa pengajuan barang sedang dalam proses persetujuan</td>
-                          </tr>
-                          <tr style="height: 30px">
-                            <td><a class="label label-success">PENGAJUAN</a></td>
-                            <td><i class="glyphicon glyphicon-arrow-right"></td>
-                              <td> Status ini menjelaskan bahwa pengajuan barang sudah disetujui dan sedang dalam proses pengajuan RAB</td>
-                            </tr>
-                            <tr style="height: 30px">
-                              <td><a class="label label-success">SELESAI</a></td>
-                              <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                <td> Status ini menjelaskan bahwa pengajuan barang telah selesai</td>
-                              </tr>
-                              <tr style="height: 30px">
-                                <td><a class="label label-warning">TUNDA</a></td>
-                                <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                  <td> Status ini menjelaskan bahwa pengajuan barang sedang di tunda untuk diajukan dalam RAB dan akan diajukan pada pengajuan RAB berikutnya</td>
-                                </tr>
-                                <tr style="height: 30px">
-                                  <td><a class="label label-success">DISETUJUI</a></td>
-                                  <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                    <td> Status ini menjelaskan bahwa pegajuan barang telah disetujui pada RAB yang diajukan</td>
-                                  </tr>
-                                  <tr style="height: 30px">
-                                    <td><a class="label label-danger">TOLAK</a></td>
-                                    <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                      <td> Status ini menjelaskan bahwa pengajuan barang ditolak</td>
-                                    </tr>
-                                  </table>
-                                </div>
-                              </div>
-                              <!-- End Info Status -->
-                              <div class="col-lg-6">
-                                <!-- Keterangan Tolak dan Setuju -->
-                                <div class="alert alert-warning">
-                                  <strong>Perhatian!</strong>
-                                  <p>Berikut adalah penjelasan <strong>tombol persetujuan</strong> dari persetujuan pada tabel pengajuan barang<strong>:</strong></p>
-                                  <table border="3" style="border-color: transparent;" >
-                                    <tr style="height: 30px">
-                                      <td style="width: 10%"><a class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      </td>
-                                      <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
-                                        <td style="width: 62%"> Tombol ini digunakan untuk menyetujui pengajuan barang yang diajukan oleh staf</td>
-                                      </tr>
-                                      <tr style="height: 30px">
-                                        <td><a class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a></td>
-                                        <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                          <td> Tombol ini digunakan untuk menolak pengajuan barang yang diajukan</td>
-                                        </tr>
-                                      </tr>
-                                      <tr style="height: 30px">
-                                        <td><a class="btn btn-info btn-info"><span class="glyphicon glyphicon-briefcase"></span></a></td>
-                                        <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                          <td> Tombol ini digunakan untuk menyetujui pengajuan barang yang diajukan dikarenakan barang yang diajukan sudah tersedia</td>
-                                        </tr>
-                                      </table>
-                                    </table>
-                                    <p> </p>
-                                    <p>Tombol-tombol untuk melakukan persetujuan hanya bisa dilakukan sebanyak satu kali, ketika persetujuan sudah dilakukan maka persetujuan tidak bisa diubah lagi dan akan digantikan dengan kata "selesai" disertai tanda centang (<span class="glyphicon glyphicon-ok"></span>).</p>
-                                    <p> </p>
-                                    <table border="3" style="border-color: transparent;" >
-                                      <tr style="height: 30px" style="width: 15%">
-                                        <td>
-                                          <div class="btn-group">
-                                            <a class="btn btn-success btn-sm">Aset</span></a>
-                                            <a class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                          </div>
-                                        </td>
-                                        <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
-                                          <td style="width: 69%"> Untuk pengajuan barang yang berwarna <strong>biru</strong>, harus terlebih dahulu diberikan klasifikasi jenis barang, karena barang yang diajukan tersebut belum terklasifikasikan. Setelah dilakukan klasifikasi maka pengajuan akan berwarna sama seperti pengajuan yang sudah bisa diberikan persetujuan.</td>
-                                        </tr>
-                                      </table>
-                                    </table>
-                                  </div>
-                                  <!-- End Ket Tolak dan Setuju -->
-                                </div>
-                              </div>
-
-                              <div class="table-responsive">
-                                <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
-                                  <thead>
-                                    <tr class="text-center">
-                                      <!-- <th>No. Identitas</th> -->
-                                      <th class="text-center">Nama Pengajuan Barang</th>
-                                      <th class="text-center">Nama Pengaju</th>
-                                      <th class="text-center">Jabatan Pengaju</th>
-                                      <th class="text-center">Gambar</th>
-                                      <th class="text-center">Tgl Pengajuan</th>
-                                      <th class="text-center">Jumlah</th>
-                                      <th class="text-center">Total Harga</th>
-                                      <th class="text-center">Status</th>
-                                      <th class="text-center">Aksi</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <?php
-                                    foreach ($data_persetujuan_barang as $barang) {
-                                     $jenis_barang = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->kode_jenis_barang;
-                                     if($jenis_barang != 3){
-                                      ?>
-                                      <tr class="text-center" >
-                                        <?php
-                                      }else{
-                                        ?>
-                                        <tr class="text-center" style="background-color: #fcf8e3">
-                                          <?php
-                                        }
-                                        ?>
-                                        <td> 
-                                         <a href="#" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><?php echo $barang->nama_item_pengajuan ?></a>
-                                       </td>
-                                       <td>
-                                        <?php 
+            <div class="table-responsive">
+              <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
+                <thead>
+                  <tr class="text-center">
+                    <!-- <th>No. Identitas</th> -->
+                    <th class="text-center">Nama Pengajuan Barang</th>
+                    <th class="text-center">Nama Pengaju</th>
+                    <th class="text-center">Jabatan Pengaju</th>
+                    <th class="text-center">Gambar</th>
+                    <th class="text-center">Tgl Pengajuan</th>
+                    <th class="text-center">Jumlah</th>
+                    <th class="text-center">Total Harga</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  foreach ($data_persetujuan_barang as $barang) {
+                   $jenis_barang = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->kode_jenis_barang;
+                   if($jenis_barang != 3){
+                    ?>
+                    <tr class="text-center" >
+                      <?php
+                    }else{
+                      ?>
+                      <tr class="text-center" style="background-color: #fcf8e3">
+                        <?php
+                      }
+                      ?>
+                      <td> 
+                       <a href="#" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><?php echo $barang->nama_item_pengajuan ?></a>
+                     </td>
+                     <td>
+                      <?php 
                                         // mendapatkan nama pengaju dari kode item pengajuan berdasarkan id
-                                        $pengaju = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->nama;
-                                        echo $pengaju;
-                                        ?>
-                                      </td>
-                                      <td>
-                                        <?php 
+                      $pengaju = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->nama;
+                      echo $pengaju;
+                      ?>
+                    </td>
+                    <td>
+                      <?php 
                                         // mendapatkan nama jabatan dari kode item pengajuan berdasarkan id
-                                        $jabatan      = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->nama_jabatan;
+                      $jabatan      = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->nama_jabatan;
                                         // mendapatkan kode jabatan dari kode item pengajuan berdasarkan id
-                                        $kode_jabatan = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->kode_jabatan;
+                      $kode_jabatan = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->kode_jabatan;
                                         // mendapatkan nama unit dari kode item pengajuan berdasarkan id
-                                        $unit = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->nama_unit;
+                      $unit = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->nama_unit;
                                         // mendapatkan kode unit dari kode item pengajuan berdasarkan id
-                                        $kode_unit = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->kode_unit;
+                      $kode_unit = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->kode_unit;
                                         //menampilkan nama jabatan dan unit dari pengaju item pengajuan
-                                        echo $jabatan." ".$unit;
-                                        ?>
-                                      </td>
-                                      <td>
-                                        <center>
-                                          <img style="height: 60px;" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>">
-                                        </center>
-                                      </td>
-                                      <td><?php echo $barang->tgl_item_pengajuan;?></td>
-                                      <td><?php echo $barang->jumlah;?></td>
-                                      <?php 
-                                      $jumlah = $barang->jumlah;
-                                      $harga = $barang->harga_satuan;
+                      echo $jabatan." ".$unit;
+                      ?>
+                    </td>
+                    <td>
+                      <center>
+                        <img style="height: 60px;" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>">
+                      </center>
+                    </td>
+                    <td><?php echo $barang->tgl_item_pengajuan;?></td>
+                    <td><?php echo $barang->jumlah;?></td>
+                    <?php 
+                    $jumlah = $barang->jumlah;
+                    $harga = $barang->harga_satuan;
                                       //menghitung hasil total biaya item pengajuan dari perkalian harga satuan dengan jumlah barang
-                                      $total = $jumlah*$harga;
-                                      ?>
-                                      <td>Rp<?php echo number_format($total, 0,',','.') ?>,00</td>
-                                      <td> 
-                                        <?php
+                    $total = $jumlah*$harga;
+                    ?>
+                    <td>Rp<?php echo number_format($total, 0,',','.') ?>,00</td>
+                    <td> 
+                      <?php
                                           $kode_fk = $barang->kode_item_pengajuan; //untuk mengambil kode_item_pengajuan
                                           $id_staf_sarpras = $BarangM->cek_id_staf_sarpras()->result()[0]->kode_jabatan_unit; // untuk menmeriksa pengajuan tersebut mendapatkan progress dari siapa saja
                                           $progress_oleh_staf = $BarangM->get_progress_oleh_staf($kode_fk, $id_staf_sarpras);//untuk mengetahui jika pengajuan sudah mendapat progress yang diberikan oleh staff sarpras, dimana staff sarpras adalah yang paling akhir memberikan progress tambahan
@@ -256,8 +258,7 @@
                         </td>
                         <td class="text-center">
                           <?php
-                      $barang_created = $barang->created_at; //waktu item pengajuan dibuat
-                      $acc_created = $BarangM->created_at($data_diri->kode_jabatan_unit)->created_at; //waktu acc barang/akses persetujuan dibuat
+                          
                       if($progress_sendiri > 0){ //jika sudah input progress ========================================================
                         ?>
                         <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></span></a><p class="kecil">Selesai</p>
@@ -265,262 +266,76 @@
                       }else{
                         if($jabatan_saya == $id_max && $jabatan_saya == $id_min){ //ranking asesor max dan min ======================
                           if($barang->kode_jabatan_unit == $data_diri->kode_jabatan_unit){//pengaju dia sendiri->bisa acc ===========
-                            if($barang_created > $acc_created){ //item pengajuan dullu baru acc_item pengajuan masuk ================
-                              if(!is_null($barang->status_pengajuan)){//sudah disetujui->tidak bisa =================================
-                                ?>
-                                <div class="btn-group">
-                                  <?php
-                                  if(in_array(13, $cek_menu)){
-                                    if($jenis_barang != 3){
-                                      ?>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                      <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                      <?php
-                                    }else{
-                                      ?>
-                                      <center>
-                                        <div class="btn-group">
-                                          <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                          <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                        </div>
-                                      </center>
-                                      <?php
-                                    }
-                                  }else{
-                                    ?>
-                                    <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                    <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                    <?php
-                                  }
-                                  ?>
-                                </div>
-                                <?php
-                              }else{//belum disetujui ===============================================================================
-                                ?>
-                                <div class="btn-group">
-                                  <?php
-                                  if(in_array(13, $cek_menu)){
-                                    if($jenis_barang != 3){
-                                      ?>
-                                      <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                      <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                      <?php
-                                    }else{
-                                      ?>
-                                      <center>
-                                        <div class="btn-group">
-                                          <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                          <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                        </div>
-                                      </center>
-                                      <?php
-                                    }
-                                  }else{
-                                    ?>
-                                    <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                    <?php
-                                  }
-                                  ?>
-                                </div>
-                                <?php
-                              }
-                            }else{ //acc_barang baru barang masuk ===================================================================
-                              ?>
-                              <div class="btn-group">
-                                <?php
-                                if(in_array(13, $cek_menu)){
-                                  if($jenis_barang != 3){
-                                    ?>
-                                    <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                    <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                    <?php
-                                  }else{
-                                    ?>
-                                    <center>
-                                      <div class="btn-group">
-                                        <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                        <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                      </div>
-                                    </center>
-                                    <?php
-                                  }
-                                }else{
+                            
+                            ?>
+                            <div class="btn-group">
+                              <?php
+                              if(in_array(13, $cek_menu)){
+                                if($jenis_barang != 3){
                                   ?>
                                   <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
                                   <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                  <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
+                                  <?php
+                                }else{
+                                  ?>
+                                  <center>
+                                    <div class="btn-group">
+                                      <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
+                                      <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
+                                    </div>
+                                  </center>
                                   <?php
                                 }
+                              }else{
                                 ?>
-                              </div>
-                              <?php
-                            }
+                                <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
+                                <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                <?php
+                              }
+                              ?>
+                            </div>
+                            <?php
+                            
                           }elseif($atasan == "tidak"){  //pengaju STAF (bukan atasan) ===============================================
                             $kode_unit_pengaju = $BarangM->staf_sendiri($barang->kode_jabatan_unit)->result()[0]->kode_unit;
                             if($kode_unit_pengaju == $data_diri->kode_unit){ // pengaju staf sendiri->bisa acc ======================
-                              if($barang_created > $acc_created){ //item pengajuan dullu baru acc_item pengajuan masuk ==============
-                                if(!is_null($barang->status_pengajuan)){//sudah disetujui->tidak bisa acc ===========================
-                                  ?>
-                                  <div class="btn-group">
-                                    <?php
-                                    if(in_array(13, $cek_menu)){
-                                      if($jenis_barang != 3){
-                                        ?>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                        <?php
-                                      }else{
-                                        ?>
-                                        <center>
-                                          <div class="btn-group">
-                                            <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                            <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                          </div>
-                                        </center>
-                                        <?php
-                                      }
-                                    }else{
-                                      ?>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                      <?php
-                                    }
-                                    ?>
-                                  </div>
-                                  <?php
-                                }else{//belum disetujui =============================================================================
-                                  ?>
-                                  <div class="btn-group">
-                                    <?php
-                                    if(in_array(13, $cek_menu)){
-                                      if($jenis_barang != 3){
-                                        ?>
-                                        <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                        <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                        <?php
-                                      }else{
-                                        ?>
-                                        <center>
-                                          <div class="btn-group">
-                                            <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                            <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                          </div>
-                                        </center>
-                                        <?php
-                                      }
-                                    }else{
-                                      ?>
-                                      <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                      <?php
-                                    }
-                                    ?>
-                                  </div>
-                                  <?php
-                                }
-                              }else{ //acc barang dulu aru barang yang masuk ========================================================
+                             
                                 $progress_atasan_terima = $BarangM->get_progress_terima_by_kode_jabatan_unit($barang->kode_item_pengajuan, $barang->pimpinan,'1'); //progress dari atasan yang "diterima"(kode 1)
                                 $progress_atasan_tolak = $BarangM->get_progress_terima_by_kode_jabatan_unit($barang->kode_item_pengajuan, $barang->pimpinan,'2'); //progress dari atasan yang "ditolak"(kode 2)
                                 if($acc_atasan > 0){ // item pengajuan sudah diberikan progress atsan
                                   if($progress_atasan_terima > 0){ // diterima ->bisa acc
-                                    if($barang_created > $acc_created){ //item pengajuan dullu baru acc_item pengajuan masuk
-                                      if(!is_null($barang->status_pengajuan)){//sudah disetujui->tidak bisa acc
-                                        ?>
-                                        <div class="btn-group">
-                                          <?php
-                                          if(in_array(13, $cek_menu)){
-                                            if($jenis_barang != 3){
-                                              ?>
-                                              <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                              <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                              <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                              <?php
-                                            }else{
-                                              ?>
-                                              <center>
-                                                <div class="btn-group">
-                                                  <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                  <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                                </div>
-                                              </center>
-                                              <?php
-                                            }
-                                          }else{
-                                            ?>
-                                            <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                            <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                            <?php
-                                          }
-                                          ?>
-                                        </div>
-                                        <?php
-                                      }else{//belum disetujui =======================================================================
-                                        ?>
-                                        <div class="btn-group">
-                                          <?php
-                                          if(in_array(13, $cek_menu)){
-                                            if($jenis_barang != 3){
-                                              ?>
-                                              <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success">1<span class="glyphicon glyphicon-ok"></span></a>
-                                              <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                              <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                              <?php
-                                            }else{
-                                              ?>
-                                              <center>
-                                                <div class="btn-group">
-                                                  <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                  <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                                </div>
-                                              </center>
-                                              <?php
-                                            }
-                                          }else{
-                                            ?>
-                                            <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                            <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                            <?php
-                                          }
-                                          ?>
-                                        </div>
-                                        <?php
-                                      }
-                                    }else{ // acc_barang dulu baru barang masuk =====================================================
-                                      ?>
-                                      <div class="btn-group">
-                                        <?php
-                                        if(in_array(13, $cek_menu)){
-                                          if($jenis_barang != 3){
-                                            ?>
-                                            <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                            <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                            <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                            <?php
-                                          }else{
-                                            ?>
-                                            <center>
-                                              <div class="btn-group">
-                                                <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                              </div>
-                                            </center>
-                                            <?php
-                                          }
-                                        }else{
+                                   
+                                    ?>
+                                    <div class="btn-group">
+                                      <?php
+                                      if(in_array(13, $cek_menu)){
+                                        if($jenis_barang != 3){
                                           ?>
                                           <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
                                           <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                          <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
+                                          <?php
+                                        }else{
+                                          ?>
+                                          <center>
+                                            <div class="btn-group">
+                                              <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
+                                              <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
+                                            </div>
+                                          </center>
                                           <?php
                                         }
+                                      }else{
                                         ?>
-                                      </div>
-                                      <?php
-                                    }
+                                        <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
+                                        <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                        <?php
+                                      }
+                                      ?>
+                                    </div>
+                                    <?php
+                                    
                                   }elseif($progress_atasan_tolak > 0){ //ditolak ->tidak bisa acc ===================================
                                     ?>
                                     <div class="btn-group">
@@ -583,105 +398,43 @@
                                   </div>
                                   <?php
                                 }
-                              }
+                                
                             }elseif($kode_unit_pengaju != $data_diri->kode_unit){ //pengaju bukan staf sendiri ======================
                               $progress_atasan_terima = $BarangM->get_progress_terima_by_kode_jabatan_unit($barang->kode_item_pengajuan, $barang->pimpinan,'1'); //progress dari atasan yang "diterima"(kode 1)
                               $progress_atasan_tolak = $BarangM->get_progress_terima_by_kode_jabatan_unit($barang->kode_item_pengajuan, $barang->pimpinan,'2'); //progress dari atasan yang "ditolak"(kode 2)
                               if($acc_atasan > 0){ // item pengajuan sudah diberikan progress atsan =================================
                                 if($progress_atasan_terima > 0){ // diterima ->bisa acc =============================================
-                                  if($barang_created > $acc_created){ //item pengajuan dullu baru acc_item pengajuan masuk ==========
-                                    if(!is_null($barang->status_pengajuan)){//sudah disetujui->tidak bisa acc =======================
-                                      ?>
-                                      <div class="btn-group">
-                                        <?php
-                                        if(in_array(13, $cek_menu)){
-                                          if($jenis_barang != 3){
-                                            ?>
-                                            <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                            <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                            <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                            <?php
-                                          }else{
-                                            ?>
-                                            <center>
-                                              <div class="btn-group">
-                                                <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                              </div>
-                                            </center>
-                                            <?php
-                                          }
-                                        }else{
-                                          ?>
-                                          <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                          <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                          <?php
-                                        }
-                                        ?>
-                                      </div>
-                                      <?php
-                                    }else{//belum disetujui =========================================================================
-                                      ?>
-                                      <div class="btn-group">
-                                        <?php
-                                        if(in_array(13, $cek_menu)){
-                                          if($jenis_barang != 3){
-                                            ?>
-                                            <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                            <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                            <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                            <?php
-                                          }else{
-                                            ?>
-                                            <center>
-                                              <div class="btn-group">
-                                                <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                              </div>
-                                            </center>
-                                            <?php
-                                          }
-                                        }else{
-                                          ?>
-                                          <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                          <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                          <?php
-                                        }
-                                        ?>
-                                      </div>
-                                      <?php
-                                    }
-                                  }else{ //acc_barang dulu baru barang masuk ========================================================
-                                    ?>
-                                    <div class="btn-group">
-                                      <?php
-                                      if(in_array(13, $cek_menu)){
-                                        if($jenis_barang != 3){
-                                          ?>
-                                          <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                          <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                          <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                          <?php
-                                        }else{
-                                          ?>
-                                          <center>
-                                            <div class="btn-group">
-                                              <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                              <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                            </div>
-                                          </center>
-                                          <?php
-                                        }
-                                      }else{
+                                  
+                                  ?>
+                                  <div class="btn-group">
+                                    <?php
+                                    if(in_array(13, $cek_menu)){
+                                      if($jenis_barang != 3){
                                         ?>
                                         <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
                                         <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                        <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
+                                        <?php
+                                      }else{
+                                        ?>
+                                        <center>
+                                          <div class="btn-group">
+                                            <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
+                                            <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
+                                          </div>
+                                        </center>
                                         <?php
                                       }
+                                    }else{
                                       ?>
-                                    </div>
-                                    <?php
-                                  }
+                                      <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
+                                      <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                      <?php
+                                    }
+                                    ?>
+                                  </div>
+                                  <?php
+                                  
                                 }elseif($progress_atasan_tolak > 0){ //ditolak ->tidak bisa acc =====================================
                                   ?>
                                   <div class="btn-group">
@@ -746,69 +499,46 @@
                               }
                             }
                           }elseif($atasan == "ya"){//pengaju atasan -> bisa acc =====================================================
-                            if($barang_created > $acc_created){ //item pengajuan dullu baru acc_item pengajuan masuk ================
-                              if(!is_null($barang->status_pengajuan)){//sudah disetujui->tidak bisa acc =============================
-                                ?>
-                                <div class="btn-group">
-                                  <?php
-                                  if(in_array(13, $cek_menu)){
-                                    if($jenis_barang != 3){
-                                      ?>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                      <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                      <?php
-                                    }else{
-                                      ?>
-                                      <center>
-                                        <div class="btn-group">
-                                          <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                          <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                        </div>
-                                      </center>
-                                      <?php
-                                    }
-                                  }else{
-                                    ?>
-                                    <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                    <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                    <?php
-                                  }
+                            
+                            ?>
+                            <div class="btn-group">
+                              <?php
+                              if(in_array(13, $cek_menu)){
+                                if($jenis_barang != 3){
                                   ?>
-                                </div>
-                                <?php
-                              }else{//belum disetujui ===============================================================================
-                                ?>
-                                <div class="btn-group">
+                                  <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
+                                  <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                  <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
                                   <?php
-                                  if(in_array(13, $cek_menu)){
-                                    if($jenis_barang != 3){
-                                      ?>
-                                      <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                      <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                      <?php
-                                    }else{
-                                      ?>
-                                      <center>
-                                        <div class="btn-group">
-                                          <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                          <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                        </div>
-                                      </center>
-                                      <?php
-                                    }
-                                  }else{
-                                    ?>
-                                    <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                    <?php
-                                  }
+                                }else{
                                   ?>
-                                </div>
+                                  <center>
+                                    <div class="btn-group">
+                                      <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
+                                      <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
+                                    </div>
+                                  </center>
+                                  <?php
+                                }
+                              }else{
+                                ?>
+                                <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
+                                <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
                                 <?php
                               }
-                            }else{ //acc_barang dulu baru barang masuk ==============================================================
+                              ?>
+                            </div>
+                            <?php
+                            
+                          }
+                        }elseif($jabatan_saya == $id_min && $jabatan_saya != $id_max){ // ranking asesor min tapi tidak max (tertinggi dan punya bawahan) ================================================================================
+                          $rank_sendiri   = $BarangM->cek_rank_barang_by_id_pegawai($jabatan_saya)->ranking; //rank sendiri
+                          $rank_lebih_besar  = ((int)$rank_sendiri + 1); //rank sendri + 1 (rank bawahnya)
+                          $id_lebih_besar    = $BarangM->cek_id_by_rank_barang($rank_lebih_besar)->kode_jabatan_unit; //id yang ranknya (ran ksendiri + 1)
+                          $progress_id_lebih_besar = $BarangM->progress_sendiri($barang->kode_item_pengajuan, $id_lebih_besar); //progress id yang ranknya (rank sendiri+1)
+                          if($progress_id_lebih_besar > 0){ //sudah diberi progress rank bawahnya ===================================
+                            if($progress_tolak == 0 && $progress_tolak_staf == 0){ // tidak ditolak =================================
+                              
                               ?>
                               <div class="btn-group">
                                 <?php
@@ -838,142 +568,7 @@
                                 ?>
                               </div>
                               <?php
-                            }
-                          }
-                        }elseif($jabatan_saya == $id_min && $jabatan_saya != $id_max){ // ranking asesor min tapi tidak max (tertinggi dan punya bawahan) ================================================================================
-                          $rank_sendiri   = $BarangM->cek_rank_barang_by_id_pegawai($jabatan_saya)->ranking; //rank sendiri
-                          $rank_lebih_besar  = ((int)$rank_sendiri + 1); //rank sendri + 1 (rank bawahnya)
-                          $id_lebih_besar    = $BarangM->cek_id_by_rank_barang($rank_lebih_besar)->kode_jabatan_unit; //id yang ranknya (ran ksendiri + 1)
-                          $progress_id_lebih_besar = $BarangM->progress_sendiri($barang->kode_item_pengajuan, $id_lebih_besar); //progress id yang ranknya (rank sendiri+1)
-                          if($progress_id_lebih_besar > 0){ //sudah diberi progress rank bawahnya ===================================
-                            if($progress_tolak == 0 && $progress_tolak_staf == 0){ // tidak ditolak =================================
-                              if($barang_created > $acc_created){ //item pengajuan dullu baru acc_item pengajuan masuk ==============
-                                if(!is_null($barang->status_pengajuan)){//sudah disetujui->tidak bisa acc ===========================
-                                  ?>
-                                  <div class="btn-group">
-                                    <?php
-                                    if(in_array(13, $cek_menu)){
-                                      if($jenis_barang != 3){
-                                        ?>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                        <?php
-                                      }else{
-                                        ?>
-                                        <center>
-                                          <div class="btn-group">
-                                            <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                            <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                          </div>
-                                        </center>
-                                        <?php
-                                      }
-                                    }else{
-                                      ?>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                      <?php
-                                    }
-                                    ?>
-                                  </div>
-                                  <?php
-                                }else{//belum disetujui =============================================================================
-                                  $rank_p = $BarangM->get_progress_by_kode_item_pengajuan($barang->kode_item_pengajuan)->result()[0]->kode_jabatan_unit;//cari progress berdasarkan kode item pengajuan
-                                  $rank_progress = $BarangM->cek_rank_barang_by_id_pegawai($rank_p)->ranking; // cari ranking by kode jabatan unit
-                                  if($rank_sendiri > $rank_progress){ //progress sampe diatas =======================================
-                                    ?>
-                                    <div class="btn-group">
-                                      <?php
-                                      if(in_array(13, $cek_menu)){
-                                        if($jenis_barang != 3){
-                                          ?>
-                                          <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                          <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                          <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                          <?php
-                                        }else{
-                                          ?>
-                                          <center>
-                                            <div class="btn-group">
-                                              <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                              <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                            </div>
-                                          </center>
-                                          <?php
-                                        }
-                                      }else{
-                                        ?>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <?php
-                                      }
-                                      ?>
-                                    </div>
-                                    <?php
-                                  }else{ //progress sampe bawah =====================================================================
-                                    ?>
-                                    <div class="btn-group">
-                                      <?php
-                                      if(in_array(13, $cek_menu)){
-                                        if($jenis_barang != 3){
-                                          ?>
-                                          <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success">1<span class="glyphicon glyphicon-ok"></span></a>
-                                          <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                          <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                          <?php
-                                        }else{
-                                          ?>
-                                          <center>
-                                            <div class="btn-group">
-                                              <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                              <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                            </div>
-                                          </center>
-                                          <?php
-                                        }
-                                      }else{
-                                        ?>
-                                        <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                        <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <?php
-                                      }
-                                      ?>
-                                    </div>
-                                    <?php
-                                  }
-                                }
-                              }else{ //acc masuk dulu baru item pengajuan ===========================================================
-                                ?>
-                                <div class="btn-group">
-                                  <?php
-                                  if(in_array(13, $cek_menu)){
-                                    if($jenis_barang != 3){
-                                      ?>
-                                      <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                      <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                      <?php
-                                    }else{
-                                      ?>
-                                      <center>
-                                        <div class="btn-group">
-                                          <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                          <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                        </div>
-                                      </center>
-                                      <?php
-                                    }
-                                  }else{
-                                    ?>
-                                    <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                    <?php
-                                  }
-                                  ?>
-                                </div>
-                                <?php
-                              }
+                              
                             }else{ //ditolak ========================================================================================
                               ?>
                               <div class="btn-group">
@@ -1044,133 +639,37 @@
                           $jenis_barang = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->kode_jenis_barang; //untuk mengetahui jenis barang yang diajukan
                           if($progress_id_lebih_besar > 0){ //sudah diberi progress rank bawahnya ===================================
                             if($progress_tolak == 0 && $progress_tolak_staf == 0){ // tidak ditolak =================================
-                              if($barang_created > $acc_created){ //item pengajuan dullu baru acc_item pengajuan masuk ==============
-                                if(!is_null($barang->status_pengajuan)){//sudah disetujui->tidak bisa acc ===========================
-                                  ?>
-                                  <div class="btn-group">
-                                    <?php
-                                    if(in_array(13, $cek_menu)){
-                                      if($jenis_barang != 3){
-                                        ?>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                        <?php
-                                      }else{
-                                        ?>
-                                        <center>
-                                          <div class="btn-group">
-                                            <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                            <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                          </div>
-                                        </center>
-                                        <?php
-                                      }
-                                    }else{
-                                      ?>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                      <?php
-                                    }
-                                    ?>
-                                  </div>
-                                  <?php
-                                }else{//belum disetujui =============================================================================
-                                  $rank_p = $BarangM->get_progress_by_kode_item_pengajuan($barang->kode_item_pengajuan)->result()[0]->kode_jabatan_unit;//cari progress berdasarkan kode item pengajuan
-                                  $rank_progress = $BarangM->cek_rank_barang_by_id_pegawai($rank_p)->ranking; // cari ranking by kode jabatan unit
-                                  if($rank_sendiri > $rank_progress){ //progress sampe diatas 
-                                    ?>
-                                    <div class="btn-group">
-                                      <?php
-                                      if(in_array(13, $cek_menu)){
-                                        if($jenis_barang != 3){
-                                          ?>
-                                          <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                          <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                          <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                          <?php
-                                        }else{
-                                          ?>
-                                          <center>
-                                            <div class="btn-group">
-                                              <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                              <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                            </div>
-                                          </center>
-                                          <?php
-                                        }
-                                      }else{
-                                        ?>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <?php
-                                      }
-                                      ?>
-                                    </div>
-                                    <?php
-                                  }else{ //progress sampe bawah =====================================================================
-                                    ?>
-                                    <div class="btn-group">
-                                      <?php
-                                      if(in_array(13, $cek_menu)){
-                                        if($jenis_barang != 3){
-                                          ?>
-                                          <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                          <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                          <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                          <?php
-                                        }else{
-                                          ?>
-                                          <center>
-                                            <div class="btn-group">
-                                              <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                              <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                            </div>
-                                          </center>
-                                          <?php
-                                        }
-                                      }else{
-                                        ?>
-                                        <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                        <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <?php
-                                      }
-                                      ?>
-                                    </div>
-                                    <?php
-                                  }
-                                }
-                              }else{ //acc masuk dulu baru item pengajuan ===========================================================
-                                ?>
-                                <div class="btn-group">
-                                  <?php
-                                  if(in_array(13, $cek_menu)){
-                                    if($jenis_barang != 3){
-                                      ?>
-                                      <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                      <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                      <?php
-                                    }else{
-                                      ?>
-                                      <center>
-                                        <div class="btn-group">
-                                          <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                          <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                        </div>
-                                      </center>
-                                      <?php
-                                    }
-                                  }else{
+                              
+                              ?>
+                              <div class="btn-group">
+                                <?php
+                                if(in_array(13, $cek_menu)){
+                                  if($jenis_barang != 3){
                                     ?>
                                     <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
                                     <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                    <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
+                                    <?php
+                                  }else{
+                                    ?>
+                                    <center>
+                                      <div class="btn-group">
+                                        <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
+                                        <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
+                                      </div>
+                                    </center>
                                     <?php
                                   }
+                                }else{
                                   ?>
-                                </div>
-                                <?php
-                              }
+                                  <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
+                                  <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                  <?php
+                                }
+                                ?>
+                              </div>
+                              <?php
+                              
                             }else{ //ditolak ========================================================================================
                               ?>
                               <div class="btn-group">
@@ -1267,400 +766,42 @@
                           }elseif($atasan == "tidak"){ //pengaju STAF (bukan atsan) =================================================
                             $kode_unit_pengaju = $BarangM->staf_sendiri($barang->kode_jabatan_unit)->result()[0]->kode_unit;
                             if($kode_unit_pengaju == $data_diri->kode_unit){ //pengaju staf sendiri->bisa acc =======================
-                              if($barang_created > $acc_created){ //barang dullu baru acc_item pengajuan masuk ======================
-                                if(!is_null($barang->status_pengajuan)){//sudah disetujui->tidak bisa acc ===========================
-                                  ?>
-                                  <div class="btn-group">
-                                    <?php
-                                    if(in_array(13, $cek_menu)){
-                                      if($jenis_barang != 3){
-                                        ?>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                        <?php
-                                      }else{
-                                        ?>
-                                        <center>
-                                          <div class="btn-group">
-                                            <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                            <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                          </div>
-                                        </center>
-                                        <?php
-                                      }
-                                    }else{
-                                      ?>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                      <?php
-                                    }
-                                    ?>
-                                  </div>
-                                  <?php
-                                }else{//belum disetujui =============================================================================
-                                  $rank_p = $BarangM->get_progress_by_kode_item_pengajuan($barang->kode_item_pengajuan)->result()[0]->kode_jabatan_unit;//cari progress berdasarkan kode item pengajuan
-                                  $rank_progress = $BarangM->cek_rank_barang_by_id_pegawai($rank_p)->ranking; // cari ranking by kode jabatan unit
-                                  if($rank_sendiri > $rank_progress){ //progress sampe diatas =======================================
+                              
+                                $progress_atasan_terima = $BarangM->get_progress_terima_by_kode_jabatan_unit($barang->kode_item_pengajuan, $barang->pimpinan,'1'); //progress dari atasan yang "diterima"(kode 1)
+                                $progress_atasan_tolak = $BarangM->get_progress_terima_by_kode_jabatan_unit($barang->kode_item_pengajuan, $barang->pimpinan,'2'); //progress dari atasan yang "ditolak"(kode 2)
+                                if($acc_atasan > 0){ // item pengajuan sudah diberikan progress atsan ===============================
+                                  if($progress_atasan_terima > 0){ // diterima ->bisa acc ===========================================
+                                    
                                     ?>
                                     <div class="btn-group">
                                       <?php
                                       if(in_array(13, $cek_menu)){
                                         if($jenis_barang != 3){
                                           ?>
-                                          <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                          <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                          <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
+                                          <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
+                                          <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                          <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
                                           <?php
                                         }else{
                                           ?>
                                           <center>
                                             <div class="btn-group">
-                                              <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                              <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
+                                              <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
+                                              <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
                                             </div>
                                           </center>
                                           <?php
                                         }
                                       }else{
                                         ?>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                        <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
+                                        <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
                                         <?php
                                       }
                                       ?>
                                     </div>
                                     <?php
-                                  }else{ //progress sampe bawah =====================================================================
-                                    $progress_atasan_terima = $BarangM->get_progress_terima_by_kode_jabatan_unit($barang->kode_item_pengajuan, $barang->pimpinan,'1'); //progress dari atasan yang "diterima"(kode 1)
-                                    $progress_atasan_tolak = $BarangM->get_progress_terima_by_kode_jabatan_unit($barang->kode_item_pengajuan, $barang->pimpinan,'2'); //progress dari atasan yang "ditolak"(kode 2)
-                                    if($acc_atasan > 0){ // item pengajuan sudah diberikan progress atsan ===========================
-                                      if($progress_atasan_terima > 0){ // diterima ->bisa acc =======================================
-                                        if($barang_created > $acc_created){ //item pengajuan dullu baru acc_item pengajuan masuk ====
-                                          if(!is_null($barang->status_pengajuan)){//sudah disetujui->tidak bisa acc =================
-                                            ?>
-                                            <div class="btn-group">
-                                              <?php
-                                              if(in_array(13, $cek_menu)){
-                                                if($jenis_barang != 3){
-                                                  ?>
-                                                  <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                                  <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                                  <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                                  <?php
-                                                }else{
-                                                  ?>
-                                                  <center>
-                                                    <div class="btn-group">
-                                                      <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                      <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                                    </div>
-                                                  </center>
-                                                  <?php
-                                                }
-                                              }else{
-                                                ?>
-                                                <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                                <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                                <?php
-                                              }
-                                              ?>
-                                            </div>
-                                            <?php
-                                          }else{//belum disetujui ===================================================================
-                                            $rank_sendiri   = $BarangM->cek_rank_barang_by_id_pegawai($jabatan_saya)->ranking; //rank sendiri
-                                            $rank_p = $BarangM->get_progress_by_kode_item_pengajuan($barang->kode_item_pengajuan)->result()[0]->kode_jabatan_unit;//cari progress berdasarkan kode item pengajuan
-                                            $rank_progress = $BarangM->cek_rank_barang_by_id_pegawai($rank_p)->ranking; // cari ranking by kode jabatan unit
-                                            if($rank_sendiri > $rank_progress){ //progress sampe diatas =============================
-                                              ?>
-                                              <div class="btn-group">
-                                                <?php
-                                                if(in_array(13, $cek_menu)){
-                                                  if($jenis_barang != 3){
-                                                    ?>
-                                                    <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                                    <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                                    <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                                    <?php
-                                                  }else{
-                                                    ?>
-                                                    <center>
-                                                      <div class="btn-group">
-                                                        <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                        <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                                      </div>
-                                                    </center>
-                                                    <?php
-                                                  }
-                                                }else{
-                                                  ?>
-                                                  <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                                  <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                                  <?php
-                                                }
-                                                ?>
-                                              </div>
-                                              <?php
-                                            }else{ //progress sampe bawah ===========================================================
-                                              ?>
-                                              <div class="btn-group">
-                                                <?php
-                                                if(in_array(13, $cek_menu)){
-                                                  if($jenis_barang != 3){
-                                                    ?>
-                                                    <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                                    <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                                    <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                                    <?php
-                                                  }else{
-                                                    ?>
-                                                    <center>
-                                                      <div class="btn-group">
-                                                        <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                        <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                                      </div>
-                                                    </center>
-                                                    <?php
-                                                  }
-                                                }else{
-                                                  ?>
-                                                  <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                                  <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                                  <?php
-                                                }
-                                                ?>
-                                              </div>
-                                              <?php
-                                            }
-                                          }
-                                        }else{ //acc masuk dulu baru item pengajuan =================================================
-                                          ?>
-                                          <div class="btn-group">
-                                            <?php
-                                            if(in_array(13, $cek_menu)){
-                                              if($jenis_barang != 3){
-                                                ?>
-                                                <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                                <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                                <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                                <?php
-                                              }else{
-                                                ?>
-                                                <center>
-                                                  <div class="btn-group">
-                                                    <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                    <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                                  </div>
-                                                </center>
-                                                <?php
-                                              }
-                                            }else{
-                                              ?>
-                                              <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                              <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                              <?php
-                                            }
-                                            ?>
-                                          </div>
-                                          <?php
-                                        }
-                                      }elseif($progress_atasan_tolak > 0){ //ditolak ->tidak bisa acc ===============================
-                                        ?>
-                                        <div class="btn-group">
-                                          <?php
-                                          if(in_array(13, $cek_menu)){
-                                            if($jenis_barang != 3){
-                                              ?>
-                                              <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                              <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                              <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                              <?php
-                                            }else{
-                                              ?>
-                                              <center>
-                                                <div class="btn-group">
-                                                  <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                  <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                                </div>
-                                              </center>
-                                              <?php
-                                            }
-                                          }else{
-                                            ?>
-                                            <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                            <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                            <?php
-                                          }
-                                          ?>
-                                        </div>
-                                        <?php
-                                      }
-                                    }elseif($acc_atasan == 0){ //item pengajuan belum acc atasan->tidak bisa acc ====================
-                                      ?>
-                                      <div class="btn-group">
-                                        <?php
-                                        if(in_array(13, $cek_menu)){
-                                          if($jenis_barang != 3){
-                                            ?>
-                                            <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                            <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                            <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                            <?php
-                                          }else{
-                                            ?>
-                                            <center>
-                                              <div class="btn-group">
-                                                <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                              </div>
-                                            </center>
-                                            <?php
-                                          }
-                                        }else{
-                                          ?>
-                                          <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                          <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                          <?php
-                                        }
-                                        ?>
-                                      </div>
-                                      <?php
-                                    }
-                                  }
-                                }
-                              }else{ //acc masuk dulu baru item pengajuan ===========================================================
-                                $progress_atasan_terima = $BarangM->get_progress_terima_by_kode_jabatan_unit($barang->kode_item_pengajuan, $barang->pimpinan,'1'); //progress dari atasan yang "diterima"(kode 1)
-                                $progress_atasan_tolak = $BarangM->get_progress_terima_by_kode_jabatan_unit($barang->kode_item_pengajuan, $barang->pimpinan,'2'); //progress dari atasan yang "ditolak"(kode 2)
-                                if($acc_atasan > 0){ // item pengajuan sudah diberikan progress atsan ===============================
-                                  if($progress_atasan_terima > 0){ // diterima ->bisa acc ===========================================
-                                    if($barang_created > $acc_created){ //item pengajuan dullu baru acc_item pengajuan masuk ========
-                                      if(!is_null($barang->status_pengajuan)){//sudah disetujui->tidak bisa acc =====================
-                                        ?>
-                                        <div class="btn-group">
-                                          <?php
-                                          if(in_array(13, $cek_menu)){
-                                            if($jenis_barang != 3){
-                                              ?>
-                                              <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                              <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                              <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                              <?php
-                                            }else{
-                                              ?>
-                                              <center>
-                                                <div class="btn-group">
-                                                  <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                  <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                                </div>
-                                              </center>
-                                              <?php
-                                            }
-                                          }else{
-                                            ?>
-                                            <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                            <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                            <?php
-                                          }
-                                          ?>
-                                        </div>
-                                        <?php
-                                      }else{//belum disetujui =======================================================================
-                                        $rank_sendiri   = $BarangM->cek_rank_barang_by_id_pegawai($jabatan_saya)->ranking; //rank sendiri
-                                        $rank_p = $BarangM->get_progress_by_kode_item_pengajuan($barang->kode_item_pengajuan)->result()[0]->kode_jabatan_unit;//cari progress berdasarkan kode item pengajuan
-                                        $rank_progress = $BarangM->cek_rank_barang_by_id_pegawai($rank_p)->ranking; // cari ranking by kode jabatan unit
-                                        if($rank_sendiri > $rank_progress){ //progress sampe diatas 
-                                          ?>
-                                          <div class="btn-group">
-                                            <?php
-                                            if(in_array(13, $cek_menu)){
-                                              if($jenis_barang != 3){
-                                                ?>
-                                                <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                                <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                                <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                                <?php
-                                              }else{
-                                                ?>
-                                                <center>
-                                                  <div class="btn-group">
-                                                    <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                    <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                                  </div>
-                                                </center>
-                                                <?php
-                                              }
-                                            }else{
-                                              ?>
-                                              <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                              <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                              <?php
-                                            }
-                                            ?>
-                                          </div>
-                                          <?php
-                                        }else{ //progress sampe bawah ===============================================================
-                                          ?>
-                                          <div class="btn-group">
-                                            <?php
-                                            if(in_array(13, $cek_menu)){
-                                              if($jenis_barang != 3){
-                                                ?>
-                                                <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                                <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                                <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                                <?php
-                                              }else{
-                                                ?>
-                                                <center>
-                                                  <div class="btn-group">
-                                                    <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                    <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                                  </div>
-                                                </center>
-                                                <?php
-                                              }
-                                            }else{
-                                              ?>
-                                              <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                              <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                              <?php
-                                            }
-                                            ?>
-                                          </div>
-                                          <?php
-                                        }
-                                      }
-                                    }else{ //acc masuk dulu baru item pengajuan =====================================================
-                                      ?>
-                                      <div class="btn-group">
-                                        <?php
-                                        if(in_array(13, $cek_menu)){
-                                          if($jenis_barang != 3){
-                                            ?>
-                                            <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                            <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                            <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                            <?php
-                                          }else{
-                                            ?>
-                                            <center>
-                                              <div class="btn-group">
-                                                <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                              </div>
-                                            </center>
-                                            <?php
-                                          }
-                                        }else{
-                                          ?>
-                                          <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                          <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                          <?php
-                                        }
-                                        ?>
-                                      </div>
-                                      <?php
-                                    }
+                                    
                                   }elseif($progress_atasan_tolak > 0){ //ditolak ->tidak bisa acc ===================================
                                     ?>
                                     <div class="btn-group">
@@ -1723,140 +864,43 @@
                                   </div>
                                   <?php
                                 }
-                              }
+                                
                             }elseif ($kode_unit_pengaju != $data_diri->kode_unit) { //pengaju bukan staf sendiri ====================
                               $progress_atasan_terima = $BarangM->get_progress_terima_by_kode_jabatan_unit($barang->kode_item_pengajuan, $barang->pimpinan,'1'); //progress dari atasan yang "diterima"(kode 1)
                               $progress_atasan_tolak = $BarangM->get_progress_terima_by_kode_jabatan_unit($barang->kode_item_pengajuan, $barang->pimpinan,'2'); //progress dari atasan yang "ditolak"(kode 2)
                               if($acc_atasan > 0){ // item pengajuan sudah diberikan progress atsan =================================
                                 if($progress_atasan_terima > 0){ // diterima ->bisa acc =============================================
-                                  if($barang_created > $acc_created){ //item pengajuan dullu baru acc_item pengajuan masuk ==========
-                                    if(!is_null($barang->status_pengajuan)){//sudah disetujui->tidak bisa acc =======================
-                                      ?>
-                                      <div class="btn-group">
-                                        <?php
-                                        if(in_array(13, $cek_menu)){
-                                          if($jenis_barang != 3){
-                                            ?>
-                                            <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                            <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                            <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                            <?php
-                                          }else{
-                                            ?>
-                                            <center>
-                                              <div class="btn-group">
-                                                <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                              </div>
-                                            </center>
-                                            <?php
-                                          }
-                                        }else{
-                                          ?>
-                                          <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                          <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                          <?php
-                                        }
-                                        ?>
-                                      </div>
-                                      <?php
-                                    }else{//belum disetujui =========================================================================
-                                      $rank_sendiri   = $BarangM->cek_rank_barang_by_id_pegawai($jabatan_saya)->ranking; //rank sendiri
-                                      $rank_p = $BarangM->get_progress_by_kode_item_pengajuan($barang->kode_item_pengajuan)->result()[0]->kode_jabatan_unit;//cari progress berdasarkan kode item pengajuan
-                                      $rank_progress = $BarangM->cek_rank_barang_by_id_pegawai($rank_p)->ranking; // cari ranking by kode jabatan unit
-                                      if($rank_sendiri > $rank_progress){ //progress sampe diatas ===================================
-                                        ?>
-                                        <div class="btn-group">
-                                          <?php
-                                          if(in_array(13, $cek_menu)){
-                                            if($jenis_barang != 3){
-                                              ?>
-                                              <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                              <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                              <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                              <?php
-                                            }else{
-                                              ?>
-                                              <center>
-                                                <div class="btn-group">
-                                                  <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                  <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                                </div>
-                                              </center>
-                                              <?php
-                                            }
-                                          }else{
-                                            ?>
-                                            <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                            <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                            <?php
-                                          }
-                                          ?>
-                                        </div>
-                                        <?php
-                                      }else{ //progress sampe bawah =================================================================
-                                        ?>
-                                        <div class="btn-group">
-                                          <?php
-                                          if(in_array(13, $cek_menu)){
-                                            if($jenis_barang != 3){
-                                              ?>
-                                              <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                              <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                              <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                              <?php
-                                            }else{
-                                              ?>
-                                              <center>
-                                                <div class="btn-group">
-                                                  <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                                  <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                                </div>
-                                              </center>
-                                              <?php
-                                            }
-                                          }else{
-                                            ?>
-                                            <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                            <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                            <?php
-                                          }
-                                          ?>
-                                        </div>
-                                        <?php
-                                      }
-                                    }
-                                  }else{ //acc masuk dulu baru item pengajuan =======================================================
-                                    ?>
-                                    <div class="btn-group">
-                                      <?php
-                                      if(in_array(13, $cek_menu)){
-                                        if($jenis_barang != 3){
-                                          ?>
-                                          <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                          <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                          <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                          <?php
-                                        }else{
-                                          ?>
-                                          <center>
-                                            <div class="btn-group">
-                                              <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                              <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                            </div>
-                                          </center>
-                                          <?php
-                                        }
-                                      }else{
+                                  
+                                  ?>
+                                  <div class="btn-group">
+                                    <?php
+                                    if(in_array(13, $cek_menu)){
+                                      if($jenis_barang != 3){
                                         ?>
                                         <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
                                         <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                        <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
+                                        <?php
+                                      }else{
+                                        ?>
+                                        <center>
+                                          <div class="btn-group">
+                                            <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
+                                            <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
+                                          </div>
+                                        </center>
                                         <?php
                                       }
+                                    }else{
                                       ?>
-                                    </div>
-                                    <?php
-                                  }
+                                      <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
+                                      <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                      <?php
+                                    }
+                                    ?>
+                                  </div>
+                                  <?php
+                                  
                                 }elseif($progress_atasan_tolak > 0){ //ditolak ->tidak bisa acc =====================================
                                   ?>
                                   <div class="btn-group">
@@ -1921,133 +965,37 @@
                               }
                             }
                           }elseif($atasan == "ya"){ // ==============================================================================
-                            if($barang_created > $acc_created){ //item pengajuan dullu baru acc_item pengajuan masuk ================
-                              if(!is_null($barang->status_pengajuan)){//sudah disetujui->tidak bisa acc =============================
-                                ?>
-                                <div class="btn-group">
-                                  <?php
-                                  if(in_array(13, $cek_menu)){
-                                    if($jenis_barang != 3){
-                                      ?>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                      <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase">1</span></a> 
-                                      <?php
-                                    }else{
-                                      ?>
-                                      <center>
-                                        <div class="btn-group">
-                                          <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                          <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                        </div>
-                                      </center>
-                                      <?php
-                                    }
-                                  }else{
-                                    ?>
-                                    <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                    <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                    <?php
-                                  }
+                           
+                            ?>
+                            <div class="btn-group">
+                              <?php
+                              if(in_array(13, $cek_menu)){
+                                if($jenis_barang != 3){
                                   ?>
-                                </div>
-                                <?php
-                              }else{//belum disetujui ===============================================================================
-                                $rank_p = $BarangM->get_progress_by_kode_item_pengajuan($barang->kode_item_pengajuan)->result()[0]->kode_jabatan_unit;//cari progress berdasarkan kode item pengajuan
-                                $rank_progress = $BarangM->cek_rank_barang_by_id_pegawai($rank_p)->ranking; // cari ranking by kode jabatan unit
-                                if($rank_sendiri > $rank_progress){ //progress sampe diatas 
-                                  ?>
-                                  <div class="btn-group">
-                                    <?php
-                                    if(in_array(13, $cek_menu)){
-                                      if($jenis_barang != 3){
-                                        ?>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                        <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <a disabled href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                        <?php
-                                      }else{
-                                        ?>
-                                        <center>
-                                          <div class="btn-group">
-                                            <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                            <a disabled href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                          </div>
-                                        </center>
-                                        <?php
-                                      }
-                                    }else{
-                                      ?>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a disabled href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                      <?php
-                                    }
-                                    ?>
-                                  </div>
+                                  <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success">1<span class="glyphicon glyphicon-ok"></span></a>
+                                  <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                  <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
                                   <?php
-                                }else{ //progress sampe bawah =======================================================================
-                                  ?>
-                                  <div class="btn-group">
-                                    <?php
-                                    if(in_array(13, $cek_menu)){
-                                      if($jenis_barang != 3){
-                                        ?>
-                                        <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                        <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                        <?php
-                                      }else{
-                                        ?>
-                                        <center>
-                                          <div class="btn-group">
-                                            <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                            <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                          </div>
-                                        </center>
-                                        <?php
-                                      }
-                                    }else{
-                                      ?>
-                                      <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                      <?php
-                                    }
-                                    ?>
-                                  </div>
-                                  <?php
-                                }
-                              }
-                            }else{ //acc masuk dulu baru item pengajuan =============================================================
-                              ?>
-                              <div class="btn-group">
-                                <?php
-                                if(in_array(13, $cek_menu)){
-                                  if($jenis_barang != 3){
-                                    ?>
-                                    <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success">1<span class="glyphicon glyphicon-ok"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
-                                    <a href="<?php echo base_url('BarangC/post_persetujuan_tersedia/'.$barang->kode_item_pengajuan.'/'.$data_diri->kode_jabatan_unit);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tersedia" class="btn btn-info btn-info" onClick="return confirm('Anda yakin akan menyelesaikan pengajuan ini dikarenakan barang tersedia?')"><span class="glyphicon glyphicon-briefcase"></span></a> 
-                                    <?php
-                                  }else{
-                                    ?>
-                                    <center>
-                                      <div class="btn-group">
-                                        <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
-                                        <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
-                                      </div>
-                                    </center>
-                                    <?php
-                                  }
                                 }else{
                                   ?>
-                                  <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                  <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                  <center>
+                                    <div class="btn-group">
+                                      <a href="<?php echo base_url('BarangC/update_klasifikasi/'."2/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-success btn-sm">Aset</span></a>
+                                      <a href="<?php echo base_url('BarangC/update_klasifikasi/'."1/".$barang->kode_barang);?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="Aksi" class="btn btn-danger btn-sm">Habis Pakai</span></a>
+                                    </div>
+                                  </center>
                                   <?php
                                 }
+                              }else{
                                 ?>
-                              </div>
-                              <?php
-                            }
+                                <a href="#" data-toggle="modal" data-target="#mymodal1-<?php echo $barang->kode_item_pengajuan; ?>" title="Terima" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
+                                <a href="#" data-toggle="modal" data-target="#mymodal2-<?php echo $barang->kode_item_pengajuan; ?>" title="Tolak" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                <?php
+                              }
+                              ?>
+                            </div>
+                            <?php
+                            
                           }
                         }
                       }

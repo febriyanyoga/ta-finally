@@ -19,139 +19,141 @@
        <h3 class="page-header" style="margin-top: 0;"><center>Persetujuan Barang Staf</center></h3>
      </div>
    </div>
-   <div class="row">
-    <div class="col-lg-12">
-      <div class="card mb-3">
-        <div class="card-header">
-          <div class="card-body">
 
-            <div class="row">
-              <div class="col-lg-6">
-                <!-- Info Status -->
-                <div class="alert alert-info">
-                  <strong>Informasi!</strong>
-                  <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan barang<strong>:</strong></p>
-                  <table border="3" style="border-color: transparent;" >
-                    <tr style="height: 30px">
-                      <td style="width: 10%"><a class="label label-primary">BARU</a></td>
-                      <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
-                        <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan barang baru saja di ajukan dan belum memiliki progres</th>
-                        </tr>
-                        <tr style="height: 30px">
-                          <td><a class="label label-info">PROSES</a></td>
-                          <td><i class="glyphicon glyphicon-arrow-right"></td>
-                            <td> Status ini menjelaskan bahwa pengajuan barang sedang dalam proses persetujuan</td>
-                          </tr>
-                          <tr style="height: 30px">
-                            <td><a class="label label-success">PENGAJUAN</a></td>
-                            <td><i class="glyphicon glyphicon-arrow-right"></td>
-                              <td> Status ini menjelaskan bahwa pengajuan barang sudah disetujui dan sedang dalam proses pengajuan RAB</td>
-                            </tr>
-                            <tr style="height: 30px">
-                              <td><a class="label label-success">SELESAI</a></td>
-                              <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                <td> Status ini menjelaskan bahwa pengajuan barang telah selesai</td>
-                              </tr>
-                              <tr style="height: 30px">
-                                <td><a class="label label-warning">TUNDA</a></td>
-                                <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                  <td> Status ini menjelaskan bahwa pengajuan barang sedang di tunda untuk diajukan dalam RAB dan akan diajukan pada pengajuan RAB berikutnya</td>
-                                </tr>
-                                <tr style="height: 30px">
-                                  <td><a class="label label-success">DISETUJUI</a></td>
-                                  <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                    <td> Status ini menjelaskan bahwa pegajuan barang telah disetujui pada RAB yang diajukan</td>
-                                  </tr>
-                                  <tr style="height: 30px">
-                                    <td><a class="label label-danger">TOLAK</a></td>
-                                    <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                      <td> Status ini menjelaskan bahwa pengajuan barang ditolak</td>
-                                    </tr>
-                                  </table>
-                                </div>
-                              </div>
-                              <!-- End Info Status -->
-                              <div class="col-lg-6">
-                                <!-- Keterangan Tolak dan Setuju -->
-                                <div class="alert alert-warning">
-                                  <strong>Perhatian!</strong>
-                                  <p>Berikut adalah penjelasan <strong>tombol persetujuan</strong> dari persetujuan pada tabel pengajuan barang<strong>:</strong></p>
-                                  <table border="3" style="border-color: transparent;" >
-                                    <tr style="height: 30px">
-                                      <td style="width: 10%"><a class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
-                                      </td>
-                                      <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
-                                      <td style="width: 62%"> Tombol ini digunakan untuk menyetujui pengajuan barang yang diajukan oleh staf</td>
-                                    </tr>
-                                      <tr style="height: 30px">
-                                        <td><a class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a></td>
-                                        <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                        <td> Tombol ini digunakan untuk menolak pengajuan barang yang diajukan oleh staf</td>
-                                        </tr>
-                                  </table>
-                                  <p> </p>
-                                  <p>Tombol-tombol untuk melakukan persetujuan hanya bisa dilakukan sebanyak satu kali, ketika persetujuan sudah dilakukan maka persetujuan tidak bisa diubah lagi dan akan digantikan dengan kata "selesai" disertai tanda centang (<span class="glyphicon glyphicon-ok"></span>).</p>
-                                  </div>
-                                <!-- End Ket Tolak dan Setuju -->
-                                </div>
-                              </div>
+   <button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-md" title="klik untuk melihat informasi"><i class="glyphicon glyphicon-alert"> Informasi</i></button><br><br>
 
-                                <div class="table-responsive">
-                                  <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
-                                    <thead>
-                                      <tr class="text-center">
-                                        <!-- <th>No. Identitas</th> -->
-                                        <th class="text-center">Nama Pengajuan Barang</th>
-                                        <th class="text-center">Nama Pengaju</th>
-                                        <th class="text-center">Jabatan Pengaju</th>
-                                        <th class="text-center">Gambar</th>
-                                        <th class="text-center">Tgl Pengajuan</th>
-                                        <th class="text-center" style="width: 5%">Jumlah</th>
-                                        <th class="text-center">Total Harga</th>
-                                        <th class="text-center">Status</th>
-                                        <th class="text-center">Aksi</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <?php
-                                      foreach ($data_barang_staf as $barang) {
-                                        ?>
-                                        <tr class="text-center" >
-                                          <td> 
-                                           <a href="#" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><?php echo $barang->nama_item_pengajuan ?></a>
-                                         </td>
-                                         <td><?php 
+   <div class="collapse" id="demo">
+    <div class="col-lg-6">
+      <!-- Info Status -->
+      <div class="alert alert-info">
+        <strong>Informasi!</strong>
+        <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan barang<strong>:</strong></p>
+        <table border="3" style="border-color: transparent;" >
+          <tr style="height: 30px">
+            <td style="width: 10%"><a class="label label-primary">BARU</a></td>
+            <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan barang baru saja di ajukan dan belum memiliki progres</th>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-info">PROSES</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan barang sedang dalam proses persetujuan</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-success">PENGAJUAN</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan barang sudah disetujui dan sedang dalam proses pengajuan RAB</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-success">SELESAI</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan barang telah selesai</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-warning">TUNDA</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan barang sedang di tunda untuk diajukan dalam RAB dan akan diajukan pada pengajuan RAB berikutnya</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-success">DISETUJUI</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pegajuan barang telah disetujui pada RAB yang diajukan</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-danger">TOLAK</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan barang ditolak</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <!-- End Info Status -->
+      <div class="col-lg-6">
+        <!-- Keterangan Tolak dan Setuju -->
+        <div class="alert alert-warning">
+          <strong>Perhatian!</strong>
+          <p>Berikut adalah penjelasan <strong>tombol persetujuan</strong> dari persetujuan pada tabel pengajuan barang<strong>:</strong></p>
+          <table border="3" style="border-color: transparent;" >
+            <tr style="height: 30px">
+              <td style="width: 10%"><a class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></a>
+              </td>
+              <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td style="width: 62%"> Tombol ini digunakan untuk menyetujui pengajuan barang yang diajukan oleh staf</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></td>
+                <td> Tombol ini digunakan untuk menolak pengajuan barang yang diajukan oleh staf</td>
+              </tr>
+            </table>
+            <p> </p>
+            <p>Tombol-tombol untuk melakukan persetujuan hanya bisa dilakukan sebanyak satu kali, ketika persetujuan sudah dilakukan maka persetujuan tidak bisa diubah lagi dan akan digantikan dengan kata "selesai" disertai tanda centang (<span class="glyphicon glyphicon-ok"></span>).</p>
+          </div>
+          <!-- End Ket Tolak dan Setuju -->
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card mb-3">
+            <div class="card-header">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
+                    <thead>
+                      <tr class="text-center">
+                        <!-- <th>No. Identitas</th> -->
+                        <th class="text-center">Nama Pengajuan Barang</th>
+                        <th class="text-center">Nama Pengaju</th>
+                        <th class="text-center">Jabatan Pengaju</th>
+                        <th class="text-center">Gambar</th>
+                        <th class="text-center">Tgl Pengajuan</th>
+                        <th class="text-center" style="width: 5%">Jumlah</th>
+                        <th class="text-center">Total Harga</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      foreach ($data_barang_staf as $barang) {
+                        ?>
+                        <tr class="text-center" >
+                          <td> 
+                           <a href="#" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><?php echo $barang->nama_item_pengajuan ?></a>
+                         </td>
+                         <td><?php 
                      // mendapatkan nama pengaju dari kode item pengajuan berdasarkan id
-                                         $pengaju = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->nama;
-                                         echo $pengaju;
-                                         ?>
-                                       </td>
-                                       <td>
-                                        <?php 
+                         $pengaju = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->nama;
+                         echo $pengaju;
+                         ?>
+                       </td>
+                       <td>
+                        <?php 
                     // mendapatkan nama jabatan dari kode item pengajuan berdasarkan id
-                                        $jabatan      = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->nama_jabatan;
+                        $jabatan      = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->nama_jabatan;
                     // mendapatkan kode jabatan dari kode item pengajuan berdasarkan id
-                                        $kode_jabatan = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->kode_jabatan;
+                        $kode_jabatan = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->kode_jabatan;
                     // mendapatkan nama unit dari kode item pengajuan berdasarkan id
-                                        $unit = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->nama_unit;
+                        $unit = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->nama_unit;
                     // mendapatkan kode unit dari kode item pengajuan berdasarkan id
-                                        $kode_unit = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->kode_unit;
+                        $kode_unit = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->kode_unit;
                     //menampilkan nama jabatan dan unit dari pengaju item pengajuan
-                                        echo $jabatan." ".$unit;
-                                        ?>
-                                      </td>
-                                      <td><center><img style="height: 60px;" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>"></center></td>
-                                      <td><?php echo $barang->tgl_item_pengajuan;?></td>
-                                      <td><?php echo $barang->jumlah;?></td>
-                                      <?php 
-                                      $jumlah = $barang->jumlah;
-                                      $harga = $barang->harga_satuan;
+                        echo $jabatan." ".$unit;
+                        ?>
+                      </td>
+                      <td><center><img style="height: 60px;" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>"></center></td>
+                      <td><?php echo $barang->tgl_item_pengajuan;?></td>
+                      <td><?php echo $barang->jumlah;?></td>
+                      <?php 
+                      $jumlah = $barang->jumlah;
+                      $harga = $barang->harga_satuan;
                   //menghitung hasil total biaya item pengajuan dari perkalian harga satuan dengan jumlah barang
-                                      $total = $jumlah*$harga;
-                                      ?>
-                                      <td>Rp<?php echo number_format($total, 0,',','.') ?>,00</td>
-                                      <td> 
-                                        <?php
+                      $total = $jumlah*$harga;
+                      ?>
+                      <td>Rp<?php echo number_format($total, 0,',','.') ?>,00</td>
+                      <td> 
+                        <?php
                         $kode_fk = $barang->kode_item_pengajuan; //untuk mengambil kode_item_pengajuan
                         $id_staf_sarpras = $BarangM->cek_id_staf_sarpras()->result()[0]->kode_jabatan_unit; // untuk menmeriksa pengajuan tersebut mendapatkan progress dari siapa saja
                         $progress_oleh_staf = $BarangM->get_progress_oleh_staf($kode_fk, $id_staf_sarpras);//untuk mengetahui jika pengajuan sudah mendapat progress yang diberikan oleh staff sarpras, dimana staff sarpras adalah yang paling akhir memberikan progress tambahan
@@ -277,7 +279,7 @@
                             <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> 
                             <!-- kirim kode_fk berdasarkan kode_item_pengajuan dari barang yang terpilih -->
                             <input class="form-control" type="hidden" id="kode_fk" name="kode_fk" value="<?php echo $barang->kode_item_pengajuan;?>" required>
-                             <!-- kirim jenis_progress berdasarkan kode_item_pengajuan dari barang yang terpilih -->
+                            <!-- kirim jenis_progress berdasarkan kode_item_pengajuan dari barang yang terpilih -->
                             <input class="form-control" type="hidden" id="jenis_progress" name="jenis_progress" value="barang_staf" required>
                             <!-- kirim kode_nama_progress = 1 untuk terima -->
                             <input type="hidden" class="form-control" placeholder id="kode_nama_progress" name="kode_nama_progress" required value="1">
@@ -315,7 +317,7 @@
                           <!-- kirim kode_fk berdasarkan kode_item_pengajuan dari barang yang terpilih -->
                           <input class="form-control" type="hidden" id="kode_fk" name="kode_fk" value="<?php echo $barang->kode_item_pengajuan;?>" required>
                           <!-- kirim jenis_progress berdasarkan kode_item_pengajuan dari barang yang terpilih -->
-                            <input class="form-control" type="hidden" id="jenis_progress" name="jenis_progress" value="barang_staf" required>
+                          <input class="form-control" type="hidden" id="jenis_progress" name="jenis_progress" value="barang_staf" required>
                           <!-- kirim kode_nama_progress = 2 untuk tolak -->
                           <input type="hidden" class="form-control" placeholder id="kode_nama_progress" name="kode_nama_progress" required value="2">
                           <input class="form-control" type="hidden" id="kode_jabatan_unit" name="kode_jabatan_unit" value="<?php echo $data_diri->kode_jabatan_unit;?>" required> 
