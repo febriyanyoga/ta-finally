@@ -426,6 +426,18 @@
 		return TRUE;
 	}
 
+	public function update_barang_by_kode($kode_pengajuan, $data){ //untuk mengupdate status item_pengajuan semua jadi disetujui
+		$this->db->where_in('kode_pengajuan',$kode_pengajuan);
+		$this->db->update('item_pengajuan', $data);
+		return TRUE;
+	}
+
+	public function update_rab_by_kode($kode_pengajuan, $data){ //untuk mengupdate status item_pengajuan semua jadi disetujui
+		$this->db->where_in('kode_pengajuan',$kode_pengajuan);
+		$this->db->update('pengajuan', $data);
+		return TRUE;
+	}
+
 	public function get_kode_fk_by_kode_jabatan_unit($kode_jabatan_unit, $kode_jenis_kegiatan){
 		$this->db->select('*');
 		$this->db->from('progress');
@@ -436,6 +448,23 @@
 		$this->db->where('kegiatan.kode_jenis_kegiatan', $kode_jenis_kegiatan);
 		return $query = $this->db->get();
 	}
+
+	public function get_item_pengajuan(){ //untuk mengetahui semua item pengajuan
+		$this->db->select('*');
+		$this->db->from('item_pengajuan');
+		return $query = $this->db->get();
+	}
+
+	public function get_kode_fk_rab_by_kode_jabatan_unit($kode_jabatan_unit){ //untuk mengetahui progress diterima yang diberikan oleh jabatan unit untuk jenis pengajuan rab 
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->join('item_pengajuan', 'progress.kode_fk = item_pengajuan.kode_item_pengajuan');
+		$this->db->where('kode_jabatan_unit', $kode_jabatan_unit);
+		$this->db->where('kode_nama_progress = "1"');
+		$this->db->where('progress.jenis_progress = "rab"');
+		return $query = $this->db->get();
+	}
+
 	public function get_pilihan_jabatan_by_id($id){ //mengambil jabatan dari db jabatan berdasarkan id
 		$this->db->where('kode_jabatan', $id);
 		$query = $this->db->get('jabatan');	

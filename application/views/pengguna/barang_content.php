@@ -21,11 +21,11 @@
         <div class="alert alert-danger" id="success-alert"><strong> Error! </strong> <?=$data2;?></div>
         <?php } ?>
         <!-- sampai sini -->
-        <div class="card mb-3">
-          <div class="card-header">
-            <div class="card-body">
 
-              <!-- Keterangan Tolak dan Setuju -->
+        <button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-md" title="klik untuk melihat informasi"><i class="glyphicon glyphicon-alert"> Informasi</i></button><br><br>
+
+        <div class="collapse" id="demo">
+          <!-- Keterangan Tolak dan Setuju -->
               <div class="alert alert-info">
                 <strong>Perhatian!</strong>
                 <p>Berikut adalah penjelasan <strong>tombol ubah</strong> pada tabel barang<strong>:</strong></p>
@@ -39,7 +39,11 @@
                   
                 </div>
                 <!-- End Ket Tolak dan Setuju -->
+        </div>
 
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="card-body">
                 <a class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i> Tambah Barang</a>
                 <div class="table-responsive">
                   <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">

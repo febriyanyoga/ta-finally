@@ -224,6 +224,24 @@ class BarangC extends CI_Controller {
 		}
 	}
 
+
+    public function update_setuju()
+	{
+		$kode_item_pengajuan = $this->input->POST('kode_item_pengajuan');
+		$status_pengajuan = $this->input->POST('status_pengajuan');
+		$data = array(
+			'kode_item_pengajuan' => $kode_item_pengajuan,
+			'status_pengajuan' => $status_pengajuan
+		);
+		echo $kode_item_pengajuan;
+		echo $status_pengajuan;
+		$this->db->where('kode_item_pengajuan', $kode_item_pengajuan);
+		$query = $this->db->update('item_pengajuan', $data);
+			if($query){
+				echo json_encode(array("status" => TRUE));
+			}
+	}
+
 	public function tunda($kode){ //mengubah status pengajuan menjadi tunda karena barang belum bisa diajukan untuk diajukan
 		if($this->BarangM->tunda($kode)){
 			$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
@@ -413,122 +431,6 @@ class BarangC extends CI_Controller {
 
 		}
 	}
-
-	// public function post_tambah_ajukan_barang(){ //fungsi untuk tambah pengajuan barang
-	// 	$this->form_validation->set_rules('id_pengguna', 'Id Pengguna','required');
-	// 	$this->form_validation->set_rules('pimpinan', 'ID Pimpinan','required');
-	// 	$this->form_validation->set_rules('nama_barang', 'Nama Barang','required');
-	// 	$this->form_validation->set_rules('tgl_item_pengajuan', 'Tanggal Item Pengajuan','required');
-	// 	$this->form_validation->set_rules('nama_item_pengajuan', 'Nama Item Pengajuan','required');
-	// 	$this->form_validation->set_rules('url', 'URL','required');
-	// 	$this->form_validation->set_rules('harga_satuan', 'Harga Satuan','required');
-	// 	$this->form_validation->set_rules('merk', 'Merk','required');
-	// 	$this->form_validation->set_rules('jumlah', 'Jumlah Barang','required');
-
-	// 	$nama_barang = $_POST['nama_barang'];
-	// 	$cek_nama	 = $this->db->query("select nama_barang from barang where nama_barang = '$nama_barang'")->num_rows();
-
-	// 	if($this->form_validation->run() == FALSE){
-	// 		$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 1');
-	// 		redirect('BarangC/ajukan_barang') ;
-	// 		//redirect ke halaman pengajuan barang
-	// 	}else{
-	// 		if($cek_nama >0){
-	// 			$kode_barang = $this->BarangM->get_kode_barang($nama_barang);
-
-	// 			$id_pengguna 		= $_POST['id_pengguna'];
-	// 			$kode_barang 		= $_POST['kode_barang'];
-	// 			$tgl_item_pengajuan = $_POST['tgl_item_pengajuan'];
-	// 			$nama_item_pengajuan= $_POST['nama_item_pengajuan'];
-	// 			$url 				= $_POST['url'];
-	// 			$harga_satuan 		= $_POST['harga_satuan'];
-	// 			$harga_satuan		= str_replace('.', '', $harga_satuan);
-	// 			$harga_satuan		= str_replace('Rp', '', $harga_satuan);
-	// 			$merk 				= $_POST['merk'];
-	// 			$jumlah 			= $_POST['jumlah'];
-	// 			$pimpinan			= $_POST['pimpinan'];
-	// 			$kode_jabatan_unit 	= $_POST['kode_jabatan_unit'];
-
-	// 			$baru = "baru"; //buat status pengajuan berstatus baru ketika baru dibuat
-
-	// 			$data_pengguna		= array(
-	// 				'id_pengguna'			=> $id_pengguna,
-	// 				'kode_barang'			=> $kode_barang,
-	// 				'status_pengajuan'		=> $baru,
-	// 				'tgl_item_pengajuan'	=> $tgl_item_pengajuan,
-	// 				'nama_item_pengajuan'	=> $nama_item_pengajuan,
-	// 				'url'					=> $url,
-	// 				'harga_satuan'			=> $harga_satuan,
-	// 				'merk'					=> $merk,
-	// 				'jumlah'				=> $jumlah,
-	// 				'pimpinan'				=> $pimpinan
-
-	// 			);
-	// 			$insert_id = $this->BarangM->insert_pengajuan_barang($data_pengguna);  // untuk memasukkan data ke tabel item_pengajuan
-	// 			if($insert_id){ // Jika proses insert data item_pengajuan sukses
-
-	// 				$upload = $this->BarangM->upload($insert_id); // lakukan upload file dengan memanggil function upload yang ada di BarangM.php
-
-	// 				if($upload['result'] == "success"){ // Jika proses insert ke item barang sukses
-
-	// 					$format_tgl 		= "%Y-%m-%d";
-	// 					$tgl_progress 		= mdate($format_tgl);
-	// 					$format_waktu 		= "%H:%i:%s";
-	// 					$waktu_progress		= mdate($format_waktu);
-	// 					$kode_nama_progress	= "1";
-	// 					$komentar			= "insert otomatis";
-	// 					$jenis_progress		= "barang";
-	// 					$file 				= array(
-	// 						'file_gambar'	=> $upload['file']['file_name']
-	// 					);
-
-	// 					$data = array(
-	// 						'kode_jabatan_unit	' 	=> $kode_jabatan_unit,
-	// 						'id_pengguna' 			=> $id_pengguna,
-	// 						'kode_fk'				=> $insert_id,
-	// 						'kode_nama_progress' 	=> $kode_nama_progress,
-	// 						'komentar'				=> $komentar,
-	// 						'jenis_progress'		=> $jenis_progress,
-	// 						'tgl_progress'			=> $tgl_progress,
-	// 						'waktu_progress'		=> $waktu_progress
-
-	// 					);
-	// 					$update_file = $this->BarangM->update_nama_file($insert_id, $file);
-	// 					if($update_file = TRUE){
-	// 						if($kode_jabatan_unit == $pimpinan){
-	// 							if($this->BarangM->insert_progress($data)){ //insert progress langsung ketika mengajukan kegiatan untuk manajer, kepala, dan pimpinan yang lain
-	// 								$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
-	// 								redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
-	// 							}else{
-	// 								$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan ');
-	// 								redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
-	// 							}
-	// 						}
-	// 					}else{
-	// 						$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan');
-	// 						redirect('BarangC/ajukan_barang');
-	// 					}
-
-	// 				}else{ 
-	// 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
-	// 					$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan');
-	// 					redirect('BarangC/ajukan_barang');
-	// 				}
-
-	// 				$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
-	// 			redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
-
-	// 			}else{ // Jika proses upload gagal
-	// 				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan ');
-	// 				redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
-	// 			}
-	// 		}else{
-	// 			$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan ');
-	// 			redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
-	// 		}
-
-	// 	}
-	// }
 
 	public function post_ajukan_rab(){ //fungsi untuk tambah pengajuan barang / RAB
 		$this->form_validation->set_rules('nama_pengajuan', 'Nama Pengajuan','required');
@@ -720,8 +622,17 @@ class BarangC extends CI_Controller {
 										'pengajuan_ke' => $pengajuan_ke
 									);
 									if($this->BarangM->update_ajukan_rab($data, $kode_pengajuan)){ //ketika berhasil update pengajuan ke
-										$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan 2');
-										redirect_back(); //kembali ke halaman sebelumnya -> helper
+										$jenis_progress = 'rab_lama';
+										$data_progress  = array(
+											'jenis_progress' => $jenis_progress
+										);
+										if($this->BarangM->update_progress_rab($data_progress, $kode_pengajuan)){ //jika sukses update progress yang lama
+											$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan 3');
+											redirect_back(); //kembali ke halaman sebelumnya -> helper
+										}else{ // jika gagal update progress yang lama
+											$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 0');
+											redirect_back(); //kembali ke halaman sebelumnya -> helper
+										}
 									}else{ //ketika gagal update pengajuan ke
 										$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 0');
 										redirect_back(); //kembali ke halaman sebelumnya -> helper
@@ -765,8 +676,17 @@ class BarangC extends CI_Controller {
 										'pengajuan_ke' => $pengajuan_ke
 									);
 									if($this->BarangM->update_ajukan_rab($data, $kode_pengajuan)){ //ketika berhasil update pengajuan ke
-										$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan 2');
-										redirect_back(); //kembali ke halaman sebelumnya -> helper
+										$jenis_progress = 'rab_lama';
+										$data_progress  = array(
+											'jenis_progress' => $jenis_progress
+										);
+										if($this->BarangM->update_progress_rab($data_progress, $kode_pengajuan)){ //jika sukses update progress yang lama
+											$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan 3');
+											redirect_back(); //kembali ke halaman sebelumnya -> helper
+										}else{ // jika gagal update progress yang lama
+											$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 0');
+											redirect_back(); //kembali ke halaman sebelumnya -> helper
+										}
 									}else{ //ketika gagal update pengajuan ke
 										$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 0');
 										redirect_back(); //kembali ke halaman sebelumnya -> helper
@@ -1055,17 +975,27 @@ class BarangC extends CI_Controller {
 		}
 
 	}	
-	
-	public function sugesti(){
-		$nama_barang = $this->input->post('nama_barang', TRUE);
-		$data = $this->BarangM->get_sugesti($nama_barang);
-		$json_array = array();
-
-		foreach ($data as $data_nama_barang) 
-			$json_array[] = $data_nama_barang->nama_barang;
-		echo json_encode($json_array);	
+	function getBarangAjax()
+	{
+		if (!$this->input->is_ajax_request()) {
+		   exit('No direct script access allowed');
+		}
+		echo json_encode($this->BarangM->get_pilihan_barang()->result());
 	}
 
-	
+	function insertBarangAjax()
+	{
+		if (!$this->input->is_ajax_request()) {
+		   exit('No direct script access allowed');
+		}
+		$nama_barang 		= $_POST['nama_barang'];
+		$kode_jenis_barang  = "3";
+		$data_pengguna		= array(
+				'nama_barang'		=> $nama_barang,
+				'kode_jenis_barang' => $kode_jenis_barang
+			);
+		$this->BarangM->insert_tambah_barang($data_pengguna);
+		echo json_encode(true);
+	}
 
 }

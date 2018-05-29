@@ -12,14 +12,14 @@
        <?php 
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
-         <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
+       <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
        </div>
        <?php } ?>
        <?php 
        $data2=$this->session->flashdata('error');
        if($data2!=""){ ?>
-        <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
+       <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       </div>
       <?php } ?>
@@ -701,9 +701,22 @@
                     <div class="modal-body">
                       <?php echo form_open_multipart('PenggunaC/tambah_akses_menu');?>
                       <form role="form" action="<?php echo base_url(); ?>PenggunaC/tambah_akses_menu" method="post">
+                        <?php
+                        if($menu->kode_menu == 1 || $menu->kode_menu == 2 || $menu->kode_menu == 4 || $menu->kode_menu == 5){
+                          ?>
+                          <div class="alert alert-warning">
+                            <strong>Perhatian!</strong>
+                            <ol type="1">
+                              <li>Penambahan akses pada <strong>menu ini</strong> juga akan menambah jabatan tersebut sebagai pihak yang berwenang dalam <strong>persetujuan</strong> .</li>
+                              <li> Penambahan pihak yang berwenang dalam persetujuan dapat dilakukan apabila seluruh pengajuan telah <strong>disetujui</strong> atau <strong>ditolak</strong> , jika ada pengajuan yang memiliki <strong>status proses</strong> maka akan berubah <strong>menjadi ditolak</strong>.</li>
+                            </ol>
+                          </div>
+                          <?php
+                        }
+                        ?>
                         <div class="form-group">
                           <label>Nama Jabatan</label>
-                          <input class="form-control" type="text" id="kode_menu" name="kode_menu" value="<?php echo $menu->kode_menu?>" required>
+                          <input class="form-control" type="hidden" id="kode_menu" name="kode_menu" value="<?php echo $menu->kode_menu?>" required>
                           <select class="form-control" name="kode_jabatan_unit" id="kode_jabatan_unit">
                             <option value="">---- Pilih Jabatan Unit ---- </option>
                             <?php 
@@ -716,7 +729,7 @@
                           </select>
                         </div>
                         <div class="modal-footer">
-                          <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
+                          <input type="submit" class="btn btn-primary col-lg-2" onClick="return confirm('Anda yakin akan menambahkan jabatan pada akses menu ini?')" value="Simpan">
                         </div> 
                         <?php echo form_close()?>
                       </form>

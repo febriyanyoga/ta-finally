@@ -8,14 +8,14 @@
        <?php
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
-        <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
+       <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       </div>
       <?php } ?>
       <?php 
       $data2=$this->session->flashdata('error');
       if($data2!=""){ ?>
-        <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
+      <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       </div>
       <?php } ?>
@@ -23,100 +23,101 @@
       <h3 class="page-header" style="margin-top: 0;"><center>Status Pengajuan Barang</center></h3>
     </div>
   </div>
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="card mb-3">
-        <div class="card-header">
-          <div class="card-body">
 
-            <div class="row">
-              <div class="col-lg-6">
-                <!-- Info Status -->
-                <div class="alert alert-info">
-                  <strong>Informasi!</strong>
-                  <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan barang<strong>:</strong></p>
-                  <table border="3" style="border-color: transparent;" >
-                    <tr style="height: 30px">
-                      <td style="width: 10%"><a class="label label-primary">BARU</a></td>
-                      <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
-                        <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan barang baru saja di ajukan dan belum memiliki progres</th>
-                        </tr>
-                        <tr style="height: 30px">
-                          <td><a class="label label-info">PROSES</a></td>
-                          <td><i class="glyphicon glyphicon-arrow-right"></td>
-                            <td> Status ini menjelaskan bahwa pengajuan barang sedang dalam proses persetujuan</td>
-                          </tr>
-                          <tr style="height: 30px">
-                            <td><a class="label label-success">PENGAJUAN</a></td>
-                            <td><i class="glyphicon glyphicon-arrow-right"></td>
-                              <td> Status ini menjelaskan bahwa pengajuan barang sudah disetujui dan sedang dalam proses pengajuan RAB</td>
-                            </tr>
-                            <tr style="height: 30px">
-                              <td><a class="label label-success">SELESAI</a></td>
-                              <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                <td> Status ini menjelaskan bahwa pengajuan barang telah selesai</td>
-                              </tr>
-                              <tr style="height: 30px">
-                                <td><a class="label label-warning">TUNDA</a></td>
-                                <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                  <td> Status ini menjelaskan bahwa pengajuan barang sedang di tunda untuk diajukan dalam RAB dan akan diajukan pada pengajuan RAB berikutnya</td>
-                                </tr>
-                                <tr style="height: 30px">
-                                  <td><a class="label label-success">DISETUJUI</a></td>
-                                  <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                    <td> Status ini menjelaskan bahwa pegajuan barang telah disetujui pada RAB yang diajukan</td>
-                                  </tr>
-                                  <tr style="height: 30px">
-                                    <td><a class="label label-danger">TOLAK</a></td>
-                                    <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                      <td> Status ini menjelaskan bahwa pengajuan barang ditolak</td>
-                                    </tr>
-                                  </table>
-                                </div>
-                              </div>
-                              <!-- End Info Status -->
-                              <div class="col-lg-6">
-                                <!-- Keterangan Tolak dan Setuju -->
-                                <div class="alert alert-warning">
-                                  <strong>Perhatian!</strong>
-                                  <p>Berikut adalah penjelasan <strong>tombol tambah progres</strong> dari persetujuan pada tabel pengajuan barang<strong>:</strong></p>
-                                  <table border="3" style="border-color: transparent;" >
-                                    <tr style="height: 30px">
-                                      <td style="width: 10%"><a class="btn btn-info"><span class="glyphicon glyphicon-edit"></span></a>
-                                      </td>
-                                      <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
-                                      <td style="width: 62%"> Tombol ini digunakan untuk memberikan progres lanjutan setelah pengajuan barang telah disetujui dalam RAB</td>
-                                    </tr>
-                                  </table>
-                                  <p> </p>
-                                  <p>Tombol tersebut dapat digunakan selama pengajuan barang memiliki progres yang dibutuhkan untuk sampai pada tahap selesai. Ketika progres selesai telah dimasukkan, maka proses pengajuan telah selesai serta tombol tersebut akan hilang dan akan digantikan dengan kata "selesai" disertai tanda centang (<span class="glyphicon glyphicon-ok"></span>).</p>
-                                  </div>
-                                <!-- End Ket Tolak dan Setuju -->
-                                </div>
-                              </div>
+  <button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-md" title="klik untuk melihat informasi"><i class="glyphicon glyphicon-alert"> Informasi</i></button><br><br>
 
+  <div class="collapse" id="demo">
+    <div class="col-lg-6">
+      <!-- Info Status -->
+      <div class="alert alert-info">
+        <strong>Informasi!</strong>
+        <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan barang<strong>:</strong></p>
+        <table border="3" style="border-color: transparent;" >
+          <tr style="height: 30px">
+            <td style="width: 10%"><a class="label label-primary">BARU</a></td>
+            <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan barang baru saja di ajukan dan belum memiliki progres</th>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-info">PROSES</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan barang sedang dalam proses persetujuan</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-success">PENGAJUAN</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan barang sudah disetujui dan sedang dalam proses pengajuan RAB</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-success">SELESAI</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan barang telah selesai</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-warning">TUNDA</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan barang sedang di tunda untuk diajukan dalam RAB dan akan diajukan pada pengajuan RAB berikutnya</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-success">DISETUJUI</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pegajuan barang telah disetujui pada RAB yang diajukan</td>
+            </tr>
+            <tr style="height: 30px">
+              <td><a class="label label-danger">TOLAK</a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Status ini menjelaskan bahwa pengajuan barang ditolak</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <!-- End Info Status -->
+      <div class="col-lg-6">
+        <!-- Keterangan Tolak dan Setuju -->
+        <div class="alert alert-warning">
+          <strong>Perhatian!</strong>
+          <p>Berikut adalah penjelasan <strong>tombol tambah progres</strong> dari persetujuan pada tabel pengajuan barang<strong>:</strong></p>
+          <table border="3" style="border-color: transparent;" >
+            <tr style="height: 30px">
+              <td style="width: 10%"><a class="btn btn-info"><span class="glyphicon glyphicon-edit"></span></a>
+              </td>
+              <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td style="width: 62%"> Tombol ini digunakan untuk memberikan progres lanjutan setelah pengajuan barang telah disetujui dalam RAB</td>
+            </tr>
+          </table>
+          <p> </p>
+          <p>Tombol tersebut dapat digunakan selama pengajuan barang memiliki progres yang dibutuhkan untuk sampai pada tahap selesai. Ketika progres selesai telah dimasukkan, maka proses pengajuan telah selesai serta tombol tersebut akan hilang dan akan digantikan dengan kata "selesai" disertai tanda centang (<span class="glyphicon glyphicon-ok"></span>).</p>
+        </div>
+        <!-- End Ket Tolak dan Setuju -->
+      </div>
+    </div>
 
-            <div class="table-responsive">
-              <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
-                <thead>
-                  <tr class="text-center">
-                    <!-- <th>No. Identitas</th> -->
-                    <th>Nama Pengajuan Barang</th>
-                    <th>Nama Pengaju</th>
-                    <th>Jabatan Pengaju</th>
-                    <th>Gambar</th>
-                    <th>Tgl Pengajuan</th>
-                    <th>Jumlah</th>
-                    <th>Total Harga</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  foreach ($item_barang_disetujui as $barang) {
-                   $jenis_barang = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->kode_jenis_barang;
-                   if($jenis_barang != 3){?>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
+                  <thead>
+                    <tr class="text-center">
+                      <!-- <th>No. Identitas</th> -->
+                      <th>Nama Pengajuan Barang</th>
+                      <th>Nama Pengaju</th>
+                      <th>Jabatan Pengaju</th>
+                      <th>Gambar</th>
+                      <th>Tgl Pengajuan</th>
+                      <th>Jumlah</th>
+                      <th>Total Harga</th>
+                      <th>Status</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    foreach ($item_barang_disetujui as $barang) {
+                     $jenis_barang = $BarangM->get_data_item_pengajuan_by_id($barang->kode_item_pengajuan)->result()[0]->kode_jenis_barang;
+                     if($jenis_barang != 3){?>
                      <tr class="text-center" >
                       <td> 
                        <a href="#" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><?php echo $barang->nama_item_pengajuan ?></a>
