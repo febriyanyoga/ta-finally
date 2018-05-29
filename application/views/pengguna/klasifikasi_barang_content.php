@@ -27,26 +27,30 @@
         <div class="card-header">
           <div class="card-body">
 
-                <!-- Keterangan Tolak dan Setuju -->
-                <div class="alert alert-warning">
-                  <strong>Perhatian!</strong>
-                  <p>Berikut adalah penjelasan <strong>tombol klasifikasi</strong> pada tabel klasifikasi barang<strong>:</strong></p>
-                  <table border="3" style="border-color: transparent;" >
-                    <tr style="height: 30px">
-                      <td style="width: 10%"><a class="btn btn-success">Aset</a></td>
-                      <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
+            <button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-md" title="klik untuk melihat informasi"><i class="glyphicon glyphicon-alert"> Informasi</i></button><br><br>
+
+            <div class="collapse" id="demo">
+              <!-- Keterangan Tolak dan Setuju -->
+              <div class="alert alert-warning">
+                <strong>Perhatian!</strong>
+                <p>Berikut adalah penjelasan <strong>tombol klasifikasi</strong> pada tabel klasifikasi barang<strong>:</strong></p>
+                <table border="3" style="border-color: transparent;" >
+                  <tr style="height: 30px">
+                    <td style="width: 10%"><a class="btn btn-success">Aset</a></td>
+                    <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
                       <td style="width: 62%"> Tombol ini digunakan untuk memberikan jenis barang dengan jenis aset.</td>
                     </tr>
-                      <tr style="height: 30px">
-                        <td><a class="btn btn-danger">Habis Pakai</td>
-                        <td><i class="glyphicon glyphicon-arrow-right"></td>
-                          <td> Tombol ini digunakan untuk memberikan jenis barang dengan jenis habis pakai.</td>
-                        </tr>
-                      </table>
-                      <p> </p>
-                      <p>Tombol-tombol tersebut digunakan untuk memberikan klasifikasi barang yang hanya bisa dilakukan sebanyak satu kali, ketika tombol sudah dipilih maka data tersebut akan hilang dari daftar tabel.</p>
-                    </div>
-                    <!-- End Ket Tolak dan Setuju -->
+                    <tr style="height: 30px">
+                      <td><a class="btn btn-danger">Habis Pakai</td>
+                        <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                        <td> Tombol ini digunakan untuk memberikan jenis barang dengan jenis habis pakai.</td>
+                      </tr>
+                    </table>
+                    <p> </p>
+                    <p>Tombol-tombol tersebut digunakan untuk memberikan klasifikasi barang yang hanya bisa dilakukan sebanyak satu kali, ketika tombol sudah dipilih maka data tersebut akan hilang dari daftar tabel.</p>
+                  </div>
+                  <!-- End Ket Tolak dan Setuju -->
+                </div>
 
                 <div class="table-responsive">
                   <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">

@@ -20,113 +20,119 @@
        if($data2!=""){ ?>
        <div class="alert alert-danger" id="success-alert"><strong> Error! </strong> <?=$data2;?></div>
        <?php } ?>
+
        <!-- sampai sini -->
        <div style="color: red;"><?php echo (isset($message))? $message : ""; ?></div>
 
-       
+       <button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-md" title="klik untuk melihat informasi"><i class="glyphicon glyphicon-alert"> Informasi</i></button><br><br>
 
-       <div class="card mb-3">
-        <div class="card-header">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-lg-6">
-                <!-- Info Status -->
-                <div class="alert alert-info">
-                  <strong>Informasi!</strong>
-                  <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan barang<strong>:</strong></p>
-                  <table border="3" style="border-color: transparent;" >
-                    <tr style="height: 30px">
-                      <td style="width: 10%"><a class="label label-primary">BARU</a></td>
-                      <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
-                        <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan barang baru saja di ajukan dan belum memiliki progres</th>
+       <div class="collapse" id="demo">
+        <div class="col-lg-6">
+          <!-- Info Status -->
+          <div class="alert alert-info">
+            <strong>Informasi!</strong>
+            <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan barang<strong>:</strong></p>
+            <table border="3" style="border-color: transparent;" class="table table-sm table-hover borderless">
+              <tr style="height: 30px">
+                <td style="width: 10%"><a class="label label-primary">BARU</a></td>
+                <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></i></td>
+                <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan barang baru saja di ajukan dan belum memiliki progres</th>
+                </tr>
+                <tr style="height: 30px">
+                  <td><a class="label label-info">PROSES</a></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td> Status ini menjelaskan bahwa pengajuan barang sedang dalam proses persetujuan</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td><a class="label label-success">PENGAJUAN</a></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td> Status ini menjelaskan bahwa pengajuan barang sudah disetujui dan sedang dalam proses pengajuan RAB</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td><a class="label label-success">SELESAI</a></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td> Status ini menjelaskan bahwa pengajuan barang telah selesai</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td><a class="label label-warning">TUNDA</a></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td> Status ini menjelaskan bahwa pengajuan barang sedang di tunda untuk diajukan dalam RAB dan akan diajukan pada pengajuan RAB berikutnya</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td><a class="label label-success">DISETUJUI</a></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td> Status ini menjelaskan bahwa pegajuan barang telah disetujui pada RAB yang diajukan</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td><a class="label label-danger">TOLAK</a></td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td> Status ini menjelaskan bahwa pengajuan barang ditolak</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <!-- End Info Status -->
+          <div class="col-lg-6">
+            <!-- Keterangan Edit -->
+            <div class="alert alert-warning">
+              <strong>Perhatian!</strong>
+              <p>Berikut adalah penjelasan dari <strong>tombol ubah</strong> pada tabel pengajuan barang<strong>:</strong></p>
+              <table border="3" style="border-color: transparent;" class="table table-sm table-hover borderless" >
+                <tr style="height: 30px">
+                  <td style="width: 10%"><a href="#" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                  <td style="width: 6%">
+                    <i class="glyphicon glyphicon-arrow-right"></i>
+                  </td>
+                  <td style="width: 62%"> Jika tombol tampil seperti ini, maka tombol dapat digunakan untuk mengubah data pengajuan barang</td>
+                </tr>
+                <tr style="height: 30px">
+                  <td>
+                    <a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-pencil"></span></a>
+                  </td>
+                  <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+                  <td> Jika tombol tampil seperti ini, maka sudah tidak dapat digunakan lagi untuk mengubah data pengajuan barang dikarenakan pengajuan tersebut sudah sudah memiliki progres</td>
+                </tr>
+              </table>
+            </div>
+            <!-- End Ket Edit -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card mb-3">
+              <div class="card-header">
+                <div class="card-body">
+                  <a class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i>Ajukan Barang</a>
+                  <a class="btn btn-info" data-toggle="modal" data-target="#myModal1"><i class="icon_plus_alt2"> </i>Ajukan Barang Baru</a>
+                  <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                          <th class="text-center">Nama Item Pengajuan</th>
+                          <th class="text-center">File</th>
+                          <th class="text-center">Barang</th>
+                          <th class="text-center">Jenis Barang</th>
+                          <th class="text-center">Harga Satuan</th>
+                          <th class="text-center" style="width: 10%">Jumlah</th>
+                          <th class="text-center">Tanggal Pengajuan</th>
+                          <th class="text-center">Status</th>
+                          <th class="text-center">Aksi</th>
                         </tr>
-                        <tr style="height: 30px">
-                          <td><a class="label label-info">PROSES</a></td>
-                          <td><i class="glyphicon glyphicon-arrow-right"></td>
-                            <td> Status ini menjelaskan bahwa pengajuan barang sedang dalam proses persetujuan</td>
-                          </tr>
-                          <tr style="height: 30px">
-                            <td><a class="label label-success">PENGAJUAN</a></td>
-                            <td><i class="glyphicon glyphicon-arrow-right"></td>
-                              <td> Status ini menjelaskan bahwa pengajuan barang sudah disetujui dan sedang dalam proses pengajuan RAB</td>
-                            </tr>
-                            <tr style="height: 30px">
-                              <td><a class="label label-success">SELESAI</a></td>
-                              <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                <td> Status ini menjelaskan bahwa pengajuan barang telah selesai</td>
-                              </tr>
-                              <tr style="height: 30px">
-                                <td><a class="label label-warning">TUNDA</a></td>
-                                <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                  <td> Status ini menjelaskan bahwa pengajuan barang sedang di tunda untuk diajukan dalam RAB dan akan diajukan pada pengajuan RAB berikutnya</td>
-                                </tr>
-                                <tr style="height: 30px">
-                                  <td><a class="label label-success">DISETUJUI</a></td>
-                                  <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                    <td> Status ini menjelaskan bahwa pegajuan barang telah disetujui pada RAB yang diajukan</td>
-                                  </tr>
-                                  <tr style="height: 30px">
-                                    <td><a class="label label-danger">TOLAK</a></td>
-                                    <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                      <td> Status ini menjelaskan bahwa pengajuan barang ditolak</td>
-                                    </tr>
-                                  </table>
-                                </div>
-                              </div>
-                              <!-- End Info Status -->
-                              <div class="col-lg-6">
-                                <!-- Keterangan Edit -->
-                                <div class="alert alert-warning">
-                                  <strong>Perhatian!</strong>
-                                  <p>Berikut adalah penjelasan dari <strong>tombol ubah</strong> pada tabel pengajuan barang<strong>:</strong></p>
-                                  <table border="3" style="border-color: transparent;" >
-                                    <tr style="height: 30px">
-                                      <td style="width: 10%"><a href="#" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                      <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
-                                        <td style="width: 62%"> Jika tombol tampil seperti ini, maka tombol dapat digunakan untuk mengubah data pengajuan barang</th>
-                                        </tr>
-                                        <tr style="height: 30px">
-                                          <td><a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                          <td><i class="glyphicon glyphicon-arrow-right"></td>
-                                            <td> Jika tombol tampil seperti ini, maka sudah tidak dapat digunakan lagi untuk mengubah data pengajuan barang dikarenakan pengajuan tersebut sudah sudah memiliki progres</td>
-                                          </tr>
-                                        </table>
-                                      </div>
-                                      <!-- End Ket Edit -->
-                                    </div>
-                                  </div>
-
-                                  <a class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i>Ajukan Barang</a>
-                                  <a class="btn btn-info" data-toggle="modal" data-target="#myModal1"><i class="icon_plus_alt2"> </i>Ajukan Barang Baru</a>
-                                  <div class="table-responsive">
-                                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                      <thead>
-                                        <tr>
-                                          <th class="text-center">Nama Item Pengajuan</th>
-                                          <th class="text-center">File</th>
-                                          <th class="text-center">Barang</th>
-                                          <th class="text-center">Jenis Barang</th>
-                                          <th class="text-center">Harga Satuan</th>
-                                          <th class="text-center" style="width: 10%">Jumlah</th>
-                                          <th class="text-center">Tanggal Pengajuan</th>
-                                          <th class="text-center">Status</th>
-                                          <th class="text-center">Aksi</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        <?php
-                                        foreach ($data_ajukan_barang as $barang) {
-                                          ?>
-                                          <tr class="text-center">
-                                            <td><?php echo $barang->nama_item_pengajuan; ?></td>
-                                            <td><center><img style="height: 50px;" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>"></center></td>
-                                            <td><?php echo $barang->nama_barang; ?></td>
-                                            <td><?php echo $barang->nama_jenis_barang; ?></td>
-                                            <td>Rp<?php echo number_format($barang->harga_satuan, 0,',','.') ?>,00</td>
-                                            <td><?php echo $barang->jumlah; ?></td>
-                                            <td><?php echo $barang->tgl_item_pengajuan; ?></td>
-                                            <td> 
-                                              <?php
+                      </thead>
+                      <tbody>
+                        <?php
+                        foreach ($data_ajukan_barang as $barang) {
+                          ?>
+                          <tr class="text-center">
+                            <td><?php echo $barang->nama_item_pengajuan; ?></td>
+                            <td><center><img style="height: 50px;" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>"></center></td>
+                            <td><?php echo $barang->nama_barang; ?></td>
+                            <td><?php echo $barang->nama_jenis_barang; ?></td>
+                            <td>Rp<?php echo number_format($barang->harga_satuan, 0,',','.') ?>,00</td>
+                            <td><?php echo $barang->jumlah; ?></td>
+                            <td><?php echo $barang->tgl_item_pengajuan; ?></td>
+                            <td> 
+                              <?php
                         $kode_fk = $barang->kode_item_pengajuan; //untuk mengambil kode_item_pengajuan
                         $id_staf_sarpras = $BarangM->cek_id_staf_sarpras()->result()[0]->kode_jabatan_unit; // untuk menmeriksa pengajuan tersebut mendapatkan progress dari siapa saja
                         $progress_oleh_staf = $BarangM->get_progress_oleh_staf($kode_fk, $id_staf_sarpras);//untuk mengetahui jika pengajuan sudah mendapat progress yang diberikan oleh staff sarpras, dimana staff sarpras adalah yang paling akhir memberikan progress tambahan
@@ -342,7 +348,7 @@
           <div class="form-group">
             <label class="col-lg-4 col-sm-2 control-label" for="barang"> Barang :</label>
             <div class="col-lg-8">
-             <select class="form-control" name="kode_barang" id="kode_barang">
+             <select class="form-control" name="kode_barang" id="kode_barang_a">
               <option value="">---- Pilih Barang ---- </option>
               <?php 
               foreach ($pilihan_barang_tambah as $barang) {
@@ -355,64 +361,56 @@
             <span class="text-danger" style="color: red;"><?php echo form_error('kode_barang'); ?></span>  
           </div>
         </div>
-
-        <!-- <div class="form-group">
-            <label class="col-lg-4 col-sm-2 control-label">Barang :</label>
-            <div class="col-lg-8">
-              <input type="text" class="form-control" id="autocomplete" name="Nama Barang" placeholder="Nama Barang" required >
-            </div>
-          </div> -->
-
-          <div class="form-group">
-            <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
-            <input class="form-control" type="hidden" id="pimpinan" name="pimpinan" value="<?php echo $data_pimpinan->kode_jabatan_unit;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
-            <input class="form-control" type="hidden" id="kode_jabatan_unit" name="kode_jabatan_unit" value="<?php echo $data_diri->kode_jabatan_unit;?>" required> 
-            <!-- ambil kode_jabatan_unit yang login -->
-            <label class="col-lg-4 col-sm-2 control-label">Nama Item Pengajuan Barang :</label>
-            <div class="col-lg-8">
-              <input type="text" class="form-control" id="nama_item_pengajuan" name="nama_item_pengajuan" placeholder="Nama Item Pengajuan Barang" required="">
-            </div>
+        <div class="form-group">
+          <input class="form-control" type="hidden" id="id_pengguna" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" required> <!-- ambil id_pengguna_jabatan berdasarkan user yang login-->
+          <input class="form-control" type="hidden" id="pimpinan" name="pimpinan" value="<?php echo $data_pimpinan->kode_jabatan_unit;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
+          <input class="form-control" type="hidden" id="kode_jabatan_unit" name="kode_jabatan_unit" value="<?php echo $data_diri->kode_jabatan_unit;?>" required> 
+          <!-- ambil kode_jabatan_unit yang login -->
+          <label class="col-lg-4 col-sm-2 control-label">Nama Item Pengajuan Barang :</label>
+          <div class="col-lg-8">
+            <input type="text" class="form-control" id="nama_item_pengajuan" name="nama_item_pengajuan" placeholder="Nama Item Pengajuan Barang" required="">
           </div>
-          <input type="hidden" class="form-control" placeholder id="tgl_item_pengajuan" name="tgl_item_pengajuan" required value="<?php echo date('Y-m-d');?>">
-          <div class="form-group">
-            <label class="col-lg-4 col-sm-2 control-label">url :</label>
-            <div class="col-lg-8">
-              <input type="text" class="form-control" id="url" name="url" placeholder="Url Barang" required="">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-4 col-sm-2 control-label">Harga Satuan :</label>
-            <div class="col-lg-8">
-              <input type="text" class="form-control" id="harga_satuan_barang" name="harga_satuan" placeholder="Harga Satuan" onkeypress="return hanyaAngka(event)" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-4 col-sm-2 control-label">Merk :</label>
-            <div class="col-lg-8">
-              <input type="text" class="form-control" id="merk" name="merk" placeholder="Merk" required="">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-4 col-sm-2 control-label">Jumlah :</label>
-            <div class="col-lg-8">
-              <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah"onkeypress="return hanyaAngka(event)" required="">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-4 col-sm-2 control-label">Unggah Foto :</label>
-            <div class="col-lg-8">
-              <input type="file" id="file_gambar" name="file_gambar" required="">
-            </div>
-          </div>           
-
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-info" type="submit" onClick="return confirm('Anda yakin akan mengajukan pengajuan barang ini?')"> Simpan </button>
-          <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
+        <input type="hidden" class="form-control" placeholder id="tgl_item_pengajuan" name="tgl_item_pengajuan" required value="<?php echo date('Y-m-d');?>">
+        <div class="form-group">
+          <label class="col-lg-4 col-sm-2 control-label">url :</label>
+          <div class="col-lg-8">
+            <input type="text" class="form-control" id="url" name="url" placeholder="Url Barang" required="">
+          </div>
         </div>
-      </form>
-    </div>
+        <div class="form-group">
+          <label class="col-lg-4 col-sm-2 control-label">Harga Satuan :</label>
+          <div class="col-lg-8">
+            <input type="text" class="form-control" id="harga_satuan_barang" name="harga_satuan" placeholder="Harga Satuan" onkeypress="return hanyaAngka(event)" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-4 col-sm-2 control-label">Merk :</label>
+          <div class="col-lg-8">
+            <input type="text" class="form-control" id="merk" name="merk" placeholder="Merk" required="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-4 col-sm-2 control-label">Jumlah :</label>
+          <div class="col-lg-8">
+            <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah"onkeypress="return hanyaAngka(event)" required="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-4 col-sm-2 control-label">Unggah Foto :</label>
+          <div class="col-lg-8">
+            <input type="file" id="file_gambar" name="file_gambar" required="">
+          </div>
+        </div>           
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-info" type="submit" onClick="return confirm('Anda yakin akan mengajukan pengajuan barang ini?')"> Simpan </button>
+        <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
+      </div>
+    </form>
   </div>
+</div>
 </div>
 </div>
 <!-- END Modal Tambah Pengajuan Barang -->
@@ -425,7 +423,7 @@
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
         <h4 class="modal-title">Ajukan Barang Baru</h4>
       </div>
-      <form class="form-horizontal" action="<?php echo base_url('BarangC/post_tambah_barang_baru');?>" method="post">
+      <form id="form_barang" class="form-horizontal" action="<?php echo base_url('BarangC/post_tambah_barang_baru');?>" method="post">
         <div class="modal-body">
           <div class="form-group">
             <label class="col-lg-4 col-sm-2 control-label">Nama Barang :</label>
@@ -436,7 +434,7 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-info" type="submit"> Simpan </button>
-          <button class="btn btn-info" data-toggle="modal" data-target="#myModal" data-dismiss="modal" >Simpan dan Ajukan</button>
+          <button onclick="ajukan()" class="btn btn-info" data-toggle="modal" data-target="#myModal" data-dismiss="modal" >Simpan dan Ajukan</button>
           <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
         </div>
       </form>
@@ -510,5 +508,34 @@
     }
 
   });
+
+  function ajukan() {
+    $.ajax({ 
+          url: "<?php echo site_url('BarangC/insertBarangAjax'); ?>",
+          data: $("#form_barang").serialize(),
+          dataType: "json",
+          type: "POST",
+          async: false,
+          success: function(data){
+            $("#form_barang")[0].reset();
+            refreshlist();
+
+          }    
+        });
+  }
+  function refreshlist() {
+    $.ajax({ 
+          url: "<?php echo site_url('BarangC/getBarangAjax'); ?>",
+          dataType: "json",
+          type: "GET",
+          success: function(data){
+            $("#kode_barang_a").empty();
+            $("#form_barang")[0].reset();
+            $.each(data,function(key, value){
+              $("#kode_barang_a").append('<option value=' + value.kode_barang + '>' + value.nama_barang + '</option>');
+            });
+          }    
+        });
+  }
 </script>
 

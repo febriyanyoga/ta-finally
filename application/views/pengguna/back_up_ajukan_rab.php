@@ -265,8 +265,7 @@
                                                   ?>
                                                   <td>
                                                     <center>
-                                                     <!--  <a class="btn btn-success" onclick="update_setuju(<?php echo $barang_setuju->kode_item_pengajuan;?>)" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="ajukan"><i class="glyphicon glyphicon-ok"> </i></a></span> -->
-                                                     <a class="btn btn-success" href="<?php echo base_url('BarangC/setuju')."/".$barang_setuju->kode_item_pengajuan;?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="ajukan"><i class="glyphicon glyphicon-ok"> </i></a></span>
+                                                      <a class="btn btn-success" href="<?php echo base_url('BarangC/setuju')."/".$barang_setuju->kode_item_pengajuan;?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="ajukan"><i class="glyphicon glyphicon-ok"> </i></a></span>
                                                       <a class="btn btn-warning" href="<?php echo base_url('BarangC/tunda')."/".$barang_setuju->kode_item_pengajuan;?>" id="custId" data-toggle="tooltip" data-toggle="tooltip" title="tunda"><i class="glyphicon glyphicon-time"></i></a></span>
                                                     </center>
                                                   </td>
@@ -642,20 +641,4 @@
             });
           });
   });
-
-  function update_setuju(kode_item_pengajuan) {
-        $.ajax({
-            url : "<?php echo base_url().'BarangC/update_setuju/'?>",
-            type: "POST",
-            data: {status_pengajuan:'pengajuan', kode_item_pengajuan:kode_item_pengajuan},
-            dataType: "json",
-            success: function(data)
-            {
-                    alert("Data berhasil diubah !");
-                  
-                
-            }
-        });
-    }
-
 </script>
