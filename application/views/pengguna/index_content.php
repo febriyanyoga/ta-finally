@@ -276,32 +276,33 @@
               $rank_min_pegawai =  $KegiatanM->cek_min_pegawai()->ranking;
               $id_rank_min_pegawai = $KegiatanM->cek_id_by_rank_pegawai($rank_min_pegawai)->kode_jabatan_unit;
               $setuju = $PenggunaM->get_kegiatan_pegawai_setuju($id_rank_min_pegawai)->num_rows();
-              $belum = $data_kegiatan-$setuju;
+              $tolak = $PenggunaM->get_kegiatan_tolak()->num_rows();
+              $belum = $data_kegiatan-$setuju-$tolak;
               ?>   
               <script>
                 var ctx = document.getElementById("grafik1");
                 var myChart = new Chart(ctx, {
                   type: 'pie',
                   data: {
-                    labels: ["Disetujui", "Belum Disetujui"],
+                    labels: ["Disetujui", "Belum Disetujui", "ditolak"],
                     datasets: [{
                       label: 'Jumlah layanan',
-                      data: [<?php echo $setuju?>, <?php echo $belum?>],
+                      data: [<?php echo $setuju?>, <?php echo $belum?>, <?php echo $tolak?>],
                       backgroundColor: [
                                 // 'rgba(255, 206, 86, 1)', //kuning
                                 'rgba(54, 162, 235, 1)', //biru
                                 // 'rgba(255, 99, 132, 0.2)', //pink
-                                // 'rgba(75, 192, 192, 0.2)', //h
-                                // 'rgba(153, 102, 255, 0.2)', //u
-                                'rgba(255, 159, 64, 1)' //o
+                                'rgba(75, 192, 192, 1)', //h
+                                'rgba(153, 102, 255, 1)', //u
+                                // 'rgba(255, 159, 64, 1)' //o
                                 ],
                                 borderColor: [
                                 // 'rgba(255, 206, 86, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(54, 162, 235, 1)',
                                 // 'rgba(255,99,132,1)',
-                                // 'rgba(75, 192, 192, 1)',
-                                // 'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                // 'rgba(255, 159, 64, 1)'
                                 ],
                                 borderWidth: 1
                               }]
@@ -323,7 +324,7 @@
                        $rank_min_pegawai =  $KegiatanM->cek_min_pegawai()->ranking;
                        $id_rank_min_pegawai = $KegiatanM->cek_id_by_rank_pegawai($rank_min_pegawai)->kode_jabatan_unit;
                        $setuju = $PenggunaM->get_kegiatan_pegawai_setuju($id_rank_min_pegawai)->num_rows();
-
+                       $tolak = $PenggunaM->get_kegiatan_tolak()->num_rows();
                        $belum = $data_kegiatan-$setuju;
                        ?>   
                        <script>
@@ -331,24 +332,24 @@
                         var myChart = new Chart(ctx, {
                           type: 'pie',
                           data: {
-                            labels: ["Disetujui", "Belum Disetujui"],
+                            labels: ["Disetujui", "Belum Disetujui","Ditolak"],
                             datasets: [{
                               label: 'Bidang',
-                              data: [<?php echo $setuju?> , <?php echo $belum?>],
+                              data: [<?php echo $setuju?> , <?php echo $belum?>, <?php echo $tolak?>],
                               backgroundColor: [
                                 'rgba(255, 206, 86, 1)', //kuning
                                 // 'rgba(54, 162, 235, 1)', //biru
                                 // 'rgba(255, 99, 132, 1)', //pink
                                 'rgba(75, 192, 192, 1)', //hijau
-                                // 'rgba(153, 102, 255, 1)',//ungu
+                                'rgba(153, 102, 255, 1)',//ungu
                                 // 'rgba(255, 159, 64, 1)'//orange
                                 ],
                                 borderColor: [
-                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(255, 206, 86, 1)',
                                 // 'rgba(54, 162, 235, 0.2)',
                                 // 'rgba(255,99,132,1)',
                                 'rgba(75, 192, 192, 1)',
-                                // 'rgba(153, 102, 255, 1)',
+                                'rgba(153, 102, 255, 1)',
                                 // 'rgba(255, 159, 64, 1)'
                                 ],
                                 borderWidth: 1
@@ -377,30 +378,35 @@
                         foreach ($dana_disetujui as $setuju) {
                           $total_setuju += $setuju->dana_diajukan;
                         }
+                        $dana_ditolak = $PenggunaM->get_kegiatan_tolak()->result();
+                        $total_tolak = 0;
+                        foreach ($dana_ditolak as $tolak) {
+                          $total_tolak += $tolak->dana_diajukan;
+                        }
                         ?>   
                         <script>
                           var ctx = document.getElementById("grafik21");
                           var myChart = new Chart(ctx, {
                             type: 'pie',
                             data: {
-                              labels: ["Dana Disetujui", "Total Pengajuan"],
+                              labels: ["Dana Disetujui", "Belum Disetujui", "Dana Ditolak"],
                               datasets: [{
                                 label: 'Bidang',
-                                data: [<?php echo $total_setuju?> , <?php echo $total?>],
+                                data: [<?php echo $total_setuju?> , <?php echo $total-$total_setuju-$total_tolak?>, <?php echo $total_tolak?>],
                                 backgroundColor: [
                                 'rgba(255, 206, 86, 1)', //kuning
                                 // 'rgba(54, 162, 235, 1)', //biru
                                 // 'rgba(255, 99, 132, 1)', //pink
                                 'rgba(75, 192, 192, 1)', //hijau
-                                // 'rgba(153, 102, 255, 1)',//ungu
+                                'rgba(153, 102, 255, 1)',//ungu
                                 // 'rgba(255, 159, 64, 1)'//orange
                                 ],
                                 borderColor: [
-                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(255, 206, 86, 1)',
                                 // 'rgba(54, 162, 235, 0.2)',
                                 // 'rgba(255,99,132,1)',
                                 'rgba(75, 192, 192, 1)',
-                                // 'rgba(153, 102, 255, 1)',
+                                'rgba(153, 102, 255, 1)',
                                 // 'rgba(255, 159, 64, 1)'
                                 ],
                                 borderWidth: 1

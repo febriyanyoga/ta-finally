@@ -168,197 +168,203 @@
                             $id_rank_min_pegawai = $KegiatanM->cek_id_by_rank_pegawai($rank_min_pegawai)->kode_jabatan_unit;
                             $progress_min_pegawai = $KegiatanM->get_own_progress($kode, $id_rank_min_pegawai);
 
-                        if($progress_staf_keu > 0){ //sudah ada input staf keu
-                          $progress_nama = $KegiatanM->get_progress_by_id($id_staf_keu, $kode)->result()[0]->nama_progress;
-                          ?>
-                          <a class="label label-warning" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><?php echo $progress_nama?></a>
-                          <?php
-                        }else{
-                          if($progress_tolak == 0 && $progress == 0 && $progress_staf == 0 && $progress_tolak_staf == 0){ //belum punya progress
-                            ?>
-                            <a class="label label-info">Mengajukan</a>
-                            <?php
-                          }else{
-                            if($progress_tolak > 0 || $progress_tolak_staf > 0){ //punya progress yang ditolak
+                            if($kegiatan->status_kegiatan == "Ditolak"){
                               ?>
-                              <a class="label label-danger" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Ditolak</a>
-                              <?php
-                            }elseif (!is_null($kegiatan->status_kegiatan)) { //jika ada inputan progress dari acc kegiatan yang min (ranking trtinggi)
-                              ?>
-                              <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><?php echo $kegiatan->status_kegiatan?></a>
+                              <a class="label label-danger" title="ditolak karena penambahan pihak yang terlibat pada persetujuan"><?php echo $kegiatan->status_kegiatan?></a>
                               <?php
                             }else{
-                              ?>
-                              <a class="label label-default" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Proses</a>
-                              <?php
-                            }
-                          }
-                        }     
-                        ?>
-                      </td>
-                      <td class="text-center">
-                        <?php 
-                        if($progress > 0 || $progress_tolak > 0 || $progress_staf > 0 || $progress_tolak_staf > 0){
-                          if($kegiatan->kode_jabatan_unit == $id_rank_min_pegawai){
-                           ?>
-                           <div class="btn-group">
-                            <a href="#" id="custId" data-toggle="modal" data-target="#modal_edit-<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Ubah Pengajuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-
-                            <a disabled data-toggle='tooltip' title='hapus' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
-                          </div>
-                          <?php 
-                        }else{
-                          ?>
-                          <div class="btn-group">
-                            <a disabled data-toggle='tooltip' title='edit' class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-                            <a disabled data-toggle='tooltip' title='hapus' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>                            
-                          </div>
-                          <?php 
-                        }
-                      }else{
-                        ?>
-                        <div class="btn-group">
-                          <a href="#" id="custId" data-toggle="modal" data-target="#modal_edit-<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Ubah pengajuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-
-                          <a href="<?php echo base_url('KegiatanC/hapus_pengajuan')."/".$kegiatan->kode_kegiatan;?>" onClick="return confirm('Anda yakin akan menghapus data pengajuan ini?')" data-toggle='tooltip' title='Hapus pengajuan' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>                            
-                        </div>
-                        <?php 
-                      }
-                      ?>
-                    </td>
-                  </tr>  
-
-
-                  <div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="modal_edit-<?php echo $kegiatan->kode_kegiatan;?>" class="modal fade">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                          <h4 class="modal-title">Ubah Pengajuan Kegiatan Pegawai</h4>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-12">
-                            <div class="panel-body">
-                             <div class="alert alert-warning">
-                              <ol type="1"> <strong>Perhatian !</strong>
-                                <li>Isi <b>Nama Kegiatan</b> sesuai dengan kegiatan yang ingin dilaksanakan.</li>
-                                <li>Berkas yang diunggah dapat berupa berkas <b>.pdf</b> atau apabila membutuhkan lebih dari satu berkas, maka berkas dapat berupa <b>.zip</b>.</li>
-                                <li>Data dengan format <b>.pdf</b> akan lebih cepat dalam proses persetujuan.</li>
-                                <li>Data yang sudah mendapat persetujuan <b>tidak dapat diubah</b>.</li>
-                              </ol>
-                            </div>
-                            <?php echo form_open_multipart('KegiatanC/post_ubah_pengajuan_kegiatan');?>
-                            <form role="form" action="<?php echo base_url(); ?>KegiatanC/post_ubah_pengajuan_kegiatan" method="post">
-                              <!-- Alert -->
-                              <!-- sampai sini -->
-                              <div class="form-group">
-                                <!-- <label>ID Pengguna Jabatan</label> -->
-                                <input class="form-control" type="hidden" id="kode_kegiatan" name="kode_kegiatan" value="<?php echo $kegiatan->kode_kegiatan;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
-                              </div>
-                              <div class="form-group">
-                                <!-- <label>Kode Jenis Kegiatan</label> -->
+                              if($progress_staf_keu > 0){ //sudah ada input staf keu
+                                $progress_nama = $KegiatanM->get_progress_by_id($id_staf_keu, $kode)->result()[0]->nama_progress;
+                                ?>
+                                <a class="label label-warning" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><?php echo $progress_nama?></a>
                                 <?php
-                                $tgl_kegiatan = $kegiatan->tgl_kegiatan;
-                                $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
-                                $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
-                                $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai)); 
-                                if($data_diri->kode_jabatan == '5'){
-                                  ?>  
-                                  <input class="form-control" type="hidden" id="kode_jenis_kegiatan" name="kode_jenis_kegiatan" value="2" required>
+                              }else{
+                                if($progress_tolak == 0 && $progress == 0 && $progress_staf == 0 && $progress_tolak_staf == 0){ //belum punya progress
+                                  ?>
+                                  <a class="label label-info">Mengajukan</a>
                                   <?php
                                 }else{
-                                  ?>
-                                  <input class="form-control" type="hidden" id="kode_jenis_kegiatan" name="kode_jenis_kegiatan" value="1" required>
-                                  <?php
+                                  if($progress_tolak > 0 || $progress_tolak_staf > 0){ //punya progress yang ditolak
+                                    ?>
+                                    <a class="label label-danger" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Ditolak</a>
+                                    <?php
+                                  }elseif ($kegiatan->status_kegiatan == "Disetujui") { //jika ada inputan progress dari acc kegiatan yang min (ranking trtinggi)
+                                    ?>
+                                    <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><?php echo $kegiatan->status_kegiatan?></a>
+                                    <?php
+                                  }else{
+                                    ?>
+                                    <a class="label label-default" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Proses</a>
+                                    <?php
+                                  }
                                 }
-                                ?>
+                              }     
+                            }    
+                            ?>
+                          </td>
+                          <td class="text-center">
+                            <?php 
+                            if($progress > 0 || $progress_tolak > 0 || $progress_staf > 0 || $progress_tolak_staf > 0){
+                              if($kegiatan->kode_jabatan_unit == $id_rank_min_pegawai){
+                               ?>
+                               <div class="btn-group">
+                                <a href="#" id="custId" data-toggle="modal" data-target="#modal_edit-<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Ubah Pengajuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+
+                                <a disabled data-toggle='tooltip' title='hapus' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
                               </div>
-                              <div class="form-group">
-                                <label>Nama Kegiatan</label>
-                                <input class="form-control" placeholder="Nama Kegiatan" type="text" id="nama_kegiatan" name="nama_kegiatan" value="<?php echo $kegiatan->nama_kegiatan?>" required>
-                                <span class="text-danger" style="color: red;"><?php echo form_error('nama_kegiatan'); ?></span>  
+                              <?php 
+                            }else{
+                              ?>
+                              <div class="btn-group">
+                                <a disabled data-toggle='tooltip' title='edit' class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a disabled data-toggle='tooltip' title='hapus' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>                            
                               </div>
-                              <div class="form-group">
-                                <label>Tanggal Pelaksanaan Kegiatan</label>
-                                <div class="row">
-                                 <div class="col-md-5">
-                                  <input type="text" class="form-control"  id="from-<?php echo $kegiatan->kode_kegiatan;?>" placeholder="hh/bb/ttt" name="tgl_kegiatan" value="<?php echo $new_tgl_kegiatan; ?>" required>
+                              <?php 
+                            }
+                          }else{
+                            ?>
+                            <div class="btn-group">
+                              <a href="#" id="custId" data-toggle="modal" data-target="#modal_edit-<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Ubah pengajuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+
+                              <a href="<?php echo base_url('KegiatanC/hapus_pengajuan')."/".$kegiatan->kode_kegiatan;?>" onClick="return confirm('Anda yakin akan menghapus data pengajuan ini?')" data-toggle='tooltip' title='Hapus pengajuan' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>                            
+                            </div>
+                            <?php 
+                          }
+                          ?>
+                        </td>
+                      </tr>  
+
+
+                      <div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="modal_edit-<?php echo $kegiatan->kode_kegiatan;?>" class="modal fade">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                              <h4 class="modal-title">Ubah Pengajuan Kegiatan Pegawai</h4>
+                            </div>
+                            <div class="row">
+                              <div class="col-lg-12">
+                                <div class="panel-body">
+                                 <div class="alert alert-warning">
+                                  <ol type="1"> <strong>Perhatian !</strong>
+                                    <li>Isi <b>Nama Kegiatan</b> sesuai dengan kegiatan yang ingin dilaksanakan.</li>
+                                    <li>Berkas yang diunggah dapat berupa berkas <b>.pdf</b> atau apabila membutuhkan lebih dari satu berkas, maka berkas dapat berupa <b>.zip</b>.</li>
+                                    <li>Data dengan format <b>.pdf</b> akan lebih cepat dalam proses persetujuan.</li>
+                                    <li>Data yang sudah mendapat persetujuan <b>tidak dapat diubah</b>.</li>
+                                  </ol>
                                 </div>
-                                <div class="col-md-2 text-center">Sampai</div>
-                                <div class="col-md-5">
-                                  <input type="text" class="form-control" id="to-<?php echo $kegiatan->kode_kegiatan;?>" placeholder="hh/bb/ttt" name="tgl_selesai_kegiatan" value="<?php echo $new_tgl_selesai ?>" required>
+                                <?php echo form_open_multipart('KegiatanC/post_ubah_pengajuan_kegiatan');?>
+                                <form role="form" action="<?php echo base_url(); ?>KegiatanC/post_ubah_pengajuan_kegiatan" method="post">
+                                  <!-- Alert -->
+                                  <!-- sampai sini -->
+                                  <div class="form-group">
+                                    <!-- <label>ID Pengguna Jabatan</label> -->
+                                    <input class="form-control" type="hidden" id="kode_kegiatan" name="kode_kegiatan" value="<?php echo $kegiatan->kode_kegiatan;?>" required> <!-- ambil id_pimpinan berdasarkan user yang login-->
+                                  </div>
+                                  <div class="form-group">
+                                    <!-- <label>Kode Jenis Kegiatan</label> -->
+                                    <?php
+                                    $tgl_kegiatan = $kegiatan->tgl_kegiatan;
+                                    $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
+                                    $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
+                                    $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai)); 
+                                    if($data_diri->kode_jabatan == '5'){
+                                      ?>  
+                                      <input class="form-control" type="hidden" id="kode_jenis_kegiatan" name="kode_jenis_kegiatan" value="2" required>
+                                      <?php
+                                    }else{
+                                      ?>
+                                      <input class="form-control" type="hidden" id="kode_jenis_kegiatan" name="kode_jenis_kegiatan" value="1" required>
+                                      <?php
+                                    }
+                                    ?>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Nama Kegiatan</label>
+                                    <input class="form-control" placeholder="Nama Kegiatan" type="text" id="nama_kegiatan" name="nama_kegiatan" value="<?php echo $kegiatan->nama_kegiatan?>" required>
+                                    <span class="text-danger" style="color: red;"><?php echo form_error('nama_kegiatan'); ?></span>  
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Tanggal Pelaksanaan Kegiatan</label>
+                                    <div class="row">
+                                     <div class="col-md-5">
+                                      <input type="text" class="form-control"  id="from-<?php echo $kegiatan->kode_kegiatan;?>" placeholder="hh/bb/ttt" name="tgl_kegiatan" value="<?php echo $new_tgl_kegiatan; ?>" required>
+                                    </div>
+                                    <div class="col-md-2 text-center">Sampai</div>
+                                    <div class="col-md-5">
+                                      <input type="text" class="form-control" id="to-<?php echo $kegiatan->kode_kegiatan;?>" placeholder="hh/bb/ttt" name="tgl_selesai_kegiatan" value="<?php echo $new_tgl_selesai ?>" required>
+                                    </div>
+                                  </div>
+                                  <span class="text-danger" style="color: red;"><?php echo form_error('tgl_kegiatan'); ?></span>  
                                 </div>
-                              </div>
-                              <span class="text-danger" style="color: red;"><?php echo form_error('tgl_kegiatan'); ?></span>  
-                            </div>
-                            <div class="form-group">
-                              <label>Dana yang diajukan</label>
-                              <input class="form-control" placeholder="Dana yang diajukan" type="text" onkeypress="return hanyaAngka(event)" id="dana_diajukan-<?php echo $kegiatan->kode_kegiatan;?>" name="dana_diajukan" value="Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>" required>
-                              <span class="text-danger" style="color: red;"><?php echo form_error('dana_diajukan'); ?></span>  
-                            </div>
-                            <div style="color: red;"><?php echo (isset($message))? $message : ""; ?></div>
-                            <div class="form-group">
-                              <label>Unggah Berkas</label>
-                              <input type="file" name="file_upload">
-                            </div>
-                          </div> 
-                          <!-- <button type="reset" class="btn btn-default">Reset Button</button> -->
-                          <div class="modal-footer">
-                            <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
-                          </div> 
-                        </form>
-                        <?php echo form_close()?>
+                                <div class="form-group">
+                                  <label>Dana yang diajukan</label>
+                                  <input class="form-control" placeholder="Dana yang diajukan" type="text" onkeypress="return hanyaAngka(event)" id="dana_diajukan-<?php echo $kegiatan->kode_kegiatan;?>" name="dana_diajukan" value="Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>" required>
+                                  <span class="text-danger" style="color: red;"><?php echo form_error('dana_diajukan'); ?></span>  
+                                </div>
+                                <div style="color: red;"><?php echo (isset($message))? $message : ""; ?></div>
+                                <div class="form-group">
+                                  <label>Unggah Berkas</label>
+                                  <input type="file" name="file_upload">
+                                </div>
+                              </div> 
+                              <!-- <button type="reset" class="btn btn-default">Reset Button</button> -->
+                              <div class="modal-footer">
+                                <input type="submit" class="btn btn-primary col-lg-2"  value="Simpan">
+                              </div> 
+                            </form>
+                            <?php echo form_close()?>
+                          </div>
+                          <div class="col-lg-1"></div>
+                        </div>
                       </div>
-                      <div class="col-lg-1"></div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <script type="text/javascript">
-                $(function() {
-                  var dp = document.getElementById('dana_diajukan-<?php echo $kegiatan->kode_kegiatan?>');
-                  dp.addEventListener('keyup', function(e){
-                    dp.value = formatRupiah(this.value, 'Rp');
-                  });
+                  <script type="text/javascript">
+                    $(function() {
+                      var dp = document.getElementById('dana_diajukan-<?php echo $kegiatan->kode_kegiatan?>');
+                      dp.addEventListener('keyup', function(e){
+                        dp.value = formatRupiah(this.value, 'Rp');
+                      });
 
-                  function formatRupiah(angka, prefix){
-                    var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                    split    = number_string.split(','),
-                    sisa     = split[0].length % 3,
-                    rupiah     = split[0].substr(0, sisa),
-                    ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
+                      function formatRupiah(angka, prefix){
+                        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                        split    = number_string.split(','),
+                        sisa     = split[0].length % 3,
+                        rupiah     = split[0].substr(0, sisa),
+                        ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
 
-                    if (ribuan){
-                      separator = sisa ? '.' : '';
-                      rupiah += separator + ribuan.join('.');
-                    }
+                        if (ribuan){
+                          separator = sisa ? '.' : '';
+                          rupiah += separator + ribuan.join('.');
+                        }
 
-                    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                    return prefix == undefined ? rupiah : (rupiah ? 'Rp' + rupiah : '');
-                  }
-                  $("#from-<?php echo $kegiatan->kode_kegiatan;?>").datepicker({
-                    defaultDate: new Date(),
-                    minDate: new Date(),
-                    onSelect: function(dateStr) 
-                    {         
-                      $("#to-<?php echo $kegiatan->kode_kegiatan;?>").datepicker("destroy");
-                      $("#to-<?php echo $kegiatan->kode_kegiatan;?>").val(dateStr);
-                      $("#to-<?php echo $kegiatan->kode_kegiatan;?>").datepicker({ minDate: new Date(dateStr)})
-                    }
-                  });
-                });
-              </script>
-              <?php
-            }
-            ?>
-          </tbody>
-        </table>
+                        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                        return prefix == undefined ? rupiah : (rupiah ? 'Rp' + rupiah : '');
+                      }
+                      $("#from-<?php echo $kegiatan->kode_kegiatan;?>").datepicker({
+                        defaultDate: new Date(),
+                        minDate: new Date(),
+                        onSelect: function(dateStr) 
+                        {         
+                          $("#to-<?php echo $kegiatan->kode_kegiatan;?>").datepicker("destroy");
+                          $("#to-<?php echo $kegiatan->kode_kegiatan;?>").val(dateStr);
+                          $("#to-<?php echo $kegiatan->kode_kegiatan;?>").datepicker({ minDate: new Date(dateStr)})
+                        }
+                      });
+                    });
+                  </script>
+                  <?php
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-</div>
-<!-- project team & activity end -->
+  <!-- project team & activity end -->
 
 </section>
 

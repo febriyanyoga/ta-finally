@@ -61,10 +61,10 @@
             </tr>
           </table>
         </div>
-    </div>
-    <div class="col-lg-6">
+      </div>
+      <div class="col-lg-6">
         <!-- Keterangan Edit -->
-      <div class="alert alert-info">
+        <div class="alert alert-info">
           <p>Berikut adalah penjelasan dari <strong>tombol</strong> di kolom aksi pada tabel persetujuan kegiatan staf<strong>:</strong></p>
           <table border="3" style="border-color: transparent;" class="table table-sm table-hover borderless">
             <tr style="height: 30px">
@@ -73,107 +73,107 @@
               <td style="width: 62%"> Jika tombol tampil seperti ini, maka tombol dapat digunakan untuk menyetujui atau menolak pengajuan kegiatan staf dan memberikan komentar.</td>
             </tr>
             <tr style="height: 30px">
-                <td><a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-edit"></span></a></td>
-                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
-                <td> Jika tombol tampil seperti ini, maka tombol sudah tidak dapat digunakan untuk menyetujui atau menolak pengajuan kegiatan staf dan memberikan komentar.</td>
+              <td><a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-edit"></span></a></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Jika tombol tampil seperti ini, maka tombol sudah tidak dapat digunakan untuk menyetujui atau menolak pengajuan kegiatan staf dan memberikan komentar.</td>
             </tr>
             <tr style="height: 30px">
-                <td><a disabled title="Sudah"><span class="glyphicon glyphicon-ok" style="margin-left: 11px;"></span></a><p class="kecil">Selesai</p></td>
-                <td><i class="glyphicon glyphicon-arrow-right"></i></td>
-                <td> Jika ikon dan keterangan tampil seperti ini, menandakan bahwa anda telah memberikan persetujuan terhadap pengajuan kegiatan staf tersebut.</td>
+              <td><a disabled title="Sudah"><span class="glyphicon glyphicon-ok" style="margin-left: 11px;"></span></a><p class="kecil">Selesai</p></td>
+              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+              <td> Jika ikon dan keterangan tampil seperti ini, menandakan bahwa anda telah memberikan persetujuan terhadap pengajuan kegiatan staf tersebut.</td>
             </tr>
             <tr>
-                <td></td>
+              <td></td>
             </tr>
           </table>
+        </div>
+        <!-- End Ket Edit -->
       </div>
-          <!-- End Ket Edit -->
     </div>
-  </div>
 
-        <div class="row">
-          <div class="col-lg-12">  
-            <div class="card mb-3">
-              <div class="card-header">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
-                      <thead>
-                       <tr class="text-center">
-                        <th class="text-center">Nama Kegiatan</th>
-                        <th class="text-center">Nama Pengaju</th>
-                        <th class="text-center">Jabatan Pengaju</th>
-                        <th class="text-center">Tgl Pengajuan</th>
-                        <th class="text-center">Tgl Kegiatan</th>
-                        <th class="text-center">Dana Diajukan</th>
-                        <th class="text-center">File</th>
-                        <th class="text-center">Status</th>
-                        <th class="text-center">Aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
+    <div class="row">
+      <div class="col-lg-12">  
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
+                  <thead>
+                   <tr class="text-center">
+                    <th class="text-center">Nama Kegiatan</th>
+                    <th class="text-center">Nama Pengaju</th>
+                    <th class="text-center">Jabatan Pengaju</th>
+                    <th class="text-center">Tgl Pengajuan</th>
+                    <th class="text-center">Tgl Kegiatan</th>
+                    <th class="text-center">Dana Diajukan</th>
+                    <th class="text-center">File</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
                 // print_r($data_pengajuan_kegiatan);
-                      foreach ($data_pengajuan_kegiatan as $kegiatan) {
-                        $jabatan        = $KegiatanM->get_data_pengajuan_by_id_staf($kegiatan->kode_kegiatan)->result();
-                        $unit           = $KegiatanM->get_data_pengajuan_by_id_staf($kegiatan->kode_kegiatan)->result();
+                  foreach ($data_pengajuan_kegiatan as $kegiatan) {
+                    $jabatan        = $KegiatanM->get_data_pengajuan_by_id_staf($kegiatan->kode_kegiatan)->result();
+                    $unit           = $KegiatanM->get_data_pengajuan_by_id_staf($kegiatan->kode_kegiatan)->result();
                   // print_r($kegiatan->kode_kegiatan);
-                        ?>
-                        <tr>
-                          <td class="text-center relative">
-                            <div class="relative">
-                              <strong><?php echo $kegiatan->nama_kegiatan;?></strong>
-                              <a href="#myModal1" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail kegiatan"><small class="kecil">Lihat detail</small></a>
-                            </div>
-                          </td>
-                          <td class="text-center"><?php echo $kegiatan->nama;?></td>
-                          <td class="text-center"><?php echo $kegiatan->nama_jabatan;?></td>
-                          <!-- <td class="text-center"><?php echo $jabatan->nama;?></td> -->
-                          <!-- <td class="text-center"><?php echo $jabatan->nama_jabatan." ".$unit->nama_unit;?></td> -->
-                          <?php 
-                          $tgl_pengajuan = $kegiatan->tgl_pengajuan;
-                          $new_tgl_pengajuan = date('d-m-Y',strtotime($tgl_pengajuan));
-                          $tgl_kegiatan = $kegiatan->tgl_kegiatan;
-                          $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
-                          $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
-                          $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai));
-                          ?>
-                          <td class="text-center"><?php echo $new_tgl_pengajuan; ?></td>
-                          <td class="text-center">
-                            <div class="relative">
-                             <small class="kecil"><strong><?php echo $new_tgl_kegiatan?></strong></small>
-                             <small class="kecil">sampai</small>
-                             <small class="kecil"><strong><?php echo $new_tgl_selesai; ?></strong></small>
-                           </div>
-                         </td>
-                         <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,00</td>
-                         <?php 
-                         $link = base_url()."assets/file_upload/".$kegiatan->nama_file;
-                         if(substr($kegiatan->nama_file,32,4) == ".zip"){
-                          ?>
-                          <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/zip.svg" style="height: 30px;"></span></a></td>
-                          <?php
-                        }else{
-                          ?>
-                          <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
-                          <?php
-                        }
-                        ?>
-                        <td class="text-center">
-                          <!-- //disetujui -->
-                          <?php
-                          $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
-                          $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
-                          $progress_staf       = $KegiatanM->get_progress_staf($kegiatan->kode_kegiatan);
-                          $progress_tolak_staf = $KegiatanM->get_progress_tolak_staf($kegiatan->kode_kegiatan);
-                          $own_id = $data_diri->kode_jabatan_unit;
-                          $kode = $kegiatan->kode_kegiatan; 
-                          $own  = $KegiatanM->get_own_progress_staf($kode, $own_id);
+                    ?>
+                    <tr>
+                      <td class="text-center relative">
+                        <div class="relative">
+                          <strong><?php echo $kegiatan->nama_kegiatan;?></strong>
+                          <a href="#myModal1" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail kegiatan"><small class="kecil">Lihat detail</small></a>
+                        </div>
+                      </td>
+                      <td class="text-center"><?php echo $kegiatan->nama;?></td>
+                      <td class="text-center"><?php echo $kegiatan->nama_jabatan;?></td>
+                      <!-- <td class="text-center"><?php echo $jabatan->nama;?></td> -->
+                      <!-- <td class="text-center"><?php echo $jabatan->nama_jabatan." ".$unit->nama_unit;?></td> -->
+                      <?php 
+                      $tgl_pengajuan = $kegiatan->tgl_pengajuan;
+                      $new_tgl_pengajuan = date('d-m-Y',strtotime($tgl_pengajuan));
+                      $tgl_kegiatan = $kegiatan->tgl_kegiatan;
+                      $new_tgl_kegiatan = date('d-m-Y', strtotime($tgl_kegiatan));
+                      $tgl_selesai = $kegiatan->tgl_selesai_kegiatan;
+                      $new_tgl_selesai = date('d-m-Y', strtotime($tgl_selesai));
+                      ?>
+                      <td class="text-center"><?php echo $new_tgl_pengajuan; ?></td>
+                      <td class="text-center">
+                        <div class="relative">
+                         <small class="kecil"><strong><?php echo $new_tgl_kegiatan?></strong></small>
+                         <small class="kecil">sampai</small>
+                         <small class="kecil"><strong><?php echo $new_tgl_selesai; ?></strong></small>
+                       </div>
+                     </td>
+                     <td>Rp<?php echo number_format($kegiatan->dana_diajukan, 0,',','.') ?>,00</td>
+                     <?php 
+                     $link = base_url()."assets/file_upload/".$kegiatan->nama_file;
+                     if(substr($kegiatan->nama_file,32,4) == ".zip"){
+                      ?>
+                      <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/zip.svg" style="height: 30px;"></span></a></td>
+                      <?php
+                    }else{
+                      ?>
+                      <td class="text-center"><a target="_blank" href="<?php echo $link?>"><span><img src="<?php echo base_url()?>assets/image/logo/pdf.svg" style="height: 30px;"></span></a></td>
+                      <?php
+                    }
+                    ?>
+                    <td class="text-center">
+                      <!-- //disetujui -->
+                      <?php
+                      $progress       = $KegiatanM->get_progress($kegiatan->kode_kegiatan);
+                      $progress_tolak = $KegiatanM->get_progress_tolak($kegiatan->kode_kegiatan);
+                      $progress_staf       = $KegiatanM->get_progress_staf($kegiatan->kode_kegiatan);
+                      $progress_tolak_staf = $KegiatanM->get_progress_tolak_staf($kegiatan->kode_kegiatan);
+                      $own_id = $data_diri->kode_jabatan_unit;
+                      $kode = $kegiatan->kode_kegiatan; 
+                      $own  = $KegiatanM->get_own_progress_staf($kode, $own_id);
 
 
                       // if ada progress dari staf keuangan , nama progress ambil dari database
-                          $id_staf_keu = $cek_id_staf_keu[0]->kode_jabatan_unit; 
-                          $progress_staf_keu = $KegiatanM->get_own_progress($kode, $id_staf_keu);
+                      $id_staf_keu = $cek_id_staf_keu[0]->kode_jabatan_unit; 
+                      $progress_staf_keu = $KegiatanM->get_own_progress($kode, $id_staf_keu);
                       $min = $cek_min_pegawai->ranking; //cek rannking min
                       $id_min     = $KegiatanM->cek_id_by_rank_pegawai($min)->kode_jabatan_unit; //id yang rank nya min
 
@@ -181,32 +181,38 @@
                       $rank_min_pegawai =  $KegiatanM->cek_min_pegawai()->ranking;
                       $id_rank_min_pegawai = $KegiatanM->cek_id_by_rank_pegawai($rank_min_pegawai)->kode_jabatan_unit;
                       $progress_min_pegawai = $KegiatanM->get_own_progress($kode, $id_rank_min_pegawai);
-                        if($progress_staf_keu > 0){ //sudah ada input staf keu
-                          $progress_nama = $KegiatanM->get_progress_by_id($id_staf_keu, $kode)->result()[0]->nama_progress;
-                          ?>
-                          <a class="label label-warning" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><?php echo $progress_nama?></a>
-                          <?php
-                        }else{
-                          if($progress_tolak == 0 && $progress == 0 && $progress_staf == 0 && $progress_tolak_staf == 0){ //belum punya progress
+                      if($kegiatan->status_kegiatan == "Ditolak"){
+                        ?>
+                        <a class="label label-danger" title="ditolak karena penambahan pihak yang terlibat pada persetujuan"><?php echo $kegiatan->status_kegiatan?></a>
+                        <?php
+                      }else{
+                          if($progress_staf_keu > 0){ //sudah ada input staf keu
+                            $progress_nama = $KegiatanM->get_progress_by_id($id_staf_keu, $kode)->result()[0]->nama_progress;
                             ?>
-                            <a class="label label-info">Mengajukan</a>
+                            <a class="label label-warning" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><?php echo $progress_nama?></a>
                             <?php
                           }else{
-                            if($progress_tolak > 0 || $progress_tolak_staf > 0){ //punya progress yang ditolak
+                            if($progress_tolak == 0 && $progress == 0 && $progress_staf == 0 && $progress_tolak_staf == 0){ //belum punya progress
                               ?>
-                              <a class="label label-danger" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Ditolak</a>
-                              <?php
-                            }elseif ($progress_min_pegawai > 0) { //jika ada inputan progress dari acc kegiatan yang min (ranking trtinggi)
-                              ?>
-                              <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Disetujui</a>
+                              <a class="label label-info">Mengajukan</a>
                               <?php
                             }else{
-                              ?>
-                              <a class="label label-default" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Proses</a>
-                              <?php
+                              if($progress_tolak > 0 || $progress_tolak_staf > 0){ //punya progress yang ditolak
+                                ?>
+                                <a class="label label-danger" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Ditolak</a>
+                                <?php
+                              }elseif ($kegiatan->status_kegiatan == "Disetujui") { //jika ada inputan progress dari acc kegiatan yang min (ranking trtinggi)
+                                ?>
+                                <a class="label label-success" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress"><?php echo $kegiatan->status_kegiatan?></a>
+                                <?php
+                              }else{
+                                ?>
+                                <a class="label label-default" href="#modal_progress" id="custID" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" title="klik untuk melihat detail progress">Proses</a>
+                                <?php
+                              }
                             }
-                          }
-                        }     
+                          }     
+                        }  
                         ?>
                       </td>
                       <td class="text-center">
@@ -215,18 +221,27 @@
                         $id   = $data_diri->kode_jabatan_unit;
                         $own  = $KegiatanM->get_own_progress_staf($kode, $id);
                         // print_r($own);
-                        if($own > 0){
+                        if($kegiatan->status_kegiatan == "Disetujui"){
                           ?>
-                          <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
-                            <p class="kecil">Selesai</p>
-                            <?php
-                          }elseif ($own == 0) {
+                          <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Sudah disetujui" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                          <?php
+                        }elseif($kegiatan->status_kegiatan == "Ditolak"){
+                          ?>
+                          <a id="custId" disabled data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Kegiatan ditolak" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                          <?php
+                        }else{
+                          if($own > 0){
                             ?>
-                            <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan Persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-                            <?php
+                            <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></a>
+                              <p class="kecil">Selesai</p>
+                              <?php
+                            }elseif ($own == 0) {
+                              ?>
+                              <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan Persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                              <?php
+                            }
                           }
                           ?>
-
                         </td>
                       </tr>
                       <?php

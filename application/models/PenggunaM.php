@@ -306,6 +306,23 @@
 		}
 	}
 
+	//diupdate ditolak
+	public function get_kegiatan_pegawai_mau_ditolak($jenis_kegiatan){
+		$this->db->select('*');
+		$this->db->from('kegiatan');
+		$this->db->join('pengguna', 'pengguna.id_pengguna = kegiatan.id_pengguna');
+		$this->db->join('progress', 'progress.kode_fk = kegiatan.kode_kegiatan');
+		$this->db->where('progress.jenis_progress = "kegiatan" OR progress.jenis_progress = "kegiatan_staf"');
+		$this->db->where('kode_jenis_kegiatan', $jenis_kegiatan);
+		$this->db->group_by('kegiatan.kode_kegiatan');
+		$query = $this->db->get();
+		if($query){
+			return $query;
+		}else{
+			return null;
+		}
+	}
+
 	public function get_kegiatan_pegawai_setuju($kode_jabatan_unit){ //menampilkan kegiatan yang diajukan user sebagai pegwai
 		$id_pengguna = $this->session->userdata('id_pengguna');
 		$this->db->select('*');
@@ -326,7 +343,7 @@
 		}
 	} 
 
-	public function get_kegiatan_tolak($kode_jabatan_unit){ //menampilkan kegiatan yang diajukan user sebagai pegwai
+	public function get_kegiatan_tolak(){ //menampilkan kegiatan yang diajukan user sebagai pegwai
 		$id_pengguna = $this->session->userdata('id_pengguna');
 		$this->db->select('*');
 		$this->db->from('kegiatan');

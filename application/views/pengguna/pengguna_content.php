@@ -260,6 +260,14 @@
                           <div class="modal-body">
                             <?php echo form_open_multipart('PenggunaC/ganti_jabatan');?>
                             <form role="form" action="<?php echo base_url(); ?>PenggunaC/ganti_jabatan" method="post">
+                              <div class="alert alert-warning">
+                                <strong>Perhatian!</strong>
+                                <ol type="1">
+                                  <li>Pergantian <strong>jabatan </strong>seorang <strong>pimpinan unit</strong> dapat dicarikan pengganti <strong>(dari unit yang sama/staf)</strong> agar jabatan <strong>tidak kosong</strong> dan sistem dapat berjalan dengan <strong>baik</strong>.</li>
+                                  <li>Jabatan <strong>pimpinan unit</strong> hanya dapat diisi oleh <strong>1 pengguna aktif</strong> saja.</li>
+                                  <li>Pergantian jabatan dari <strong>pimpinan unit</strong> ke <strong>pimpinan unit</strong> dapat dilakukan apabila pimpinan unit yang akan digantikan <strong>dinon-aktifkan</strong></li>
+                                </ol>
+                              </div>
                               <div class="form-group">
                                 <input type="hidden" name="id_pengguna" value="<?php echo $pengguna->id_pengguna?>">
                                 <input type="hidden" name="own_kode_unit" value="<?php echo $pengguna->kode_unit?>">

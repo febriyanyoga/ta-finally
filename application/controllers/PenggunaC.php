@@ -109,6 +109,16 @@ public function konfigurasi_sistem(){
 			$this->data['jabatan_unit_menu']	= $this->PenggunaM->get_jabatan_unit()->result();
 			$this->data['PenggunaM']			= $this->PenggunaM;
 			$this->data['data_diri'] 			= $data_diri;  	//get data diri buat nampilin nama di pjok kanan
+
+			// $tolak = $this->PenggunaM->get_kegiatan_pegawai_mau_ditolak('1')->result();
+			// $data_kode_fk_tolak = array();
+			// foreach ($tolak as $key) {
+			// 	if($key->status_kegiatan != 'Disetujui'){
+			// 		array_push($data_kode_fk_tolak, $key->kode_kegiatan);
+			// 	}
+			// }
+			// $this->data['eek'] = $data_kode_fk_tolak;
+			// $this->data['tolak'] = $tolak;
 			$data['body'] = $this->load->view('pengguna/konfigurasi_sistem_content', $this->data, true);
 			$this->load->view('pengguna/index_template', $data);
 		}else{
@@ -493,6 +503,19 @@ public function ganti_jabatan(){
 						'kode_jenis_kegiatan'      	=> $kode);
 					$db = "acc_kegiatan";
 					if($this->PenggunaM->insert($db, $data)){
+						//update tolak
+						$tolak = $this->PenggunaM->get_kegiatan_pegawai_mau_ditolak($kode)->result();
+						$data_kode_fk_tolak = array();
+						foreach ($tolak as $key) {
+							if($key->status_kegiatan != 'Disetujui'){
+								array_push($data_kode_fk_tolak, $key->kode_kegiatan);
+							}
+						}
+						$data_update_keg = array('status_kegiatan' => "Ditolak" );
+						if(!is_null($data_kode_fk_tolak)){
+							$this->PenggunaM->update_kegiatan_by_kode_keg($data_kode_fk_tolak, $kode, $data_update_keg);
+						}
+
 						$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
 						redirect_back();
 					}else{
@@ -510,6 +533,20 @@ public function ganti_jabatan(){
 						'kode_jenis_kegiatan'      	=> $kode);
 					$db = "acc_kegiatan";
 					if($this->PenggunaM->insert($db, $data)){
+
+						//update tolak
+						$tolak = $this->PenggunaM->get_kegiatan_pegawai_mau_ditolak($kode)->result();
+						$data_kode_fk_tolak = array();
+						foreach ($tolak as $key) {
+							if($key->status_kegiatan != 'Disetujui'){
+								array_push($data_kode_fk_tolak, $key->kode_kegiatan);
+							}
+						}
+						$data_update_keg = array('status_kegiatan' => "Ditolak" );
+						if(!is_null($data_kode_fk_tolak)){
+							$this->PenggunaM->update_kegiatan_by_kode_keg($data_kode_fk_tolak, $kode, $data_update_keg);
+						}
+
 						$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
 						redirect_back();
 					}else{
