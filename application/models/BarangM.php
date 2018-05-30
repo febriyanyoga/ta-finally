@@ -301,7 +301,7 @@ class BarangM extends CI_Model
 		$this->db->join('barang', 'barang.kode_barang = item_pengajuan.kode_barang');
 		$this->db->join('jenis_barang', 'jenis_barang.kode_jenis_barang = barang.kode_jenis_barang');
 		$this->db->join('progress', 'progress.kode_fk = item_pengajuan.kode_item_pengajuan');
-		$this->db->where('item_pengajuan.status_pengajuan ="proses" OR item_pengajuan.status_pengajuan = "tunda" OR item_pengajuan.status_pengajuan = "pengajuan"');
+		$this->db->where('item_pengajuan.status_pengajuan ="proses_pengajuan" OR item_pengajuan.status_pengajuan = "tunda" OR item_pengajuan.status_pengajuan = "pengajuan"');
 		$this->db->where('progress.jenis_progress ="barang"');
 		$this->db->where('progress.kode_nama_progress ="1"');
 		$this->db->where('item_pengajuan.kode_pengajuan IS NULL');
@@ -693,7 +693,7 @@ class BarangM extends CI_Model
 	}
 
 	public function ulang($kode){ //mengubah status item_pengajuan menjadi proses
-		$status = 'proses';
+		$status = 'proses_pengajuan';
 		$kode_pengajuan = NULL;
 		$data = array(
 			'status_pengajuan' => $status,

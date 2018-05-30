@@ -330,26 +330,60 @@ class BarangC extends CI_Controller {
 			);
 
 			if($kode_nama_progress == '1'){
-				$persetujuan = 'proses';
-			}elseif ($kode_nama_progress == "2") {
-				$persetujuan = 'tolak';
-			}
-			
-			$data = array(
-				'status_pengajuan' => $persetujuan
-			);
-			if($this->BarangM->insert_progress($data_progress)){
-				$this->BarangM->update_persetujuan($data,$kode_fk);
-				$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
-				redirect_back();
-			}else{
-				$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
-				redirect_back();
-			}
+				$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+                $jabatan_unit_sendiri    = $data_diri->kode_jabatan_unit; //untuk mengetahui jabatan_unit_sendiri
+                $rank_sendiri   = $this->BarangM->cek_rank_barang_by_id_pegawai($jabatan_unit_sendiri)->ranking; //rank sendiri 
+                
+                if($rank_sendiri == 1){
+                	$status_pengajuan 	  = 'proses_pengajuan';
+                	$data = array(
+                		'status_pengajuan' => $status_pengajuan
+                	);
+                	if($this->BarangM->update_item_pengajuan($kode_fk, $data)){
+                			if($this->BarangM->insert_progress($data_progress)){
+            					$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+            					redirect_back();
+			            	}else{
+			            		$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
+			            		redirect_back();
+			            	}
+                		
+                	}else{
+                		$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
+                		redirect('BarangC/persetujuan_rab');
+                	}
+                }else{
+                	$persetujuan = 'proses';
+	            	$data1 = array(
+	            		'status_pengajuan' => $persetujuan
+	            	);
+                	if($this->BarangM->insert_progress($data_progress)){
+                		$this->BarangM->update_persetujuan($data1,$kode_fk);
+            			$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+            			redirect_back();
+	            	}else{
+	            		$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
+	            		redirect_back();
+	            	}
+                }
+            }elseif ($kode_nama_progress == "2") {
+            	$persetujuan = 'tolak';
+            	$data = array(
+            		'status_pengajuan' => $persetujuan
+            	);
+            	if($this->BarangM->insert_progress($data_progress)){
+            		$this->BarangM->update_persetujuan($data,$kode_fk);
+            		$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+            		redirect_back();
+            	}else{
+            		$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
+            		redirect_back();
+            	}
+            }
 
-		}
+        }
 
-	}	
+    }	
 
 	public function post_tambah_ajukan_barang(){ //fungsi untuk tambah pengajuan barang
 		$this->form_validation->set_rules('id_pengguna', 'Id Pengguna','required');

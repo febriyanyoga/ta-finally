@@ -145,11 +145,15 @@
                           }else{
                             if($barang->status_pengajuan == "baru"){
                               ?>
-                              <a class="label label-primary" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress"> BARU</a>
+                              <a class="label label-primary"> BARU</a>
                               <?php
                             }else if($barang->status_pengajuan == "proses"){
                               ?>
                               <a class="label label-info" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">PROSES</a>
+                              <?php
+                            }else if($barang->status_pengajuan == "proses_pengajuan"){
+                              ?>
+                              <a class="label label-info" href="#modal_progress_barang" id="custID" data-toggle="modal" data-id="<?php echo $barang->kode_item_pengajuan;?>" title="klik untuk melihat detail progress">PROSES PENGAJUAN</a>
                               <?php
                             }else if($barang->status_pengajuan == "pengajuan"){
                               ?>
@@ -184,17 +188,27 @@
                         <td>
                           <?php
                           $progress_barang = $BarangM->get_progress_barang($barang->kode_item_pengajuan);
-                          if($progress_barang == 0){
-                            ?>
-                            <div class="btn-group">
-                              <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
-                              <a href="<?php echo base_url('BarangC/hapus_pengajuan_barang')."/".$barang->kode_item_pengajuan;?>" onClick="return confirm('Anda yakin akan menghapus data pengajuan ini?')" data-toggle='tooltip' title='Hapus pengajuan' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>  
-                            </div>                
-                            <?php
-                          }else{
+                          if($barang->status_pengajuan == "disetujui"){
                             ?>
                             <a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-pencil"></span></a>
                             <?php
+                          }else if($barang->status_pengajuan =="tolak"){
+                            ?>
+                            <a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-pencil"></span></a>
+                            <?php
+                          }else{
+                            if($progress_barang == 0){
+                              ?>
+                              <div class="btn-group">
+                                <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-<?php echo $barang->kode_item_pengajuan; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <a href="<?php echo base_url('BarangC/hapus_pengajuan_barang')."/".$barang->kode_item_pengajuan;?>" onClick="return confirm('Anda yakin akan menghapus data pengajuan ini?')" data-toggle='tooltip' title='Hapus pengajuan' class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>  
+                              </div>                
+                              <?php
+                            }else{
+                              ?>
+                              <a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-pencil"></span></a>
+                              <?php
+                            }
                           }
                           ?>
                         </td>

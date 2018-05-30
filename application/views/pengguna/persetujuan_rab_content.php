@@ -161,21 +161,38 @@
                       <?php
                         $rab_created = $val->created_at; //waktu kegiatan dibuat
                         $acc_created = $BarangM->created_at_rab($data_diri->kode_jabatan_unit)->created_at; //waktu acc kegiatan/akses persetujuan dibuat
-                        if($progress_rab_sendiri > 0){ //jika sudah input progress ========================================================
+                        if($val->status_pengajuan_rab == "diterima"){
+                          ?>
+                          <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></span></a><p class="kecil">Selesai</p>
+                          <?php
+                        }else if($val->status_pengajuan_rab == "ditolak"){
                           ?>
                           <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></span></a><p class="kecil">Selesai</p>
                           <?php
                         }else{
-                          if($jabatan_unit_sendiri == $id_min && $jabatan_unit_sendiri == $id_max){ //ranking asesor max dan min ==========
-                            if($rab_created > $acc_created){ //kegiatan dullu baru acc_kegiatan masuk =====================================
-                              if($progress_rab_sendiri!= 0){//sudah disetujui->tidak bisa acc =======================================
-                                ?>
-                                <div class="btn-group">
-                                  <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
-                                  <a disabled class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
-                                </div>
-                                <?php
-                              }else{//belum disetujui =====================================================================================
+                          if($progress_rab_sendiri > 0){ //jika sudah input progress ========================================================
+                            ?>
+                            <a disabled title="Sudah"><span class="glyphicon glyphicon-ok"></span></a><p class="kecil">Selesai</p>
+                            <?php
+                          }else{
+                            if($jabatan_unit_sendiri == $id_min && $jabatan_unit_sendiri == $id_max){ //ranking asesor max dan min ==========
+                              if($rab_created > $acc_created){ //kegiatan dullu baru acc_kegiatan masuk =====================================
+                                if($progress_rab_sendiri!= 0){//sudah disetujui->tidak bisa acc =======================================
+                                  ?>
+                                  <div class="btn-group">
+                                    <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
+                                    <a disabled class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
+                                  </div>
+                                  <?php
+                                }else{//belum disetujui =====================================================================================
+                                  ?>
+                                  <div class="btn-group">
+                                    <a href="#" data-toggle="modal" data-target="#modal_terima-<?php echo $val->kode_pengajuan; ?>" title="Terima" class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
+                                    <a href="#" data-toggle="modal" data-target="#modal_tolak-<?php echo $val->kode_pengajuan; ?>" title="Tolak" class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
+                                  </div>
+                                  <?php
+                                }
+                              }else{ //acc dulu baru kegiatan ==============================================================================
                                 ?>
                                 <div class="btn-group">
                                   <a href="#" data-toggle="modal" data-target="#modal_terima-<?php echo $val->kode_pengajuan; ?>" title="Terima" class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
@@ -183,57 +200,57 @@
                                 </div>
                                 <?php
                               }
-                            }else{ //acc dulu baru kegiatan ==============================================================================
-                              ?>
-                              <div class="btn-group">
-                                <a href="#" data-toggle="modal" data-target="#modal_terima-<?php echo $val->kode_pengajuan; ?>" title="Terima" class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
-                                <a href="#" data-toggle="modal" data-target="#modal_tolak-<?php echo $val->kode_pengajuan; ?>" title="Tolak" class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
-                              </div>
-                              <?php
-                            }
-                          }elseif($jabatan_unit_sendiri == $id_min && $jabatan_unit_sendiri != $id_max){ //ranking asesor min tp tdk max ==
-                            $rank_sendiri   = $BarangM->cek_rank_rab_by_id_pegawai($jabatan_unit_sendiri)->ranking; //rank sendiri 
-                            $rank_lebih_besar  = ((int)$rank_sendiri + 1); //rank sendri + 1 (rank bawahnya) 
-                            $id_lebih_besar    = $BarangM->cek_id_by_rank_rab($rank_lebih_besar)->kode_jabatan_unit; //id yang ranknya (ran ksendiri + 1) 
-                            $progress_id_lebih_besar = $BarangM->progress_rab_sendiri($val->kode_pengajuan, $id_lebih_besar); //progress id yang ranknya (rank sendiri+1)
-                            if($progress_id_lebih_besar > 0){ //sudah diberi progress rank bawahnya =======================================
-                              if($progress_rab_tolak == 0){ // tidak ditolak ==============================================================
-                                if($rab_created > $acc_created){ //kegiatan dullu baru acc_kegiatan masuk =================================
-                                  if($progress_rab_sendiri!= 0){//sudah disetujui->tidak bisa acc ===================================
-                                    ?>
-                                    <div class="btn-group">
-                                      <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a disabled class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
-                                    </div>
-                                    <?php
-                                  }else{//belum disetujui =================================================================================
-                                     $rank_p = $BarangM->get_progress_by_kode_pengajuan($val->kode_pengajuan)->result()[0]->kode_jabatan_unit;//cari progress berdasarkan kode item pengajuan
-                                    $rank_progress = $BarangM->cek_rank_rab_by_id_pegawai($rank_p)->ranking; // cari ranking by kode jabatan unit
-                                    if($rank_sendiri > $rank_progress){ //progress sampe diatas ===========================================
+                            }elseif($jabatan_unit_sendiri == $id_min && $jabatan_unit_sendiri != $id_max){ //ranking asesor min tp tdk max ==
+                              $rank_sendiri   = $BarangM->cek_rank_rab_by_id_pegawai($jabatan_unit_sendiri)->ranking; //rank sendiri 
+                              $rank_lebih_besar  = ((int)$rank_sendiri + 1); //rank sendri + 1 (rank bawahnya) 
+                              $id_lebih_besar    = $BarangM->cek_id_by_rank_rab($rank_lebih_besar)->kode_jabatan_unit; //id yang ranknya (ran ksendiri + 1) 
+                              $progress_id_lebih_besar = $BarangM->progress_rab_sendiri($val->kode_pengajuan, $id_lebih_besar); //progress id yang ranknya (rank sendiri+1)
+                              if($progress_id_lebih_besar > 0){ //sudah diberi progress rank bawahnya =======================================
+                                if($progress_rab_tolak == 0){ // tidak ditolak ==============================================================
+                                  if($rab_created > $acc_created){ //kegiatan dullu baru acc_kegiatan masuk =================================
+                                    if($progress_rab_sendiri!= 0){//sudah disetujui->tidak bisa acc ===================================
                                       ?>
                                       <div class="btn-group">
                                         <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
                                         <a disabled class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
                                       </div>
                                       <?php
-                                    }else{ //progress sampe bawah =========================================================================
-                                      ?>
-                                      <div class="btn-group">
-                                        <a href="#" data-toggle="modal" data-target="#modal_terima-<?php echo $val->kode_pengajuan; ?>" title="Terima" class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
-                                        <a href="#" data-toggle="modal" data-target="#modal_tolak-<?php echo $val->kode_pengajuan; ?>" title="Tolak" class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
-                                      </div>
-                                      <?php
+                                    }else{//belum disetujui =================================================================================
+                                       $rank_p = $BarangM->get_progress_by_kode_pengajuan($val->kode_pengajuan)->result()[0]->kode_jabatan_unit;//cari progress berdasarkan kode item pengajuan
+                                      $rank_progress = $BarangM->cek_rank_rab_by_id_pegawai($rank_p)->ranking; // cari ranking by kode jabatan unit
+                                      if($rank_sendiri > $rank_progress){ //progress sampe diatas ===========================================
+                                        ?>
+                                        <div class="btn-group">
+                                          <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
+                                          <a disabled class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
+                                        </div>
+                                        <?php
+                                      }else{ //progress sampe bawah =========================================================================
+                                        ?>
+                                        <div class="btn-group">
+                                          <a href="#" data-toggle="modal" data-target="#modal_terima-<?php echo $val->kode_pengajuan; ?>" title="Terima" class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
+                                          <a href="#" data-toggle="modal" data-target="#modal_tolak-<?php echo $val->kode_pengajuan; ?>" title="Tolak" class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
+                                        </div>
+                                        <?php
+                                      }
                                     }
+                                  }else{ //acc masuk dulu baru kegiatan =====================================================================
+                                    ?>
+                                    <div class="btn-group">
+                                      <a href="#" data-toggle="modal" data-target="#modal_terima-<?php echo $val->kode_pengajuan; ?>" title="Terima" class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
+                                      <a href="#" data-toggle="modal" data-target="#modal_tolak-<?php echo $val->kode_pengajuan; ?>" title="Tolak" class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
+                                    </div>
+                                    <?php
                                   }
-                                }else{ //acc masuk dulu baru kegiatan =====================================================================
+                                }else{ //ditolak ===========================================================================================
                                   ?>
                                   <div class="btn-group">
-                                    <a href="#" data-toggle="modal" data-target="#modal_terima-<?php echo $val->kode_pengajuan; ?>" title="Terima" class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#modal_tolak-<?php echo $val->kode_pengajuan; ?>" title="Tolak" class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
+                                    <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
+                                    <a disabled class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
                                   </div>
                                   <?php
                                 }
-                              }else{ //ditolak ===========================================================================================
+                              }else{ //belum di kasih progress rank bawahnya ===============================================================
                                 ?>
                                 <div class="btn-group">
                                   <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
@@ -241,57 +258,57 @@
                                 </div>
                                 <?php
                               }
-                            }else{ //belum di kasih progress rank bawahnya ===============================================================
-                              ?>
-                              <div class="btn-group">
-                                <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
-                                <a disabled class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
-                              </div>
-                              <?php
-                            }
-                          }elseif($jabatan_unit_sendiri != $id_min && $jabatan_unit_sendiri != $id_max){ //ranking asesor bukan min dan max
-                            $rank_sendiri   = $BarangM->cek_rank_rab_by_id_pegawai($jabatan_unit_sendiri)->ranking; //rank sendiri
-                            $rank_lebih_besar  = ((int)$rank_sendiri + 1); //rank sendri + 1 (rank bawahnya)
-                            $id_lebih_besar    = $BarangM->cek_id_by_rank_rab($rank_lebih_besar)->kode_jabatan_unit; //id yang ranknya (ran ksendiri + 1)
-                            $progress_id_lebih_besar = $BarangM->progress_rab_sendiri($val->kode_pengajuan, $id_lebih_besar); //progress id yang ranknya (rank sendiri+1)
-                            if($progress_id_lebih_besar > 0){ //sudah diberi progress rank bawahnya =======================================
-                              if($progress_rab_tolak == 0){ // tidak ditolak ==============================================================
-                                if($rab_created > $acc_created){ //kegiatan dullu baru acc_kegiatan masuk =================================
-                                  if($progress_rab_sendiri!= 0){//sudah disetujui->tidak bisa acc ===================================
-                                    ?>
-                                    <div class="btn-group">
-                                      <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
-                                      <a disabled class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
-                                    </div>
-                                    <?php
-                                  }else{//belum disetujui ================================================================================
-                                    $rank_p = $BarangM->get_progress_by_kode_pengajuan($val->kode_pengajuan)->result()[0]->kode_jabatan_unit;//cari progress berdasarkan kode item pengajuan
-                                    $rank_progress = $BarangM->cek_rank_rab_by_id_pegawai($rank_p)->ranking; // cari ranking by kode jabatan unit
-                                    if($rank_sendiri > $rank_progress){ //progress sampe diatas ===========================================
+                            }elseif($jabatan_unit_sendiri != $id_min && $jabatan_unit_sendiri != $id_max){ //ranking asesor bukan min dan max
+                              $rank_sendiri   = $BarangM->cek_rank_rab_by_id_pegawai($jabatan_unit_sendiri)->ranking; //rank sendiri
+                              $rank_lebih_besar  = ((int)$rank_sendiri + 1); //rank sendri + 1 (rank bawahnya)
+                              $id_lebih_besar    = $BarangM->cek_id_by_rank_rab($rank_lebih_besar)->kode_jabatan_unit; //id yang ranknya (ran ksendiri + 1)
+                              $progress_id_lebih_besar = $BarangM->progress_rab_sendiri($val->kode_pengajuan, $id_lebih_besar); //progress id yang ranknya (rank sendiri+1)
+                              if($progress_id_lebih_besar > 0){ //sudah diberi progress rank bawahnya =======================================
+                                if($progress_rab_tolak == 0){ // tidak ditolak ==============================================================
+                                  if($rab_created > $acc_created){ //kegiatan dullu baru acc_kegiatan masuk =================================
+                                    if($progress_rab_sendiri!= 0){//sudah disetujui->tidak bisa acc ===================================
                                       ?>
                                       <div class="btn-group">
                                         <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
                                         <a disabled class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
                                       </div>
                                       <?php
-                                    }else{ //progress sampe bawah =========================================================================
-                                      ?>
-                                      <div class="btn-group">
-                                        <a href="#" data-toggle="modal" data-target="#modal_terima-<?php echo $val->kode_pengajuan; ?>" title="Terima" class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
-                                        <a href="#" data-toggle="modal" data-target="#modal_tolak-<?php echo $val->kode_pengajuan; ?>" title="Tolak" class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
-                                      </div>
-                                      <?php
+                                    }else{//belum disetujui ================================================================================
+                                      $rank_p = $BarangM->get_progress_by_kode_pengajuan($val->kode_pengajuan)->result()[0]->kode_jabatan_unit;//cari progress berdasarkan kode item pengajuan
+                                      $rank_progress = $BarangM->cek_rank_rab_by_id_pegawai($rank_p)->ranking; // cari ranking by kode jabatan unit
+                                      if($rank_sendiri > $rank_progress){ //progress sampe diatas ===========================================
+                                        ?>
+                                        <div class="btn-group">
+                                          <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
+                                          <a disabled class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
+                                        </div>
+                                        <?php
+                                      }else{ //progress sampe bawah =========================================================================
+                                        ?>
+                                        <div class="btn-group">
+                                          <a href="#" data-toggle="modal" data-target="#modal_terima-<?php echo $val->kode_pengajuan; ?>" title="Terima" class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
+                                          <a href="#" data-toggle="modal" data-target="#modal_tolak-<?php echo $val->kode_pengajuan; ?>" title="Tolak" class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
+                                        </div>
+                                        <?php
+                                      }
                                     }
+                                  }else{ //acc masuk dulu baru kegiatan =====================================================================
+                                    ?>
+                                    <div class="btn-group">
+                                      <a href="#" data-toggle="modal" data-target="#modal_terima-<?php echo $val->kode_pengajuan; ?>" title="Terima" class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
+                                      <a href="#" data-toggle="modal" data-target="#modal_tolak-<?php echo $val->kode_pengajuan; ?>" title="Tolak" class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
+                                    </div>
+                                    <?php
                                   }
-                                }else{ //acc masuk dulu baru kegiatan =====================================================================
+                                }else{ //ditolak ============================================================================================
                                   ?>
                                   <div class="btn-group">
-                                    <a href="#" data-toggle="modal" data-target="#modal_terima-<?php echo $val->kode_pengajuan; ?>" title="Terima" class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
-                                    <a href="#" data-toggle="modal" data-target="#modal_tolak-<?php echo $val->kode_pengajuan; ?>" title="Tolak" class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
+                                    <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
+                                    <a disabled class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
                                   </div>
                                   <?php
                                 }
-                              }else{ //ditolak ============================================================================================
+                              }else{ //belum di kasih progress rank bawahnya ================================================================
                                 ?>
                                 <div class="btn-group">
                                   <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
@@ -299,24 +316,24 @@
                                 </div>
                                 <?php
                               }
-                            }else{ //belum di kasih progress rank bawahnya ================================================================
-                              ?>
-                              <div class="btn-group">
-                                <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
-                                <a disabled class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
-                              </div>
-                              <?php
-                            }
-                          }elseif($jabatan_unit_sendiri != $id_min && $jabatan_unit_sendiri == $id_max){ //asesor max =====================
-                            if($rab_created > $acc_created){ //kegiatan dullu baru acc_kegiatan masuk =====================================
-                              if($progress_rab_sendiri!= 0){//sudah disetujui->tidak bisa acc =======================================
-                                ?>
-                                <div class="btn-group">
-                                  <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
-                                  <a disabled class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
-                                </div>
-                                <?php
-                              }else{//belum disetujui =====================================================================================
+                            }elseif($jabatan_unit_sendiri != $id_min && $jabatan_unit_sendiri == $id_max){ //asesor max =====================
+                              if($rab_created > $acc_created){ //kegiatan dullu baru acc_kegiatan masuk =====================================
+                                if($progress_rab_sendiri!= 0){//sudah disetujui->tidak bisa acc =======================================
+                                  ?>
+                                  <div class="btn-group">
+                                    <a disabled class="btn btn-info btn-info" ><span class="glyphicon glyphicon-ok"></span></a>
+                                    <a disabled class="btn btn-info btn-warning" ><span class="glyphicon glyphicon-remove"></span></a>
+                                  </div>
+                                  <?php
+                                }else{//belum disetujui =====================================================================================
+                                  ?>
+                                  <div class="btn-group">
+                                    <a href="#" data-toggle="modal" data-target="#modal_terima-<?php echo $val->kode_pengajuan; ?>" title="Terima" class="btn btn-info btn-info"><span class="glyphicon glyphicon-ok"></span></a>
+                                    <a href="#" data-toggle="modal" data-target="#modal_tolak-<?php echo $val->kode_pengajuan; ?>" title="Tolak" class="btn btn-info btn-warning"><span class="glyphicon glyphicon-remove"></span></a>
+                                  </div>
+                                  <?php
+                                }
+                              }else{ //acc dulu baru kegiatan ===============================================================================
                                 ?>
                                 <div class="btn-group">
                                   <a href="#" data-toggle="modal" data-target="#modal_terima-<?php echo $val->kode_pengajuan; ?>" title="Terima" class="btn btn-info btn-info"><span class="glyphicon glyphicon-ok"></span></a>
@@ -324,15 +341,8 @@
                                 </div>
                                 <?php
                               }
-                            }else{ //acc dulu baru kegiatan ===============================================================================
-                              ?>
-                              <div class="btn-group">
-                                <a href="#" data-toggle="modal" data-target="#modal_terima-<?php echo $val->kode_pengajuan; ?>" title="Terima" class="btn btn-info btn-info"><span class="glyphicon glyphicon-ok"></span></a>
-                                <a href="#" data-toggle="modal" data-target="#modal_tolak-<?php echo $val->kode_pengajuan; ?>" title="Tolak" class="btn btn-info btn-warning"><span class="glyphicon glyphicon-remove"></span></a>
-                              </div>
-                              <?php
-                            }
-                          } 
+                            } 
+                          }
                         }
                         ?>
                       </td>

@@ -261,7 +261,7 @@
                                                 <td><?php echo $total;?></td>
                                                 <!-- <td><?php echo $barang_setuju->status_pengajuan;?></td> -->
                                                 <?php
-                                                if($barang_setuju->status_pengajuan == "proses"){
+                                                if($barang_setuju->status_pengajuan == "proses_pengajuan"){
                                                   ?>
                                                   <td>
                                                     <center>
