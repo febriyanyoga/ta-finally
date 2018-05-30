@@ -225,7 +225,7 @@ class BarangC extends CI_Controller {
 	}
 
 
-    public function update_setuju()
+	public function update_setuju()
 	{
 		$kode_item_pengajuan = $this->input->POST('kode_item_pengajuan');
 		$status_pengajuan = $this->input->POST('status_pengajuan');
@@ -237,9 +237,9 @@ class BarangC extends CI_Controller {
 		echo $status_pengajuan;
 		$this->db->where('kode_item_pengajuan', $kode_item_pengajuan);
 		$query = $this->db->update('item_pengajuan', $data);
-			if($query){
-				echo json_encode(array("status" => TRUE));
-			}
+		if($query){
+			echo json_encode(array("status" => TRUE));
+		}
 	}
 
 	public function tunda($kode){ //mengubah status pengajuan menjadi tunda karena barang belum bisa diajukan untuk diajukan
@@ -330,26 +330,60 @@ class BarangC extends CI_Controller {
 			);
 
 			if($kode_nama_progress == '1'){
-				$persetujuan = 'proses';
-			}elseif ($kode_nama_progress == "2") {
-				$persetujuan = 'tolak';
-			}
-			
-			$data = array(
-				'status_pengajuan' => $persetujuan
-			);
-			if($this->BarangM->insert_progress($data_progress)){
-				$this->BarangM->update_persetujuan($data,$kode_fk);
-				$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
-				redirect_back();
-			}else{
-				$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
-				redirect_back();
-			}
+				$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+                $jabatan_unit_sendiri    = $data_diri->kode_jabatan_unit; //untuk mengetahui jabatan_unit_sendiri
+                $rank_sendiri   = $this->BarangM->cek_rank_barang_by_id_pegawai($jabatan_unit_sendiri)->ranking; //rank sendiri 
+                
+                if($rank_sendiri == 1){
+                	$status_pengajuan 	  = 'proses_pengajuan';
+                	$data = array(
+                		'status_pengajuan' => $status_pengajuan
+                	);
+                	if($this->BarangM->update_item_pengajuan($kode_fk, $data)){
+                			if($this->BarangM->insert_progress($data_progress)){
+            					$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+            					redirect_back();
+			            	}else{
+			            		$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
+			            		redirect_back();
+			            	}
+                		
+                	}else{
+                		$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
+                		redirect('BarangC/persetujuan_rab');
+                	}
+                }else{
+                	$persetujuan = 'proses';
+	            	$data1 = array(
+	            		'status_pengajuan' => $persetujuan
+	            	);
+                	if($this->BarangM->insert_progress($data_progress)){
+                		$this->BarangM->update_persetujuan($data1,$kode_fk);
+            			$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+            			redirect_back();
+	            	}else{
+	            		$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
+	            		redirect_back();
+	            	}
+                }
+            }elseif ($kode_nama_progress == "2") {
+            	$persetujuan = 'tolak';
+            	$data = array(
+            		'status_pengajuan' => $persetujuan
+            	);
+            	if($this->BarangM->insert_progress($data_progress)){
+            		$this->BarangM->update_persetujuan($data,$kode_fk);
+            		$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+            		redirect_back();
+            	}else{
+            		$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
+            		redirect_back();
+            	}
+            }
 
-		}
+        }
 
-	}	
+    }	
 
 	public function post_tambah_ajukan_barang(){ //fungsi untuk tambah pengajuan barang
 		$this->form_validation->set_rules('id_pengguna', 'Id Pengguna','required');
@@ -873,6 +907,14 @@ class BarangC extends CI_Controller {
                     	);
                     	if($this->BarangM->update_item_pengajuan_rab_terima($data1, $kode_fk)){
                     		if($this->BarangM->update_pengajuan_rab_terima($data2, $kode_fk)){
+                    			$barang = $this->BarangM->get_data_item_pengajuan_by_rab($kode_fk)->result();
+                    			foreach ($barang as $bar) {
+                    				$email = $bar->email;
+                    				$kode_pengajuan_bar = $bar->kode_item_pengajuan;
+                    				$kode_nama_progress = '1';
+
+                    				$this->sendemail($email,$kode_pengajuan_bar, $kode_nama_progress);
+                    			}
                     			$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
                     			redirect('BarangC/persetujuan_rab');
                     		}else{
@@ -910,6 +952,14 @@ class BarangC extends CI_Controller {
                 	);
                 	if($this->BarangM->update_persetujuan_rab_tolak($data, $kode_fk)){
                 		$this->BarangM->update_item_pengajuan_rab_tolak($data1, $kode_fk);
+                		$barang = $this->BarangM->get_data_item_pengajuan_by_rab($kode_fk)->result();
+                		foreach ($barang as $bar) {
+                			$email = $bar->email;
+                			$kode_pengajuan_bar = $bar->kode_item_pengajuan;
+                			$kode_nama_progress = '2';
+
+                			sendemail($email,$kode_pengajuan_bar, $kode_nama_progress);
+                		}
                 		$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
                 		redirect('BarangC/persetujuan_rab');
                 	}else{
@@ -924,6 +974,34 @@ class BarangC extends CI_Controller {
 
         }
 
+    }
+
+    public function sendemail($email,$kode_item_pengajuan, $kode_nama_progress){   //kirim email konfirmasi
+    	$from_mail  = 'dtedi.svugm@gmail.com';
+    	$to         = $email;
+
+    	$subject    = 'Pembaruan Status';
+
+    	$barang 	= $this->BarangM->get_data_item_pengajuan_by_id($kode_item_pengajuan)->result()[0];
+    	$total 		= (int)($barang->jumlah)*(int)($barang->harga_satuan);
+    	$data       = array(
+    		'nama_item_pengajuan'=> $barang->nama_item_pengajuan,
+    		'nama_pengaju'=> $barang->nama ,
+    		'tanggal_pengajuan'=> $barang->tgl_item_pengajuan ,
+    		'total_biaya'=> $total ,
+    		'kode_nama_progress' => $kode_nama_progress
+
+    	);
+
+    	$message    = $this->load->view('notifikasi_email_barang.php',$data,TRUE);
+    // '<h1>'.$url.'</h1><span style="color: red;"> Departemen Teknik Elektro dan Informatika </span>';
+
+    	$headers    = 'MIME-Version: 1.0' . "\r\n";
+    	$headers    .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    	$headers    .= 'To:  <'.$to.'>' . "\r\n";
+    	$headers    .= 'From: Departemen Teknik Elektro dan Informatika <'.$from_mail.'>' . "\r\n";
+
+    	$sendtomail = mail($to, $subject, $message, $headers);
     }
 
 	public function post_tambah_progress(){ //fungsi untuk tambah progress item pengajuan barang
@@ -975,10 +1053,32 @@ class BarangC extends CI_Controller {
 		}
 
 	}	
+	
+	public function hapus_pengajuan_barang($kode_item_pengajuan){//hapus pengajuan item pengajuan
+		define('EXT', '.'.pathinfo(__FILE__, PATHINFO_EXTENSION));
+		define('PUBPATH',str_replace(SELF,'',FCPATH));
+
+		$this->db->where('kode_item_pengajuan',$kode_item_pengajuan);
+		$file = $this->db->get('item_pengajuan')->row()->file_gambar;
+
+		if(unlink(PUBPATH."assets/file_gambar/".$file)){
+			if($this->BarangM->hapus_pengajuan_barang($kode_item_pengajuan)){
+				$this->session->set_flashdata('sukses','Data anda berhasil dihapus');
+				redirect_back();
+			}else{
+				$this->session->set_flashdata('error','Data anda tidak berhasil dihapus');
+				redirect_back();
+			}
+		}else{
+			$this->session->set_flashdata('error','Data anda tidak berhasil dihapus');
+			redirect_back();
+		}
+	}
+
 	function getBarangAjax()
 	{
 		if (!$this->input->is_ajax_request()) {
-		   exit('No direct script access allowed');
+			exit('No direct script access allowed');
 		}
 		echo json_encode($this->BarangM->get_pilihan_barang()->result());
 	}
@@ -986,14 +1086,14 @@ class BarangC extends CI_Controller {
 	function insertBarangAjax()
 	{
 		if (!$this->input->is_ajax_request()) {
-		   exit('No direct script access allowed');
+			exit('No direct script access allowed');
 		}
 		$nama_barang 		= $_POST['nama_barang'];
 		$kode_jenis_barang  = "3";
 		$data_pengguna		= array(
-				'nama_barang'		=> $nama_barang,
-				'kode_jenis_barang' => $kode_jenis_barang
-			);
+			'nama_barang'		=> $nama_barang,
+			'kode_jenis_barang' => $kode_jenis_barang
+		);
 		$this->BarangM->insert_tambah_barang($data_pengguna);
 		echo json_encode(true);
 	}
