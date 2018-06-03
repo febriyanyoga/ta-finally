@@ -301,7 +301,7 @@ class BarangM extends CI_Model
 		$this->db->join('barang', 'barang.kode_barang = item_pengajuan.kode_barang');
 		$this->db->join('jenis_barang', 'jenis_barang.kode_jenis_barang = barang.kode_jenis_barang');
 		$this->db->join('progress', 'progress.kode_fk = item_pengajuan.kode_item_pengajuan');
-		$this->db->where('item_pengajuan.status_pengajuan ="proses" OR item_pengajuan.status_pengajuan = "tunda" OR item_pengajuan.status_pengajuan = "pengajuan"');
+		$this->db->where('item_pengajuan.status_pengajuan ="proses_pengajuan" OR item_pengajuan.status_pengajuan = "tunda" OR item_pengajuan.status_pengajuan = "pengajuan"');
 		$this->db->where('progress.jenis_progress ="barang"');
 		$this->db->where('progress.kode_nama_progress ="1"');
 		$this->db->where('item_pengajuan.kode_pengajuan IS NULL');
@@ -693,7 +693,7 @@ class BarangM extends CI_Model
 	}
 
 	public function ulang($kode){ //mengubah status item_pengajuan menjadi proses
-		$status = 'proses';
+		$status = 'proses_pengajuan';
 		$kode_pengajuan = NULL;
 		$data = array(
 			'status_pengajuan' => $status,
@@ -815,20 +815,18 @@ class BarangM extends CI_Model
 		return $query;
 	}
 
-	public function get_sugesti($nama_barang){
-		$this->db->select('nama_barang');
-		$this->db->like('nama_barang', $nama_barang);
-		$query = $this->db->get('barang');
-		return $query->result();
+	public function hapus_pengajuan_barang($kode_item_pengajuan){//hapus pengajuan barang
+		$this->db->where('kode_item_pengajuan', $kode_item_pengajuan);
+		$this->db->delete('item_pengajuan');
+		return TRUE;
 	}
 
-	public function get_kode_barang($nama_barang){
-		$this->db->select('kode_barang');
-		$this->db->where('nama_barang', $nama_barang);
-		$query = $this->db->get('barang');
-		return $query->result();
+	function get_data_item_pengajuan_by_rab($kode_pengajuan){ 
+		$this->db->select('*');
+		$this->db->from('item_pengajuan');
+		$this->db->join('pengguna', 'pengguna.id_pengguna = item_pengajuan.id_pengguna');
+		$this->db->where('kode_pengajuan', $kode_pengajuan);
+		return $this->db->get();
 	}
-
-
 
 }

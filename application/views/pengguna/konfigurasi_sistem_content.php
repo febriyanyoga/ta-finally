@@ -10,8 +10,6 @@
       <div class="col-lg-12">
 
        <?php
-       // print_r($eek); 
-       // print_r($tolak);
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
        <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
