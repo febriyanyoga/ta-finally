@@ -19,21 +19,21 @@ class PenggunaC extends CI_Controller {
 	}
 	
 	// pindah pindah halaman
-	public function index(){ //halaman index kadep (dashboard)
-		// print_r($this->data_menu);
-		$data['menu'] = $this->data_menu;
-		$data['data_kegiatan'] = $this->PenggunaM->get_kegiatan_pegawai()->num_rows();	//menampilkan kegiatan yang diajukan user sebagai pegwai
-		$data['data_kegiatan_mhs'] = $this->PenggunaM->get_kegiatan_pegawai()->result();
-		$data['data_ajukan_barang'] = $this->BarangM->get_ajukan_barang()->num_rows();
+
+
+	public function index(){ //halaman index (dashboard)
+		$data['menu'] = $this->data_menu; //akses menu
+		$data['data_kegiatan'] = $this->PenggunaM->get_kegiatan_pegawai()->num_rows();	//menampilkan kegiatan yang diajukan 
+		$data['data_kegiatan_mhs'] = $this->PenggunaM->get_kegiatan_pegawai()->result(); //get data kegiatan
+		$data['data_ajukan_barang'] = $this->BarangM->get_ajukan_barang()->num_rows(); // get angka ajukan barang
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
-		$data['data_diri'] = $data_diri;
-		$data['PenggunaM']			= $this->PenggunaM;
-		$data['KegiatanM']			= $this->KegiatanM;
-		$data['KegiatanM']			= $this->KegiatanM;
+		$data['data_diri'] = $data_diri; //get data diri
+		$data['PenggunaM']			= $this->PenggunaM; //load model di view
+		$data['KegiatanM']			= $this->KegiatanM; 
 		$data['BarangM']			= $this->BarangM;
-		$data['title'] = "Beranda | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
-		$data['body'] = $this->load->view('pengguna/index_content', $data, true) ;
-		$this->load->view('pengguna/index_template', $data);
+		$data['title'] = "Beranda | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit; //judul
+		$data['body'] = $this->load->view('pengguna/index_content', $data, true) ; //load di body
+		$this->load->view('pengguna/index_template', $data); //load body di index
 	}
 
 	public function data_diri(){ //halaman data diri
@@ -109,16 +109,6 @@ public function konfigurasi_sistem(){
 			$this->data['jabatan_unit_menu']	= $this->PenggunaM->get_jabatan_unit()->result();
 			$this->data['PenggunaM']			= $this->PenggunaM;
 			$this->data['data_diri'] 			= $data_diri;  	//get data diri buat nampilin nama di pjok kanan
-
-			// $tolak = $this->PenggunaM->get_kegiatan_pegawai_mau_ditolak('1')->result();
-			// $data_kode_fk_tolak = array();
-			// foreach ($tolak as $key) {
-			// 	if($key->status_kegiatan != 'Disetujui'){
-			// 		array_push($data_kode_fk_tolak, $key->kode_kegiatan);
-			// 	}
-			// }
-			// $this->data['eek'] = $data_kode_fk_tolak;
-			// $this->data['tolak'] = $tolak;
 			$data['body'] = $this->load->view('pengguna/konfigurasi_sistem_content', $this->data, true);
 			$this->load->view('pengguna/index_template', $data);
 		}else{
@@ -126,7 +116,7 @@ public function konfigurasi_sistem(){
 		}
 	}
 
-public function prosedur(){ //halaman index kadep (dashboard)
+public function prosedur(){ 
 	if(in_array(16, $this->data_menu)){
 		$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
@@ -1460,7 +1450,7 @@ public function ganti_jabatan(){
         		redirect('PenggunaC/data_diri');
         		// echo "Image berhasil diupload";
         	}else{
-        		$this->session->set_flashdata('error','Foto tidak berhasil diunggah. Ukuran terlalu besar');
+        		$this->session->set_flashdata('error','Foto tidak berhasil diunggah, jenis berkas tidak sesuai');
         		redirect('PenggunaC/data_diri');
         	}
 

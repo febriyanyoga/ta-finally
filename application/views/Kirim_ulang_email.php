@@ -118,7 +118,7 @@
               <?php 
               $data2=$this->session->flashdata('error');
               if($data2!=""){ ?>
-                <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
+                <div class="alert alert-success fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
               </div>
               <?php } ?>

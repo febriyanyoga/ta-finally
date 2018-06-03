@@ -165,25 +165,25 @@
               <div class="form-group">
                 <label class="col-lg-4 col-sm-2 control-label">Tempat Lahir</label>
                 <div class="col-lg-8">
-                  <input type="text" class="form-control" id="tmp_lahir" name="tmp_lahir" placeholder="Tampat Lahir">
+                  <input type="text" class="form-control" id="tmp_lahir" name="tmp_lahir" placeholder="Tampat Lahir" required="">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-lg-4 col-sm-2 control-label">Tanggal Lahir</label>
                 <div class="col-lg-8">
-                  <input type="text" class="form-control" id="tgl_lahir" name="tgl_lahir" placeholder="Tanggal Lahir">
+                  <input type="text" class="form-control" id="tgl_lahir" name="tgl_lahir" placeholder="Tanggal Lahir" required="">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-lg-4 col-sm-2 control-label">Alamat</label>
                 <div class="col-lg-8">
-                  <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat">
+                  <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" required="">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-lg-4 col-sm-2 control-label">No Handphone</label>
                 <div class="col-lg-8">
-                  <input type="text" onkeypress="return hanyaAngka(event)" class="form-control" id="no_hp" name="no_hp" placeholder="No. Handphone">
+                  <input type="text" onkeypress="return hanyaAngka(event)" class="form-control" id="no_hp" name="no_hp" placeholder="No. Handphone" required="">
                 </div>
               </div>
             </div>

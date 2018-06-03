@@ -241,7 +241,7 @@
                                 <a href="#myModal" id="custId" data-toggle="modal" data-id="<?php echo $kegiatan->kode_kegiatan;?>" data-toggle="tooltip" title="Masukkan persetujuan" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                                 <?php
                               }elseif($atasan == "tidak"){  //pengaju STAF (bukan atasan)
-                                $kode_unit_pengaju = $KegiatanM->cek_staf_sendiri($Kegiatan->kode_jabatan_unit)->result()[0]->kode_unit;
+                                $kode_unit_pengaju = $KegiatanM->cek_staf_sendiri($kegiatan->kode_jabatan_unit)->result()[0]->kode_unit;
                                 if($kode_unit_pengaju == $data_diri->kode_unit){ // pengaju staf sendiri->bisa acc
                                     $progress_atasan_terima = $KegiatanM->get_progress_terima_by_kode_jabatan_unit($kegiatan->kode_kegiatan, $kegiatan->pimpinan,'1'); //progress dari atasan yang "diterima"(kode 1)
                                     $progress_atasan_tolak = $KegiatanM->get_progress_terima_by_kode_jabatan_unit($kegiatan->kode_kegiatan, $kegiatan->pimpinan,'2'); //progress dari atasan yang "ditolak"(kode 2)

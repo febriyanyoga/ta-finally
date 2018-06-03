@@ -23,6 +23,7 @@
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       </div>
       <?php } ?>
+      
       <div class="col-sm-1">
       </div>
       <div class="col-sm-10" style="margin-top: 30px;">
@@ -51,7 +52,7 @@
         </div>
         <div class="form-group row">
           <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary">Ganti Kata Sandi</button>
+            <button type="submit" class="btn btn-primary" id="btnSubmit">Ganti Kata Sandi</button>
           </div>
         </div>
       </form>
@@ -64,3 +65,30 @@
 </section>
 
 </section>
+
+<script type="text/javascript">
+  $(function () {
+    $("#btnSubmit").click(function () {
+      var password = $("#sandi_baru").val();
+      var confirmPassword = $("#konfirmasi_sandi_baru").val();
+      var pass_length = password.length;
+      if (password != confirmPassword) {
+        alert("Kata sandi tidak sama.");
+                    // document.getElementById("demo").innerHTML = "Kata sandi tidak sama.";
+                    return false;
+                  }else{
+                    if(pass_length < 6){
+                      alert("Panjang Kata sandi minimal 6 karakter");
+                      return false;
+                    }else{
+                      if(pass_length > 50){
+                        alert("Panjang Kata sandi maksimal 50 karakter");
+                        return false;
+                      }else{
+                        return true;
+                      }
+                    }
+                  }
+                });
+  });
+</script>

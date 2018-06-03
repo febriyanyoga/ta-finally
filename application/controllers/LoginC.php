@@ -85,7 +85,7 @@ class LoginC extends CI_Controller {
 		$data['prosedur_barang'] = $this->PenggunaM->get_prosedur_barang()->result();
 		$this->load->view('ResetPasswordV', $data);
 	}
-
+//atur ulang
 	public function kirim_email(){
 		date_default_timezone_set("Asia/jakarta");
 

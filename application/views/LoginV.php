@@ -98,7 +98,7 @@
           <div class="col-sm-7 text sticky-top sticky-pills">
             <div class="">
               <img src="<?php echo base_url();?>assets/img/logo2.png" style="height: 20%; width: 20%;">
-              <h4> Sistem Pengajuan Kegiatan dan Pengadaan Barang</h4>
+              <h4> Sistem Manajemen Pengajuan Kegiatan dan Pengadaan Barang</h4>
               <h4>Departemen Teknik Elektro dan Informatika</h4>
               <h4>Sekolah Vokasi</h4>
               <h4>Universitas Gadjah Mada</h4>

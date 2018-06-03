@@ -19,8 +19,7 @@ class KegiatanC extends CI_Controller {
 		$this->data_menu = $data_array_akses_menu; // array akses menu berdasarkan user login
 	}
 
-	public function persetujuan_kegiatan_mahasiswa(){ //halaman persetujuan kegiatan mahasiswa (kadep)
-		// menampilkan kegiatan mahasiswa yang telah di beri porgress oleh manajer Keuangan
+	public function persetujuan_kegiatan_mahasiswa(){ //halaman persetujuan kegiatan
 		if(in_array(1, $this->data_menu)){
 			$data['menu'] = $this->data_menu;
 			$id_pengguna = $this->session->userdata('id_pengguna');
@@ -486,7 +485,7 @@ public function pengajuan_kegiatan_mahasiswa(){
 						redirect_back();
 					}else{
 						$data['message'] = $upload['error'];
-						$this->session->set_flashdata('sukses','Data pengajuan kegiatan anda berhasil diubah'); //meskipun ga upload tapi data ttp update dan file tidak berubah
+						$this->session->set_flashdata('sukses','Data pengajuan kegiatan anda berhasil diubah, namun berkas tidak berhasil diubah'); //meskipun ga upload tapi data ttp update dan file tidak berubah
 						redirect_back();
 					}
 				}else{
