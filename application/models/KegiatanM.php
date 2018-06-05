@@ -465,6 +465,27 @@ class KegiatanM extends CI_Model
 		}
 	} 
 
+	public function get_kegiatan_unit(){ //menampilkan kegiatan yang diajukan user sebagai pegwai
+		$kode_unit = $this->session->userdata('kode_unit');
+		$this->db->select('*');
+		$this->db->from('kegiatan');
+		$this->db->join('pengguna', 'pengguna.id_pengguna = kegiatan.id_pengguna');
+		$this->db->join('jabatan_unit','jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('progress','progress.id_pengguna = pengguna.id_pengguna');
+		$this->db->join('file_upload', 'kegiatan.kode_kegiatan = file_upload.kode_kegiatan');
+		$this->db->where('jabatan_unit.kode_unit', $kode_unit);
+		$this->db->where('progress.jenis_progress = "kegiatan" OR progress.jenis_progress = "kegiatan_staf"');
+		// $this->db->where('jabatan_unit.kode_unit', $kode_unit);
+		$this->db->group_by('kegiatan.kode_kegiatan');
+
+		$query = $this->db->get();
+		if($query){
+			return $query;
+		}else{
+			return null;
+		}
+	}
+
 	public function get_kegiatan_by_kode_fk($kode_fk){
 		$this->db->select('*');
 		$this->db->from('kegiatan');

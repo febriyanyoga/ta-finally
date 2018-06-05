@@ -178,7 +178,7 @@
                 <?php
                 $i=0;
                 foreach ($data_pengguna as $pengguna) {
-                  if($pengguna->id_pengguna != $data_diri->id_pengguna){
+                  if($pengguna->id_pengguna != $data_diri->id_pengguna && $pengguna->atasan == "tidak"){
                     $i++;
                     ?>
                     <tr>

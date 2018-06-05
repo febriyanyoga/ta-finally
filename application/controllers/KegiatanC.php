@@ -97,6 +97,20 @@ class KegiatanC extends CI_Controller {
 	}
 }
 
+public function riwayat_pengajuan(){ 
+	if(in_array(20, $this->data_menu)){
+		$data['menu'] = $this->data_menu;
+		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+		$data['title'] = "Riwayat Pengajuan Unit | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+		$this->data['data_kegiatan'] = $this->KegiatanM->get_kegiatan_unit()->result();
+		$this->data['data_diri'] = $data_diri;  	//get data diri buat nampilin nama di pjok kanan
+		$this->data['data_prosedur'] = $this->PenggunaM->get_prosedur()->result();
+		$data['body'] = $this->load->view('pengguna/riwayat_pengajuan_content', $this->data, true) ;
+		$this->load->view('pengguna/index_template', $data);
+	}else{
+		redirect('LoginC/logout');
+	}
+}
 
 	public function persetujuan_kegiatan_staf(){ //halaman persetujuan kegiatan staf (manajer keuangan)
 		if(in_array(3, $this->data_menu)){

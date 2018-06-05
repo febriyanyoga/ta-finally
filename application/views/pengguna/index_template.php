@@ -268,6 +268,16 @@
         </li>
         <?php
       }
+      if(in_array('19', $menu)){
+        ?>
+        <li>
+          <a href="<?php echo site_url('PenggunaC/daftar_pimpinan')?>">
+            <i class="icon_profile"></i>
+            <span>Daftar Pimpinan</span>
+          </a>
+        </li>
+        <?php
+      }
       if(in_array('15', $menu)){
         ?>
         <li>
@@ -285,6 +295,30 @@
             <i class="glyphicon glyphicon-list-alt"></i>
             <span>Prosedur</span>
           </a>
+        </li>
+        <?php
+      }
+      ?>
+      <?php
+      if(in_array('20', $menu)){
+        ?>
+        <li class="sub-menu">
+          <a href="javascript:;" class="">
+            <i class="glyphicon glyphicon-ok"></i>
+            <span>Riwayat</span>
+            <span class="menu-arrow arrow_carrot-right"></span>
+          </a>
+          <ul class="sub">
+            <?php
+          }
+          if(in_array('20', $menu)){
+            ?>
+            <li> <a href="<?php echo site_url('KegiatanC/riwayat_pengajuan')?>">Pengajuan Kegiatan</a></li>
+            <?php
+          }
+          if(in_array('20', $menu)){
+            ?>
+          </ul>
         </li>
         <?php
       }

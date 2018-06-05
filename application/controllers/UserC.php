@@ -25,6 +25,12 @@
   echo json_encode($data);
 }
 
+public function get_jabatan_pimpinan(){
+  $postData = $this->input->post();
+  $data = $this->PenggunaM->get_jabatan_pimpinan($postData);
+  echo json_encode($data);
+}
+
 public function index(){
   redirect('UserC/daftar');
 }

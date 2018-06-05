@@ -17,6 +17,7 @@ class LoginM extends CI_Model{
 			'img_url' => base_url().'/assets/image/captcha/',
 			'img_width' => '250',
 			'img_height' => '50',
+			'pool'		=> '0123456789',
 			'font_path' => '../system/fonts/texb.ttf',
 			'expiration' => 3600
 		);

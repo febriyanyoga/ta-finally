@@ -88,6 +88,14 @@
  		return $this->db->update('pengguna', $data);  
  	}
 
+ 	public function reset_password($id_pengguna){
+ 		$data = array('password' => md5('komsi18'));
+
+ 		$this->db->where('id_pengguna',$id_pengguna);
+ 		$this->db->update('pengguna', $data);
+ 		return TRUE;
+ 	}
+
  	public function get_data_diri(){ //ambil data diri user berdasarkan session
  		$id_pengguna = $this->session->userdata('id_pengguna');
  		$this->db->select('*');
@@ -153,6 +161,16 @@
 		return TRUE;
 	}
 
+	public function update_identitas($id_pengguna, $identitas){
+		$data = array('no_identitas' => $identitas,);
+
+		$this->db->where('id_pengguna', $id_pengguna);
+		$this->db->update('pengguna', $data);
+		// print_r($this->db->last_query());
+		// exit();
+		return TRUE;
+	}
+
 	public function get_data_pengguna(){ //ambil data seluruh pengguna yang terdaftar
 		$this->db->select('*');
 		$this->db->from('pengguna');
@@ -160,6 +178,31 @@
 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
 		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
+		$this->db->order_by('unit.kode_unit');
+		$query = $this->db->get(); 
+		return $query;
+	}
+
+	public function get_data_pengguna_pimpinan(){ //ambil data seluruh pengguna yang terdaftar
+		$this->db->select('*');
+		$this->db->from('pengguna');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		// $this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
+		$this->db->order_by('unit.kode_unit');
+		$query = $this->db->get(); 
+		return $query;
+	}
+
+	public function get_data_pengguna_lagi(){ //ambil data seluruh pengguna yang terdaftar
+		$this->db->select('*');
+		$this->db->from('pengguna');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = pengguna.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->join('data_diri', 'pengguna.no_identitas = data_diri.no_identitas');
+		$this->db->group_by('data_diri.no_identitas');
 		$this->db->order_by('unit.kode_unit');
 		$query = $this->db->get(); 
 		return $query;
@@ -942,9 +985,22 @@
 		$this->db->join('jabatan', 'jabatan.kode_jabatan=jabatan_unit.kode_jabatan');
 		$this->db->join('unit', 'unit.kode_unit=jabatan_unit.kode_unit');
 		$this->db->where('jabatan_unit.kode_unit', $postData['kode_unit']);
+		$this->db->where('jabatan_unit.atasan = "tidak"');
 		$query = $this->db->get();
 		$response = $query->result_array();
 		return $response;
 	}
 
+	public function get_jabatan_pimpinan($postData){
+		$response = array();
+		$this->db->select('jabatan_unit.kode_jabatan, jabatan.nama_jabatan, unit.nama_unit');
+		$this->db->from('jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan=jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit=jabatan_unit.kode_unit');
+		$this->db->where('jabatan_unit.kode_unit', $postData['kode_unit']);
+		$this->db->where('jabatan_unit.atasan = "ya"');
+		$query = $this->db->get();
+		$response = $query->result_array();
+		return $response;
+	}
 }

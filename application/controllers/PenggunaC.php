@@ -70,6 +70,23 @@ class PenggunaC extends CI_Controller {
 	}
 }
 
+public function daftar_pimpinan(){ //halaman pimpinnan unit
+	if(in_array(19, $this->data_menu)){
+		$data['menu'] = $this->data_menu;
+		$this->data['PenggunaM']			= $this->PenggunaM;
+		$this->data['pilihan_unit'] = $this->PenggunaM->get_unit();
+		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+		$this->data['data_pengguna'] = $this->PenggunaM->get_data_pengguna_pimpinan()->result();
+		$this->data['data_pengguna_lagi'] = $this->PenggunaM->get_data_pengguna_lagi()->result();
+		$this->data['data_diri'] = $data_diri;  	//get data diri buat nampilin nama di pojok kanan
+		$data['title'] = "Daftar Pimpinan Unit | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+		$data['body'] = $this->load->view('pengguna/daftar_pimpinan_content', $this->data, true);
+		$this->load->view('pengguna/index_template', $data);
+	}else{
+		redirect('LoginC/logout');
+	}
+}
+
 public function konfigurasi_sistem(){
 	if(in_array(15, $this->data_menu)){
 
@@ -116,9 +133,9 @@ public function konfigurasi_sistem(){
 		}
 	}
 
-public function prosedur(){ 
-	if(in_array(16, $this->data_menu)){
-		$data['menu'] = $this->data_menu;
+	public function prosedur(){ 
+		if(in_array(16, $this->data_menu)){
+			$data['menu'] = $this->data_menu;
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Konfigurasi Sistem | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
 
@@ -130,8 +147,6 @@ public function prosedur(){
 		redirect('LoginC/logout');
 	}
 }
-
-
 	//pengguna
 public function ganti_jabatan(){
 	$this->form_validation->set_rules('id_pengguna', 'ID Pengguna','required');
@@ -215,6 +230,106 @@ public function ganti_jabatan(){
 						redirect_back();
 					}
 				}
+			}
+		}
+	}
+
+	public function reset_password($id_pengguna){
+		if($this->PenggunaM->reset_password($id_pengguna)){
+			$this->session->set_flashdata('sukses','Kata sandi berhasil di atur ulang, yaitu <b>komsi18</b>');	
+			redirect_back();
+		}else{
+			$this->session->set_flashdata('error','Kata sandi tidak berhasil di atur ulang');	
+			redirect_back();
+		}
+	}
+
+	public function tambah_akun_pimpinan() { //post pendaftaran  
+		$this->form_validation->set_rules('kode_jabatan', 'Kode Jabatan');  
+		$this->form_validation->set_rules('kode_unit', 'Kode Unit', 'required');  
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[pengguna.email]');  
+		$this->form_validation->set_rules('kata_sandi', 'Kata sandi', 'trim|required|min_length[6]|max_length[50]|matches[konfirmasi_kata_sandi]');
+		$this->form_validation->set_rules('konfirmasi_kata_sandi', 'Konfirmasi Kata sandi', 'trim|required|min_length[6]|max_length[50]'); 
+		$this->form_validation->set_message('is_unique', 'Data %s sudah dipakai'); 
+		if($this->form_validation->run() == FALSE){  
+			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan, cek data yang Anda masukkan');
+			redirect_back();
+		}else{  
+			$kode_jabatan   = $_POST['kode_jabatan'];  
+			$kode_unit      = $_POST['kode_unit'];  
+			$email          = $_POST['email'];  
+			$password       = $_POST['kata_sandi'];  
+			$passhash       = hash('md5', $password);  
+			$email_encryption = md5($email);  
+			$status_email   = "1";
+			$status         = "aktif"; 
+
+			$exp_date = date('Y-m-d', strtotime(' + 1 days'));
+
+			$kode_jabatan_unit = $this->PenggunaM->cek_kode_jabatan_unit($kode_unit, $kode_jabatan)->result()[0]->kode_jabatan_unit;
+			$data_pengguna  = array(
+				'kode_jabatan_unit'   => $kode_jabatan_unit,
+				'email'               => $email,  
+				'password'            => $passhash,  
+				'status'              => $status,  
+				'exp_date'            => $exp_date,
+				'status_email'        => $status_email); 
+
+			$insert_id_pengguna = $this->PenggunaM->insert_data_pengguna($data_pengguna);
+			if($insert_id_pengguna){
+				$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
+				redirect_back();
+			}else{
+				$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
+				redirect_back();  
+			}
+		}  
+	}  
+
+		function sendemail($email,$email_encryption){   //kirim email konfirmasi
+			$url        = base_url()."UserC/confirmation/".$email_encryption;  
+			$from_mail  = 'dtedi.svugm@gmail.com';
+			$to         = $email;
+
+			$subject    = 'Verifikasi Pedaftaran Akun';
+			$data       = array(
+				'email'=> $email_encryption
+			);
+			$message    = $this->load->view('konfirmasi_email.php',$data,TRUE);
+    // '<h1>'.$url.'</h1><span style="color: red;"> Departemen Teknik Elektro dan Informatika </span>';
+
+			$headers    = 'MIME-Version: 1.0' . "\r\n";
+			$headers    .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			$headers    .= 'To:  <'.$to.'>' . "\r\n";
+			$headers    .= 'From: Departemen Teknik Elektro dan Informatika <'.$from_mail.'>' . "\r\n";
+
+			$sendtomail = mail($to, $subject, $message, $headers);
+			if($sendtomail ) {
+				$this->session->set_flashdata('msg','<div class="alert alert-danger text-center">Terima Kasih sudah melakukan pendaftaran akun. Silahkan cek email anda : <b>'.$email.'</b> dan klik tautan yang telah dikirimkan untuk <b>konfirmasi pendaftaran. </b><br> </div>');
+				redirect(base_url('UserC/resend_email'));  
+			}else {
+				$this->session->set_flashdata('msg','<div class="alert alert-danger text-center">Gagal melakukan pendaftaran. Silahkan mencoba kembali. . .</div>');  
+				redirect(base_url('UserC/halaman_daftar'));  
+    // echo 'Failed';
+			}
+		}
+
+		public function ganti_pengguna(){
+			$this->form_validation->set_rules('id_pengguna', 'ID Pengguna','required');
+			$this->form_validation->set_rules('no_identitas', 'No Identitas','required');
+			if($this->form_validation->run() == FALSE){
+				$this->session->set_flashdata('error','Data anda tidak berhasil disimpan, cek data yang Anda masukkan');
+			redirect_back(); //kembali ke halaman sebelumnya -> helper
+		}else{
+			$id_pengguna 	= $_POST['id_pengguna'];
+			$no_identitas 	= $_POST['no_identitas'];
+
+			if($this->PenggunaM->update_identitas($id_pengguna, $no_identitas)){
+				$this->session->set_flashdata('sukses','Data anda berhasil disimpan, pengguna berhasil diganti');
+				redirect_back();
+			}else{
+				$this->session->set_flashdata('error','Data anda tidak berhasil disimpan, cek data yang Anda masukkan');
+				redirect_back();
 			}
 		}
 	}
@@ -502,7 +617,7 @@ public function ganti_jabatan(){
 							}
 						}
 						$data_update_keg = array('status_kegiatan' => "Ditolak" );
-						if(!is_null($data_kode_fk_tolak)){
+						if(!empty($data_kode_fk_tolak)){
 							$this->PenggunaM->update_kegiatan_by_kode_keg($data_kode_fk_tolak, $kode, $data_update_keg);
 						}
 
@@ -533,7 +648,7 @@ public function ganti_jabatan(){
 							}
 						}
 						$data_update_keg = array('status_kegiatan' => "Ditolak" );
-						if(!is_null($data_kode_fk_tolak)){
+						if(!empty($data_kode_fk_tolak)){
 							$this->PenggunaM->update_kegiatan_by_kode_keg($data_kode_fk_tolak, $kode, $data_update_keg);
 						}
 
@@ -565,7 +680,7 @@ public function ganti_jabatan(){
 							}
 						}
 						$data_update_bar = array('status_pengajuan' => "tolak" );
-						if(!is_null($data_kode_fk_tolak)){
+						if(!empty($data_kode_fk_tolak)){
 							$this->PenggunaM->update_barang_by_kode_item($data_kode_fk_tolak, $data_update_bar);
 						}
 

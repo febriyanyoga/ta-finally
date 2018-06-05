@@ -234,7 +234,6 @@
                         </td>
                       </tr>  
 
-
                       <div aria-hidden="true" aria-labelledby="myModal" role="dialog" tabindex="-1" id="modal_edit-<?php echo $kegiatan->kode_kegiatan;?>" class="modal fade">
                         <div class="modal-dialog">
                           <div class="modal-content">
