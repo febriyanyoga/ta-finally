@@ -454,6 +454,30 @@
 		return $query = $this->db->get();
 	}
 
+	public function get_persetujuan_kegiatan_pegawai(){
+		$this->db->select('*');
+		$this->db->from('acc_kegiatan');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = acc_kegiatan.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->join('jenis_kegiatan','acc_kegiatan.kode_jenis_kegiatan = jenis_kegiatan.kode_jenis_kegiatan');
+		$this->db->where('jenis_kegiatan.kode_jenis_kegiatan = "1"');
+		$this->db->order_by('acc_kegiatan.ranking', 'DESC');
+		return $query = $this->db->get();
+	}
+
+	public function get_persetujuan_kegiatan_mahasiswa(){
+		$this->db->select('*');
+		$this->db->from('acc_kegiatan');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = acc_kegiatan.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->join('jenis_kegiatan','acc_kegiatan.kode_jenis_kegiatan = jenis_kegiatan.kode_jenis_kegiatan');
+		$this->db->where('jenis_kegiatan.kode_jenis_kegiatan = "2"');
+		$this->db->order_by('acc_kegiatan.ranking', 'DESC');
+		return $query = $this->db->get();
+	}
+
 	public function get_persetujuan_barang(){ // persetujuan barang
 		$this->db->select('*');
 		$this->db->from('acc_barang');
@@ -920,6 +944,7 @@
 	public function save_prosedur($upload, $data_prosedur){ // Fungsi untuk menyimpan data ke database
 		$data = array(
 			'tipe_doc'		=> $data_prosedur['tipe_doc'],
+			'id_pengguna'	=> $data_prosedur['id_pengguna'],
 			'nama_file' 	=> $upload['file']['file_name'],
 			'size' 			=> $upload['file']['file_size']
 		);

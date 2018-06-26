@@ -349,7 +349,7 @@
                           </div>
                         </td>
                         <!-- <td><?php echo "status";?></td> -->
-                        <td class="text-center"> 
+                        <td class="text-center" width="100px;"> 
                           <div class="btn-group">
                             <a href="#modal_unit" id="custId" data-toggle="modal" data-id="<?php echo $unit->kode_unit;?>" data-toggle="tooltip" title="Edit Unit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                             <a data-toggle="modal" title="Tambah Jabatan Unit" class="btn btn-primary btn-sm" data-target="#modal_tambah_jabatan-<?php echo $unit->kode_unit?>"><span class="glyphicon glyphicon-plus-sign"></span></a>

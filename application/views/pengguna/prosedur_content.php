@@ -165,6 +165,7 @@
                 <form role="form" action="<?php echo base_url(); ?>PenggunaC/post_prosedur" method="post">
                   <!-- Alert -->
                   <!-- sampai sini -->
+                  <input type="hidden" name="id_pengguna" value="<?php echo $data_diri->id_pengguna;?>" >
                   <div class="form-group">
                     <select class="form-control" name="tipe_doc" id="tipe_doc" required>
                       <option value="">---- Pilih Tipe Prosedur ---- </option>

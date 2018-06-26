@@ -103,6 +103,8 @@ public function riwayat_pengajuan(){
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['title'] = "Riwayat Pengajuan Unit | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
 		$this->data['data_kegiatan'] = $this->KegiatanM->get_kegiatan_unit()->result();
+		$this->data['KegiatanM'] = $this->KegiatanM ;
+		$this->data['PenggunaM'] = $this->PenggunaM ;
 		$this->data['data_diri'] = $data_diri;  	//get data diri buat nampilin nama di pjok kanan
 		$this->data['data_prosedur'] = $this->PenggunaM->get_prosedur()->result();
 		$data['body'] = $this->load->view('pengguna/riwayat_pengajuan_content', $this->data, true) ;
@@ -286,13 +288,14 @@ public function pengajuan_kegiatan_mahasiswa(){
 					$data_update_kegiatan  = array('status_kegiatan' => 'Disetujui');
 					$this->KegiatanM->update_kegiatan($kode_fk, $data_update_kegiatan);
 					$this->sendemail($email, $kode_fk, $kode_nama_progress);
+				}elseif($kode_nama_progress == 2){
+					$data_update_kegiatan  = array('status_kegiatan' => 'Ditolak');
+					$this->KegiatanM->update_kegiatan($kode_fk, $data_update_kegiatan);
+					$this->sendemail($email, $kode_fk, $kode_nama_progress);
 				}
 				$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
 				redirect_back(); // redirect kembali ke halaman sebelumnya
 			}else{
-				if($kode_nama_progress == 2){
-					$this->sendemail($email, $kode_fk, $kode_nama_progress);
-				}
 				$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
 				redirect_back(); //kembali ke halaman sebelumnya -> helper
 			}
