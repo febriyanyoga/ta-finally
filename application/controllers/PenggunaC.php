@@ -26,6 +26,8 @@ class PenggunaC extends CI_Controller {
 		$data['data_kegiatan_mhs'] = $this->PenggunaM->get_kegiatan_pegawai()->result(); //get data kegiatan
 		$data['persetujuan_kegiatan'] = $this->PenggunaM->get_persetujuan_kegiatan_pegawai()->result();
 		$data['persetujuan_kegiatan_mhs'] = $this->PenggunaM->get_persetujuan_kegiatan_mahasiswa()->result();
+		$data['persetujuan_pengajuan_barang']	= $this->PenggunaM->get_persetujuan_barang()->result();
+		$data['persetujuan_pengajuan_RAB']	= $this->PenggunaM->get_persetujuan_RAB()->result();
 		$data['data_ajukan_barang'] = $this->BarangM->get_ajukan_barang()->num_rows(); // get angka ajukan barang
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['data_diri'] = $data_diri; //get data diri
