@@ -26,7 +26,7 @@ class BarangC extends CI_Controller {
 		if(in_array(5, $this->data_menu)){
 			$data['menu'] = $this->data_menu;
 			$id_pengguna = $this->session->userdata('id_pengguna');
-			$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
+			$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pojok kanan
 			$data['title'] = "Persetujuan Item Pengajuan | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
 			$this->data['data_persetujuan_barang'] = $this->BarangM->get_data_item_pengajuan()->result();
 			$this->data['BarangM'] = $this->BarangM ;
@@ -214,15 +214,6 @@ class BarangC extends CI_Controller {
 		redirect_back(); //kembali ke halaman sebelumnya -> helper
 	}
 
-	public function setuju($kode){ //mengubah status pengajuan menjadi diajukan karena barang disetujui untuk diajukan
-		if($this->BarangM->setuju($kode)){
-			$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
-			redirect_back();
-		}else{
-			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');	
-			redirect_back();
-		}
-	}
 
 
 	public function update_setuju()
@@ -239,6 +230,16 @@ class BarangC extends CI_Controller {
 		$query = $this->db->update('item_pengajuan', $data);
 		if($query){
 			echo json_encode(array("status" => TRUE));
+		}
+	}
+	
+	public function setuju($kode){ //mengubah status pengajuan menjadi diajukan karena barang disetujui untuk diajukan
+		if($this->BarangM->setuju($kode)){
+			$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
+			redirect_back();
+		}else{
+			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');	
+			redirect_back();
 		}
 	}
 
@@ -397,7 +398,7 @@ class BarangC extends CI_Controller {
 		$this->form_validation->set_rules('jumlah', 'Jumlah Barang','required');
 		
 		if($this->form_validation->run() == FALSE){
-			$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 1');
+			$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan 1');
 			redirect('BarangC/ajukan_barang') ;
 			//redirect ke halaman pengajuan barang
 		}else{
@@ -450,6 +451,7 @@ class BarangC extends CI_Controller {
 					}
 
 				}else{ 
+					$this->BarangM->hapus_pengajuan_barang($insert_id);
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
 					$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan');
 					redirect('BarangC/ajukan_barang');
@@ -459,7 +461,7 @@ class BarangC extends CI_Controller {
 			redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
 
 			}else{ // Jika proses upload gagal
-				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan ');
+				$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan ');
 				redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
 			}
 
@@ -503,23 +505,23 @@ class BarangC extends CI_Controller {
 							$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
 							redirect_back(); //kembali ke halaman sebelumnya -> helper
 						}else{
-							$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 0');
+							$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan 0');
 							redirect_back(); //kembali ke halaman sebelumnya -> helper
 						}
 					}else{
-						$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 1');
+						$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan 1');
 						redirect_back(); //kembali ke halaman sebelumnya -> helper
 					}
 				}else{
 					$this->BarangM->delete_data_rab_gagal($insert_id);
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
-					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 2');
+					$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan 2');
 					redirect_back(); //kembali ke halaman sebelumnya -> helper
 				}
 
 			}else{ // Jika proses upload gagal
 				$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
-				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 3');
+				$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan 3');
 				redirect_back(); //kembali ke halaman sebelumnya -> helper
 			}
 
@@ -539,7 +541,7 @@ class BarangC extends CI_Controller {
 		$this->form_validation->set_rules('jumlah', 'Jumlah Barang','required');
 		
 		if($this->form_validation->run() == FALSE){
-			$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 1');
+			$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan 1');
 			redirect('BarangC/ajukan_barang') ;
 			//redirect ke halaman pengajuan barang
 		}else{
@@ -589,15 +591,15 @@ class BarangC extends CI_Controller {
 					$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
 					redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
 				}else{ 
-					$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan 2');
+					$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan ');
 					redirect('BarangC/ajukan_barang');
 				}
 			}else{ // Jika proses upload gagal
 				if($this->BarangM->update_item_pengajuan($kode_item_pengajuan, $data_update2)){ // Jika proses insert ke item barang sukses
-					$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+					$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan tetapi gambar tidak berhasil di perbarui');
 					redirect('BarangC/ajukan_barang');//redirect ke halaman pengajuan barang
 				}else{ 
-					$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan 2');
+					$this->session->set_flashdata('error','Data Pengajuan Pengajuan Barang anda tidak berhasil ditambahkan ');
 					redirect('BarangC/ajukan_barang');
 				}
 			}
@@ -664,11 +666,11 @@ class BarangC extends CI_Controller {
 											$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan 3');
 											redirect_back(); //kembali ke halaman sebelumnya -> helper
 										}else{ // jika gagal update progress yang lama
-											$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 0');
+											$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan 0');
 											redirect_back(); //kembali ke halaman sebelumnya -> helper
 										}
 									}else{ //ketika gagal update pengajuan ke
-										$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 0');
+										$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan 0');
 										redirect_back(); //kembali ke halaman sebelumnya -> helper
 									}
 								}else{ //ketika update bukan yang pertama kali setelah ditolak
@@ -676,7 +678,7 @@ class BarangC extends CI_Controller {
 									redirect_back(); //kembali ke halaman sebelumnya -> helper
 								}
 							}else{ //update fk gagal
-								$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan ');
+								$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan ');
 								redirect_back(); //kembali ke halaman sebelumnya -> helper
 							}
 						}
@@ -686,7 +688,7 @@ class BarangC extends CI_Controller {
 					}
 				}else{ //jika update gagal
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
-					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan ');
+					$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan ');
 					redirect_back(); //kembali ke halaman sebelumnya -> helper
 				}
 			}else{ // Jika proses upload gagal
@@ -718,11 +720,11 @@ class BarangC extends CI_Controller {
 											$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan 3');
 											redirect_back(); //kembali ke halaman sebelumnya -> helper
 										}else{ // jika gagal update progress yang lama
-											$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 0');
+											$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan 0');
 											redirect_back(); //kembali ke halaman sebelumnya -> helper
 										}
 									}else{ //ketika gagal update pengajuan ke
-										$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 0');
+										$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan 0');
 										redirect_back(); //kembali ke halaman sebelumnya -> helper
 									}
 								}else{ //ketika update bukan yang pertama kali setelah ditolak
@@ -730,7 +732,7 @@ class BarangC extends CI_Controller {
 									redirect_back(); //kembali ke halaman sebelumnya -> helper
 								}
 							}else{ //update fk gagal
-								$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 0');
+								$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan 0');
 								redirect_back(); //kembali ke halaman sebelumnya -> helper
 							}
 						}
@@ -740,7 +742,7 @@ class BarangC extends CI_Controller {
 					}
 				}else{ //jika update gagal
 					$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
-					$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 3');
+					$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan 3');
 					redirect_back(); //kembali ke halaman sebelumnya -> helperz
 				}
 				
@@ -774,7 +776,7 @@ class BarangC extends CI_Controller {
 				$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
 				redirect_back(); //kembali ke halaman sebelumnya -> helper
 			}else{
-				$this->session->set_flashdata('error','Data Pengajuan Kegiatan anda tidak berhasil ditambahkan 1');
+				$this->session->set_flashdata('error','Data Pengajuan barang anda tidak berhasil ditambahkan 1');
 				redirect_back(); //kembali ke halaman sebelumnya -> helper
 			}
 
@@ -958,7 +960,7 @@ class BarangC extends CI_Controller {
                 			$kode_pengajuan_bar = $bar->kode_item_pengajuan;
                 			$kode_nama_progress = '2';
 
-                			sendemail($email,$kode_pengajuan_bar, $kode_nama_progress);
+                			$this->sendemail($email,$kode_pengajuan_bar, $kode_nama_progress);
                 		}
                 		$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
                 		redirect('BarangC/persetujuan_rab');

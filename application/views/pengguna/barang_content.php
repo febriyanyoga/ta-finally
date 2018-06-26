@@ -83,7 +83,8 @@
                                       <input class="form-control" type="hidden" id="kode_barang" name="kode_barang" value="<?php echo $barang->kode_barang;?>" required> 
                                       <label class="col-lg-4 col-sm-2 control-label">Nama Barang :</label>
                                       <div class="col-lg-8">
-                                        <input type="text" class="form-control" id="nama_barang" name="nama_barang" value="<?php echo $barang->nama_barang;?>">
+                                        <input type="text" class="form-control" id="nama_barang" name="nama_barang" value="<?php echo $barang->nama_barang;?>" required>
+                                        <span class="text-danger" style="color: red;"><?php echo form_error('nama_barang'); ?></span>
                                       </div>
                                     </div>
                                   </div>
@@ -97,7 +98,7 @@
                                         foreach ($jenis_barang as $pilihan_jenis_barang) {
                                           if($pilihan_jenis_barang->kode_jenis_barang != 3){
                                             ?>
-                                            <option <?php if($pilihan_jenis_barang->kode_jenis_barang == $barang->kode_jenis_barang) {echo "selected=selected";}?> value="<?php echo $pilihan_jenis_barang->kode_jenis_barang ;?>"> <?php echo $pilihan_jenis_barang->nama_jenis_barang ;?> </option>
+                                            <option required <?php if($pilihan_jenis_barang->kode_jenis_barang == $barang->kode_jenis_barang) {echo "selected=selected";}?> value="<?php echo $pilihan_jenis_barang->kode_jenis_barang ;?>"> <?php echo $pilihan_jenis_barang->nama_jenis_barang ;?> </option>
                                             <?php
                                           }
                                         }
@@ -154,13 +155,13 @@
           <div class="form-group">
             <label class="col-lg-4 col-sm-2 control-label">Nama Barang :</label>
             <div class="col-lg-8">
-              <input type="text" class="form-control" id="nama_barang" name="nama_barang" placeholder="Nama Barang">
+              <input type="text" class="form-control" id="nama_barang" name="nama_barang" placeholder="Nama Barang" required>
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-4 col-sm-2 control-label" for="jenis_barang"> Jenis Barang :</label>
             <div class="col-lg-8">
-             <select class="form-control" name="kode_jenis_barang" id="kode_jenis_barang">
+             <select required class="form-control" name="kode_jenis_barang" id="kode_jenis_barang">
               <option value="">---- Pilih Jenis Barang ---- </option>
               <?php 
               foreach ($jenis_barang as $pilihan_jenis_barang) {
