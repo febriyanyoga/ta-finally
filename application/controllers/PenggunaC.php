@@ -20,11 +20,12 @@ class PenggunaC extends CI_Controller {
 	
 	// pindah pindah halaman
 
-
 	public function index(){ //halaman index (dashboard)
 		$data['menu'] = $this->data_menu; //akses menu
 		$data['data_kegiatan'] = $this->PenggunaM->get_kegiatan_pegawai()->num_rows();	//menampilkan kegiatan yang diajukan 
 		$data['data_kegiatan_mhs'] = $this->PenggunaM->get_kegiatan_pegawai()->result(); //get data kegiatan
+		$data['persetujuan_kegiatan'] = $this->PenggunaM->get_persetujuan_kegiatan_pegawai()->result();
+		$data['persetujuan_kegiatan_mhs'] = $this->PenggunaM->get_persetujuan_kegiatan_mahasiswa()->result();
 		$data['data_ajukan_barang'] = $this->BarangM->get_ajukan_barang()->num_rows(); // get angka ajukan barang
 		$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pjok kanan
 		$data['data_diri'] = $data_diri; //get data diri
@@ -1579,8 +1580,13 @@ public function ganti_jabatan(){
 
 	// Prosedur
 	public function aktif_pro($kode_doc){ //aktifasi akun pengguna
-		$this->PenggunaM->aktif_pro($kode_doc);
-		redirect('PenggunaC/prosedur');
+		if($this->PenggunaM->aktif_pro($kode_doc)){
+			$this->session->set_flashdata('sukses','Prosedur berhasil ditampilkan');
+			redirect('PenggunaC/prosedur');
+		}else{
+			$this->session->set_flashdata('error','Prosedur tidak berhasil ditampilkan');
+			redirect('PenggunaC/prosedur');
+		}
 	}
 
     public function non_aktif_pro($kode_doc){ //deaktifasi akun pengguna
@@ -1708,16 +1714,19 @@ public function ganti_jabatan(){
 
     public function post_prosedur(){ //fungsi post pengajuan kegiatan pegawai
     	$this->form_validation->set_rules('tipe_doc', 'Tipe Dokumen','required');
+    	$this->form_validation->set_rules('id_pengguna', 'ID Pengguna','required');
     	if($this->form_validation->run() == FALSE){
     		$this->session->set_flashdata('error','Data prosedur anda tidak berhasil ditambahkan');
     		redirect('PenggunaC/prosedur');
     	}else{
 
     		$tipe_doc 	       		= $_POST['tipe_doc'];
+    		$id_pengguna 	       	= $_POST['id_pengguna'];
     		$status 				= $_POST['status'];
 
     		$data_prosedur = array(
     			'tipe_doc' 			=> $tipe_doc,
+    			'id_pengguna' 		=> $id_pengguna,
     			'status' 			=> $status);
 
 
@@ -1726,10 +1735,10 @@ public function ganti_jabatan(){
 				$this->PenggunaM->save_prosedur($upload, $data_prosedur); // Panggil function save_prosedur yang ada di UserM.php untuk menyimpan data ke database
 			}else{ // Jika proses upload gagal
 				$data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
-				$this->session->set_flashdata('error','Data pengajuan kegiatan anda tidak berhasil ditambahkan');
+				$this->session->set_flashdata('error','Data prosedur anda tidak berhasil ditambahkan');
 				redirect('PenggunaC/prosedur');
 			}
-			$this->session->set_flashdata('sukses','Data pengajuan kegiatan anda berhasil ditambahkan');
+			$this->session->set_flashdata('sukses','Data prosedur anda berhasil ditambahkan');
 			redirect('PenggunaC/prosedur');
 		}
 	}

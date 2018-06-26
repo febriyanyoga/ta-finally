@@ -73,6 +73,31 @@ class KegiatanM extends CI_Model
 		return $query->num_rows();
 	}
 
+	public function get_data_diri_by_id_pengguna_based_periode($id_pengguna, $created_at){
+		$this->db->select('*');
+		$this->db->from('log_pengguna');
+		$this->db->where('id_pengguna', $id_pengguna);
+		$this->db->where('created_at <=', $created_at );
+		$this->db->order_by('id_log', 'DESC');
+		$this->db->limit('1');
+		$query = $this->db->get();
+		if($query){
+			return $query;
+		}else{
+			return FALSE;
+		}
+	}
+
+	public function get_data_diri_by_id_pengguna($no_identitas){
+		$this->db->where('no_identitas', $no_identitas);
+		$query = $this->db->get('data_diri');
+		if($query){
+			return $query;
+		}else{
+			return FALSE;
+		}		
+	}
+
 	public function get_progress_by_rank($kode_kegiatan, $rank){
 		$this->db->select('*');
 		$this->db->from('progress');

@@ -33,6 +33,7 @@
             <thead>
               <tr>
                <th class="text-center">Nama Kegiatan</th>
+               <th class="text-center">Nama yang menyetujui</th>
                <th class="text-center">Tgl Pengajuan</th>
                <th class="text-center">Tgl Kegiatan</th>
                <th class="text-center">Dana Diajukan</th>
@@ -48,6 +49,14 @@
                 ?>
                 <tr>
                   <td class="text-center"><?php echo $kegiatan->nama_kegiatan?></td>
+                  <td class="text-center">
+                    <?php 
+                    $lele = $KegiatanM->get_data_diri_by_id_pengguna_based_periode($kegiatan->id_pengguna, $kegiatan->created_at)->result()[0]->no_identitas_baru ;
+                    print_r($lele);
+                    $nila = $KegiatanM->get_data_diri_by_id_pengguna($lele)->result()[0]->nama;
+                    print_r($nila);
+                    ?>
+                  </td>
                   <?php 
                   $tgl_pengajuan = $kegiatan->tgl_pengajuan;
                   $new_tgl_pengajuan = date('d-m-Y',strtotime($tgl_pengajuan));
