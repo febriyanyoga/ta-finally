@@ -1638,7 +1638,7 @@ public function ganti_jabatan(){
 		$id_pengguna=$this->input->post('id_pengguna');
 
         $config['upload_path'] = './assets/image/profil'; //path folder
-        $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang dapat diakses bisa anda sesuaikan
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp|JPG|PNG'; //type yang dapat diakses bisa anda sesuaikan
         $config['encrypt_name'] = FALSE; //Enkripsi nama yang terupload
         $config['overwrite'] = TRUE;
         $new_name = md5($id_pengguna);
