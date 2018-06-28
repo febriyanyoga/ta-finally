@@ -19,93 +19,194 @@
         <div class="alert alert-success fade in" id="success-alert"><strong>Sukses! </strong> <?=$data;?>
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       </div>
-      <?php } ?>
-      <?php 
-      $data2=$this->session->flashdata('error');
-      if($data2!=""){ ?>
-        <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <?php } ?>
+    <?php 
+    $data2=$this->session->flashdata('error');
+    if($data2!=""){ ?>
+      <div class="alert alert-danger fade in" id="success-alert"><strong> Galat! </strong> <?=$data2;?>
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    </div>
+  <?php } ?>
+</div>
+</div>
+
+<button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-md" title="klik untuk melihat informasi"><i class="glyphicon glyphicon-alert"> Informasi</i></button>
+<br>
+<br>
+<div class="collapse" id="demo">
+  <div class="col-lg-6">
+    <!-- Info Status -->
+    <div class="alert alert-info">
+      <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan kegiatan pegawai<strong>:</strong></p>
+      <table border="3" style="border-color: transparent; border-radius: 5px;" class="table table-sm table-hover table borderless">
+        <tr style="height: 30px;">
+          <td style="width: 10%"><a class="label label-info">Mengajukan</a></td>
+          <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
+            <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan kegiatan pegawai baru saja di ajukan dan belum memiliki progres</td>
+          </tr>
+          <tr style="height: 30px">
+            <td><a class="label label-default">Proses</a></td>
+            <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td> Status ini menjelaskan bahwa pengajuan kegiatan pegawai sedang dalam proses persetujuan</td>
+          </tr>
+          <tr style="height: 30px">
+            <td><a class="label label-success">Disetujui</a></td>
+            <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td> Status ini menjelaskan bahwa pengajuan kegiatan pegawai sudah disetujui</td>
+          </tr>
+          <tr style="height: 30px">
+            <td><a class="label label-danger">Ditolak</a></td>
+            <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td>Status ini menjelaskan bahwa pengajuan kegiatan pegawai ditolak</td>
+          </tr>
+          <br>
+        </table>
       </div>
-      <?php } ?>
+    </div>
+    <div class="col-lg-6">
+      <!-- Keterangan Edit -->
+      <div class="alert alert-info">
+        <p>Berikut adalah penjelasan dari <strong>tombol</strong> di kolom aksi pada tabel pengajuan kegiatan pegawai<strong>:</strong></p>
+        <table border="3" style="border-color: transparent;" class="table table-sm table-hover borderless">
+          <tr style="height: 30px">
+            <td style="width: 10%"><a href="#" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a></td>
+            <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td style="width: 62%">Jika tombol tampil seperti ini, maka tombol dapat digunakan untuk mengubah pengajuan kegiatan pegawai anda.</td>
+          </tr>
+          <tr style="height: 30px">
+            <td><a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-edit"></span></a></td>
+            <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td>Jika tombol tampil seperti ini, maka tombol sudah tidak dapat digunakan untuk mengubah pengajuan kegiatan pegawai anda.</td>
+          </tr>
+          <tr style="height: 30px">
+            <td><a class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a></td>
+            <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td> Jika tombol tampil seperti ini, maka tombol dapat digunakan untuk menghapus pengajuan kegiatan pegawai anda.</td>
+          </tr>
+          <tr style="height: 30px">
+            <td><a disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a></td>
+            <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td>Jika tombol tampil seperti ini, maka tombol sudah tidak dapat digunakan untuk menghapus pengajuan kegiatan pegawai anda.</td>
+          </tr>
+          <tr style="height: 30px">
+            <td><a class="btn btn-primary"><i class="icon_plus_alt2"> </i> Ajukan Kegiatan </a></td>
+            <td><i class="glyphicon glyphicon-arrow-right"></i></td>
+            <td>Tombol ini berfungsi untuk mengajukan kegiatan pegawai.</td>
+          </tr>
+        </table>
+      </div>
+      <!-- End Ket Edit -->
     </div>
   </div>
 
-  <button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-md" title="klik untuk melihat informasi"><i class="glyphicon glyphicon-alert"> Informasi</i></button>
-  <br>
-  <br>
-  <div class="collapse" id="demo">
-    <div class="col-lg-6">
-      <!-- Info Status -->
-      <div class="alert alert-info">
-        <p>Berikut adalah penjelasan dari <strong>status</strong> pada tabel pengajuan kegiatan pegawai<strong>:</strong></p>
-        <table border="3" style="border-color: transparent; border-radius: 5px;" class="table table-sm table-hover table borderless">
-          <tr style="height: 30px;">
-            <td style="width: 10%"><a class="label label-info">Mengajukan</a></td>
-            <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></td>
-              <td style="width: 62%"> Status ini menjelaskan bahwa pengajuan kegiatan pegawai baru saja di ajukan dan belum memiliki progres</td>
-            </tr>
-            <tr style="height: 30px">
-              <td><a class="label label-default">Proses</a></td>
-              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
-              <td> Status ini menjelaskan bahwa pengajuan kegiatan pegawai sedang dalam proses persetujuan</td>
-            </tr>
-            <tr style="height: 30px">
-              <td><a class="label label-success">Disetujui</a></td>
-              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
-              <td> Status ini menjelaskan bahwa pengajuan kegiatan pegawai sudah disetujui</td>
-            </tr>
-            <tr style="height: 30px">
-              <td><a class="label label-danger">Ditolak</a></td>
-              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
-              <td>Status ini menjelaskan bahwa pengajuan kegiatan pegawai ditolak</td>
-            </tr>
-            <br>
-          </table>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <!-- Keterangan Edit -->
-        <div class="alert alert-info">
-          <p>Berikut adalah penjelasan dari <strong>tombol</strong> di kolom aksi pada tabel pengajuan kegiatan pegawai<strong>:</strong></p>
-          <table border="3" style="border-color: transparent;" class="table table-sm table-hover borderless">
-            <tr style="height: 30px">
-              <td style="width: 10%"><a href="#" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-edit"></span></a></td>
-              <td style="width: 6%"><i class="glyphicon glyphicon-arrow-right"></i></td>
-              <td style="width: 62%">Jika tombol tampil seperti ini, maka tombol dapat digunakan untuk mengubah pengajuan kegiatan pegawai anda.</td>
-            </tr>
-            <tr style="height: 30px">
-              <td><a class="btn btn-success btn-sm" disabled><span class="glyphicon glyphicon-edit"></span></a></td>
-              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
-              <td>Jika tombol tampil seperti ini, maka tombol sudah tidak dapat digunakan untuk mengubah pengajuan kegiatan pegawai anda.</td>
-            </tr>
-            <tr style="height: 30px">
-              <td><a class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a></td>
-              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
-              <td> Jika tombol tampil seperti ini, maka tombol dapat digunakan untuk menghapus pengajuan kegiatan pegawai anda.</td>
-            </tr>
-            <tr style="height: 30px">
-              <td><a disabled class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a></td>
-              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
-              <td>Jika tombol tampil seperti ini, maka tombol sudah tidak dapat digunakan untuk menghapus pengajuan kegiatan pegawai anda.</td>
-            </tr>
-            <tr style="height: 30px">
-              <td><a class="btn btn-primary"><i class="icon_plus_alt2"> </i> Ajukan Kegiatan </a></td>
-              <td><i class="glyphicon glyphicon-arrow-right"></i></td>
-              <td>Tombol ini berfungsi untuk mengajukan kegiatan pegawai.</td>
-            </tr>
-          </table>
-        </div>
-        <!-- End Ket Edit -->
-      </div>
-    </div>
 
+  <div class="card mb-3">
+    <div class="card-header">
+      <div class="card-body">
+        <a class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i> Ajukan Kegiatan </a>
+        <div class="row">
+          <div class="text-center col-lg-12">
+            <div class="page-header">
+              <center><h5>Alur persetujuan pengajuan kegiatan</h5></center>
+            </div>
+            <div style="display:inline-block;width:100%;overflow-y:auto;">
+              <ul class="timeline timeline-horizontal">
+                <?php
+                        if($data_diri->atasan == "tidak" && !in_array('6', $menu)){ //bukan atasan dan tidak ada pengajuan kegiatan mahasiswa pada akses menunya
+                          // echo "kamu bukan atasan";
+                          ?>
+                          <li class="timeline-item">
+                            <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
+                            <div class="timeline-panel">
+                              <div class="timeline-heading">
+                                <h4 class="timeline-title">Pertama </h4>
+                                <!-- <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p> -->
+                              </div>
+                              <div class="timeline-body">
+                                <p>Disetujui oleh atasan anda.</p>
+                              </div>
+                            </div>
+                          </li>
+                          <?php
+                          $i = 2;
+                        }else{
+                          $i = 1;
+                        }
+                        // print_r($persetujuan_kegiatan);
+                        // print_r($persetujuan_kegiatan_mhs);
+                        // echo sizeof($persetujuan_kegiatan);
+                        if(in_array('6', $menu)){
+                          foreach ($persetujuan_kegiatan_mhs as $persetujuan) { //kegiatan mahasiswa
+                            ?>
+                            <li class="timeline-item">
+                              <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
+                              <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                  <h4 class="timeline-title">
+                                    <?php if($i == 1){
+                                      echo "Pertama, ";
+                                    }else if($i == 2){
+                                      echo "Kedua, ";
+                                    }else{
+                                      echo "Selanjutnya, ";
+                                    }?>
+                                  </h4>
+                                  <!-- <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p> -->
+                                </div>
+                                <div class="timeline-body">
+                                  <p>Disetujui oleh <?php echo $persetujuan->nama_jabatan.' '.$persetujuan->nama_unit.'.';?></p>
+                                </div>
+                              </div>
+                            </li>
+                            <?php
+                            $i++;
+                          }
+                        }else if(in_array('7', $menu)){
+                          foreach ($persetujuan_kegiatan as $persetujuan) { //kegiatan pegawai
+                            ?>
+                            <li class="timeline-item">
+                              <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
+                              <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                  <h4 class="timeline-title">
+                                    <?php if($i == 1){
+                                      echo "Pertama ";
+                                    }else if($i == 2){
+                                      echo "Kedua ";
+                                    }else{
+                                      echo "Selanjutnya ";
+                                    }?>
+                                  </h4>
+                                  <!-- <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p> -->
+                                </div>
+                                <div class="timeline-body">
+                                  <p>Disetujui oleh <?php echo $persetujuan->nama_jabatan.' '.$persetujuan->nama_unit.'.';?></p>
+                                </div>
+                              </div>
+                            </li>
+                            <?php
+                            $i++;
+                          }
+                        }
+                        ?>
+                        <li class="timeline-item">
+                          <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
+                          <div class="timeline-panel">
+                            <div class="timeline-heading">
+                              <h4 class="timeline-title">Selesai</h4>
+                              <!-- <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p> -->
+                            </div>
+                            <div class="timeline-body">
+                              <p>Kegiatan siap dilaksanakan.</p>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
 
-    <div class="card mb-3">
-      <div class="card-header">
-        <div class="card-body">
-          <a class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i> Ajukan Kegiatan </a>
-
-          <div class="table-responsive">
+                <div class="table-responsive">
                <!-- <?php
                   var_dump($data_kegiatan);
                   ?> -->

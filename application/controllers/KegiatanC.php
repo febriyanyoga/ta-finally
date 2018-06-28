@@ -146,6 +146,10 @@ public function pengajuan_kegiatan_mahasiswa(){
 		$this->data['cek_id_staf_keu'] = $this->KegiatanM->cek_id_staf_keu()->result();	
 		$this->data['data_diri'] =	$data_diri;  	//get data diri buat nampilin nama di pjok kanan
 		$this->data['KegiatanM'] = $this->KegiatanM ;
+
+		$this->data['menu'] = $this->data_menu; //akses menu
+		$this->data['persetujuan_kegiatan'] = $this->PenggunaM->get_persetujuan_kegiatan_pegawai()->result();
+		$this->data['persetujuan_kegiatan_mhs'] = $this->PenggunaM->get_persetujuan_kegiatan_mahasiswa()->result();
 		$data['body'] = $this->load->view('pengguna/pengajuan_kegiatan_mahasiswa_content', $this->data, true) ;
 		$this->load->view('pengguna/index_template', $data);
 	}else{
@@ -165,6 +169,9 @@ public function pengajuan_kegiatan_mahasiswa(){
 		$this->data['cek_id_staf_keu'] = $this->KegiatanM->cek_id_staf_keu()->result();
 		$this->data['data_kegiatan'] = $this->KegiatanM->get_kegiatan_pegawai()->result();	//menampilkan kegiatan yang diajukan user sebagai pegwai
 		$this->data['KegiatanM'] = $this->KegiatanM ;	
+		$this->data['menu'] = $this->data_menu; //akses menu
+		$this->data['persetujuan_kegiatan'] = $this->PenggunaM->get_persetujuan_kegiatan_pegawai()->result();
+		$this->data['persetujuan_kegiatan_mhs'] = $this->PenggunaM->get_persetujuan_kegiatan_mahasiswa()->result();
 		$data['body'] = $this->load->view('pengguna/pengajuan_kegiatan_pegawai_content', $this->data, true);
 		$this->load->view('pengguna/index_template', $data);
 	}else{

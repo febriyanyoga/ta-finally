@@ -455,7 +455,7 @@
                             <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
                             <div class="timeline-panel">
                               <div class="timeline-heading">
-                                <h4 class="timeline-title">Pertama, </h4>
+                                <h4 class="timeline-title">Pertama </h4>
                                 <!-- <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p> -->
                               </div>
                               <div class="timeline-body">
@@ -506,11 +506,11 @@
                                 <div class="timeline-heading">
                                   <h4 class="timeline-title">
                                     <?php if($i == 1){
-                                      echo "Pertama, ";
+                                      echo "Pertama ";
                                     }else if($i == 2){
-                                      echo "Kedua, ";
+                                      echo "Kedua ";
                                     }else{
-                                      echo "Selanjutnya, ";
+                                      echo "Selanjutnya ";
                                     }?>
                                   </h4>
                                   <!-- <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p> -->
@@ -540,10 +540,10 @@
                       </ul>
                     </div>
                   </div>
+                  </div>
                   <?php
                   if(in_array('9', $menu)){
-                  ?>
-                    </div>
+                    ?>
                   <div class="row">
                     <div class="text-center col-lg-12">
                       <div class="page-header">
@@ -552,7 +552,7 @@
                       <div style="display:inline-block;width:100%;overflow-y:auto;">
                         <ul class="timeline timeline-horizontal">
                           <?php
-                            if($data_diri->atasan == "tidak" && !in_array('6', $menu)){ //bukan atasan dan tidak ada pengajuan kegiatan mahasiswa pada akses menunya
+                            if($data_diri->atasan == "tidak"){ //bukan atasan dan tidak ada pengajuan kegiatan mahasiswa pada akses menunya
                               // echo "kamu bukan atasan";
                               ?>
                               <li class="timeline-item">
@@ -584,11 +584,11 @@
                                     <div class="timeline-heading">
                                       <h4 class="timeline-title">
                                         <?php if($i == 1){
-                                          echo "Pertama, ";
+                                          echo "Pertama ";
                                         }else if($i == 2){
-                                          echo "Kedua, ";
+                                          echo "Kedua ";
                                         }else{
-                                          echo "Selanjutnya, ";
+                                          echo "Selanjutnya ";
                                         }?>
                                       </h4>
                                       <!-- <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p> -->
@@ -611,7 +611,7 @@
                                   <!-- <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p> -->
                                 </div>
                                 <div class="timeline-body">
-                                  <p>Barang diajukan sebagai RAB.</p>
+                                  <p>Barang siap diajukan dalam RAB.</p>
                                 </div>
                               </div>
                             </li>
@@ -619,7 +619,69 @@
                         </div>
                       </div>
                     </div>
-                  <?php
+                    <?php
+                  }
+                  ?>
+                   <?php
+                  if(in_array('8', $menu)){
+                    ?>
+                  <div class="row">
+                    <div class="text-center col-lg-12">
+                      <div class="page-header">
+                        <center><h3>Alur persetujuan pengajuan RAB</h3></center>
+                      </div>
+                      <div style="display:inline-block;width:100%;overflow-y:auto;">
+                        <ul class="timeline timeline-horizontal">
+                          <?php
+                            $i = 1;
+                            // print_r($persetujuan_kegiatan);
+                            // print_r($persetujuan_kegiatan_mhs);
+                            // echo sizeof($persetujuan_kegiatan);
+                            if(in_array('8', $menu)){
+                              foreach ($persetujuan_pengajuan_rab as $persetujuan) { //kegiatan mahasiswa
+                                ?>
+                                <li class="timeline-item">
+                                  <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
+                                  <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                      <h4 class="timeline-title">
+                                        <?php if($i == 1){
+                                          echo "Pertama ";
+                                        }else if($i == 2){
+                                          echo "Kedua ";
+                                        }else{
+                                          echo "Selanjutnya ";
+                                        }?>
+                                      </h4>
+                                      <!-- <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p> -->
+                                    </div>
+                                    <div class="timeline-body">
+                                      <p>Disetujui oleh <?php echo $persetujuan->nama_jabatan.' '.$persetujuan->nama_unit.'.';?></p>
+                                    </div>
+                                  </div>
+                                </li>
+                                <?php
+                                $i++;
+                              }
+                            }
+                            ?>
+                            <li class="timeline-item">
+                              <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
+                              <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                  <h4 class="timeline-title">Selesai</h4>
+                                  <!-- <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p> -->
+                                </div>
+                                <div class="timeline-body">
+                                  <p>RAB telah disetujui dan pengadaan barang disetujui.</p>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <?php
                   }
                   ?>
                   <!-- project team & activity end -->

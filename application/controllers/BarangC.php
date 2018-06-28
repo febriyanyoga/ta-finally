@@ -105,6 +105,8 @@ class BarangC extends CI_Controller {
 			$this->data['pilihan_barang_tambah'] = $this->BarangM->get_pilihan_barang()->result();
 			$this->data['BarangM'] = $this->BarangM;
 			$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
+			$this->data['menu'] = $this->data_menu; //akses menu
+			$this->data['persetujuan_pengajuan_barang']	= $this->PenggunaM->get_persetujuan_barang_desc()->result();
 
 			$data['nama_barang'] 		= '';
 			$data['nama_item_pengajuan']= '';
@@ -133,6 +135,8 @@ class BarangC extends CI_Controller {
 			$this->data['pengajuan'] = $this->BarangM->get_pengajuan_rab()->result();
 			$this->data['BarangM'] = $this->BarangM;
 			$this->data['data_diri'] = $data_diri; //get data diri buat nampilin nama di pjok kanan
+			$this->data['menu'] = $this->data_menu; //akses menu
+			$this->data['persetujuan_pengajuan_rab']	= $this->PenggunaM->get_persetujuan_RAB_desc()->result();
 			$data['body'] = $this->load->view('pengguna/ajukan_RAB_content', $this->data, true) ;
 			$this->load->view('pengguna/index_template', $data);
 		}else{
@@ -340,13 +344,13 @@ class BarangC extends CI_Controller {
                 		'status_pengajuan' => $status_pengajuan
                 	);
                 	if($this->BarangM->update_item_pengajuan($kode_fk, $data)){
-                			if($this->BarangM->insert_progress($data_progress)){
-            					$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
-            					redirect_back();
-			            	}else{
-			            		$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
-			            		redirect_back();
-			            	}
+                		if($this->BarangM->insert_progress($data_progress)){
+                			$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+                			redirect_back();
+                		}else{
+                			$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
+                			redirect_back();
+                		}
                 		
                 	}else{
                 		$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
@@ -354,17 +358,17 @@ class BarangC extends CI_Controller {
                 	}
                 }else{
                 	$persetujuan = 'proses';
-	            	$data1 = array(
-	            		'status_pengajuan' => $persetujuan
-	            	);
+                	$data1 = array(
+                		'status_pengajuan' => $persetujuan
+                	);
                 	if($this->BarangM->insert_progress($data_progress)){
                 		$this->BarangM->update_persetujuan($data1,$kode_fk);
-            			$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
-            			redirect_back();
-	            	}else{
-	            		$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
-	            		redirect_back();
-	            	}
+                		$this->session->set_flashdata('sukses','Data Barang berhasil ditambahkan');
+                		redirect_back();
+                	}else{
+                		$this->session->set_flashdata('error','Data Barang tidak berhasil ditambahkan2');
+                		redirect_back();
+                	}
                 }
             }elseif ($kode_nama_progress == "2") {
             	$persetujuan = 'tolak';

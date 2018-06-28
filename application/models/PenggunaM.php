@@ -489,6 +489,17 @@
 		return $query = $this->db->get();
 	}
 
+	public function get_persetujuan_barang_desc(){ // persetujuan barang
+		$this->db->select('*');
+		$this->db->from('acc_barang');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = acc_barang.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->where('acc_barang.kode_jenis_pengajuan = "1"');
+		$this->db->order_by('acc_barang.ranking', 'DESC');
+		return $query = $this->db->get();
+	}
+
 	public function get_persetujuan_RAB(){ // persetujuan RAB
 		$this->db->select('*');
 		$this->db->from('acc_barang');
@@ -500,6 +511,16 @@
 		return $query = $this->db->get();
 	}
 
+	public function get_persetujuan_RAB_desc(){ // persetujuan RAB
+		$this->db->select('*');
+		$this->db->from('acc_barang');
+		$this->db->join('jabatan_unit', 'jabatan_unit.kode_jabatan_unit = acc_barang.kode_jabatan_unit');
+		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
+		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
+		$this->db->where('acc_barang.kode_jenis_pengajuan = "2"');
+		$this->db->order_by('acc_barang.ranking', 'DESC');
+		return $query = $this->db->get();
+	}
 	public function hapus($id){//hapus persetujuan kegiatan
 		$this->db->where('kode_acc_kegiatan', $id);
 		$this->db->delete('acc_kegiatan');

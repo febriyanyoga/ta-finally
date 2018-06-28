@@ -13,12 +13,12 @@
        <?php
        $data=$this->session->flashdata('sukses');
        if($data!=""){ ?>
-       <div class="alert alert-success" id="success-alert"><strong>Sukses! </strong> <?=$data;?></div>
+         <div class="alert alert-success" id="success-alert"><strong>Sukses! </strong> <?=$data;?></div>
        <?php } ?>
        <?php 
        $data2=$this->session->flashdata('error');
        if($data2!=""){ ?>
-       <div class="alert alert-danger" id="success-alert"><strong> Error! </strong> <?=$data2;?></div>
+         <div class="alert alert-danger" id="success-alert"><strong> Error! </strong> <?=$data2;?></div>
        <?php } ?>
 
        <!-- sampai sini -->
@@ -104,35 +104,110 @@
                 <div class="card-body">
                   <a class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="icon_plus_alt2"> </i>Ajukan Barang</a>
                   <a class="btn btn-info" data-toggle="modal" data-target="#myModal1"><i class="icon_plus_alt2"> </i>Ajukan Barang Baru</a>
-                  <div class="table-responsive">
-                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                      <thead>
-                        <tr>
-                          <th class="text-center">Nama Item Pengajuan</th>
-                          <th class="text-center">File</th>
-                          <th class="text-center">Barang</th>
-                          <th class="text-center">Jenis Barang</th>
-                          <th class="text-center">Harga Satuan</th>
-                          <th class="text-center" style="width: 10%">Jumlah</th>
-                          <th class="text-center">Tanggal Pengajuan</th>
-                          <th class="text-center">Status</th>
-                          <th class="text-center">Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        foreach ($data_ajukan_barang as $barang) {
-                          ?>
-                          <tr class="text-center">
-                            <td><?php echo $barang->nama_item_pengajuan; ?></td>
-                            <td><center><img style="height: 50px;" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>"></center></td>
-                            <td><?php echo $barang->nama_barang; ?></td>
-                            <td><?php echo $barang->nama_jenis_barang; ?></td>
-                            <td>Rp<?php echo number_format($barang->harga_satuan, 0,',','.') ?>,00</td>
-                            <td><?php echo $barang->jumlah; ?></td>
-                            <td><?php echo $barang->tgl_item_pengajuan; ?></td>
-                            <td> 
+                  <div class="row">
+                    <div class="text-center col-lg-12">
+                      <div class="page-header">
+                        <center><h5>Alur persetujuan pengajuan Barang</h5></center>
+                      </div>
+                      <div style="display:inline-block;width:100%;overflow-y:auto;">
+                        <ul class="timeline timeline-horizontal">
+                          <?php
+                            if($data_diri->atasan == "tidak"){ //bukan atasan dan tidak ada pengajuan kegiatan mahasiswa pada akses menunya
+                              // echo "kamu bukan atasan";
+                              ?>
+                              <li class="timeline-item">
+                                <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
+                                <div class="timeline-panel">
+                                  <div class="timeline-heading">
+                                    <h4 class="timeline-title">Pertama, </h4>
+                                    <!-- <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p> -->
+                                  </div>
+                                  <div class="timeline-body">
+                                    <p>Disetujui oleh atasan anda.</p>
+                                  </div>
+                                </div>
+                              </li>
                               <?php
+                              $i = 2;
+                            }else{
+                              $i = 1;
+                            }
+                            // print_r($persetujuan_kegiatan);
+                            // print_r($persetujuan_kegiatan_mhs);
+                            // echo sizeof($persetujuan_kegiatan);
+                            if(in_array('9', $menu)){
+                              foreach ($persetujuan_pengajuan_barang as $persetujuan) { //kegiatan mahasiswa
+                                ?>
+                                <li class="timeline-item">
+                                  <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
+                                  <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                      <h4 class="timeline-title">
+                                        <?php if($i == 1){
+                                          echo "Pertama ";
+                                        }else if($i == 2){
+                                          echo "Kedua ";
+                                        }else{
+                                          echo "Selanjutnya ";
+                                        }?>
+                                      </h4>
+                                      <!-- <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p> -->
+                                    </div>
+                                    <div class="timeline-body">
+                                      <p>Disetujui oleh <?php echo $persetujuan->nama_jabatan.' '.$persetujuan->nama_unit.'.';?></p>
+                                    </div>
+                                  </div>
+                                </li>
+                                <?php
+                                $i++;
+                              }
+                            }
+                            ?>
+                            <li class="timeline-item">
+                              <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
+                              <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                  <h4 class="timeline-title">Selesai</h4>
+                                  <!-- <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p> -->
+                                </div>
+                                <div class="timeline-body">
+                                  <p>Barang siap diajukan dalam RAB.</p>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="table-responsive">
+                      <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                          <tr>
+                            <th class="text-center">Nama Item Pengajuan</th>
+                            <th class="text-center">File</th>
+                            <th class="text-center">Barang</th>
+                            <th class="text-center">Jenis Barang</th>
+                            <th class="text-center">Harga Satuan</th>
+                            <th class="text-center" style="width: 10%">Jumlah</th>
+                            <th class="text-center">Tanggal Pengajuan</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Aksi</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                          foreach ($data_ajukan_barang as $barang) {
+                            ?>
+                            <tr class="text-center">
+                              <td><?php echo $barang->nama_item_pengajuan; ?></td>
+                              <td><center><img style="height: 50px;" src="<?php echo base_url();?>assets/file_gambar/<?php echo $barang->file_gambar;?>"></center></td>
+                              <td><?php echo $barang->nama_barang; ?></td>
+                              <td><?php echo $barang->nama_jenis_barang; ?></td>
+                              <td>Rp<?php echo number_format($barang->harga_satuan, 0,',','.') ?>,00</td>
+                              <td><?php echo $barang->jumlah; ?></td>
+                              <td><?php echo $barang->tgl_item_pengajuan; ?></td>
+                              <td> 
+                                <?php
                         $kode_fk = $barang->kode_item_pengajuan; //untuk mengambil kode_item_pengajuan
                         $id_staf_sarpras = $BarangM->cek_id_staf_sarpras()->result()[0]->kode_jabatan_unit; // untuk menmeriksa pengajuan tersebut mendapatkan progress dari siapa saja
                         $progress_oleh_staf = $BarangM->get_progress_oleh_staf($kode_fk, $id_staf_sarpras);//untuk mengetahui jika pengajuan sudah mendapat progress yang diberikan oleh staff sarpras, dimana staff sarpras adalah yang paling akhir memberikan progress tambahan
