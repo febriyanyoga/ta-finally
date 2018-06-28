@@ -98,8 +98,8 @@ class BarangM extends CI_Model
 
 	public function upload($kode_item_pengajuan){ // Fungsi untuk upload gambar ke folder
 		$config['upload_path'] 		= './assets/file_gambar'; 	// alamat folder penyimpanan gambar
-		$config['allowed_types'] 	= 'jpg|png|jpeg|PNG';	 	// tipe file yang boleh diunggah
-		$config['max_size']			= '2048';					// maksimal ukuran file yang diunggah
+		$config['allowed_types'] 	= 'jpg|png|jpeg|PNG|JPG';	 	// tipe file yang boleh diunggah
+		$config['max_size']			= '';					// maksimal ukuran file yang diunggah
 		$config['encrypt_name'] 	= FALSE;					// mengenkripsi nama file yang diunggah
 		$config['overwrite'] 		= TRUE; 					//supaya bisa di replace file gambarnya
 		$new_name 					= md5($kode_item_pengajuan);// mengenkripsi kode_item_pengajuan untuk dijadikan nama file gambar

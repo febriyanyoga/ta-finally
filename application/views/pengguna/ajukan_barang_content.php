@@ -440,7 +440,7 @@
           <div class="form-group">
             <label class="col-lg-4 col-sm-2 control-label" for="barang"> Barang :</label>
             <div class="col-lg-8">
-             <select class="form-control" name="kode_barang" id="kode_barang_a">
+             <select required class="form-control" name="kode_barang" id="kode_barang_a">
               <option value="">---- Pilih Barang ---- </option>
               <?php 
               foreach ($pilihan_barang_tambah as $barang) {
@@ -460,14 +460,14 @@
           <!-- ambil kode_jabatan_unit yang login -->
           <label class="col-lg-4 col-sm-2 control-label">Nama Item Pengajuan Barang :</label>
           <div class="col-lg-8">
-            <input type="text" class="form-control" id="nama_item_pengajuan" name="nama_item_pengajuan" placeholder="Nama Item Pengajuan Barang" required="">
+            <input type="text" class="form-control" id="nama_item_pengajuan" name="nama_item_pengajuan" placeholder="Nama Item Pengajuan Barang" required>
           </div>
         </div>
         <input type="hidden" class="form-control" placeholder id="tgl_item_pengajuan" name="tgl_item_pengajuan" required value="<?php echo date('Y-m-d');?>">
         <div class="form-group">
           <label class="col-lg-4 col-sm-2 control-label">url :</label>
           <div class="col-lg-8">
-            <input type="text" class="form-control" id="url" name="url" placeholder="Url Barang" required="">
+            <input type="text" class="form-control" id="url" name="url" placeholder="Url Barang" required>
           </div>
         </div>
         <div class="form-group">
@@ -479,7 +479,7 @@
         <div class="form-group">
           <label class="col-lg-4 col-sm-2 control-label">Merk :</label>
           <div class="col-lg-8">
-            <input type="text" class="form-control" id="merk" name="merk" placeholder="Merk" required="">
+            <input type="text" class="form-control" id="merk" name="merk" placeholder="Merk" required>
           </div>
         </div>
         <div class="form-group">
@@ -497,7 +497,7 @@
 
       </div>
       <div class="modal-footer">
-        <button class="btn btn-info" type="submit" onClick="return confirm('Anda yakin akan mengajukan pengajuan barang ini?')"> Simpan </button>
+        <button class="btn btn-info" type="submit"> Simpan </button>
         <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
       </div>
     </form>
@@ -520,7 +520,7 @@
           <div class="form-group">
             <label class="col-lg-4 col-sm-2 control-label">Nama Barang :</label>
             <div class="col-lg-8">
-              <input type="text" class="form-control" id="nama_barang" name="nama_barang" placeholder="Nama Barang">
+              <input type="text" class="form-control" id="nama_barang" name="nama_barang" placeholder="Nama Barang" required>
             </div>
           </div>
         </div>
@@ -602,18 +602,17 @@
   });
 
   function ajukan() {
-    $.ajax({ 
-      url: "<?php echo site_url('BarangC/insertBarangAjax'); ?>",
-      data: $("#form_barang").serialize(),
-      dataType: "json",
-      type: "POST",
-      async: false,
-      success: function(data){
-        $("#form_barang")[0].reset();
-        refreshlist();
-
-      }    
-    });
+      $.ajax({ 
+        url: "<?php echo site_url('BarangC/insertBarangAjax'); ?>",
+        data: $("#form_barang").serialize(),
+        dataType: "json",
+        type: "POST",
+        async: false,
+        success: function(data){
+          $("#form_barang")[0].reset();
+          refreshlist();
+        }    
+      });
   }
   function refreshlist() {
     $.ajax({ 
