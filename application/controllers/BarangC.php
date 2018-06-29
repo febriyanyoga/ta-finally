@@ -28,6 +28,7 @@ class BarangC extends CI_Controller {
 			$id_pengguna = $this->session->userdata('id_pengguna');
 			$data_diri = $this->PenggunaM->get_data_diri()->result()[0];  	//get data diri buat nampilin nama di pojok kanan
 			$data['title'] = "Persetujuan Item Pengajuan | ".$data_diri->nama_jabatan." ".$data_diri->nama_unit;
+			$this->data['detail_progress_barang']	= $this->BarangM->get_detail_progress_barang_by_id("14")->result();
 			$this->data['data_persetujuan_barang'] = $this->BarangM->get_data_item_pengajuan()->result();
 			$this->data['BarangM'] = $this->BarangM ;
 			$this->data['cek_menu'] = $this->data_menu;
