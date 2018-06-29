@@ -639,8 +639,8 @@ class BarangM extends CI_Model
 		$this->db->join('jabatan', 'jabatan.kode_jabatan = jabatan_unit.kode_jabatan');
 		$this->db->join('unit', 'unit.kode_unit = jabatan_unit.kode_unit');
 		$this->db->join('nama_progress', 'progress.kode_nama_progress = nama_progress.kode_nama_progress');
+		$this->db->where('(progress.jenis_progress = "barang" OR progress.jenis_progress = "barang_staf")'); //barang
 		$this->db->where('progress.kode_fk', $id);
-		$this->db->where('progress.jenis_progress = "barang"'); //barang
 		$query = $this->db->get();
 		return $query;
 	}
