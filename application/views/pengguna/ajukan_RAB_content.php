@@ -452,13 +452,13 @@
                                   <form class="form-horizontal" action="<?php echo base_url('BarangC/post_ubah_ajukan_rab');?>" method="post" enctype="multipart/form-data" role="form">
                                     <div class="modal-body">
                                       <div class="form-group">
-                                        <input type="text" class="form-control" placeholder id="kode_pengajuan" name="kode_pengajuan" required value="<?php echo $barang->kode_pengajuan;?>">
+                                        <input type="hidden" class="form-control" placeholder id="kode_pengajuan" name="kode_pengajuan" required value="<?php echo $barang->kode_pengajuan;?>">
                                         <!-- untuk mengirimkan kode_pengajuan -->
-                                        <input type="text" class="form-control" placeholder id="status_pengajuan_rab" name="status_pengajuan_rab" required value="<?php echo $barang->status_pengajuan_rab;?>">
+                                        <input type="hidden" class="form-control" placeholder id="status_pengajuan_rab" name="status_pengajuan_rab" required value="<?php echo $barang->status_pengajuan_rab;?>">
                                         <!-- untuk mengirimkan status pengajuan rab -->
-                                        <input type="text" class="form-control" placeholder id="pengajuan_ke" name="pengajuan_ke" required value="<?php echo $barang->pengajuan_ke;?>">
+                                        <input type="hidden" class="form-control" placeholder id="pengajuan_ke" name="pengajuan_ke" required value="<?php echo $barang->pengajuan_ke;?>">
                                         <!-- untuk mengirimkan pengajuan rab ke-->
-                                        <label class="col-lg-4 col-sm-2 control-label">Nama File RAb :</label>
+                                        <label class="col-lg-4 col-sm-2 control-label">Nama File RAB :</label>
                                         <div class="col-lg-8">
                                           <input type="text" class="form-control" id="nama_pengajuan" name="nama_pengajuan" value="<?php echo $barang->nama_pengajuan?>">
                                         </div>

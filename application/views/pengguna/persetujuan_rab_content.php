@@ -140,19 +140,19 @@
 
                       if($val->status_pengajuan_rab == "baru"){
                         ?>
-                        <a class="label label-primary" id="custID" data-toggle="modal" data-id="">BARU</a>
+                        <a class="label label-primary" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $val->kode_pengajuan;?>" title="klik untuk melihat detail progress"> BARU</a>
                         <?php
                       }elseif ($val->status_pengajuan_rab == "diterima") {
                         ?>
-                        <a class="label label-success" id="custID" data-toggle="modal" data-id="">DITERIMA</a>
+                         <a class="label label-success" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $val->kode_pengajuan;?>" title="klik untuk melihat detail progress"> DITERIMA</a>
                         <?php
                       }elseif ($val->status_pengajuan_rab == "proses") {
                         ?>
-                        <a class="label label-info" id="custID" data-toggle="modal" data-id="">PROSES</a>
+                        <a class="label label-success" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $val->kode_pengajuan;?>" title="klik untuk melihat detail progress"> PROSES</a>
                         <?php
                       }elseif ($val->status_pengajuan_rab == "ditolak") {
                         ?>
-                        <a class="label label-danger" id="custID" data-toggle="modal" data-id="">DITOLAK</a>
+                        <a class="label label-danger" href="#modal_progress_rab" id="custID" data-toggle="modal" data-id="<?php echo $val->kode_pengajuan;?>" title="klik untuk melihat detail progress"> DITOLAK</a>
                         <?php
                       }
                       ?>
@@ -333,7 +333,7 @@
                                   </div>
                                   <?php
                                 }
-                              }else{ //acc dulu baru kegiatan ===============================================================================
+                              }else{ //acc dulu baru barang ===============================================================================
                                 ?>
                                 <div class="btn-group">
                                   <a href="#" data-toggle="modal" data-target="#modal_terima-<?php echo $val->kode_pengajuan; ?>" title="Terima" class="btn btn-info btn-info"><span class="glyphicon glyphicon-ok"></span></a>
@@ -429,6 +429,24 @@
       </table>
     </div>
   </div>
+
+ <!-- modal progress rab -->
+      <div class="modal fade" id="modal_progress_rab" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Progress RAB</h4>
+            </div>
+            <div class="modal-body">
+              <div class="fetched-data"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+
 </div>
 </div>
 </div>
@@ -441,3 +459,20 @@
 </section>
 
 <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
+<script type="text/javascript">
+  // js progress barang
+  $(document).ready(function(){
+    $('#modal_progress_rab').on('show.bs.modal', function (e) {
+      var rowid = $(e.relatedTarget).data('id');
+            //menggunakan fungsi ajax untuk pengambilan data
+            $.ajax({
+              type : 'get',
+              url : '<?php echo base_url().'BarangC/detail_progress_rab/'?>'+rowid,
+                //data :  'rowid='+ rowid, // $_POST['rowid'] = rowid
+                success : function(data){
+                $('.fetched-data').html(data);//menampilkan data ke dalam modal
+              }
+            });
+          });
+  });
+</script>
